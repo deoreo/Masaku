@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Masaku Driver</string>
+    <string name="app_name">Masaku</string>
     <string name="GothamBook">fontMasakus/Gotham.ttf</string>
     <string name="GothamRndBold">fonts/GothamRnd-Bold.otf</string>
     <string name="GothamRndMedium">fonts/GothamRnd-Medium.otf</string>

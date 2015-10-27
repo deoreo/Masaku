@@ -33,7 +33,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:8.1.0'
     compile 'com.google.android.gms:play-services-identity:8.1.0'
     compile 'com.google.android.gms:play-services-gcm:8.1.0'
-    compile 'com.ogaclejapan.smarttablayout:library:1.4.2@aar'
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.4.2@aar'
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.4.2@aar'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }
