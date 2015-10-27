@@ -3,13 +3,127 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey">
 
     <!-- Screen Design for Photos -->
-    <TextView android:text="Menu HERE"
-        android:padding="15dip"
-        android:textSize="18dip"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="@color/colorRed"
+        >
 
+        <ImageView
+            android:layout_width="113dp"
+            android:layout_height="24dp"
+            android:src="@drawable/masaku_logo_white"
+            android:layout_centerInParent="true"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:id="@+id/btnSearch"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/search"
+                android:layout_marginRight="15dp"/>
+            <ImageView
+                android:id="@+id/btnNotif"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/notif"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorGrey"
+        android:weightSum="2">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@color/colorWhite"
+            android:layout_marginRight="1dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="true"
+                    />
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/dropdown"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@color/colorWhite">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sort By"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="true"
+                    />
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/dropdown"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"
+        android:layout_marginBottom="10dp"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        >
+
+        <ListView
+            android:id="@+id/list_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"
+            android:divider="@null"
+            android:background="@null"
+
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
