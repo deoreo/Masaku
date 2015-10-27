@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="1dp"
+        android:background="@drawable/rounded_white"
+
+        >
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:paddingLeft="10dp"
+                android:id="@+id/datePesanan"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="12 oktober 2015 13.45"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:paddingRight="10dp"
+                android:id="@+id/statusPesanan"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Transaksi Berhasil"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:gravity="right"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGrey"/>
+        <LinearLayout
+            android:id="@+id/rowPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="100dp">
+            <ImageView
+                android:id="@+id/imgVendor"
+                android:layout_marginRight="5dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorGrey"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:id="@+id/namaVendor"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Vendor"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorBlack"
+                    fontPath="@string/GothamRndMedium"
+                    />
+
+                <TextView
+                    android:id="@+id/hargaPesanan"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 30.000"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorBlack"
+                    />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/next_grey"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/btnPesan"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorGreen"
+            android:text="PESAN LAGI"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            />
+
+    </LinearLayout>
+</LinearLayout>
