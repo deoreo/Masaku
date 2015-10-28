@@ -50,6 +50,7 @@ public class FragmentMenu extends Fragment {
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		mAdapter = new AdapterMenu(getActivity(), LIST_MENU);
 		mListView.setAdapter(mAdapter);
+		mListView.setScrollingCacheEnabled(false);
 		//mSwipeRefreshLayout.setRefreshing(false);
 
 		return rootView;

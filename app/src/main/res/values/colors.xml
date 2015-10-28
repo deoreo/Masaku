@@ -9,6 +9,7 @@
     <color name="colorDarkRed">#992928</color>
     <color name="colorGreen">#8AC058</color>
     <color name="colorGrey">#DDD</color>
+    <color name="colorDarkGrey2">#999</color>
     <color name="colorDarkGrey">#79716E</color>
     <color name="colorBlue">#00B0EC</color>
 </resources>

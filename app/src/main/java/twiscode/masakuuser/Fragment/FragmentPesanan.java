@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class FragmentPesanan extends Fragment {
 	private List<ModelPesanan> LIST_PESANAN = new ArrayList<>();
 	private ListView mListView;
 	AdapterPesanan mAdapter;
-
+	private TextView jmlPesanan;
 	private int mPage;
 
 	private RecyclerView recyclerView;
@@ -47,10 +48,14 @@ public class FragmentPesanan extends Fragment {
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_pesanan, container, false);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
+		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_pesanan, null);
+		jmlPesanan = (TextView)header.findViewById(R.id.jumlahPesanan);
+		jmlPesanan.setText(LIST_PESANAN.size()+" Pesanan");
+		mListView.addHeaderView(header);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
 		mListView.setAdapter(mAdapter);
-
+		mListView.setScrollingCacheEnabled(false);
 		return rootView;
 	}
 
