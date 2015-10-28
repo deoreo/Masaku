@@ -33,60 +33,35 @@ public class ActivitySplash extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.splash_progress);
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
-        if(!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //Ask the user to enable GPS
-            try {
-                new MaterialDialog.Builder(ctx)
-                        .title("Silahkan Aktifkan GPS anda!")
-                        .positiveText("OK")
-                        .callback(new MaterialDialog.ButtonCallback() {
-                            @Override
-                            public void onPositive(MaterialDialog dialog) {
-                                dialog.dismiss();
-                                //Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                //startActivity(i);
+        final Thread splashThread = new Thread() {
+            @Override
+            public void run() {
+                try {
 
-                            }
-                        })
-                        .icon(getResources().getDrawable(R.drawable.icon))
-                        .cancelable(false)
-                        .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                        .show();
-            } catch (Exception e) {
-
-            }
-        }
-        else {
-            final Thread splashThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-
-                        for (int i = 0; i <= 1000; i++) {
-                            sleep(2);
-                            mProgressBar.setProgress(mWaited / 10);
-                            mWaited += 1;
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } finally {
-                        int countUser = db.getuserCount();
-                        if (countUser > 0) {
-                            Intent i = new Intent(getBaseContext(), ActivityHome.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(i);
-                            finish();
-                        } else {
-                            Intent i = new Intent(getBaseContext(), ActivityLogin.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(i);
-                            finish();
-                        }
+                    for (int i = 0; i <= 1000; i++) {
+                        sleep(2);
+                        mProgressBar.setProgress(mWaited / 10);
+                        mWaited += 1;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    int countUser = db.getuserCount();
+                    if (countUser > 0) {
+                        Intent i = new Intent(getBaseContext(), ActivityHome.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Intent i = new Intent(getBaseContext(), ActivityLogin.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                        finish();
                     }
                 }
-            };
-            splashThread.start();
-        }
+            }
+        };
+        splashThread.start();
     }
 
     @Override
