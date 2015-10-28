@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 
 import twiscode.masakuuser.R;
 
-public class ActivityProfile extends AppCompatActivity {
+/**
+ * Created by TwisCode-02 on 10/26/2015.
+ */
+public class ActivityFeedback extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_feedback);
     }
-    
+
 }
