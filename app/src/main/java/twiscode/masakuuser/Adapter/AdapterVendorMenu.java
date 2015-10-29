@@ -7,6 +7,7 @@ package twiscode.masakuuser.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +22,18 @@ import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityMenuDetail;
 import twiscode.masakuuser.Model.ModelMenu;
+import twiscode.masakuuser.Model.ModelVendorMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 
 
-public class AdapterMenu extends BaseAdapter {
+public class AdapterVendorMenu extends BaseAdapter {
     private Activity mAct;
-    private List<ModelMenu> mSourceData, mFilterData;
+    private List<ModelVendorMenu> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
 
-    public AdapterMenu(Activity activity, List<ModelMenu> d) {
+    public AdapterVendorMenu(Activity activity, List<ModelVendorMenu> d) {
         mAct = activity;
         mSourceData = d;
         mInflater = (LayoutInflater) mAct.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -65,39 +67,36 @@ public class AdapterMenu extends BaseAdapter {
         }
         else {
             ViewHolder holder;
-            convertView = mInflater.inflate(R.layout.row_menu_item, null);
+            convertView = mInflater.inflate(R.layout.row_vendor_menu_item, null);
             holder = new ViewHolder();
-            holder.namaVendor = (TextView) convertView.findViewById(R.id.namaVendor);
-            holder.ratingVendor = (TextView) convertView.findViewById(R.id.txtRate);
-            holder.jumlahOrder = (TextView) convertView.findViewById(R.id.jumlahPenjualan);
-            holder.harga = (TextView) convertView.findViewById(R.id.minOrder);
-            holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rateVendor);
+            holder.menuNama = (TextView) convertView.findViewById(R.id.menuNama);
+            holder.menuTotal = (TextView) convertView.findViewById(R.id.menuTotal);
+            holder.menuMinimal = (TextView) convertView.findViewById(R.id.menuMinimal);
+            holder.menuImage = (ImageView) convertView.findViewById(R.id.menuImage);
             convertView.setTag(position);
 
-            final ModelMenu modelMenu = mSourceData.get(position);
-            final String ID = modelMenu.getId();
-            final String VENDOR_NAMA = modelMenu.getNama();
-            final String VENDOR_ORDER = modelMenu.getJumlahorder();
-            final String VENDOR_RATING = modelMenu.getRating();
-            final String VENDOR_HARGA = modelMenu.getMinOrder();
-            final String VENDOR_IMAGE = modelMenu.getFoto();
+            final ModelVendorMenu modelVendorMenu = mSourceData.get(position);
+            final String ID = modelVendorMenu.getId();
+            final String VENDOR_MENU_NAMA = modelVendorMenu.getMenunama();
+            final String VENDOR_MENU_TOTAL = modelVendorMenu.getMenutotalpenjualan();
+            final String VENDOR_MENU_MINIMAL = modelVendorMenu.getMenuminimalorder();
+            final String VENDOR_IMAGE = modelVendorMenu.getMenuimage();
 
 
-            holder.namaVendor.setText(VENDOR_NAMA );
-            holder.ratingVendor.setText(VENDOR_RATING + "/5");
-            holder.jumlahOrder.setText(VENDOR_ORDER + " Order per Bulan");
-            holder.harga.setText("Min Order Rp "+VENDOR_HARGA);
-            holder.ratingBar.setRating(Float.parseFloat(VENDOR_RATING));
-            Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
+            holder.menuNama.setText(VENDOR_MENU_NAMA );
+            holder.menuTotal.setText(VENDOR_MENU_TOTAL + " order per bulan");
+            holder.menuMinimal.setText("Min order Rp. "+VENDOR_MENU_MINIMAL);
+            Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.menuImage);
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ApplicationData.modelMenu = modelMenu;
+                    /*
+                    ApplicationData.modelVendorMenu = modelVendorMenu;
                     Intent i = new Intent(mAct, ActivityMenuDetail.class);
                     mAct.startActivity(i);
                     mAct.finish();
+                    */
                 }
 
             });
@@ -106,12 +105,10 @@ public class AdapterMenu extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        public TextView namaVendor;
-        public TextView ratingVendor;
-        public TextView jumlahOrder;
-        public TextView harga;
-        public ImageView imgVendor;
-        public RatingBar ratingBar;
+        public TextView menuNama;
+        public TextView menuTotal;
+        public TextView menuMinimal;
+        public ImageView menuImage;
     }
 
 

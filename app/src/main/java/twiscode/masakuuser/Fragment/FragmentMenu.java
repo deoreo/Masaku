@@ -58,15 +58,15 @@ public class FragmentMenu extends Fragment {
 
 	private void DummyData(){
 		LIST_MENU = new ArrayList<ModelMenu>();
-		ModelMenu modelDeliver0 = new ModelMenu("0", "Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "10", "40000");
+		ModelMenu modelDeliver0 = new ModelMenu("0", "Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "1110", "40000");
 		LIST_MENU.add(modelDeliver0);
-		ModelMenu modelDeliver1 = new ModelMenu("0", "Bu Winda", "4", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg", "3", "22000");
+		ModelMenu modelDeliver1 = new ModelMenu("0", "Bu Winda", "4", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg", "334", "22000");
 		LIST_MENU.add(modelDeliver1);
-		ModelMenu modelDeliver2 = new ModelMenu("0", "Mama Tina", "3", "https://c1.staticflickr.com/9/8474/8117817563_6cb6755539_b.jpg", "7", "20000");
+		ModelMenu modelDeliver2 = new ModelMenu("0", "Mama Tina", "3", "https://c1.staticflickr.com/9/8474/8117817563_6cb6755539_b.jpg", "722", "20000");
 		LIST_MENU.add(modelDeliver2);
-		ModelMenu modelDeliver3 = new ModelMenu("0", "Ibu Rudi", "4", "http://www.pegipegi.com/travel/wp-content/uploads/2014/09/nasgorindonesia.jpg", "5", "100000");
+		ModelMenu modelDeliver3 = new ModelMenu("0", "Ibu Rudi", "4", "http://www.pegipegi.com/travel/wp-content/uploads/2014/09/nasgorindonesia.jpg", "512", "100000");
 		LIST_MENU.add(modelDeliver3);
-		ModelMenu modelDeliver4 = new ModelMenu("0", "Ibu Mirna", "4", "http://img.hipwee.com/cdn/wp-content/uploads/2015/07/ayam-bakar-riun-tenda.jpg?0d2690", "6", "30000");
+		ModelMenu modelDeliver4 = new ModelMenu("0", "Ibu Mirna", "4", "http://img.hipwee.com/cdn/wp-content/uploads/2015/07/ayam-bakar-riun-tenda.jpg?0d2690", "622", "30000");
 		LIST_MENU.add(modelDeliver4);
 	}
 
