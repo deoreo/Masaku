@@ -60,7 +60,7 @@ public class FragmentVendorRating extends Fragment {
 		mListFeedback.setAdapter(adapterFeedback);
 		mListFeedback.setScrollingCacheEnabled(false);
 
-		
+
 /*
 		mListView.setOnTouchListener(new View.OnTouchListener() {
 			@Override

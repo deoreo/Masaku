@@ -51,6 +51,7 @@
 
     </RelativeLayout>
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true">
@@ -169,7 +170,7 @@
                 </com.astuetz.PagerSlidingTabStrip>
                 <android.support.v4.view.ViewPager
                     android:id="@+id/pager"
-                    android:layout_height="wrap_content"
+                    android:layout_height="600dp"
                     android:layout_width="match_parent"
                     />
 

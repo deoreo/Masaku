@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -32,6 +33,7 @@ public class ActivityMenuDetail extends ActionBarActivity {
     private RatingBar ratingBar;
     private RoundedImageView profile_image;
     private ModelMenu modelMenu;
+    private ScrollView scroll;
 
 
     @Override
@@ -48,6 +50,7 @@ public class ActivityMenuDetail extends ActionBarActivity {
         ratingBar = (RatingBar) findViewById(R.id.rateVendor);
         labelNamaVendor = (TextView) findViewById(R.id.label);
         profile_image = (RoundedImageView) findViewById(R.id.profile_image);
+        scroll = (ScrollView) findViewById(R.id.scroll);
         modelMenu = ApplicationData.modelMenu;
 
         labelNamaVendor.setText(modelMenu.getNama());
@@ -67,7 +70,7 @@ public class ActivityMenuDetail extends ActionBarActivity {
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
-
+                scroll.scrollTo(0, 0);
             }
 
             // This method will be invoked when the current page is scrolled
@@ -89,6 +92,7 @@ public class ActivityMenuDetail extends ActionBarActivity {
                 onBackPressed();
             }
         });
+        scroll.scrollTo(0,0);
 
 
     }

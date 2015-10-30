@@ -64,8 +64,6 @@ public class FragmentVendorMenu extends Fragment {
 		LIST_MENU.add(modelVendorMenu2);
 		ModelVendorMenu modelVendorMenu3 = new ModelVendorMenu("0","Soto","500","30.000", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg");
 		LIST_MENU.add(modelVendorMenu3);
-		ModelVendorMenu modelVendorMenu4 = new ModelVendorMenu("0","Soto","500","30.000", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg");
-		LIST_MENU.add(modelVendorMenu4);
 
 	}
 
