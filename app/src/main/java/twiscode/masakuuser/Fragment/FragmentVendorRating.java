@@ -47,25 +47,21 @@ public class FragmentVendorRating extends Fragment {
 		DummyRating();
 		DummyFeedback();
 		View rootView = inflater.inflate(R.layout.activity_vendor_rating, container, false);
-		mListView = (ListView) rootView.findViewById(R.id.chartList);
+		//mListView = (ListView) rootView.findViewById(R.id.chartList);
+		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_vendor_rating, null);
 		mListFeedback = (ListView) rootView.findViewById(R.id.feedbackList);
-		mAdapter = new AdapterVendorRating(getActivity(), LIST_MENU);
+		mListFeedback.addHeaderView(header);
+		//mAdapter = new AdapterVendorRating(getActivity(), LIST_MENU);
 		adapterFeedback = new AdapterVendorFeedback(getActivity(), LIST_FEEDBACK);
 
-		mListView.setAdapter(mAdapter);
-		mListView.setScrollingCacheEnabled(false);
+		//mListView.setAdapter(mAdapter);
+		//mListView.setScrollingCacheEnabled(false);
 
 		mListFeedback.setAdapter(adapterFeedback);
 		mListFeedback.setScrollingCacheEnabled(false);
 
-		mListFeedback.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View view, MotionEvent motionEvent) {
-				view.getParent().requestDisallowInterceptTouchEvent(false);
-				return false;
-			}
-		});
-
+		
+/*
 		mListView.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -73,7 +69,7 @@ public class FragmentVendorRating extends Fragment {
 				return false;
 			}
 		});
-
+*/
 		return rootView;
 	}
 

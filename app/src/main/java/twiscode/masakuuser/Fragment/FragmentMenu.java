@@ -48,6 +48,8 @@ public class FragmentMenu extends Fragment {
 		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
+		mListView.addHeaderView(header);
 		mAdapter = new AdapterMenu(getActivity(), LIST_MENU);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
