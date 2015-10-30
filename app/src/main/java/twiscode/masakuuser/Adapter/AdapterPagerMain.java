@@ -13,11 +13,11 @@ import twiscode.masakuuser.Fragment.FragmentProfile;
 /**
  * Created by Unity on 27/07/2015.
  */
-public class MainAdapter extends FragmentPagerAdapter {
+public class AdapterPagerMain extends FragmentPagerAdapter {
     int PAGE_COUNT = 0;
     private String titles[] = {"Menu", "Pesanan","Profile",};
 
-    public MainAdapter(FragmentManager fm) {
+    public AdapterPagerMain(FragmentManager fm) {
         super(fm);
         PAGE_COUNT = titles.length;
     }

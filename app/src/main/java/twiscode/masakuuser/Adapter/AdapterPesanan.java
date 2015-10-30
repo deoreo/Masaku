@@ -6,21 +6,22 @@ package twiscode.masakuuser.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import twiscode.masakuuser.Model.ModelMenu;
+import twiscode.masakuuser.Activity.ActivityMenuDetail;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 
 
 public class AdapterPesanan extends BaseAdapter {
@@ -72,14 +73,14 @@ public class AdapterPesanan extends BaseAdapter {
             holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
             convertView.setTag(position);
 
-            final ModelPesanan modelMenu = mSourceData.get(position);
-            final String ID = modelMenu.getId();
-            final String VENDOR_NAMA = modelMenu.getNama();
-            final String VENDOR_STATUS = modelMenu.getStatus();
-            final String VENDOR_DATE = modelMenu.getTanggal();
-            final String VENDOR_TIME = modelMenu.getJam();
-            final String VENDOR_HARGA = modelMenu.getHarga();
-            final String VENDOR_IMAGE = modelMenu.getFoto();
+            final ModelPesanan modelPesanan = mSourceData.get(position);
+            final String ID = modelPesanan.getId();
+            final String VENDOR_NAMA = modelPesanan.getNama();
+            final String VENDOR_STATUS = modelPesanan.getStatus();
+            final String VENDOR_DATE = modelPesanan.getTanggal();
+            final String VENDOR_TIME = modelPesanan.getJam();
+            final String VENDOR_HARGA = modelPesanan.getHarga();
+            final String VENDOR_IMAGE = modelPesanan.getFoto();
 
 
             holder.namaVendor.setText(VENDOR_NAMA );
@@ -88,18 +89,6 @@ public class AdapterPesanan extends BaseAdapter {
             holder.harga.setText("Rp "+VENDOR_HARGA);
             Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
 
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    /*
-                    ApplicationData.modelDeliver = modelDeliver;
-                    Intent i = new Intent(mAct, ActivityDeliveryDetail.class);
-                    mAct.startActivity(i);
-                    mAct.finish();
-                    */
-                }
-
-            });
         }
         return convertView;
     }

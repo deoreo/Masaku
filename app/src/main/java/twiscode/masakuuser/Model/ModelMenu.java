@@ -4,19 +4,19 @@ package twiscode.masakuuser.Model;
  * Created by User on 10/21/2015.
  */
 public class ModelMenu {
-    String id, nama, rating, foto, jumlahorder, harga;
+    String id, nama, rating, foto, jumlahorder, minOrder;
 
     public ModelMenu(){
 
     }
 
-    public ModelMenu(String id, String nama, String rating, String foto, String jumlahorder, String harga){
+    public ModelMenu(String id, String nama, String rating, String foto, String jumlahorder, String minOrder){
         this.id = id;
         this.nama = nama;
         this.rating = rating;
         this.foto = foto;
         this.jumlahorder = jumlahorder;
-        this.harga = harga;
+        this.minOrder = minOrder;
     }
 
     public String getId() {
@@ -59,11 +59,11 @@ public class ModelMenu {
         this.jumlahorder = jumlahorder;
     }
 
-    public String getHarga() {
-        return harga;
+    public String getMinOrder() {
+        return minOrder;
     }
 
-    public void setHarga(String harga) {
-        this.harga = harga;
+    public void setMinOrder(String minOrder) {
+        this.minOrder = minOrder;
     }
 }

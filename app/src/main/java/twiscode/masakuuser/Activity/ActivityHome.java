@@ -1,8 +1,6 @@
 package twiscode.masakuuser.Activity;
 
-import android.app.TabActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,12 +8,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import twiscode.masakuuser.Adapter.MainAdapter;
+import twiscode.masakuuser.Adapter.AdapterPagerMain;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.SlidingTabLayout;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -35,7 +31,7 @@ public class ActivityHome extends ActionBarActivity {
         setContentView(R.layout.activity_home);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new MainAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new AdapterPagerMain(getSupportFragmentManager()));
 
         // Give the PagerSlidingTabStrip the ViewPager
         PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
