@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -56,6 +57,22 @@ public class FragmentVendorRating extends Fragment {
 
 		mListFeedback.setAdapter(adapterFeedback);
 		mListFeedback.setScrollingCacheEnabled(false);
+
+		mListFeedback.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				view.getParent().requestDisallowInterceptTouchEvent(false);
+				return false;
+			}
+		});
+
+		mListView.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				view.getParent().requestDisallowInterceptTouchEvent(false);
+				return false;
+			}
+		});
 
 		return rootView;
 	}

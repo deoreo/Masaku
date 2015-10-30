@@ -63,7 +63,7 @@ public class AdapterVendorRating extends BaseAdapter {
         }
         else {
             ViewHolder holder;
-            convertView = mInflater.inflate(R.layout.row_vendor_rating_chart, null);
+            convertView = mInflater.inflate(R.layout.row_vendor_rating_chart, parent, false);
             holder = new ViewHolder();
             holder.txtStar = (TextView) convertView.findViewById(R.id.txtStar);
             holder.chartGrafik = (RelativeLayout) convertView.findViewById(R.id.chartGrafik);
