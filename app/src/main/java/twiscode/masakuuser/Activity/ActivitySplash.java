@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 public class ActivitySplash extends AppCompatActivity {
@@ -27,6 +28,10 @@ public class ActivitySplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_splash);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Gotham.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
         mActivity = this;
         ctx = this;
         db = new DatabaseHandler(this);

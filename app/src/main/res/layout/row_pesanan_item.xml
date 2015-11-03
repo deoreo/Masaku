@@ -39,6 +39,7 @@
                 android:textSize="14dp"
                 android:textColor="@color/colorBlack"
                 android:gravity="right"
+                fontPath="@string/GothamRndMedium"
                 android:layout_marginRight="5dp"/>
         </LinearLayout>
         <View

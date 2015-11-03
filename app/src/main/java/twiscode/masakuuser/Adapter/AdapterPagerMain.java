@@ -1,5 +1,6 @@
 package twiscode.masakuuser.Adapter;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +10,7 @@ import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
 import twiscode.masakuuser.Fragment.FragmentProfile;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 /**
@@ -66,4 +68,6 @@ public class AdapterPagerMain extends FragmentPagerAdapter {
         Log.d("TAG", "getPage");
         return titles[position];
     }
+
+
 }

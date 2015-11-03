@@ -62,7 +62,7 @@ public class FragmentAntarCepat extends Fragment {
 		LIST_MENU = new ArrayList<ModelMenu>();
 		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "8.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11");
 		LIST_MENU.add(modelDeliver0);
-		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Surabaya", "14.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "15");
+		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Bu Winda", "14.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "15");
 		LIST_MENU.add(modelDeliver1);
 
 	}

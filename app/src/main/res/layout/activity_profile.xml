@@ -190,6 +190,7 @@
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
+
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnAboutProfile"
                 android:layout_width="match_parent"

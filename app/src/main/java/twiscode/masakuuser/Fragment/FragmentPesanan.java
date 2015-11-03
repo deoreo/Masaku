@@ -61,15 +61,15 @@ public class FragmentPesanan extends Fragment {
 
 	private void DummyData() {
 		LIST_PESANAN = new ArrayList<ModelPesanan>();
-		ModelPesanan modelDeliver0 = new ModelPesanan("0", "Mak Yem", "sedang dikirim", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "27 Oktober 2015", "15.00", "40000");
+		ModelPesanan modelDeliver0 = new ModelPesanan("0", "Mak Yem", "Sedang Dikirim", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "27 Oktober 2015", "15.00", "40.000");
 		LIST_PESANAN.add(modelDeliver0);
-		ModelPesanan modelDeliver1 = new ModelPesanan("0", "Bu Winda", "Transaksi Berhasil", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "24 Oktober 2015", "15.00", "22000");
+		ModelPesanan modelDeliver1 = new ModelPesanan("0", "Bu Winda", "Transaksi Berhasil", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "24 Oktober 2015", "15.00", "22.000");
 		LIST_PESANAN.add(modelDeliver1);
-		ModelPesanan modelDeliver2 = new ModelPesanan("0", "Mama Tina", "Transaksi Berhasil", "https://c1.staticflickr.com/9/8474/8117817563_6cb6755539_b.jpg", "24 Oktober 2015", "15.00", "20000");
+		ModelPesanan modelDeliver2 = new ModelPesanan("0", "Mama Tina", "Transaksi Berhasil", "https://c1.staticflickr.com/9/8474/8117817563_6cb6755539_b.jpg", "24 Oktober 2015", "15.00", "20.000");
 		LIST_PESANAN.add(modelDeliver2);
-		ModelPesanan modelDeliver3 = new ModelPesanan("0", "Ibu Rudi", "Transaksi Berhasil", "http://www.pegipegi.com/travel/wp-content/uploads/2014/09/nasgorindonesia.jpg", "24 Oktober 2015", "15.00", "100000");
+		ModelPesanan modelDeliver3 = new ModelPesanan("0", "Ibu Rudi", "Transaksi Berhasil", "http://www.pegipegi.com/travel/wp-content/uploads/2014/09/nasgorindonesia.jpg", "24 Oktober 2015", "15.00", "100.000");
 		LIST_PESANAN.add(modelDeliver3);
-		ModelPesanan modelDeliver4 = new ModelPesanan("0", "Ibu Mirna", "Transaksi Berhasil", "http://img.hipwee.com/cdn/wp-content/uploads/2015/07/ayam-bakar-riun-tenda.jpg?0d2690", "24 Oktober 2015", "15.00", "30000");
+		ModelPesanan modelDeliver4 = new ModelPesanan("0", "Ibu Mirna", "Transaksi Berhasil", "http://img.hipwee.com/cdn/wp-content/uploads/2015/07/ayam-bakar-riun-tenda.jpg?0d2690", "24 Oktober 2015", "15.00", "30.000");
 		LIST_PESANAN.add(modelDeliver4);
 	}
 
