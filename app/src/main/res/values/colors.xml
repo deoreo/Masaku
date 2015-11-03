@@ -5,6 +5,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorAccent">#FF80AB</color>
+    <color name="colorLightRed">#f26440</color>
     <color name="colorRed">#D02D2E</color>
     <color name="colorDarkRed">#992928</color>
     <color name="colorGreen">#8AC058</color>
