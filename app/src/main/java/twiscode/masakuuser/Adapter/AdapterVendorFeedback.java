@@ -64,7 +64,6 @@ public class AdapterVendorFeedback extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.row_vendor_rating_feedback, null);
             holder = new ViewHolder();
             holder.txtNama = (TextView) convertView.findViewById(R.id.txtNama);
-            holder.txtRate = (TextView) convertView.findViewById(R.id.txtRate);
             holder.txtDate = (TextView) convertView.findViewById(R.id.txtDate);
             holder.txtFeedback = (TextView) convertView.findViewById(R.id.txtFeedback);
             holder.rateFeedback = (RatingBar) convertView.findViewById(R.id.rateFeedback);
@@ -79,7 +78,6 @@ public class AdapterVendorFeedback extends BaseAdapter {
 
 
             holder.txtNama.setText(NAMA);
-            holder.txtRate.setText(RATE+"/5");
             holder.txtDate.setText(DATE);
             holder.txtFeedback.setText(FEEDBACK);
             holder.rateFeedback.setRating(Float.parseFloat(RATE));
@@ -89,7 +87,6 @@ public class AdapterVendorFeedback extends BaseAdapter {
 
     private static class ViewHolder {
         public TextView txtNama;
-        public TextView txtRate;
         public RatingBar rateFeedback;
         public TextView txtDate;
         public TextView txtFeedback;

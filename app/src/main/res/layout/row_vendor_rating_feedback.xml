@@ -41,7 +41,6 @@
                         android:textStyle="bold"
                         android:textSize="16dp"
                         android:textColor="@color/colorBlack"
-                        fontPath="@string/GothamRndMedium"
                         />
                     <TextView
                         android:id="@+id/txtDate"
@@ -79,6 +78,7 @@
                         android:text="4/5"
                         android:textSize="14dp"
                         android:textColor="@color/colorBlack"
+                        android:visibility="gone"
                         />
                 </LinearLayout>
                 <TextView
