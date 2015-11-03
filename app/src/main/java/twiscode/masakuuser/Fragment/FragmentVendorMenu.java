@@ -58,12 +58,8 @@ public class FragmentVendorMenu extends Fragment {
 		LIST_MENU = new ArrayList<ModelVendorMenu>();
 		ModelVendorMenu modelVendorMenu0 = new ModelVendorMenu("0","Pecel","700","30.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG");
 		LIST_MENU.add(modelVendorMenu0);
-		ModelVendorMenu modelVendorMenu1 = new ModelVendorMenu("0","Soto","500","30.000", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg");
+		ModelVendorMenu modelVendorMenu1 = new ModelVendorMenu("0","Soto","500","30.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg");
 		LIST_MENU.add(modelVendorMenu1);
-		ModelVendorMenu modelVendorMenu2 = new ModelVendorMenu("0","Soto","500","30.000", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg");
-		LIST_MENU.add(modelVendorMenu2);
-		ModelVendorMenu modelVendorMenu3 = new ModelVendorMenu("0","Soto","500","30.000", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg");
-		LIST_MENU.add(modelVendorMenu3);
 
 	}
 
