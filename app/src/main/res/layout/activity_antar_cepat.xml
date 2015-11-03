@@ -16,16 +16,11 @@
         android:elevation="5dp"
         >
 
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="113dp"
+            android:layout_height="24dp"
+            android:src="@drawable/masaku_logo_white"
             android:layout_centerInParent="true"
-            android:text="Pesanan"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textSize="16dp"
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,36 +32,31 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/search"
+                android:visibility="gone"
                 android:layout_marginRight="15dp"/>
             <ImageView
                 android:id="@+id/btnNotif"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/notif"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/cart"/>
         </LinearLayout>
 
     </RelativeLayout>
-    <ScrollView
+
+    <RelativeLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         >
-        <LinearLayout
+
+        <ListView
+            android:id="@+id/list_delivery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <ListView
-                android:id="@+id/list_delivery"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:dividerHeight="10dp"
-                android:divider="@null"
-                android:background="@null"
-                />
-        </LinearLayout>
-    </ScrollView>
+            android:dividerHeight="10dp"
+            android:divider="@null"
+            android:background="@null"
 
-
-
+            />
+    </RelativeLayout>
 </LinearLayout>

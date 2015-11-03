@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
+import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
 import twiscode.masakuuser.Fragment.FragmentProfile;
@@ -15,7 +16,7 @@ import twiscode.masakuuser.Fragment.FragmentProfile;
  */
 public class AdapterPagerMain extends FragmentPagerAdapter {
     int PAGE_COUNT = 0;
-    private String titles[] = {"Menu", "Pesanan","Profile",};
+    private String titles[] = {"Spesial","Menu", "Pesanan","Profile",};
 
     public AdapterPagerMain(FragmentManager fm) {
         super(fm);
@@ -32,12 +33,18 @@ public class AdapterPagerMain extends FragmentPagerAdapter {
         //Fragment fragment = null;
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            return FragmentMenu.newInstance(position + 1);
+            return FragmentAntarCepat.newInstance(position + 1);
         }
         else if(position == 1)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
+            return FragmentMenu.newInstance(position + 1);
+        }
+
+        else if(position == 2)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        {
             return FragmentPesanan.newInstance(position + 1);
         }
+
         else          // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
             return FragmentProfile.newInstance(position + 1);
