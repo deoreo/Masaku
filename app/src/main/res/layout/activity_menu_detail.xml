@@ -65,36 +65,31 @@
                             android:layout_height="300dp"
                             android:background="@color/colorDarkGrey"
                             />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_alignParentBottom="true"
-                            android:background="@drawable/plan_gradient"/>
                         <LinearLayout
-                            android:layout_width="85dp"
-                            android:layout_height="85dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/rounded_accent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="10dp">
                             <TextView
                                 android:id="@+id/timeMenu"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="15"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="10dp"
                                 />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="MINS WAIT"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="12sp"
+                                android:textSize="11dp"
                                 android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
                                 />
@@ -103,7 +98,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="OR LONGER"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="12sp"
+                                android:textSize="10dp"
                                 android:layout_gravity="center_horizontal"
                                 />
                         </LinearLayout>
