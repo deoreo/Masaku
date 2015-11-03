@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp">
         <ImageView
-            android:id="@+id/imgmenu"
+            android:id="@+id/imgMenu"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@color/colorDarkGrey"

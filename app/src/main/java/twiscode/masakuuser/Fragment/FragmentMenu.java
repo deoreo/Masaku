@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twiscode.masakuuser.Adapter.AdapterMenu;
+import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 
@@ -24,7 +25,8 @@ public class FragmentMenu extends Fragment {
 	private List<ModelMenu> LIST_MENU = new ArrayList<>();
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
-	AdapterMenu mAdapter;
+	AdapterMenuNew mAdapter;
+
 
 	private int mPage;
 
@@ -50,7 +52,7 @@ public class FragmentMenu extends Fragment {
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		mListView.addHeaderView(header);
-		mAdapter = new AdapterMenu(getActivity(), LIST_MENU);
+		mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		//mSwipeRefreshLayout.setRefreshing(false);
@@ -60,16 +62,11 @@ public class FragmentMenu extends Fragment {
 
 	private void DummyData(){
 		LIST_MENU = new ArrayList<ModelMenu>();
-		ModelMenu modelDeliver0 = new ModelMenu("0", "Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "1110", "40000");
+		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "8.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11");
 		LIST_MENU.add(modelDeliver0);
-		ModelMenu modelDeliver1 = new ModelMenu("0", "Bu Winda", "4", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg", "334", "22000");
+		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Surabaya", "14.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "15");
 		LIST_MENU.add(modelDeliver1);
-		ModelMenu modelDeliver2 = new ModelMenu("0", "Mama Tina", "3", "https://c1.staticflickr.com/9/8474/8117817563_6cb6755539_b.jpg", "722", "20000");
-		LIST_MENU.add(modelDeliver2);
-		ModelMenu modelDeliver3 = new ModelMenu("0", "Ibu Rudi", "4", "http://www.pegipegi.com/travel/wp-content/uploads/2014/09/nasgorindonesia.jpg", "512", "100000");
-		LIST_MENU.add(modelDeliver3);
-		ModelMenu modelDeliver4 = new ModelMenu("0", "Ibu Mirna", "4", "http://img.hipwee.com/cdn/wp-content/uploads/2015/07/ayam-bakar-riun-tenda.jpg?0d2690", "622", "30000");
-		LIST_MENU.add(modelDeliver4);
+
 	}
 
 

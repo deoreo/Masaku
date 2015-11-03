@@ -63,7 +63,7 @@ public class FragmentPesanan extends Fragment {
 		LIST_PESANAN = new ArrayList<ModelPesanan>();
 		ModelPesanan modelDeliver0 = new ModelPesanan("0", "Mak Yem", "sedang dikirim", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "27 Oktober 2015", "15.00", "40000");
 		LIST_PESANAN.add(modelDeliver0);
-		ModelPesanan modelDeliver1 = new ModelPesanan("0", "Bu Winda", "Transaksi Berhasil", "http://www.resepgratis.com/wp-content/uploads/2015/08/Cara-Membuat-Resep-Soto-Ayam-Yang-Nikmat.jpg", "24 Oktober 2015", "15.00", "22000");
+		ModelPesanan modelDeliver1 = new ModelPesanan("0", "Bu Winda", "Transaksi Berhasil", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "24 Oktober 2015", "15.00", "22000");
 		LIST_PESANAN.add(modelDeliver1);
 		ModelPesanan modelDeliver2 = new ModelPesanan("0", "Mama Tina", "Transaksi Berhasil", "https://c1.staticflickr.com/9/8474/8117817563_6cb6755539_b.jpg", "24 Oktober 2015", "15.00", "20000");
 		LIST_PESANAN.add(modelDeliver2);
