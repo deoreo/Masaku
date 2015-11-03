@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp">
+                    <ImageView
+                        android:id="@+id/imgmenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@color/colorDarkGrey"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="10dp">
+                        <TextView
+                            android:id="@+id/nameMenu"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Nama menu"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+                    <RatingBar
+                        style="@style/CustomRatingBarBig"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <EditText
+                    android:id="@+id/txtFeedback"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:maxLines="5"
+                    android:maxLength="120"
+                    android:hint="feedbak anda maksimal 120 karakter"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@color/colorDarkGrey"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+</LinearLayout>

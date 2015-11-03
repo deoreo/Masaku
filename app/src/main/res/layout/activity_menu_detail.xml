@@ -97,18 +97,34 @@
                             android:layout_gravity="center_horizontal"
                             />
                     </LinearLayout>
-                    <TextView
-                        android:id="@+id/nameMenu"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nama menu"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
+                        android:orientation="horizontal"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="10dp"
-                        />
+                        android:layout_margin="10dp">
+                        <TextView
+                            android:id="@+id/nameMenu"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Nama menu"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:id="@+id/vendorMenu"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="By : Ibu Maya"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="18dp"
+                            android:gravity="right"
+                            />
+                    </LinearLayout>
+
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
