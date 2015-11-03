@@ -13,13 +13,19 @@
         android:orientation="horizontal"
         android:padding="15dp"
         android:background="@color/colorRed"
+        android:elevation="5dp"
         >
 
-        <ImageView
-            android:layout_width="113dp"
-            android:layout_height="24dp"
-            android:src="@drawable/masaku_logo_white"
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="Menu"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="16dp"
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,12 +37,13 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/search"
+                android:visibility="gone"
                 android:layout_marginRight="15dp"/>
             <ImageView
                 android:id="@+id/btnNotif"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/notif"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/cart"/>
         </LinearLayout>
 
     </RelativeLayout>

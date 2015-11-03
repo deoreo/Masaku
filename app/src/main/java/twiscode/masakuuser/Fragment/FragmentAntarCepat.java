@@ -10,22 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 
-public class FragmentMenu extends Fragment {
+public class FragmentAntarCepat extends Fragment {
 
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenu> LIST_MENU = new ArrayList<>();
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
-	AdapterMenu mAdapter;
+	AdapterMenuNew mAdapter;
 
 
 	private int mPage;
@@ -34,10 +32,10 @@ public class FragmentMenu extends Fragment {
 
 
 
-	public static FragmentMenu newInstance(int page) {
+	public static FragmentAntarCepat newInstance(int page) {
 		Bundle args = new Bundle();
 		args.putInt(ARG_PAGE, page);
-		FragmentMenu fragment = new FragmentMenu();
+		FragmentAntarCepat fragment = new FragmentAntarCepat();
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -47,12 +45,12 @@ public class FragmentMenu extends Fragment {
 			Bundle savedInstanceState) {
 
 		DummyData();
-		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
+		View rootView = inflater.inflate(R.layout.activity_antar_cepat, container, false);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
-		mListView.addHeaderView(header);
-		mAdapter = new AdapterMenu(getActivity(), LIST_MENU);
+		//mListView.addHeaderView(header);
+		mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		//mSwipeRefreshLayout.setRefreshing(false);
@@ -61,11 +59,10 @@ public class FragmentMenu extends Fragment {
 	}
 
 	private void DummyData(){
-
 		LIST_MENU = new ArrayList<ModelMenu>();
-		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11", "20.000");
+		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "8.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11");
 		LIST_MENU.add(modelDeliver0);
-		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Bu Winda", "4", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "20", "20.000");
+		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Surabaya", "14.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "15");
 		LIST_MENU.add(modelDeliver1);
 
 	}
