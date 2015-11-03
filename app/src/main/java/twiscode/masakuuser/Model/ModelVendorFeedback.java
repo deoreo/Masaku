@@ -6,7 +6,7 @@ package twiscode.masakuuser.Model;
 public class ModelVendorFeedback {
     String id, nama, rate, date, feedback;
 
-    public ModelVendorFeedback(String id, String name, String rate, String date, String feedback){
+    public ModelVendorFeedback(String id, String nama, String rate, String date, String feedback){
         this.id = id;
         this.nama = nama;
         this.rate = rate;

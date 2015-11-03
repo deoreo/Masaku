@@ -87,9 +87,9 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
     private void DummyFeedback(){
         LIST_FEEDBACK = new ArrayList<ModelVendorFeedback>();
-        ModelVendorFeedback modelVendorMenu0 = new ModelVendorFeedback("0","Cinta L", "5", "23-10-2015", "Masakannya enak");
+        ModelVendorFeedback modelVendorMenu0 = new ModelVendorFeedback("0","Cinta L***", "5", "23-10-2015", "Masakannya enak");
         LIST_FEEDBACK.add(modelVendorMenu0);
-        ModelVendorFeedback modelVendorMenu1 = new ModelVendorFeedback("1","Jimmy", "4", "23-10-2015", "Enak tapi porsinya kurang banyak :D");
+        ModelVendorFeedback modelVendorMenu1 = new ModelVendorFeedback("1","Ji***", "4", "23-10-2015", "Enak tapi porsinya kurang banyak :D");
         LIST_FEEDBACK.add(modelVendorMenu1);
 
 
