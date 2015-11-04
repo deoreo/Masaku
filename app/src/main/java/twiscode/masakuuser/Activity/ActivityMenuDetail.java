@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -56,8 +57,8 @@ public class ActivityMenuDetail extends ActionBarActivity {
         labelNamaVendor.setText(modelMenu.getNama());
         namaVendor.setText(modelMenu.getNama());
         jumlahPenjualan.setText(modelMenu.getJumlahorder() + " order perulan");
-        minOrder.setText("Min order Rp."+modelMenu.getMinOrder());
-        txtRate.setText(modelMenu.getRating()+"/5");
+        minOrder.setText("Min order Rp." + modelMenu.getMinOrder());
+        txtRate.setText(modelMenu.getRating() + "/5");
         ratingBar.setRating(Float.parseFloat(modelMenu.getRating()));
         Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(profile_image);
 
@@ -70,7 +71,9 @@ public class ActivityMenuDetail extends ActionBarActivity {
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
-                scroll.scrollTo(0, 0);
+                //Log.d("scroll pos", "" + scroll.getScrollY());
+                // scroll.scrollTo(0, 331);
+                scroll.smoothScrollTo(0,0);
             }
 
             // This method will be invoked when the current page is scrolled
@@ -92,7 +95,9 @@ public class ActivityMenuDetail extends ActionBarActivity {
                 onBackPressed();
             }
         });
-        scroll.scrollTo(0,0);
+       // scroll.scrollTo(0, 331);
+        scroll.smoothScrollTo(0,0);
+
 
 
     }

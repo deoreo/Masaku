@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import twiscode.masakuuser.Activity.ActivityAbout;
 import twiscode.masakuuser.Activity.ActivityLogin;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.R;
@@ -49,6 +50,15 @@ public class FragmentProfile extends Fragment {
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(i);
 				getActivity().finish();
+
+			}
+		});
+		btnAbout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityAbout.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(i);
 
 			}
 		});

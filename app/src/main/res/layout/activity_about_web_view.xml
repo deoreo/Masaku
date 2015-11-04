@@ -5,6 +5,32 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="@color/colorRed"
+        >
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/back"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="About"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            />
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/webviewProgress"
@@ -22,10 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:id="@+id/webviewContainer"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -36,45 +59,11 @@
                     android:id="@+id/webview"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
-                <RelativeLayout
-                    android:id="@+id/imageslide"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorWhite">
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/viewpager_default"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="70dp"
-                        android:layout_alignParentBottom="true">
-                        <me.relex.circleindicator.CircleIndicator
-                            android:id="@+id/indicator_default"
-                            android:layout_centerInParent="true"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            app:ci_animator="@animator/indicator_animator"
-                            app:ci_drawable="@drawable/black_radius"
-                            />
-                    </RelativeLayout>
-                </RelativeLayout>
+
 
             </RelativeLayout>
-        </ScrollView>
 
 
     </RelativeLayout>
-
-
-
-
-
 
 </LinearLayout>

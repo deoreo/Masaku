@@ -25,6 +25,7 @@
         <activity android:name=".Activity.ActivityFeedback" />
         <activity android:name=".Activity.ActivityMenuDetail" />
         <activity android:name=".Activity.ActivityMenuDetailNew" />
+        <activity android:name=".Activity.ActivityAbout" />
     </application>
 
 </manifest>

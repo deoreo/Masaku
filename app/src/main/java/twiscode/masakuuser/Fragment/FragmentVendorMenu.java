@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,8 @@ public class FragmentVendorMenu extends Fragment {
 		mAdapter = new AdapterVendorMenu(getActivity(), LIST_MENU);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
+
+
 
 		return rootView;
 	}

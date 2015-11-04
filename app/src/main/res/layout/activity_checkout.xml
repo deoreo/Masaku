@@ -38,7 +38,7 @@
                 android:id="@+id/btnNotif"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/notif"/>
+                android:src="@drawable/cart_90"/>
         </LinearLayout>
 
     </RelativeLayout>

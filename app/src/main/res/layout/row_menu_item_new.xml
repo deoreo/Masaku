@@ -22,30 +22,33 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/plan_gradient"/>
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rounded_accent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
             <TextView
                 android:id="@+id/timeMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15"
                 android:textColor="@color/colorWhite"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MINS WAIT"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
+                android:textSize="11dp"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
                 />
@@ -54,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="OR LONGER"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
+                android:textSize="10dp"
                 android:layout_gravity="center_horizontal"
                 />
         </LinearLayout>
@@ -96,7 +99,7 @@
             android:layout_height="40dp"
             android:background="@drawable/rounded_red"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorRed"
             android:textSize="14dp"
             android:textStyle="bold"
             android:text="+ ADD"
