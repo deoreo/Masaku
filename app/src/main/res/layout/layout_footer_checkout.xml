@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Rp 10.000"
+            android:text="Rp 110.000"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"
             android:gravity="right"
@@ -72,6 +72,84 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
+            android:text="Tip"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/tipCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 2.000"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <info.hoang8f.android.segmented.SegmentedGroup
+            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            segmentedgroup:sc_border_width="2dp"
+            segmentedgroup:sc_corner_radius="5dp">
+
+            <RadioButton
+                android:id="@+id/button21"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="0%"
+                style="@style/RadioButton" />
+
+            <RadioButton
+                android:id="@+id/button22"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="5%"
+                style="@style/RadioButton" />
+            <RadioButton
+                android:id="@+id/button23"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="10%"
+                style="@style/RadioButton" />
+            <RadioButton
+                android:id="@+id/button24"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="15%"
+                style="@style/RadioButton" />
+            <RadioButton
+                android:id="@+id/button25"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="20%"
+                style="@style/RadioButton" />
+
+        </info.hoang8f.android.segmented.SegmentedGroup>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
             android:text="Total"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"            />
@@ -81,11 +159,39 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Rp 20.000"
+            android:text="Rp 122.000"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"
             android:gravity="right"
             />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <TextView
+        android:id="@+id/jumlahPesanan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:text="Metode Pembayaran"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorRed"
+        android:textAllCaps="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/paySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"

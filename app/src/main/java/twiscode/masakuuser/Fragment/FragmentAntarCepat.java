@@ -1,6 +1,7 @@
 package twiscode.masakuuser.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,17 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 
 public class FragmentAntarCepat extends Fragment {
 
+	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenu> LIST_MENU = new ArrayList<>();
 	private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -46,6 +50,7 @@ public class FragmentAntarCepat extends Fragment {
 
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_antar_cepat, container, false);
+		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
@@ -54,6 +59,14 @@ public class FragmentAntarCepat extends Fragment {
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		//mSwipeRefreshLayout.setRefreshing(false);
+
+		btnCart.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityCheckout.class);
+				startActivity(i);
+			}
+		});
 
 		return rootView;
 	}

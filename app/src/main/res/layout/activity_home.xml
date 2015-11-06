@@ -23,8 +23,9 @@
         app:pstsIndicatorColor="@color/colorWhite"
         app:pstsUnderlineColor="@color/colorDarkRed"
         app:pstsDividerColor="@color/colorRed"
-        app:pstsTabPaddingLeftRight="14dp"
+        app:pstsTabPaddingLeftRight="10dp"
         android:background="@color/colorRed"
+
 
         >
     </com.astuetz.PagerSlidingTabStrip>

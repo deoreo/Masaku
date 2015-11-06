@@ -1,6 +1,7 @@
 package twiscode.masakuuser.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterPesanan;
 import twiscode.masakuuser.Model.ModelPesanan;
@@ -28,6 +31,7 @@ public class FragmentPesanan extends Fragment {
 	AdapterPesanan mAdapter;
 	private TextView jmlPesanan;
 	private int mPage;
+	private ImageView btnCart;
 
 	private RecyclerView recyclerView;
 
@@ -48,6 +52,7 @@ public class FragmentPesanan extends Fragment {
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_pesanan, container, false);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
+		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_pesanan, null);
 		jmlPesanan = (TextView)header.findViewById(R.id.jumlahPesanan);
 		jmlPesanan.setText(LIST_PESANAN.size()+" Pesanan");
@@ -56,6 +61,15 @@ public class FragmentPesanan extends Fragment {
 		mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
+
+		btnCart.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityCheckout.class);
+				startActivity(i);
+			}
+		});
+
 		return rootView;
 	}
 

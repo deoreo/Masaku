@@ -97,7 +97,7 @@
             android:id="@+id/btnAdd"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:background="@drawable/rounded_red"
+            android:background="@drawable/rounded_line_red"
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorRed"
             android:textSize="14dp"

@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import twiscode.masakuuser.Activity.ActivityAbout;
+import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Activity.ActivityLogin;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.R;
@@ -21,6 +23,7 @@ public class FragmentProfile extends Fragment {
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private LinearLayout btnAbout;
 	private LinearLayout btnLogout;
+	private ImageView btnCart;
 
 	public static FragmentProfile newInstance(int page) {
 		Bundle args = new Bundle();
@@ -35,6 +38,7 @@ public class FragmentProfile extends Fragment {
 			Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.activity_profile, container, false);
+		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		btnAbout = (LinearLayout) rootView.findViewById(R.id.btnAboutProfile);
 		btnLogout = (LinearLayout) rootView.findViewById(R.id.btnLogout);
 		btnAbout.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +64,14 @@ public class FragmentProfile extends Fragment {
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(i);
 
+			}
+		});
+
+		btnCart.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityCheckout.class);
+				startActivity(i);
 			}
 		});
 

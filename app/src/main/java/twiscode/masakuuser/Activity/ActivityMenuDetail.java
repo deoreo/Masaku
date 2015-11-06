@@ -29,7 +29,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActivityMenuDetail extends ActionBarActivity {
 
     private ViewPager viewPager;
-    private ImageView btnBack;
+    private ImageView btnBack,btnCart;
     private TextView namaVendor, jumlahPenjualan, minOrder, txtRate, labelNamaVendor;
     private RatingBar ratingBar;
     private RoundedImageView profile_image;
@@ -44,6 +44,7 @@ public class ActivityMenuDetail extends ActionBarActivity {
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnCart = (ImageView) findViewById(R.id.btnCart);
         namaVendor = (TextView) findViewById(R.id.namaVendor);
         jumlahPenjualan = (TextView) findViewById(R.id.jumlahPenjualan);
         minOrder = (TextView) findViewById(R.id.minOrder);
@@ -56,8 +57,8 @@ public class ActivityMenuDetail extends ActionBarActivity {
 
         labelNamaVendor.setText(modelMenu.getNama());
         namaVendor.setText(modelMenu.getNama());
-        jumlahPenjualan.setText(modelMenu.getJumlahorder() + " order perulan");
-        minOrder.setText("Min order Rp." + modelMenu.getMinOrder());
+        jumlahPenjualan.setText(modelMenu.getJumlahorder() + " order perbulan");
+        minOrder.setText("Rp." + modelMenu.getMinOrder());
         txtRate.setText(modelMenu.getRating() + "/5");
         ratingBar.setRating(Float.parseFloat(modelMenu.getRating()));
         Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(profile_image);
@@ -73,7 +74,7 @@ public class ActivityMenuDetail extends ActionBarActivity {
             public void onPageSelected(int position) {
                 //Log.d("scroll pos", "" + scroll.getScrollY());
                 // scroll.scrollTo(0, 331);
-                scroll.smoothScrollTo(0,0);
+                scroll.smoothScrollTo(0, 0);
             }
 
             // This method will be invoked when the current page is scrolled
@@ -87,6 +88,13 @@ public class ActivityMenuDetail extends ActionBarActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
                 // Code goes here
+            }
+        });
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), ActivityCheckout.class);
+                startActivity(i);
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {

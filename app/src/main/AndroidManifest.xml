@@ -26,6 +26,7 @@
         <activity android:name=".Activity.ActivityMenuDetail" />
         <activity android:name=".Activity.ActivityMenuDetailNew" />
         <activity android:name=".Activity.ActivityAbout" />
+        <activity android:name=".Activity.ActivityCheckout" />
     </application>
 
 </manifest>

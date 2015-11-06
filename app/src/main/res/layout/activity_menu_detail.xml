@@ -19,9 +19,10 @@
             android:background="@color/colorRed"
             >
             <ImageView
+                android:padding="5dp"
                 android:id="@+id/btnBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:src="@drawable/back"
                 android:layout_marginRight="5dp"
                 android:layout_gravity="center_vertical"/>
@@ -33,13 +34,14 @@
                 />
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true">
                 <ImageView
-                    android:id="@+id/btnNotif"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:padding="5dp"
+                    android:id="@+id/btnCart"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
                     android:src="@drawable/cart_90"/>
             </LinearLayout>
 
@@ -140,9 +142,9 @@
                             android:id="@+id/btnAdd"
                             android:layout_width="80dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/rounded_red"
+                            android:background="@drawable/rounded_line_red"
                             android:layout_gravity="center_vertical"
-                            android:textColor="@color/colorWhite"
+                            android:textColor="@color/colorRed"
                             android:textSize="14dp"
                             android:textStyle="bold"
                             android:text="+ ADD"

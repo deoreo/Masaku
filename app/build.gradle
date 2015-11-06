@@ -37,4 +37,6 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.0.1'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     compile 'me.relex:circleindicator:1.1.5@aar'
+    compile 'com.github.arcadefire:nice-spinner:d65f4fe052'
+    compile 'info.hoang8f:android-segmented:1.0.6'
 }

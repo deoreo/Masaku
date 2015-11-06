@@ -31,7 +31,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityMenuDetailNew extends ActionBarActivity {
 
-    private ImageView btnBack;
+    private ImageView btnBack,btnCart;
     public TextView nameMenu;
     public TextView timeMenu;
     public TextView priceMenu;
@@ -50,6 +50,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
         DummyFeedback();
         btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnCart = (ImageView) findViewById(R.id.btnCart);
         nameMenu = (TextView) findViewById(R.id.nameMenu);
         timeMenu = (TextView) findViewById(R.id.timeMenu);
         priceMenu = (TextView) findViewById(R.id.priceMenu);
@@ -71,6 +72,13 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), ActivityCheckout.class);
+                startActivity(i);
             }
         });
 

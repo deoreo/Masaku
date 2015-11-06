@@ -25,16 +25,18 @@
         android:textColor="@color/colorBlack"
         android:background="@color/colorWhite"
         android:textSize="14dp"/>
-    <TextView
+    <EditText
         android:id="@+id/alamatCheckout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="masukkan alamat anda disini"
-        android:textColor="@color/colorBlack"
+        android:layout_height="60dp"
         android:background="@color/colorWhite"
-        android:minHeight="60dp"
-        android:textSize="14dp"/>
+        android:maxLength="120"
+        android:padding="10dp"
+        android:hint="masukan alamat anda disini"
+        android:textColor="@color/colorBlack"
+        android:textSize="14dp"
+        android:gravity="left"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
