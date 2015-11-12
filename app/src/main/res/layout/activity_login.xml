@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/bg"
+    android:background="@color/colorGrey"
     android:orientation="vertical"
     >
 
@@ -57,21 +57,39 @@
                                     android:src="@drawable/profile"
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"/>
-
-                                <EditText
-                                    android:id="@+id/txtPhone"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="50dp"
-                                    android:hint="nomor ponsel"
-                                    android:background="@null"
-                                    android:textColor="@color/colorBlack"
-                                    android:singleLine="true"
-                                    android:maxLines="1"
-                                    android:inputType="number"
-                                    android:textSize="16dp"
-                                    android:gravity="center_vertical"
-                                    />
+                                    android:orientation="horizontal">
+                                    <EditText
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:text="08"
+                                        android:background="@null"
+                                        android:textColor="@color/colorBlack"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:inputType="number"
+                                        android:textSize="16dp"
+                                        android:gravity="center_vertical"
+                                        android:editable="false"
+                                        />
+                                    <EditText
+                                        android:id="@+id/txtPhone"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="50dp"
+                                        android:hint="xxxxxx"
+                                        android:background="@null"
+                                        android:textColor="@color/colorBlack"
+                                        android:singleLine="true"
+                                        android:maxLines="1"
+                                        android:inputType="number"
+                                        android:textSize="16dp"
+                                        android:gravity="center_vertical"
+                                        />
+                                </LinearLayout>
+
 
                             </LinearLayout>
 
