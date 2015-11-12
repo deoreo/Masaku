@@ -30,7 +30,7 @@ public class ActivityRegister extends Activity {
 
     private Activity mActivity;
     private EditText txtPhone,txtName,txtPassword,txtConfirm;
-    private Button btnRegister;
+    private Button btnRegister,btnLogin;
     private ModelUser userLogin;
     private ImageView btnBack;
 
@@ -48,8 +48,18 @@ public class ActivityRegister extends Activity {
         txtConfirm = (EditText) findViewById(R.id.txtConfirmPassword);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), ActivityLogin.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(), ActivityLogin.class);

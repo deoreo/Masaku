@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/colorGrey"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     >
 
@@ -24,6 +24,7 @@
                 android:orientation="horizontal"
                 android:padding="15dp"
                 android:background="@color/colorRed"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -240,8 +241,20 @@
                             android:textStyle="bold"
                             android:textAllCaps="true"
                             android:textSize="18dp"
-                            android:background="@color/colorRed"
-                            android:layout_marginBottom="50dp"/>
+                            android:background="@color/colorRed"/>
+
+                        <Button
+                            android:id="@+id/btnLogin"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Sudah memiliki akun? masuk disini!"
+                            android:textColor="@color/colorRed"
+                            android:textAllCaps="false"
+                            android:textSize="16dp"
+                            android:background="@null"/>
 
 
 
