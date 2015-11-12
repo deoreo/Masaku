@@ -136,7 +136,7 @@
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/wrapperRegister"
+                android:id="@+id/wrapperSend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"

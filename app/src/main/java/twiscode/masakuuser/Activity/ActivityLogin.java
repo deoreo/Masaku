@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityLogin extends Activity{
 
+    private TextView btnForget;
     private Activity mActivity;
     private EditText txtPhone,txtPassword;
     private Button btnLogin, btnRegister;
@@ -40,7 +42,7 @@ public class ActivityLogin extends Activity{
         mActivity = this;
         db = new DatabaseHandler(mActivity);
 
-
+        btnForget = (TextView) findViewById(R.id.forgetPassword);
         txtPhone = (EditText) findViewById(R.id.txtPhone);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
@@ -50,6 +52,15 @@ public class ActivityLogin extends Activity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), ActivityRegister.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), ActivityForgetPassword_1.class);
                 startActivity(i);
                 finish();
             }
