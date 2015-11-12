@@ -58,9 +58,34 @@ public class ActivityLogin extends Activity{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), ActivityHome.class);
-                startActivity(i);
-                finish();
+                String phone = txtPhone.getText().toString();
+                String password = txtPassword.getText().toString();
+
+                if (phone == null || password == null || phone.trim().isEmpty() || password.trim().isEmpty()) {
+                    DialogManager.showDialog(mActivity, "Warning", "Isi Nomor Ponsel dan Password Anda!");
+                } else {
+                    hideKeyboard();
+                    String num=phone.substring(0,1);
+                    Log.d("phone num",num);
+                    Log.d("phone", phone);
+                    if (num.contains("0")) {
+                        Log.d("phone 1", phone);
+                        /*
+                        phoneNumber = phoneNumber.substring(1);
+
+                        */
+                        DialogManager.showDialog(mActivity, "Informasi", "Masukkan nomor ponsel seperti berikut : 085959084701");
+
+                    }
+                    else {
+                        phone = "08"+phone;
+                        new DoLogin(mActivity).execute(
+                                phone,
+                                password
+                        );
+                    }
+
+                }
             }
         });
 
@@ -116,7 +141,6 @@ public class ActivityLogin extends Activity{
                     String _id = responseUser.getString("_id");
                     String name = responseUser.getString("name");
                     String phoneNumber = responseUser.getString("phoneNumber");
-                    String vehicleNumber = responseUser.getString("vehicleNumber");
 
                     Log.d("json response id",_id.toString());
                     if(_id!=null){
