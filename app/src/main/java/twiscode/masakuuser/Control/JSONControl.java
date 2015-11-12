@@ -27,21 +27,21 @@ public class JSONControl {
 
 
 
-    public JSONObject postLogin(String email, String password) {
+    public JSONObject postLogin(String phone, String password) {
         JSONObject jsonObj = null;
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("phoneNumber", email));
+            params.add(new BasicNameValuePair("phoneNumber", phone));
             params.add(new BasicNameValuePair("password", password));
-            jsonObj = _JSONResponse.POSTResponse(ConfigManager.LOGIN, params);
+            jsonObj = _JSONResponse.POSTResponse(ConfigManager.LOGIN, ConfigManager.DUKUHKUPANG, params);
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         Log.d("url login", ConfigManager.LOGIN);
-        Log.d("params login", email + "-" + password);
+        Log.d("params login", phone + "-" + password);
         Log.d("return login", jsonObj.toString());
         return jsonObj;
 
