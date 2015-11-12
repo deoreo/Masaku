@@ -27,6 +27,9 @@
         <activity android:name=".Activity.ActivityMenuDetailNew" />
         <activity android:name=".Activity.ActivityAbout" />
         <activity android:name=".Activity.ActivityCheckout" />
+        <activity android:name=".Activity.ActivityForgetPassword_1" />
+        <activity android:name=".Activity.ActivityForgetPassword_2" />
+        <activity android:name=".Activity.ActivityForgetPassword_3" />
     </application>
 
 </manifest>
