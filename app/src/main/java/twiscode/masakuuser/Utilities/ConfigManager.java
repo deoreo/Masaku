@@ -2,7 +2,6 @@ package twiscode.masakuuser.Utilities;
 
 public class ConfigManager {
 
-
     public static final String version ="~1";
     public static final String SERVER = "https://masaku.id:2083/user"; // develop
     public static final String LOGIN = SERVER+"/authenticate";

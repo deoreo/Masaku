@@ -143,7 +143,10 @@ public class ActivityForgetPassword_3 extends AppCompatActivity {
                 case "OK":
                     ApplicationData.phoneNumber="";
                     ApplicationData.tokenPass="";
-                    DialogManager.showDialog(activity, "Warning", "Reset password sukses!");
+                    //DialogManager.showDialog(activity, "Warning", "Reset password sukses!");
+                    Intent i = new Intent(getBaseContext(), ActivityLogin.class);
+                    startActivity(i);
+                    finish();
                     break;
             }
 

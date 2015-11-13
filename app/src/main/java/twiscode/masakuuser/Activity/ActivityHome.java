@@ -13,6 +13,7 @@ import com.astuetz.PagerSlidingTabStrip;
 
 import twiscode.masakuuser.Adapter.AdapterPagerMain;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.SlidingTabLayout;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -60,6 +61,8 @@ public class ActivityHome extends ActionBarActivity {
                 // Code goes here
             }
         });
+
+        DialogManager.showDialog(ActivityHome.this,"Info","Service ini hanya tersedia di Surabaya");
 
 
     }
