@@ -13,6 +13,8 @@ public class ApplicationData {
     public static String login_id = "";
     public static ModelMenu modelMenu = null;
     public static ModelVendorMenu modelVendorMenu = null;
+    public static String phoneNumber = "";
+    public static String tokenPass = "";
 
 
 

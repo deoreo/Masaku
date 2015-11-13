@@ -64,6 +64,71 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public String postForgotPassword(String phone) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("phoneNumber", phone));
+            jsonObj = _JSONResponse.POSTResponseString(ConfigManager.FORGOT_PASSWORD, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public String postCheckCode(String phone, String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("phoneNumber", phone));
+            params.add(new BasicNameValuePair("token", token));
+            jsonObj = _JSONResponse.POSTResponseString(ConfigManager.CHECK_RESET_PASSWORD, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public String postResendCode(String phone) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("phoneNumber", phone));
+            jsonObj = _JSONResponse.POSTResponseString(ConfigManager.RESEND_RESET_PASSWORD, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public String postResetPassword(String phone, String token, String password) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("phoneNumber", phone));
+            params.add(new BasicNameValuePair("token", token));
+            params.add(new BasicNameValuePair("password", password));
+            jsonObj = _JSONResponse.POSTResponseString(ConfigManager.RESET_PASSWORD, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+
+
 
 
 
