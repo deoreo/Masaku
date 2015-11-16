@@ -127,6 +127,20 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject getMenuSpeed(int page) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponseToken(ConfigManager.MENU_SPEED+page, ConfigManager.DUKUHKUPANG);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
 
 
 

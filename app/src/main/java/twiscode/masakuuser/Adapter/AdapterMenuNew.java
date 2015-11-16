@@ -7,6 +7,7 @@ package twiscode.masakuuser.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +23,18 @@ import java.util.List;
 import twiscode.masakuuser.Activity.ActivityMenuDetail;
 import twiscode.masakuuser.Activity.ActivityMenuDetailNew;
 import twiscode.masakuuser.Model.ModelMenu;
+import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 
 
 public class AdapterMenuNew extends BaseAdapter {
     private Activity mAct;
-    private List<ModelMenu> mSourceData, mFilterData;
+    private List<ModelMenuSpeed> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
 
-    public AdapterMenuNew(Activity activity, List<ModelMenu> d) {
+    public AdapterMenuNew(Activity activity, List<ModelMenuSpeed> d) {
         mAct = activity;
         mSourceData = d;
         mInflater = (LayoutInflater) mAct.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,7 +64,7 @@ public class AdapterMenuNew extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
-            convertView = mInflater.inflate(R.layout.row_delivery_empty, null);
+            convertView = mInflater.inflate(R.layout.row_delivery_empty2, null);
         }
         else {
             ViewHolder holder;
@@ -74,12 +76,11 @@ public class AdapterMenuNew extends BaseAdapter {
             holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
             convertView.setTag(position);
 
-            final ModelMenu modelMenu = mSourceData.get(position);
+            final ModelMenuSpeed modelMenu = mSourceData.get(position);
             final String ID = modelMenu.getId();
             final String VENDOR_NAMA = modelMenu.getNama();
             final String VENDOR_HARGA = modelMenu.getPrice();
             final String VENDOR_TIME = modelMenu.getTime();
-            final String VENDOR_RATING = modelMenu.getRating();
             final String VENDOR_IMAGE = modelMenu.getFoto();
 
 
@@ -87,12 +88,13 @@ public class AdapterMenuNew extends BaseAdapter {
             holder.nameMenu.setText(VENDOR_NAMA );
             holder.priceMenu.setText("Rp. "+VENDOR_HARGA);
             holder.timeMenu.setText(VENDOR_TIME);
+            Log.d("image : ",VENDOR_IMAGE);
             Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgMenu);
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ApplicationData.modelMenu = modelMenu;
+                    ApplicationData.modelMenuSpeed = modelMenu;
                     Intent i = new Intent(mAct, ActivityMenuDetailNew.class);
                     mAct.startActivity(i);
                     mAct.finish();

@@ -62,7 +62,7 @@ public class ActivityHome extends ActionBarActivity {
             }
         });
 
-        DialogManager.showDialog(ActivityHome.this,"Info","Service ini hanya tersedia di Surabaya");
+        //DialogManager.showDialog(ActivityHome.this,"Info","Service ini hanya tersedia di Surabaya");
 
 
     }

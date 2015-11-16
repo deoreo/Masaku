@@ -115,6 +115,55 @@ public class JSONResponse {
         return _jObj;
     }
 
+    public JSONObject GETResponseToken(String url,String apptoken) throws ConnectException {
+        try {
+
+            DefaultHttpClient  httpClient = (DefaultHttpClient)createDevelopmentHttpClientInstance();
+            HttpGet httpGet = new HttpGet(url);
+            httpGet.addHeader("Accept-Encoding", "gzip");
+            httpGet.setHeader("X-App-Token", apptoken);
+            httpGet.setHeader("Accept-Version", ConfigManager.version);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            _inputStream = httpEntity.getContent();
+            Header contentEncoding = httpResponse.getFirstHeader("Content-Encoding");
+            if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+                _inputStream = new GZIPInputStream(_inputStream);
+            }
+
+        }
+        catch(ConnectException e){
+            throw e;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    _inputStream, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            _inputStream.close();
+            _json = sb.toString();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+        try {
+            _jObj = new JSONObject(_json);
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return _jObj;
+    }
+
     public JSONObject POSTResponse(String url, List<NameValuePair> params) {
 
         try {

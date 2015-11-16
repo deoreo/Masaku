@@ -2,6 +2,7 @@ package twiscode.masakuuser.Utilities;
 
 
 import twiscode.masakuuser.Model.ModelMenu;
+import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.Model.ModelVendor;
 import twiscode.masakuuser.Model.ModelVendorMenu;
@@ -15,6 +16,7 @@ public class ApplicationData {
     public static ModelVendorMenu modelVendorMenu = null;
     public static String phoneNumber = "";
     public static String tokenPass = "";
+    public static ModelMenuSpeed modelMenuSpeed = null;
 
 
 

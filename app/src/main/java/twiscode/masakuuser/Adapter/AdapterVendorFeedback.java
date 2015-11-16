@@ -57,7 +57,7 @@ public class AdapterVendorFeedback extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
-            convertView = mInflater.inflate(R.layout.row_delivery_empty, null);
+            convertView = mInflater.inflate(R.layout.row_delivery_empty2, null);
         }
         else {
             ViewHolder holder;
