@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,9 +33,10 @@ import twiscode.masakuuser.Utilities.ApplicationData;
  * Created by TwisCode-02 on 10/26/2015.
  */
 public class ActivityCheckout extends AppCompatActivity {
+
     private ImageView btnBack;
     private ListView mListView;
-    private TextView txtSubtotal,txtTip,txtDelivery,txtTotal;
+    private TextView txtSubtotal,txtTip,txtDelivery,txtTotal,noData;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     SegmentedGroup segmented;
@@ -50,7 +52,7 @@ public class ActivityCheckout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         mListView = (ListView) findViewById(R.id.listCheckout);
-
+        noData = (TextView)findViewById(R.id.noData);
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
         otherSymbols.setDecimalSeparator(',');
         otherSymbols.setGroupingSeparator('.');
@@ -83,31 +85,34 @@ public class ActivityCheckout extends AppCompatActivity {
         segmented.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d("segmented id : ",""+checkedId);
+                Log.d("segmented id : ", "" + checkedId);
                 String id = Integer.toString(checkedId);
                 if (id.contains("2131689663")) {
                     tip = 0;
+                } else if (id.contains("2131689664")) {
+                    tip = (int) Math.round(subtotal * 0.05);
+                } else if (id.contains("2131689665")) {
+                    tip = (int) Math.round(subtotal * 0.1);
+                } else if (id.contains("2131689666")) {
+                    tip = (int) Math.round(subtotal * 0.15);
+                } else if (id.contains("2131689667")) {
+                    tip = (int) Math.round(subtotal * 0.2);
                 }
-                else if (id.contains("2131689664")) {
-                    tip = (int)Math.round(subtotal*0.05);
-                }
-                else if (id.contains("2131689665")) {
-                    tip = (int)Math.round(subtotal*0.1);
-                }
-                else if (id.contains("2131689666")) {
-                    tip = (int)Math.round(subtotal*0.15);
-                }
-                else if (id.contains("2131689667")) {
-                    tip = (int)Math.round(subtotal*0.2);
-                }
-                total = subtotal+tip+delivery;
-                txtTip.setText("Rp. "+decimalFormat.format(tip));
-                txtTotal.setText("Rp. "+decimalFormat.format(total));
+                total = subtotal + tip + delivery;
+                txtTip.setText("Rp. " + decimalFormat.format(tip));
+                txtTotal.setText("Rp. " + decimalFormat.format(total));
             }
         });
 
 
-
+        if(ApplicationData.cart.size() > 0){
+            mListView.setVisibility(View.VISIBLE);
+            noData.setVisibility(View.GONE);
+        }
+        else {
+            mListView.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+        }
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {

@@ -27,25 +27,41 @@
             android:textAllCaps="true"
             android:textSize="16dp"
             />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="34dp"
-            android:orientation="horizontal"
             android:layout_alignParentRight="true">
-            <ImageView
-                android:id="@+id/btnSearch"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/search"
-                android:visibility="gone"
-                android:layout_marginRight="15dp"/>
             <ImageView
                 android:padding="5dp"
                 android:id="@+id/btnCart"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:src="@drawable/cart_90"/>
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/wrapCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/bg_circle_green"
+                android:orientation="horizontal"
+                android:minHeight="12dp"
+                android:minWidth="12dp"
+                android:layout_marginLeft="10dp"
+                >
+                <TextView
+                    android:id="@+id/countCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:minHeight="12dp"
+                    android:minWidth="12dp"/>
+            </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -96,17 +96,59 @@
             android:layout_gravity="center_vertical"
             android:text="Rp 15.000"
             />
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_line_red"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/colorRed"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:text="+ ADD"
+        <RelativeLayout
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            />
+            android:layout_width="120dp"
+            android:layout_height="40dp">
+            <Button
+                android:layout_alignParentRight="true"
+                android:id="@+id/btnAdd"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_line_red"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorRed"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="+ ADD"
+                />
+            <LinearLayout
+                android:id="@+id/layCounter"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/btnMinus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="-"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorRed"/>
+                <TextView
+                    android:id="@+id/txtCount"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:id="@+id/btnPlus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="+"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 </LinearLayout>

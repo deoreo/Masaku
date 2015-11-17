@@ -3,12 +3,15 @@ package twiscode.masakuuser.Fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,6 +33,7 @@ import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Activity.ActivityHome;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelUser;
@@ -37,6 +43,8 @@ import twiscode.masakuuser.Utilities.DialogManager;
 
 public class FragmentAntarCepat extends Fragment {
 
+	private TextView countCart;
+	private LinearLayout wrapCount;
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
@@ -50,6 +58,8 @@ public class FragmentAntarCepat extends Fragment {
 	private int mPage;
 
 	private RecyclerView recyclerView;
+
+	private BroadcastReceiver updateCart;
 
 
 
@@ -67,6 +77,8 @@ public class FragmentAntarCepat extends Fragment {
 
 
 		View rootView = inflater.inflate(R.layout.activity_antar_cepat, container, false);
+		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
+		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
@@ -84,8 +96,44 @@ public class FragmentAntarCepat extends Fragment {
 				startActivity(i);
 			}
 		});
+		if(ApplicationData.cart.size() > 0){
+			countCart.setText(""+ApplicationData.cart.size());
+			wrapCount.setVisibility(View.VISIBLE);
+		}
+		else {
+			wrapCount.setVisibility(View.GONE);
+		}
+
+		updateCart = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// Extract data included in the Intent
+				Log.d("", "broadcast updateCart");
+				String message = intent.getStringExtra("message");
+				if (message.equals("true")) {
+					List<ModelCart>list = new ArrayList<ModelCart>(ApplicationData.cart.values());
+					if(list.size() > 0){
+						int jml = 0;
+						for(int i = 0;i<list.size();i++){
+							jml = jml + list.get(i).getJumlah();
+						}
+						countCart.setText(""+jml);
+						wrapCount.setVisibility(View.VISIBLE);
+					}
+					else {
+						wrapCount.setVisibility(View.GONE);
+					}
+
+				}
+
+
+			}
+		};
 
 		DummyData();
+
+
+
 		return rootView;
 	}
 
@@ -181,6 +229,15 @@ public class FragmentAntarCepat extends Fragment {
 
 			}
 		}
+	}
+
+	public void onResume() {
+		super.onResume();
+
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
+				new IntentFilter("updateCart"));
+
+
 	}
 
 

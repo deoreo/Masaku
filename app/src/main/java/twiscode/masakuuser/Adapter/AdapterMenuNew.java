@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -97,7 +100,7 @@ public class AdapterMenuNew extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.row_delivery_empty2, null);
         }
         else {
-            ViewHolder holder;
+            final ViewHolder holder;
             convertView = mInflater.inflate(R.layout.row_menu_item_new, null);
             holder = new ViewHolder();
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
@@ -105,6 +108,10 @@ public class AdapterMenuNew extends BaseAdapter {
             holder.priceMenu = (TextView) convertView.findViewById(R.id.priceMenu);
             holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
             holder.add = (Button) convertView.findViewById(R.id.btnAdd);
+            holder.layCounter = (LinearLayout) convertView.findViewById(R.id.layCounter);
+            holder.btnMinus = (TextView) convertView.findViewById(R.id.btnMinus);
+            holder.btnPlus = (TextView) convertView.findViewById(R.id.btnPlus);
+            holder.txtCount = (TextView)convertView.findViewById(R.id.txtCount);
             convertView.setTag(position);
 
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
@@ -119,6 +126,8 @@ public class AdapterMenuNew extends BaseAdapter {
             final String VENDOR_HARGA = modelMenu.getPrice();
             final String VENDOR_TIME = modelMenu.getTime();
             final String VENDOR_IMAGE = modelMenu.getFoto();
+
+            final ViewHolder holder2 = holder;
 
 
 
@@ -146,25 +155,46 @@ public class AdapterMenuNew extends BaseAdapter {
             holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(ApplicationData.cart.size() > 0){
-                        if(ApplicationData.cart.containsKey(ID)){
-                            ModelCart cart = ApplicationData.cart.get(ID);
-                            int jumlah = cart.getJumlah()+1;
-                            cart.setJumlah(jumlah);
-                            ApplicationData.cart.get(ID).setJumlah(jumlah);
-                        }
-                        else {
-                            ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
-                            ApplicationData.cart.put(ID,cart);
-                        }
-                    }
-                    else {
-                        ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
-                        ApplicationData.cart.put(ID,cart);
-                    }
+                    ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
+                    AddCount(holder2, ID, cart);
+                    SendBroadcast("updateCart","true");
                 }
 
             });
+
+            holder.btnPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
+                    AddCount(holder2,ID,cart);
+                    int jml = ApplicationData.cart.get(ID).getJumlah();
+                    holder.txtCount.setText("" + jml);
+                    SendBroadcast("updateCart", "true");
+                }
+
+            });
+            holder.btnMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int jml = ApplicationData.cart.get(ID).getJumlah();
+                    if(jml > 1){
+                        int last = jml-1;
+                        ApplicationData.cart.get(ID).setJumlah(last);
+                        holder.txtCount.setText(""+last);
+                    }
+                    else {
+                        ApplicationData.cart.remove(ID);
+                        holder.add.setVisibility(View.VISIBLE);
+                        holder.layCounter.setVisibility(View.GONE);
+                    }
+                    SendBroadcast("updateCart","true");
+                }
+
+            });
+
+            CheckCounter(holder, ID);
+
+
         }
         return convertView;
     }
@@ -175,6 +205,10 @@ public class AdapterMenuNew extends BaseAdapter {
         public TextView priceMenu;
         public ImageView imgMenu;
         public Button add;
+        public LinearLayout layCounter;
+        public TextView btnMinus;
+        public TextView btnPlus;
+        public TextView txtCount;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -240,6 +274,50 @@ public class AdapterMenuNew extends BaseAdapter {
         } catch (Exception e) {
             return new DefaultHttpClient();
         }
+    }
+
+    private void CheckCounter(ViewHolder holder, String ID){
+        if(ApplicationData.cart.size() > 0){
+            holder.add.setVisibility(View.GONE);
+            holder.layCounter.setVisibility(View.VISIBLE);
+            if(ApplicationData.cart.containsKey(ID)){
+                int jml = ApplicationData.cart.get(ID).getJumlah();
+                holder.txtCount.setText(""+jml);
+            }
+            else {
+                holder.add.setVisibility(View.VISIBLE);
+                holder.layCounter.setVisibility(View.GONE);
+            }
+        }
+        else {
+            holder.add.setVisibility(View.VISIBLE);
+            holder.layCounter.setVisibility(View.GONE);
+        }
+    }
+
+    private void AddCount(ViewHolder holder,String ID,ModelCart c){
+        if(ApplicationData.cart.size() > 0){
+            if(ApplicationData.cart.containsKey(ID)){
+                ModelCart cart = ApplicationData.cart.get(ID);
+                int jumlah = cart.getJumlah()+1;
+                cart.setJumlah(jumlah);
+                ApplicationData.cart.get(ID).setJumlah(jumlah);
+            }
+            else {
+                ApplicationData.cart.put(ID, c);
+            }
+        }
+        else {
+            ApplicationData.cart.put(ID, c);
+        }
+        CheckCounter(holder,ID);
+    }
+
+    private void SendBroadcast(String typeBroadcast,String type){
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(mAct).sendBroadcast(intent);
     }
 
 
