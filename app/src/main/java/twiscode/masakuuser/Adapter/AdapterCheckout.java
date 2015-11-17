@@ -17,7 +17,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 import twiscode.masakuuser.Activity.ActivityMenuDetail;
 import twiscode.masakuuser.Model.ModelCart;
@@ -31,6 +34,7 @@ public class AdapterCheckout extends BaseAdapter {
     private List<ModelCart> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
+    private DecimalFormat decimalFormat;
 
     public AdapterCheckout(Activity activity, List<ModelCart> d) {
         mAct = activity;
@@ -73,15 +77,21 @@ public class AdapterCheckout extends BaseAdapter {
             holder.hargaItem = (TextView) convertView.findViewById(R.id.hargaCheckout);
             convertView.setTag(position);
 
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
+            otherSymbols.setDecimalSeparator(',');
+            otherSymbols.setGroupingSeparator('.');
+            decimalFormat = new DecimalFormat();
+            decimalFormat.setDecimalFormatSymbols(otherSymbols);
+
             final ModelCart modelMenu = mSourceData.get(position);
             final String VENDOR_NAMA = modelMenu.getNama();
-            final String VENDOR_ORDER = modelMenu.getJumlah();
-            final String VENDOR_HARGA = modelMenu.getHarga();
+            final int VENDOR_ORDER = modelMenu.getJumlah();
+            final int VENDOR_HARGA = VENDOR_ORDER*modelMenu.getHarga();
 
 
             holder.namaItem.setText(VENDOR_NAMA);
-            holder.jumlahItem.setText(VENDOR_ORDER);
-            holder.hargaItem.setText("Rp " + VENDOR_HARGA);
+            holder.jumlahItem.setText(""+VENDOR_ORDER);
+            holder.hargaItem.setText("Rp " + decimalFormat.format(VENDOR_HARGA));
 
         }
         return convertView;

@@ -15,6 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@color/colorDarkGrey"
+            android:src="@drawable/icon"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             />
         <View
             android:layout_width="match_parent"

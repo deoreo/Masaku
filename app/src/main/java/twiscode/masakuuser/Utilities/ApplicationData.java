@@ -1,6 +1,9 @@
 package twiscode.masakuuser.Utilities;
 
 
+import java.util.HashMap;
+
+import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelPesanan;
@@ -17,6 +20,7 @@ public class ApplicationData {
     public static String phoneNumber = "";
     public static String tokenPass = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
+    public static HashMap<String,ModelCart> cart = new HashMap<>();
 
 
 
