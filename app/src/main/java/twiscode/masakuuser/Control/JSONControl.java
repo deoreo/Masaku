@@ -154,16 +154,24 @@ public class JSONControl {
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             HashMap<String,Integer> ca = new HashMap<>();
+            JSONArray jsArr = new JSONArray();
+            /*
             for(int i=0;i<cart.size();i++){
-                ca.put(cart.get(i).getId(), cart.get(i).getJumlah());
+                //ca.put(cart.get(i).getId(), cart.get(i).getJumlah());
+                JSONObject a = new JSONObject();
+                a.put(cart.get(i).getId(),cart.get(i).getJumlah());
+                jsArr.put(a);
             }
+            */
             Gson gson = new Gson();
             String json = gson.toJson(ca);
-            json = json.substring(1, json.length()-1);
-            String[] arr = json.split(",");
-            JSONArray jsArr = new JSONArray(arr);
+
             params.add(new BasicNameValuePair("promoCode", kode));
-            params.add(new BasicNameValuePair("orders", jsArr.toString()));
+            for(int i=0;i<cart.size();i++){
+                //ca.put(cart.get(i).getId(), cart.get(i).getJumlah());
+                params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
+            }
+
 
             jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG, accessToken, params);
 

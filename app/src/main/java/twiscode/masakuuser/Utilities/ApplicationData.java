@@ -21,6 +21,7 @@ public class ApplicationData {
     public static String tokenPass = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static HashMap<String,ModelCart> cart = new HashMap<>();
+    public static int def_delivery = 10000;
 
     public static final String PARSE_CHANNEL = "masaku_user";
     public static final String PARSE_APPLICATION_ID = "ZXWmpJgJjgEBRDPI4HjVhlFkfpg7SvYJeh1B4NlQ";

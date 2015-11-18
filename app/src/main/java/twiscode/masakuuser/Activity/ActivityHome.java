@@ -85,7 +85,12 @@ public class ActivityHome extends ActionBarActivity {
             }
         });
         if(ApplicationData.cart.size() > 0){
-            countCart.setText(""+ApplicationData.cart.size());
+            List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
+            int jml = 0;
+            for(int i = 0;i<list.size();i++){
+                jml = jml + list.get(i).getJumlah();
+            }
+            countCart.setText(""+jml);
             wrapCount.setVisibility(View.VISIBLE);
         }
         else {

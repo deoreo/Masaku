@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.angmarch.views.NiceSpinner;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
@@ -52,15 +53,15 @@ public class ActivityCheckout extends AppCompatActivity {
 
     Activity act;
     ApplicationManager applicationManager;
-    private EditText txtKode;
+    private EditText txtKode,txtNote;
     private ImageView btnBack;
     private ListView mListView;
-    private TextView txtSubtotal,txtTip,txtDelivery,txtTotal,txtDiskon,noData;
+    private TextView txtSubtotal,txtTip,txtDelivery,txtTotal,txtDiskon,noData,txtAlamat;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     SegmentedGroup segmented;
     NiceSpinner paySpiner;
-    int delivery = 10000;
+    int delivery = 0;
     int subtotal = 0;
     int tip = 0;
     int total = 0;
@@ -85,6 +86,8 @@ public class ActivityCheckout extends AppCompatActivity {
 
         View header = getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
         txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
+        txtNote = (EditText) header.findViewById(R.id.noteCheckout);
+        txtAlamat = (TextView)header.findViewById(R.id.alamatCheckout);
         mListView.addHeaderView(header);
         View footer = getLayoutInflater().inflate(R.layout.layout_footer_checkout, null);
         txtSubtotal = (TextView)footer.findViewById(R.id.subtotalCheckout);
@@ -148,6 +151,13 @@ public class ActivityCheckout extends AppCompatActivity {
             }
         });
 
+        txtAlamat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         txtKode.setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
                     @Override
@@ -170,6 +180,8 @@ public class ActivityCheckout extends AppCompatActivity {
             mListView.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
+
+        new CalculatePrice(ActivityCheckout.this).execute(txtKode.getText().toString());
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +244,21 @@ public class ActivityCheckout extends AppCompatActivity {
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
                 JSONObject response = jsControl.calculatePrice(kode, applicationManager.getUserToken(),cart);
                 Log.d("json response", response.toString());
-
+                try{
+                    JSONArray transaksi = response.getJSONArray("transactions");
+                    if(transaksi.length() > 0){
+                        for(int i=0;i<transaksi.length();i++){
+                            String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
+                            diskon = Integer.parseInt(discountPrice);
+                            String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
+                            delivery = Integer.parseInt(shippingPrice);
+                        }
+                        return "OK";
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -249,11 +275,20 @@ public class ActivityCheckout extends AppCompatActivity {
 
             switch (result) {
                 case "FAIL":
-
+                    if(delivery==0){
+                        delivery = ApplicationData.def_delivery;
+                    }
+                    diskon = 0;
+                    total = subtotal + tip + delivery - diskon;
+                    txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
+                    txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
+                    txtTotal.setText("Rp. "+decimalFormat.format(total));
                     break;
                 case "OK":
-
-
+                    total = subtotal + tip + delivery - diskon;
+                    txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
+                    txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
+                    txtTotal.setText("Rp. "+decimalFormat.format(total));
                     break;
             }
             progressDialog.dismiss();
