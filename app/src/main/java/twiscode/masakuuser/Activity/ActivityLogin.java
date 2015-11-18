@@ -144,6 +144,7 @@ public class ActivityLogin extends Activity{
                 String phone = params[0];
                 String password = params[1];
                 JSONControl jsControl = new JSONControl();
+
                 JSONObject response = jsControl.postLogin(phone, password);
                 Log.d("json response", response.toString());
                 try {
@@ -161,8 +162,10 @@ public class ActivityLogin extends Activity{
                         userLogin.setNama(name);
                         db.insertuser(userLogin);
                         ApplicationData.login_id = _id.toString();
-                        ApplicationManager.getInstance(activity).setUserToken(token);
-                        Log.d("json response id", "OK");
+                        JSONObject objRefreshToken = jsControl.postRefreshToken(token);
+                        String token_refresh = objRefreshToken.getString("token");
+                        ApplicationManager.getInstance(activity).setUserToken(token_refresh);
+                        Log.d("json response id", "OK " + token_refresh);
                         return "OK";
                     }
                     else {
