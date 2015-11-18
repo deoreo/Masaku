@@ -162,14 +162,9 @@ public class JSONControl {
             json = json.substring(1, json.length()-1);
             String[] arr = json.split(",");
             JSONArray jsArr = new JSONArray(arr);
-            //Log.d("arr",""+jsArr.toString());
-
-            params.add(new BasicNameValuePair("orders", jsArr.toString()));
             params.add(new BasicNameValuePair("promoCode", kode));
-            Log.d("params size",""+params.size());
-            for(int i=0;i<params.size();i++){
-                Log.d(params.get(i).getName(),params.get(i).getValue());
-            }
+            params.add(new BasicNameValuePair("orders", jsArr.toString()));
+
             jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG, accessToken, params);
 
         } catch (Exception e) {
