@@ -5,15 +5,62 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.MainActivity">
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_height="0dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:elevation="5dp"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="@color/colorRed"
+        >
 
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Masaku"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="16dp"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:padding="5dp"
+                android:id="@+id/btnCart"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/cart_90"/>
+            <LinearLayout
+                android:id="@+id/wrapCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/bg_circle_green"
+                android:orientation="horizontal"
+                android:minHeight="12dp"
+                android:minWidth="12dp"
+                android:layout_marginLeft="10dp"
+                >
+                <TextView
+                    android:id="@+id/countCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:minHeight="12dp"
+                    android:minWidth="12dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabs"
         app:pstsShouldExpand="true"
@@ -25,10 +72,19 @@
         app:pstsDividerColor="@color/colorRed"
         app:pstsTabPaddingLeftRight="10dp"
         android:background="@color/colorRed"
-
+        android:elevation="5dp"
 
         >
     </com.astuetz.PagerSlidingTabStrip>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:elevation="5dp"
+        />
+
+
 
 
 

@@ -43,6 +43,7 @@ import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -152,7 +153,7 @@ public class ActivityCheckout extends AppCompatActivity {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            Log.d("kupon",txtKode.getText().toString());
+                            Log.d("kupon", txtKode.getText().toString());
                             new CalculatePrice(ActivityCheckout.this).execute(txtKode.getText().toString());
                             return true;
                         }
@@ -260,6 +261,10 @@ public class ActivityCheckout extends AppCompatActivity {
         }
 
 
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 

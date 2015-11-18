@@ -13,6 +13,7 @@
         android:padding="15dp"
         android:background="@color/colorRed"
         android:elevation="5dp"
+        android:visibility="gone"
         >
 
         <TextView
