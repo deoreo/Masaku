@@ -143,7 +143,7 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject calculatePrice(String kode, List<ModelCart> cart) {
+    public JSONObject calculatePrice(String kode, String accessToken,List<ModelCart> cart) {
 
         JSONObject jsonObj = new JSONObject();
 
@@ -154,7 +154,7 @@ public class JSONControl {
 
                 params.add(new BasicNameValuePair(cart.get(i).getId(),Integer.toString(cart.get(i).getJumlah())));
             }
-            jsonObj = _JSONResponse.POSTResponse(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG,params);
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG,accessToken,params);
 
         } catch (Exception e) {
             e.printStackTrace();

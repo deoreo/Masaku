@@ -42,12 +42,15 @@ import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
  */
 public class ActivityCheckout extends AppCompatActivity {
 
+    Activity act;
+    ApplicationManager applicationManager;
     private EditText txtKode;
     private ImageView btnBack;
     private ListView mListView;
@@ -66,6 +69,8 @@ public class ActivityCheckout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        act = this;
+        applicationManager = new ApplicationManager(act);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         mListView = (ListView) findViewById(R.id.listCheckout);
         noData = (TextView)findViewById(R.id.noData);
@@ -224,7 +229,7 @@ public class ActivityCheckout extends AppCompatActivity {
                 String kode = params[0];
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.calculatePrice(kode, cart);
+                JSONObject response = jsControl.calculatePrice(kode, applicationManager.getUserToken(),cart);
                 Log.d("json response", response.toString());
 
 

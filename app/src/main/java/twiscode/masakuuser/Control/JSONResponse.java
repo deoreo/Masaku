@@ -37,6 +37,7 @@ import java.security.KeyStore;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
@@ -262,7 +263,7 @@ public class JSONResponse {
 
     }
 
-    public JSONObject POSTResponseToken(String url, String apptoken, List<NameValuePair> params) {
+    public JSONObject POSTResponseToken(String url, String apptoken, String accessToken, List<NameValuePair> params) {
 
         try {
             DefaultHttpClient  httpClient = (DefaultHttpClient)createDevelopmentHttpClientInstance();
@@ -270,7 +271,7 @@ public class JSONResponse {
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             httpPost.addHeader("Accept-Encoding", "gzip");
             httpPost.setHeader("X-App-Token", apptoken);
-            //httpPost.setHeader("X-Access-Token", );
+            httpPost.setHeader("X-Access-Token", accessToken);
             httpPost.setHeader("Accept-Version", ConfigManager.version);
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
