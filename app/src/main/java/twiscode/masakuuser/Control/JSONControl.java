@@ -2,6 +2,9 @@ package twiscode.masakuuser.Control;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -148,13 +151,26 @@ public class JSONControl {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("promoCode", kode));
-            for(int i=0;i<cart.size();i++){
 
-                params.add(new BasicNameValuePair(cart.get(i).getId(),Integer.toString(cart.get(i).getJumlah())));
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            HashMap<String,Integer> ca = new HashMap<>();
+            for(int i=0;i<cart.size();i++){
+                ca.put(cart.get(i).getId(), cart.get(i).getJumlah());
             }
-            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG,accessToken,params);
+            Gson gson = new Gson();
+            String json = gson.toJson(ca);
+            json = json.substring(1, json.length()-1);
+            String[] arr = json.split(",");
+            JSONArray jsArr = new JSONArray(arr);
+            //Log.d("arr",""+jsArr.toString());
+
+            params.add(new BasicNameValuePair("orders", jsArr.toString()));
+            params.add(new BasicNameValuePair("promoCode", kode));
+            Log.d("params size",""+params.size());
+            for(int i=0;i<params.size();i++){
+                Log.d(params.get(i).getName(),params.get(i).getValue());
+            }
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG, accessToken, params);
 
         } catch (Exception e) {
             e.printStackTrace();
