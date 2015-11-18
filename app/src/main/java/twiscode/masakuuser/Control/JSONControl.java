@@ -154,7 +154,7 @@ public class JSONControl {
 
                 params.add(new BasicNameValuePair(cart.get(i).getId(),Integer.toString(cart.get(i).getJumlah())));
             }
-            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG,accessToken,params);
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG, accessToken, params);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,6 +174,25 @@ public class JSONControl {
             e.printStackTrace();
         }
         return jsonObj;
+    }
+
+    public JSONObject postRefreshToken(String token) {
+        JSONObject jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("token", token));
+            jsonObj = _JSONResponse.POSTResponse(ConfigManager.REFRESH_TOKEN, ConfigManager.DUKUHKUPANG, params);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("url token",ConfigManager.LOGIN);
+        Log.d("params token",token);
+        Log.d("return token",jsonObj.toString());
+        return jsonObj;
+
     }
 
 
