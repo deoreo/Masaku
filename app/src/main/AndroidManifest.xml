@@ -4,7 +4,7 @@
     package="twiscode.masakuuser" >
 
     <permission
-        android:name="ladyjek.twiscode.com.ladyjek.permission.C2D_MESSAGE"
+        android:name="twiscode.masakuuser.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="ladyjek.twiscode.com.ladyjek.permission.C2D_MESSAGE" />
+    <uses-permission android:name="twiscode.masakuuser.permission.C2D_MESSAGE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -79,7 +79,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="ladyjek.twiscode.com.ladyjek" />
+                <category android:name="twiscode.masakuuser" />
             </intent-filter>
         </receiver>
 

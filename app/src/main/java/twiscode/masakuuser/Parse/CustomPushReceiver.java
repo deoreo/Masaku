@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import java.sql.Time;
 
-import ladyjek.twiscode.com.ladyjek.Utilities.ApplicationManager;
+import twiscode.masakuuser.Activity.ActivityHome;
 
 
 public class CustomPushReceiver extends ParsePushBroadcastReceiver {
@@ -52,7 +52,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     protected void onPushOpen(Context context, Intent intent) {
         super.onPushOpen(context, intent);
         Log.e("Push", "Clicked");
-        Intent i = new Intent(context, ActivityNotif.class);
+        Intent i = new Intent(context, ActivityHome.class);
         i.putExtras(intent.getExtras());
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
@@ -72,7 +72,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
             String title = data.getString("title");
             String message = data.getString("message");
 
-            Intent resultIntent = new Intent(context, ActivityNotif.class);
+            Intent resultIntent = new Intent(context, ActivityHome.class);
             showNotificationMessage(context, title, message, resultIntent);
 
         } catch (JSONException e) {
@@ -100,12 +100,11 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     private void parsePushJsonCustom(Context context, JSONObject json) {
         try {
             String message = json.getString("alert");
-            Intent resultIntent = new Intent(context, ActivityNotif.class);
-            showNotificationMessage(context, "Notifikasi LadyJek", message, resultIntent);
+            Intent resultIntent = new Intent(context, ActivityHome.class);
+            showNotificationMessage(context, "Notifikasi Masaku", message, resultIntent);
             Message msg = new Message();
             msg.setMessage(message);
             msg.setTimestamp(new Time(System.currentTimeMillis()).getHours());
-            ApplicationManager.getInstance(context).setMessage(msg);
 
         } catch (JSONException e) {
             Log.e(TAG, "Push message json exception: " + e.getMessage());
