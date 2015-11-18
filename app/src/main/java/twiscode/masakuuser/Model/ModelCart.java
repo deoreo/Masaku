@@ -4,12 +4,22 @@ package twiscode.masakuuser.Model;
  * Created by TwisCode-02 on 11/6/2015.
  */
 public class ModelCart {
-    private String nama,jumlah,harga;
+    private String id,nama;
+    private int jumlah, harga;
     public ModelCart(){}
-    public ModelCart(String nama, String jumlah, String harga){
+    public ModelCart(String id,String nama, int jumlah, int harga){
+        this.id = id;
         this.nama = nama;
         this.harga = harga;
         this.jumlah = jumlah;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNama() {
@@ -20,19 +30,19 @@ public class ModelCart {
         this.nama = nama;
     }
 
-    public String getJumlah() {
+    public int getJumlah() {
         return jumlah;
     }
 
-    public void setJumlah(String jumlah) {
+    public void setJumlah(int jumlah) {
         this.jumlah = jumlah;
     }
 
-    public String getHarga() {
+    public int getHarga() {
         return harga;
     }
 
-    public void setHarga(String harga) {
+    public void setHarga(int harga) {
         this.harga = harga;
     }
 }

@@ -127,13 +127,13 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public String postLogoutAll(String token) {
+    public JSONObject getMenuSpeed(int page) {
 
-        String jsonObj = null;
+        JSONObject jsonObj = new JSONObject();
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.POSTLogoutAll(ConfigManager.LOGOUT_ALL, token, ConfigManager.DUKUHKUPANG, params);
+            jsonObj = _JSONResponse.GETResponseToken(ConfigManager.MENU_SPEED+page, ConfigManager.DUKUHKUPANG);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,6 +23,7 @@ import java.util.List;
 import twiscode.masakuuser.Adapter.AdapterPagerMenuDetail;
 import twiscode.masakuuser.Adapter.AdapterVendorFeedback;
 import twiscode.masakuuser.Model.ModelMenu;
+import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelVendorFeedback;
 import twiscode.masakuuser.Model.ModelVendorRating;
 import twiscode.masakuuser.R;
@@ -37,7 +38,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     public TextView priceMenu;
     public ImageView imgMenu;
     private ScrollView scroll;
-    private ModelMenu modelMenu;
+    private ModelMenuSpeed modelMenu;
     private List<ModelVendorFeedback> LIST_FEEDBACK = new ArrayList<>();
     private ListView mListFeedback;
     private AdapterVendorFeedback adapterFeedback;
@@ -58,7 +59,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         scroll = (ScrollView) findViewById(R.id.scrollMenuDetail);
         scroll.smoothScrollTo(0,0);
-        modelMenu = ApplicationData.modelMenu;
+        modelMenu = ApplicationData.modelMenuSpeed;
 
         nameMenu.setText(modelMenu.getNama());
         timeMenu.setText(modelMenu.getTime());
@@ -95,10 +96,12 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
     private void DummyFeedback(){
         LIST_FEEDBACK = new ArrayList<ModelVendorFeedback>();
+        /*
         ModelVendorFeedback modelVendorMenu0 = new ModelVendorFeedback("0","Cinta L***", "5", "23-10-2015", "Masakannya enak");
         LIST_FEEDBACK.add(modelVendorMenu0);
         ModelVendorFeedback modelVendorMenu1 = new ModelVendorFeedback("1","Ji***", "4", "23-10-2015", "Enak tapi porsinya kurang banyak :D");
         LIST_FEEDBACK.add(modelVendorMenu1);
+        */
 
 
     }
