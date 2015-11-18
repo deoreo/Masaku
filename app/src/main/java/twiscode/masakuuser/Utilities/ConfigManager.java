@@ -11,6 +11,7 @@ public class ConfigManager {
     public static final String CHECK_RESET_PASSWORD = SERVER+"/forgot/check";
     public static final String RESET_PASSWORD = SERVER+"/forgot/reset";
     public static final String MENU_SPEED = SERVER+"/menu/speed/";
+    public static final String CALCULATE_PRICE = SERVER+"/calculate-price";
     public static final String DUKUHKUPANG = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlUb2tlbiI6Iic0T3M0VDlOMzg4J0NMMUs-MTlAZCwlT1pCJkBEOSIsImlhdCI6MTQ0NzIxMDY3MH0.xgocnzsQOLoSNZ3VoC3vlhVlzqakkNhr5hRayz008jo";
 
 }

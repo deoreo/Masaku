@@ -12,8 +12,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Utilities.ConfigManager;
 
 
@@ -133,7 +135,26 @@ public class JSONControl {
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponseToken(ConfigManager.MENU_SPEED+page, ConfigManager.DUKUHKUPANG);
+            jsonObj = _JSONResponse.GETResponseToken(ConfigManager.MENU_SPEED + page, ConfigManager.DUKUHKUPANG);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public JSONObject calculatePrice(String kode, List<ModelCart> cart) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("promoCode", kode));
+            for(int i=0;i<cart.size();i++){
+
+                params.add(new BasicNameValuePair(cart.get(i).getId(),Integer.toString(cart.get(i).getJumlah())));
+            }
+            jsonObj = _JSONResponse.POSTResponse(ConfigManager.CALCULATE_PRICE, ConfigManager.DUKUHKUPANG,params);
 
         } catch (Exception e) {
             e.printStackTrace();

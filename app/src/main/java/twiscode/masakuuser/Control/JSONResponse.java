@@ -37,6 +37,7 @@ import java.security.KeyStore;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 
@@ -217,6 +218,59 @@ public class JSONResponse {
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             httpPost.addHeader("Accept-Encoding", "gzip");
             httpPost.setHeader("X-App-Token", apptoken);
+            httpPost.setHeader("Accept-Version", ConfigManager.version);
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            _inputStream = httpEntity.getContent();
+            Header contentEncoding = httpResponse.getFirstHeader("Content-Encoding");
+            if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+                _inputStream = new GZIPInputStream(_inputStream);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    _inputStream, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            _inputStream.close();
+            _json = sb.toString();
+
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+
+        // try parse the string to a JSON object
+        try {
+            _jObj = new JSONObject(_json);
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        // return JSON String
+        return _jObj;
+
+    }
+
+    public JSONObject POSTResponseToken(String url, String apptoken, List<NameValuePair> params) {
+
+        try {
+            DefaultHttpClient  httpClient = (DefaultHttpClient)createDevelopmentHttpClientInstance();
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(new UrlEncodedFormEntity(params));
+            httpPost.addHeader("Accept-Encoding", "gzip");
+            httpPost.setHeader("X-App-Token", apptoken);
+            //httpPost.setHeader("X-Access-Token", );
             httpPost.setHeader("Accept-Version", ConfigManager.version);
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
