@@ -43,6 +43,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
+            android:text="Diskon"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/diskonCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 0"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
             android:text="Ongkos Delivery"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"            />

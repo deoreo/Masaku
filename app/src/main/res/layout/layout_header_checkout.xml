@@ -86,6 +86,9 @@
         android:textColor="@color/colorBlack"
         android:textSize="14dp"
         android:gravity="left"
+        android:singleLine="true"
+        android:lines="1"
+        android:imeOptions="actionDone"
         />
     <View
         android:layout_width="match_parent"

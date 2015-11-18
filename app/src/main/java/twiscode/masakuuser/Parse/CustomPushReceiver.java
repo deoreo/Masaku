@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.sql.Time;
 
 import twiscode.masakuuser.Activity.ActivityHome;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
 
 public class CustomPushReceiver extends ParsePushBroadcastReceiver {
@@ -101,10 +102,11 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
         try {
             String message = json.getString("alert");
             Intent resultIntent = new Intent(context, ActivityHome.class);
-            showNotificationMessage(context, "Notifikasi Masaku", message, resultIntent);
+            showNotificationMessage(context, "Notifikasi LadyJek", message, resultIntent);
             Message msg = new Message();
             msg.setMessage(message);
             msg.setTimestamp(new Time(System.currentTimeMillis()).getHours());
+            //ApplicationManager.getInstance(context).setMessage(msg);
 
         } catch (JSONException e) {
             Log.e(TAG, "Push message json exception: " + e.getMessage());
