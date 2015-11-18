@@ -22,6 +22,7 @@ import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.DialogManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by User on 10/27/2015.
@@ -178,6 +179,11 @@ public class ActivityRegister extends Activity {
         }
 
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 

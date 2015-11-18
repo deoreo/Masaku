@@ -22,6 +22,12 @@ public class ApplicationData {
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static HashMap<String,ModelCart> cart = new HashMap<>();
 
+    public static final String PARSE_CHANNEL = "masaku_user";
+    public static final String PARSE_APPLICATION_ID = "n84R2LqU4dXQFqdVj36ArIvKYxgu2TRe6oYqrb5u";
+    public static final String PARSE_CLIENT_KEY = "JeOIlqbtDaTkO8Cqospcc2YsGDm6uVnaaEW61aVH";
+    public static final int NOTIFICATION_ID = 100;
+    public static String PARSE_DEVICE_TOKEN = "";
+
 
 
 }

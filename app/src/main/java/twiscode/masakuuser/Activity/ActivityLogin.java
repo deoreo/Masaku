@@ -21,6 +21,7 @@ import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -160,6 +161,7 @@ public class ActivityLogin extends Activity{
                         userLogin.setNama(name);
                         db.insertuser(userLogin);
                         ApplicationData.login_id = _id.toString();
+                        ApplicationManager.getInstance(activity).setUserToken(token);
                         Log.d("json response id", "OK");
                         return "OK";
                     }
