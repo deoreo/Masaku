@@ -207,9 +207,6 @@ public class JSONControl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d("url token",ConfigManager.LOGIN);
-        Log.d("params token",token);
-        Log.d("return token",jsonObj.toString());
         return jsonObj;
 
     }
