@@ -101,6 +101,12 @@ public class ActivityLogin extends Activity{
             }
         });
 
+        ApplicationData.temp_hp = "";
+        ApplicationData.temp_password = "";
+        ApplicationData.temp_nama = "";
+        ApplicationData.temp_token = "";
+        ApplicationData.temp_user = new ModelUser();
+
 
 
     }
@@ -160,13 +166,25 @@ public class ActivityLogin extends Activity{
                         userLogin = new ModelUser();
                         userLogin.setPonsel(phone);
                         userLogin.setNama(name);
-                        db.insertuser(userLogin);
-                        ApplicationData.login_id = _id.toString();
+                        String verify = responseUser.getString("verified");
                         JSONObject objRefreshToken = jsControl.postRefreshToken(token);
                         String token_refresh = objRefreshToken.getString("token");
-                        ApplicationManager.getInstance(activity).setUserToken(token_refresh);
-                        Log.d("json response id", "OK " + token_refresh);
-                        return "OK";
+                        verify = "true";
+                        if(verify.equalsIgnoreCase("true")){
+                            db.insertuser(userLogin);
+                            ApplicationData.login_id = _id.toString();
+                            ApplicationData.name = name;
+                            ApplicationData.phoneNumber = phone;
+                            ApplicationManager.getInstance(activity).setUserToken(token_refresh);
+                            Log.d("json response id", "OK " + token_refresh);
+                            return "OK";
+                        }
+                        else {
+                            ApplicationData.temp_user = userLogin;
+                            ApplicationData.temp_token = token_refresh;
+                            return "VERIFY";
+                        }
+
                     }
                     else {
                         Log.d("json response id", "FAIL");
@@ -197,6 +215,12 @@ public class ActivityLogin extends Activity{
                 case "OK":
                     Intent i = new Intent(getBaseContext(), ActivityHome.class);
                     startActivity(i);
+                    finish();
+                    break;
+                case "VERIFY":
+                    ApplicationData.isVerify = 1;
+                    Intent j = new Intent(getBaseContext(), ActivityVerifyHp.class);
+                    startActivity(j);
                     finish();
                     break;
 

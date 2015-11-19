@@ -20,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -103,6 +104,7 @@ public class AdapterMenuNew extends BaseAdapter {
             final ViewHolder holder;
             convertView = mInflater.inflate(R.layout.row_menu_item_new, null);
             holder = new ViewHolder();
+            holder.progress = (ProgressBar) convertView.findViewById(R.id.progress);
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
             holder.timeMenu = (TextView) convertView.findViewById(R.id.timeMenu);
             holder.priceMenu = (TextView) convertView.findViewById(R.id.priceMenu);
@@ -138,7 +140,7 @@ public class AdapterMenuNew extends BaseAdapter {
             height = holder.imgMenu.getHeight();
             width = holder.imgMenu.getWidth();
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgMenu);
-            new DownloadImageTask(holder.imgMenu)
+            new DownloadImageTask(holder.imgMenu,holder.progress)
                     .execute(VENDOR_IMAGE);
 
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
@@ -209,13 +211,16 @@ public class AdapterMenuNew extends BaseAdapter {
         public TextView btnMinus;
         public TextView btnPlus;
         public TextView txtCount;
+        public ProgressBar progress;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
+        ProgressBar progressBar;
 
-        public DownloadImageTask(ImageView bmImage) {
+        public DownloadImageTask(ImageView bmImage, ProgressBar progressBar) {
             this.bmImage = bmImage;
+            this.progressBar = progressBar;
         }
 
         protected Bitmap doInBackground(String... urls) {
@@ -244,11 +249,11 @@ public class AdapterMenuNew extends BaseAdapter {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
-            /*
+
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);
             }
-            */
+
         }
     }
 

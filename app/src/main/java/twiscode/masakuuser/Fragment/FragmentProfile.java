@@ -28,6 +28,7 @@ import twiscode.masakuuser.Activity.ActivityLogin;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 
@@ -36,6 +37,7 @@ public class FragmentProfile extends Fragment {
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private LinearLayout btnAbout;
 	private LinearLayout btnLogout;
+	private TextView namaprofile,telponProfile;
 	private ImageView btnCart;
 	private Dialog dialog;
 	private ProgressDialog progressDialog;
@@ -64,6 +66,8 @@ public class FragmentProfile extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.activity_profile, container, false);
 		InitDialog();
+		namaprofile = (TextView) rootView.findViewById(R.id.namaProfile);
+		telponProfile = (TextView) rootView.findViewById(R.id.telponProfile);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		btnAbout = (LinearLayout) rootView.findViewById(R.id.btnAboutProfile);
 		btnLogout = (LinearLayout) rootView.findViewById(R.id.btnLogout);
@@ -97,6 +101,13 @@ public class FragmentProfile extends Fragment {
 				startActivity(i);
 			}
 		});
+
+		if(ApplicationData.phoneNumber != ""){
+			telponProfile.setText(ApplicationData.phoneNumber);
+		}
+		if(ApplicationData.name != ""){
+			namaprofile.setText(ApplicationData.name);
+		}
 
 
 		return rootView;

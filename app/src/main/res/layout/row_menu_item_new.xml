@@ -15,10 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@color/colorDarkGrey"
-            android:src="@drawable/icon"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             />
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="200dp"
