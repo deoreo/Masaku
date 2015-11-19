@@ -7,6 +7,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelPesanan;
+import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.Model.ModelVendor;
 import twiscode.masakuuser.Model.ModelVendorMenu;
 
@@ -15,6 +16,7 @@ import twiscode.masakuuser.Model.ModelVendorMenu;
  */
 public class ApplicationData {
     public static String login_id = "";
+    public static String name = "";
     public static ModelMenu modelMenu = null;
     public static ModelVendorMenu modelVendorMenu = null;
     public static String phoneNumber = "";
@@ -22,6 +24,12 @@ public class ApplicationData {
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static HashMap<String,ModelCart> cart = new HashMap<>();
     public static int def_delivery = 10000;
+    public static String temp_hp = "";
+    public static String temp_nama = "";
+    public static String temp_password = "";
+    public static int isVerify = 0;
+    public static String temp_token = "";
+    public static ModelUser temp_user= null;
 
     public static final String PARSE_CHANNEL = "masaku_user";
     public static final String PARSE_APPLICATION_ID = "ZXWmpJgJjgEBRDPI4HjVhlFkfpg7SvYJeh1B4NlQ";

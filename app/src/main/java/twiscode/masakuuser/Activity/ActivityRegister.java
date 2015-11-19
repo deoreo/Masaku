@@ -21,6 +21,7 @@ import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.DialogManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -86,20 +87,24 @@ public class ActivityRegister extends Activity {
                     Log.d("phone", phoneNumber);
                     if (num.contains("0")) {
                         Log.d("phone 1", phoneNumber);
-                        /*
-                        phoneNumber = phoneNumber.substring(1);
-
-                        */
                         DialogManager.showDialog(mActivity,"Informasi","Masukkan nomor ponsel seperti berikut : 085959084701");
 
                     }
                     else {
                         phoneNumber = "8"+phoneNumber;
+                        /*
                         new DoRegister(mActivity).execute(
                                 name,
                                 phoneNumber,
                                 password
                         );
+                        */
+                        ApplicationData.temp_hp = phoneNumber;
+                        ApplicationData.temp_nama = name;
+                        ApplicationData.temp_password = password;
+                        Intent i = new Intent(getBaseContext(), ActivityRegisterNext.class);
+                        startActivity(i);
+                        finish();
                     }
 
                 }
@@ -107,79 +112,21 @@ public class ActivityRegister extends Activity {
             }
         });
 
+        if(ApplicationData.temp_hp != ""){
+            txtPhone.setText(ApplicationData.temp_hp);
+        }
+        if(ApplicationData.temp_nama != ""){
+            txtName.setText(ApplicationData.temp_nama);
+        }
+        if(ApplicationData.temp_password != ""){
+            txtPassword.setText(ApplicationData.temp_password);
+            txtConfirm.setText(ApplicationData.temp_password);
+        }
+
 
 
     }
 
-    private class DoRegister extends AsyncTask<String, Void, String> {
-        String message="";
-        private Activity activity;
-        private Context context;
-        private Resources resources;
-        private ProgressDialog progressDialog;
-        String error = "";
-
-        public DoRegister(Activity activity) {
-            super();
-            this.activity = activity;
-            this.context = activity.getApplicationContext();
-            this.resources = activity.getResources();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(activity);
-            progressDialog.setMessage("Signing Up. . .");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-
-                String name = params[0];
-                String phoneNumber = params[1];
-                String password = params[2];
-                JSONControl jsControl = new JSONControl();
-                JSONObject responseRegister = jsControl.postRegister(name,phoneNumber, password);
-                Log.d("json responseRegister", responseRegister.toString());
-                if(! responseRegister.toString().contains("errors")){
-                    return "OK";
-                }
-                else {
-                    message = responseRegister.getString("message");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "FAIL";
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            switch (result) {
-                case "FAIL":
-                    DialogManager.showDialog(mActivity,"Warning", message);
-                    break;
-                case "OK":
-                    Intent i = new Intent(getBaseContext(), ActivityHome.class);
-                    startActivity(i);
-                    finish();
-                    break;
-            }
-        }
-
-
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

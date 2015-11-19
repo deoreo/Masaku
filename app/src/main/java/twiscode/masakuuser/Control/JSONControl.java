@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import twiscode.masakuuser.Model.ModelCart;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ConfigManager;
 
 
@@ -52,7 +53,7 @@ public class JSONControl {
 
     }
 
-    public JSONObject postRegister(String name, String email, String password) {
+    public JSONObject postRegister(String name, String email, String password, String gender, String tahun) {
 
         JSONObject jsonObj = null;
 
@@ -61,6 +62,7 @@ public class JSONControl {
             params.add(new BasicNameValuePair("name", name));
             params.add(new BasicNameValuePair("phoneNumber", email));
             params.add(new BasicNameValuePair("password", password));
+            params.add(new BasicNameValuePair("gender", gender));
             jsonObj = _JSONResponse.POSTResponse(ConfigManager.REGISTER, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
@@ -77,6 +79,21 @@ public class JSONControl {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("phoneNumber", phone));
             jsonObj = _JSONResponse.POSTResponseString(ConfigManager.FORGOT_PASSWORD, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public String postVerifyCode(String code, String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("verificationCode", code));
+            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.RESEND_VERIFY_CODE, token, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,6 +125,20 @@ public class JSONControl {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("phoneNumber", phone));
             jsonObj = _JSONResponse.POSTResponseString(ConfigManager.RESEND_RESET_PASSWORD, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public String postResendCodeVerify(String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.RESEND_VERIFY_CODE, token, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
             e.printStackTrace();
