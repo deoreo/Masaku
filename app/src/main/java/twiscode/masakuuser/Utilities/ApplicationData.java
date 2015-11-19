@@ -1,6 +1,8 @@
 package twiscode.masakuuser.Utilities;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.HashMap;
 
 import twiscode.masakuuser.Model.ModelCart;
@@ -28,6 +30,8 @@ public class ApplicationData {
     public static final String PARSE_CLIENT_KEY = "Dqad1vSUuLyf1gnfOTj929Nmb1LlC9zupQyrxUQz";
     public static final int NOTIFICATION_ID = 100;
     public static String PARSE_DEVICE_TOKEN = "";
+    public static String location = "";
+    public static LatLng posFrom;
 
 
 
