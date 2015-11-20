@@ -8,6 +8,8 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
+import twiscode.masakuuser.Activity.ActivityChangeLocation;
+
 
 public class TouchableWrapper extends FrameLayout {
 
@@ -24,7 +26,12 @@ public class TouchableWrapper extends FrameLayout {
         if(NetworkManager.getInstance(context).isConnectedInternet()) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-
+                    ActivityChangeLocation.hideKeyboard();
+                    ActivityChangeLocation.layoutMarkerFrom.setVisibility(GONE);
+                    ActivityChangeLocation.mTouchMap = true;
+                    if (ActivityChangeLocation.markerTemp != null) {
+                        ActivityChangeLocation.markerTemp.remove();
+                    }
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
@@ -33,4 +40,5 @@ public class TouchableWrapper extends FrameLayout {
 
         return super.dispatchTouchEvent(event);
     }
+
 }

@@ -21,6 +21,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -37,9 +39,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -51,8 +55,10 @@ import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * Created by User on 11/18/2015.
@@ -63,10 +69,20 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
     private String strDetail;
     private final String TAG = "ActivityChangeLocation";
     private Circle mCircle;
+    public static Marker markerTemp;
+    public static Boolean mTouchMap = false;
     private Marker markerCurrent,markerFrom;
     private CameraUpdate cameraUpdate;
     private EditText txtFrom;
-    public static Activity mActivity;
+    private ImageView btnCurrent, btnBack;
+    private RelativeLayout btnGunakan;
+    private static Activity mActivity;
+    private LatLng posFrom, posTemp, mapCenter;
+    public static LinearLayout layoutMarkerFrom;
+    private Button btnLocationFrom;
+    private TextView txtLocationFrom;
+    private ProgressBar progressMapFrom;
+    public Boolean isSearchCurrent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +90,13 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
         setContentView(R.layout.activity_change_location);
         mActivity = this;
         txtFrom = (EditText) findViewById(R.id.txtFrom);
+        btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnGunakan = (RelativeLayout) findViewById(R.id.btnGunakan);
+        layoutMarkerFrom = (LinearLayout) findViewById(R.id.layoutMarkerFrom);
+        btnLocationFrom = (Button) findViewById(R.id.btnLocationFrom);
+        txtLocationFrom = (TextView) findViewById(R.id.txtLocationFrom);
+        progressMapFrom = (ProgressBar) findViewById(R.id.progressMapFrom);
         SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         googleMap = fm.getMap();
         try {
@@ -82,11 +105,86 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
 
         }
         if (NetworkManager.getInstance(mActivity).isConnectedInternet()) {
-            new GetMyLocation(mActivity, googleMap).execute();
+                new GetMyLocation(mActivity, googleMap).execute();
         } else {
             DialogManager.showDialog(mActivity, "Mohon Maaf", "Anda tidak terhubung internet!");
         }
+        btnCurrent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "btnCurrent click");
+                isSearchCurrent = true;
+
+                if (NetworkManager.getInstance(mActivity).isConnectedInternet()) {
+                    new GetMyLocation(mActivity, googleMap).execute();
+                } else {
+                    DialogManager.showDialog(mActivity, "Mohon Maaf", "Anda tidak terhubung internet!");
+                }
+            }
+        });
+        btnGunakan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApplicationData.location = txtFrom.getText().toString();
+                Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+                startActivity(j);
+                finish();
+            }
+        });
+        btnLocationFrom.setOnClickListener(new View.OnClickListener()
+
+                                           {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   posFrom = posTemp;
+
+                                                   if (markerFrom != null) {
+                                                       markerFrom.remove();
+                                                   }
+                                                   if (markerTemp != null) {
+                                                       markerTemp.remove();
+                                                   }
+
+                                                   layoutMarkerFrom.setVisibility(GONE);
+                                                   String address = getAddress(mActivity, posFrom);
+                                                   txtFrom.setText(address);
+                                                   ApplicationData.posFrom = posFrom;
+
+                                                   markerFrom = googleMap.addMarker(
+                                                           new MarkerOptions()
+                                                                   .position(posFrom)
+                                                                   .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_from)));
+
+                                               }
+                                           }
+
+        );
         googleMap.setOnMapClickListener(this);
+        googleMap.setOnCameraChangeListener
+                (new GoogleMap.OnCameraChangeListener() {
+                     @Override
+                     public void onCameraChange(CameraPosition cameraPosition) {
+                         LatLngBounds bounds = googleMap.getProjection().getVisibleRegion().latLngBounds;
+                         if (layoutMarkerFrom.getVisibility() == VISIBLE) {
+                             try {
+                                 if (NetworkManager.getInstance(mActivity).isConnectedInternet()) {
+                                     mapCenter = googleMap.getCameraPosition().target;
+                                     String address = getAddress(mActivity, mapCenter);
+                                     txtLocationFrom.setText(address);
+                                     progressMapFrom.setVisibility(View.GONE);
+                                 } else {
+                                     layoutMarkerFrom.setVisibility(GONE);
+                                     DialogManager.showDialog(mActivity, "Mohon Maaf", "Anda tidak terhubung internet!");
+                                 }
+                             } catch (Exception e) {
+                                 e.printStackTrace();
+                             }
+                         }
+
+                     }
+                 }
+
+                );
 
     }
 
@@ -108,12 +206,45 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
 
     @Override
     public void onBackPressed() {
+        Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+        startActivity(j);
         finish();
         super.onBackPressed();  // optional depending on your needs
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
+        float zoom = googleMap.getCameraPosition().zoom;
+        if (zoom <= 15) {
+            zoom = 15;
+        }
+            posTemp = latLng;
+            markerTemp = googleMap.addMarker(
+                    new MarkerOptions()
+                            .position(latLng)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_from)));
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
+            googleMap.animateCamera(cameraUpdate, new GoogleMap.CancelableCallback() {
+                @Override
+                public void onFinish() {
+                    layoutMarkerFrom.setVisibility(VISIBLE);
+                }
+
+                @Override
+                public void onCancel() {
+                }
+            });
+    }
+
+    public static void hideKeyboard() {
+        View view = mActivity.getCurrentFocus();
+
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            //layoutSuggestion.setVisibility(GONE);
+            //handler.removeCallbacks(delayedAction);
+        }
 
     }
 
@@ -149,59 +280,71 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
             Log.v(TAG, "GetMyLocation doInBackground");
 
 
-            try {
                 try {
-                    int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
-                    if (status != ConnectionResult.SUCCESS) {
-                        int requestCode = 10;
-                    } else {
-                        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-                        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                        Criteria criteria = new Criteria();
-                        String provider = locationManager.getBestProvider(criteria, true);
-                        location = locationManager.getLastKnownLocation(provider);
-                        if (!isGPSEnabled && !isNetworkEnabled) {
-                            return "FAIL";
+                    try {
+                        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+                        if (status != ConnectionResult.SUCCESS) {
+                            int requestCode = 10;
                         } else {
-                            if (isNetworkEnabled) {
-                                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, Looper.getMainLooper());
-                                Log.v("locationManager", "Network");
-                                if (locationManager != null) {
-                                    location = locationManager
-                                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                                    if (location != null) {
-                                        latitude = location.getLatitude();
-                                        longitude = location.getLongitude();
-                                        posFrom = new LatLng(latitude, longitude);
-                                        ApplicationData.posFrom = posFrom;
-                                    }
-                                }
-                            }
-                            if (isGPSEnabled) {
-                                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, Looper.getMainLooper());
-                                Log.v("locationManager", "Network");
-                                if (locationManager != null) {
-                                    location = locationManager
-                                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                                    if (location != null) {
-                                        latitude = location.getLatitude();
-                                        longitude = location.getLongitude();
-                                        posFrom = new LatLng(latitude, longitude);
-                                        ApplicationData.posFrom = posFrom;
-                                    }
-                                }
-                            }
+                            locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+                            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                            boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                            Criteria criteria = new Criteria();
+                            String provider = locationManager.getBestProvider(criteria, true);
+                            location = locationManager.getLastKnownLocation(provider);
+                            if (!isGPSEnabled && !isNetworkEnabled) {
+                                return "FAIL";
+                            } else {
+                                if (isNetworkEnabled) {
+                                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, Looper.getMainLooper());
+                                    Log.v("locationManager", "Network");
+                                    if (locationManager != null) {
+                                        location = locationManager
+                                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                                        if (location != null) {
+                                            latitude = location.getLatitude();
+                                            longitude = location.getLongitude();
 
+                                            if(ApplicationData.posFrom!=null && !isSearchCurrent){
+                                                posFrom = ApplicationData.posFrom;
+                                            }
+                                            else {
+                                                posFrom = new LatLng(latitude, longitude);
+                                                ApplicationData.posFrom = posFrom;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (isGPSEnabled) {
+                                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, Looper.getMainLooper());
+                                    Log.v("locationManager", "Network");
+                                    if (locationManager != null) {
+                                        location = locationManager
+                                                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                        if (location != null) {
+                                            latitude = location.getLatitude();
+                                            longitude = location.getLongitude();
+                                            if(ApplicationData.posFrom!=null && !isSearchCurrent){
+                                                posFrom = ApplicationData.posFrom;
+                                            }
+                                            else {
+                                                posFrom = new LatLng(latitude, longitude);
+                                                ApplicationData.posFrom = posFrom;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
                         }
-                    }
 
+                    } catch (Exception e) {
+                    }
+                    return "OK";
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                return "OK";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
             return "FAIL";
 
         }
@@ -284,6 +427,11 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
         public void onProviderDisabled(String s) {
 
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }

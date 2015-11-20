@@ -101,6 +101,11 @@ public class ActivityCheckout extends AppCompatActivity {
         txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
         txtTip.setText("Rp. "+decimalFormat.format(tip));
         txtTotal.setText("Rp. "+decimalFormat.format(total));
+
+        String alamat = ApplicationData.location;
+        if(alamat!=""){
+            txtAlamat.setText(alamat);
+        }
         paySpiner = (NiceSpinner) footer.findViewById(R.id.paySpinner);
         segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
         segmented.setTintColor(Color.parseColor("#D02D2E"));
