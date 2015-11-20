@@ -33,7 +33,7 @@ public class FragmentPesanan extends Fragment {
 	private int mPage;
 	private ImageView btnCart;
 
-	private RecyclerView recyclerView;
+	TextView noData;
 
 
 
@@ -51,6 +51,7 @@ public class FragmentPesanan extends Fragment {
 
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_pesanan, container, false);
+		noData = (TextView) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_pesanan, null);
@@ -70,11 +71,21 @@ public class FragmentPesanan extends Fragment {
 			}
 		});
 
+		if(LIST_PESANAN.size() > 0){
+			mListView.setVisibility(View.VISIBLE);
+			noData.setVisibility(View.GONE);
+		}
+		else {
+			mListView.setVisibility(View.GONE);
+			noData.setVisibility(View.VISIBLE);
+		}
+
 		return rootView;
 	}
 
 	private void DummyData() {
 		LIST_PESANAN = new ArrayList<ModelPesanan>();
+		/*
 		ModelPesanan modelDeliver0 = new ModelPesanan("0", "Mak Yem", "Sedang Dikirim", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "27 Oktober 2015", "15.00", "40.000");
 		LIST_PESANAN.add(modelDeliver0);
 		ModelPesanan modelDeliver1 = new ModelPesanan("0", "Bu Winda", "Transaksi Berhasil", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "24 Oktober 2015", "15.00", "22.000");
@@ -85,6 +96,7 @@ public class FragmentPesanan extends Fragment {
 		LIST_PESANAN.add(modelDeliver3);
 		ModelPesanan modelDeliver4 = new ModelPesanan("0", "Ibu Mirna", "Transaksi Berhasil", "http://img.hipwee.com/cdn/wp-content/uploads/2015/07/ayam-bakar-riun-tenda.jpg?0d2690", "24 Oktober 2015", "15.00", "30.000");
 		LIST_PESANAN.add(modelDeliver4);
+		*/
 	}
 
 

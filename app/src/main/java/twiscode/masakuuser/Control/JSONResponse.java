@@ -12,6 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
@@ -366,6 +367,52 @@ public class JSONResponse {
 
             DefaultHttpClient  httpClient = (DefaultHttpClient)createDevelopmentHttpClientInstance();
             HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(new UrlEncodedFormEntity(params));
+            httpPost.addHeader("Accept-Encoding", "gzip");
+            httpPost.setHeader("X-Access-Token", xToken);
+            httpPost.setHeader("X-App-Token", token);
+            httpPost.setHeader("Accept-Version", ConfigManager.version);
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            _inputStream = httpEntity.getContent();
+            Header contentEncoding = httpResponse.getFirstHeader("Content-Encoding");
+            if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+                _inputStream = new GZIPInputStream(_inputStream);
+            }
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    _inputStream, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            _inputStream.close();
+            _json = sb.toString();
+
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+
+        // return JSON String
+        return _json;
+
+    }
+
+    public String PutResponseTokenString(String url, String xToken,String token, List<NameValuePair> params) {
+        try {
+
+            DefaultHttpClient  httpClient = (DefaultHttpClient)createDevelopmentHttpClientInstance();
+            HttpPut httpPost = new HttpPut(url);
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             httpPost.addHeader("Accept-Encoding", "gzip");
             httpPost.setHeader("X-Access-Token", xToken);

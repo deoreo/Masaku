@@ -25,6 +25,7 @@ import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 
@@ -143,6 +144,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
                     user.setNama(_name);
                     user.setPonsel(_phone);
                     ApplicationData.temp_user = user;
+
                     return "OK";
                 }
                 else {

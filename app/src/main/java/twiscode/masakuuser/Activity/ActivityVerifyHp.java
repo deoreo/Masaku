@@ -219,6 +219,8 @@ public class ActivityVerifyHp extends AppCompatActivity {
                 Log.d("json response phone", response);
 
                 if(response.contains("true")){
+                    ApplicationManager.getInstance(activity).setUserToken(ApplicationData.temp_token);
+                    ApplicationManager.getInstance(activity).setUser(ApplicationData.temp_user);
                     return "OK";
                 }
 

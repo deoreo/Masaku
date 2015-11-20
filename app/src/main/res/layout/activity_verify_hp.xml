@@ -1,0 +1,163 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true" android:focusableInTouchMode="true"
+    android:background="@drawable/white_radius"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/back_red"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MASAKU"
+            android:textColor="@color/colorRed"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="24dp"
+            android:layout_gravity="center_vertical"
+            />
+
+
+    </LinearLayout>
+    <!--
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+-->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorRed"
+                                android:textStyle="bold"
+                                android:text="Masukkan kode verifikasi"
+                                android:textSize="22dp"
+                                />
+                            <TextView
+                                android:layout_marginTop="2dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorRed"
+                                android:textStyle="bold"
+                                android:text="dari SMS ke bawah ini"
+                                android:textSize="22dp"
+                                />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="20dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal">
+                                <EditText
+                                    android:id="@+id/txtPhone"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="50dp"
+                                    android:hint="kode verifikasi"
+                                    android:textColorHint="@drawable/hint_selector_red"
+                                    android:padding="10dp"
+                                    android:background="@null"
+                                    android:textColor="@color/colorRed"
+                                    android:textStyle="bold"
+                                    android:singleLine="true"
+                                    android:maxLines="1"
+                                    android:inputType="number"
+                                    android:textCursorDrawable="@drawable/cursor_red"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/colorRed"
+                                />
+                        </LinearLayout>
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/resendCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:textColor="@color/colorRed"
+                            android:textStyle="bold"
+                            android:textSize="16dp"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:text="kirim ulang kode?"
+                            />
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/wrapperSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/colorRed">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="Kirim Kode Verifikasi"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18dp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

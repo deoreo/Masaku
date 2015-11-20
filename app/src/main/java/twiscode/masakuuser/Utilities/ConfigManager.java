@@ -16,6 +16,8 @@ public class ConfigManager {
     public static final String REFRESH_TOKEN = SERVER+"/refresh-token";
     public static final String VERIFY_PHONE_NUMBER = SERVER+"/verify";
     public static final String RESEND_VERIFY_CODE = SERVER+"/resend-code";
+    public static final String UPDATE_PROFILE = SERVER+"/profile";
+    public static final String TRANSACTIONS = SERVER+"/transactions";
     public static final String DUKUHKUPANG = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlUb2tlbiI6Iic0T3M0VDlOMzg4J0NMMUs-MTlAZCwlT1pCJkBEOSIsImlhdCI6MTQ0NzIxMDY3MH0.xgocnzsQOLoSNZ3VoC3vlhVlzqakkNhr5hRayz008jo";
 
 }

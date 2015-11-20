@@ -150,7 +150,7 @@ public class ActivityLogin extends Activity{
                 String phone = params[0];
                 String password = params[1];
                 JSONControl jsControl = new JSONControl();
-
+                Log.d("json login", phone+" - "+password);
                 JSONObject response = jsControl.postLogin(phone, password);
                 Log.d("json response", response.toString());
                 try {
@@ -169,13 +169,14 @@ public class ActivityLogin extends Activity{
                         String verify = responseUser.getString("verified");
                         JSONObject objRefreshToken = jsControl.postRefreshToken(token);
                         String token_refresh = objRefreshToken.getString("token");
-                        verify = "true";
+                        //verify = "true";
                         if(verify.equalsIgnoreCase("true")){
                             db.insertuser(userLogin);
                             ApplicationData.login_id = _id.toString();
                             ApplicationData.name = name;
                             ApplicationData.phoneNumber = phone;
                             ApplicationManager.getInstance(activity).setUserToken(token_refresh);
+                            ApplicationManager.getInstance(activity).setUser(userLogin);
                             Log.d("json response id", "OK " + token_refresh);
                             return "OK";
                         }

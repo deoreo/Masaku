@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import org.angmarch.views.NiceSpinner;
@@ -35,6 +36,7 @@ public class FragmentMenu extends Fragment {
 	private ListView mListView;
 	AdapterMenu mAdapter;
 	NiceSpinner sort,category;
+	TextView noData;
 
 
 	private int mPage;
@@ -57,6 +59,7 @@ public class FragmentMenu extends Fragment {
 
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
+		noData = (TextView) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
@@ -82,16 +85,27 @@ public class FragmentMenu extends Fragment {
 			}
 		});
 
+		if(LIST_MENU.size() > 0){
+			mListView.setVisibility(View.VISIBLE);
+			noData.setVisibility(View.GONE);
+		}
+		else {
+			mListView.setVisibility(View.GONE);
+			noData.setVisibility(View.VISIBLE);
+		}
+
 		return rootView;
 	}
 
 	private void DummyData(){
 
 		LIST_MENU = new ArrayList<ModelMenu>();
+		/*
 		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11", "20.000");
 		LIST_MENU.add(modelDeliver0);
 		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Bu Winda", "4", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "20", "20.000");
 		LIST_MENU.add(modelDeliver1);
+		*/
 
 	}
 

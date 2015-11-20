@@ -19,7 +19,9 @@ import org.json.JSONObject;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
+import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -150,6 +152,15 @@ public class ActivitySplash extends AppCompatActivity {
                     finish();
                     break;
                 case "OK":
+                    try {
+                        ModelUser user = appManager.getUser();
+                        ApplicationData.login_id = user.getId();
+                        ApplicationData.name = user.getNama();
+                        ApplicationData.phoneNumber = user.getPonsel();
+                    }
+                    catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                     Intent j = new Intent(getBaseContext(), ActivityHome.class);
                     startActivity(j);
                     finish();

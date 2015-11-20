@@ -93,7 +93,7 @@ public class JSONControl {
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("verificationCode", code));
-            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.RESEND_VERIFY_CODE, token, ConfigManager.DUKUHKUPANG, params);
+            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.VERIFY_PHONE_NUMBER, token, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,6 +240,21 @@ public class JSONControl {
         }
         return jsonObj;
 
+    }
+
+    public String updateProfile(String data, String param,String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair(param, data));
+            jsonObj = _JSONResponse.PutResponseTokenString(ConfigManager.UPDATE_PROFILE,token,ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
     }
 
 

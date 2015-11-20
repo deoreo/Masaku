@@ -3,6 +3,10 @@ package twiscode.masakuuser.Utilities;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import twiscode.masakuuser.Model.ModelUser;
+
 /**
  * Created by User on 10/21/2015.
  */
@@ -43,6 +47,24 @@ public class ApplicationManager {
         if (sInstance == null)
             sInstance = new ApplicationManager(ctx);
         return sInstance;
+    }
+
+    public void setUser(ModelUser user) {
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(user);
+            mEditor.putString(KEY_USER, json);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NullPointerException();
+        }
+        mEditor.commit();
+    }
+    public ModelUser getUser() {
+        Gson gson = new Gson();
+        String json = mPref.getString(KEY_USER, null);
+        ModelUser user = gson.fromJson(json,ModelUser.class);
+        return user;
     }
 
     public void setUserToken(String userToken) {
