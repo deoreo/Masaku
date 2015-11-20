@@ -34,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -402,7 +403,7 @@ public class ActivityCheckout extends AppCompatActivity {
                                     @Override
                                     public void onPositive(MaterialDialog dialog) {
                                         if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
-                                            SendBroadcast("updateCart", "true");
+                                            ApplicationData.cart = new HashMap<String, ModelCart>();
                                             Intent j = new Intent(getBaseContext(), ActivityHome.class);
                                             startActivity(j);
                                             finish();
