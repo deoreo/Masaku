@@ -98,6 +98,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/next_grey"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:layout_marginRight="5dp"/>
         </LinearLayout>
         <TextView
@@ -109,6 +110,7 @@
             android:gravity="center"
             android:textAllCaps="true"
             android:textStyle="bold"
+            android:visibility="gone"
             android:textColor="@color/colorWhite"
 
             />
