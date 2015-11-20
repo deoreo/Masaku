@@ -2,6 +2,7 @@ package twiscode.masakuuser.Control;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
@@ -212,21 +213,26 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject checkOut(String kode, String address, String note, String accessToken,List<ModelCart> cart) {
+    public JSONObject checkOut(String kode, String address, String note, LatLng pos, String accessToken,List<ModelCart> cart) {
 
         JSONObject jsonObj = new JSONObject();
 
         try {
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            HashMap<String,Integer> ca = new HashMap<>();
-            JSONArray jsArr = new JSONArray();
-            Gson gson = new Gson();
-            String json = gson.toJson(ca);
+            JSONArray loc = new JSONArray();
+            try {
+                loc.put(0, pos.longitude);
+                loc.put(1, pos.latitude);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             params.add(new BasicNameValuePair("promoCode", kode));
             params.add(new BasicNameValuePair("address", address));
             params.add(new BasicNameValuePair("note", note));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.longitude));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.latitude));
             for(int i=0;i<cart.size();i++){
                 params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
             }

@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -365,7 +366,7 @@ public class ActivityCheckout extends AppCompatActivity {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.checkOut(kode, address, note, applicationManager.getUserToken(), cart);
+                JSONObject response = jsControl.checkOut(kode, address, note, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try{
                     return "OK";
@@ -401,6 +402,7 @@ public class ActivityCheckout extends AppCompatActivity {
                                     @Override
                                     public void onPositive(MaterialDialog dialog) {
                                         if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
+                                            SendBroadcast("updateCart", "true");
                                             Intent j = new Intent(getBaseContext(), ActivityHome.class);
                                             startActivity(j);
                                             finish();
@@ -428,6 +430,13 @@ public class ActivityCheckout extends AppCompatActivity {
         }
 
 
+    }
+
+    private void SendBroadcast(String typeBroadcast,String type){
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(act).sendBroadcast(intent);
     }
 
     @Override
