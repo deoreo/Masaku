@@ -22,7 +22,10 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
@@ -150,8 +153,10 @@ public class FragmentPesanan extends Fragment {
                         String id = menus.getJSONObject(i).getString("_id");
                         String price = menus.getJSONObject(i).getString("price");
                         String status = menus.getJSONObject(i).getString("status");;
-						String create = menus.getJSONObject(i).getString("createdAt");;
-                        String date = "";
+						String create = menus.getJSONObject(i).getString("createdAt");
+                        String dt = create.split("T")[0];
+                        String[] dd = dt.split("-");
+                        String date = dd[2]+" "+getMonth(dd[1])+" "+dd[0];
 						String time = "";
                         ModelPesanan menu = new ModelPesanan(id, status, date, time, price);
                         LIST_PESANAN.add(menu);
@@ -190,6 +195,54 @@ public class FragmentPesanan extends Fragment {
             }
         }
     }
+
+    String getMonth(String bulan){
+        String bln="";
+        switch (bulan){
+            case "01":
+                bln = "Januari";
+                break;
+            case "02":
+                bln = "Februari";
+                break;
+            case "03":
+                bln = "Maret";
+                break;
+            case "04":
+                bln = "April";
+                break;
+            case "05":
+                bln = "Mei";
+                break;
+            case "06":
+                bln = "Juni";
+                break;
+            case "07":
+                bln = "Juli";
+                break;
+            case "08":
+                bln = "Agustus";
+                break;
+            case "09":
+                bln = "September";
+                break;
+            case "10":
+                bln = "Oktober";
+                break;
+            case "11":
+                bln = "November";
+                break;
+            case "12":
+                bln = "Desember";
+                break;
+            default:
+                bln = "Januari";
+                break;
+        }
+        return bln;
+    }
+
+
 
 
 }
