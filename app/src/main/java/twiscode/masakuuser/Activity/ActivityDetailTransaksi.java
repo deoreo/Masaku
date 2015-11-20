@@ -69,7 +69,7 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkout);
+        setContentView(R.layout.activity_detail_transaksi);
         act = this;
         applicationManager = new ApplicationManager(act);
         btnBack = (ImageView) findViewById(R.id.btnBack);
