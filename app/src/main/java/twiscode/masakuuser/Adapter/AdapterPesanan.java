@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import twiscode.masakuuser.Activity.ActivityDetailTransaksi;
 import twiscode.masakuuser.Activity.ActivityMenuDetail;
+import twiscode.masakuuser.Activity.ActivityVerifyHp;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -70,6 +73,7 @@ public class AdapterPesanan extends BaseAdapter {
             holder.dateOrder = (TextView) convertView.findViewById(R.id.datePesanan);
             holder.statusOrder = (TextView) convertView.findViewById(R.id.statusPesanan);
             holder.harga = (TextView) convertView.findViewById(R.id.hargaPesanan);
+            holder.btnPesan = (TextView) convertView.findViewById(R.id.btnPesan);
             //holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
             convertView.setTag(position);
 
@@ -86,8 +90,17 @@ public class AdapterPesanan extends BaseAdapter {
             holder.namaVendor.setText(ID );
             holder.dateOrder.setText(VENDOR_DATE+" "+VENDOR_TIME);
             holder.statusOrder.setText(VENDOR_STATUS);
-            holder.harga.setText("Rp "+VENDOR_HARGA);
+            holder.harga.setText("Rp " + VENDOR_HARGA);
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
+            holder.btnPesan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ApplicationData.pesanan = modelPesanan;
+                    Intent j = new Intent(mAct, ActivityDetailTransaksi.class);
+                    mAct.startActivity(j);
+                }
+            });
+
 
         }
         return convertView;
@@ -98,6 +111,7 @@ public class AdapterPesanan extends BaseAdapter {
         public TextView dateOrder;
         public TextView statusOrder;
         public TextView harga;
+        public TextView btnPesan;
         //public ImageView imgVendor;
     }
 

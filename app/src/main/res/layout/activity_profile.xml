@@ -255,7 +255,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:paddingRight="30dp"
-                    android:text="HOTLINE : 021-56161616"
+                    android:text="HOTLINE : 081234534488"
                     android:textColor="@color/colorBlack"
                     />
                 <TextView
