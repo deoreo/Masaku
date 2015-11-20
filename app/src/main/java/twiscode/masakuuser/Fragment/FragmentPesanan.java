@@ -72,7 +72,8 @@ public class FragmentPesanan extends Fragment {
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_pesanan, null);
 		jmlPesanan = (TextView)header.findViewById(R.id.jumlahPesanan);
-		jmlPesanan.setText(LIST_PESANAN.size()+" Pesanan");
+
+
 		mListView.addHeaderView(header);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
@@ -87,22 +88,17 @@ public class FragmentPesanan extends Fragment {
 			}
 		});
 
-		if(LIST_PESANAN.size() > 0){
-			mListView.setVisibility(View.VISIBLE);
-			noData.setVisibility(View.GONE);
-		}
-		else {
-			mListView.setVisibility(View.GONE);
-			noData.setVisibility(View.VISIBLE);
-		}
-        DummyData();
+
+
+        new GetPesanan(getActivity()).execute();
+
 
 		return rootView;
 	}
 
 	private void DummyData() {
 
-        new GetPesanan(getActivity()).execute();
+
 		/*
 		ModelPesanan modelDeliver0 = new ModelPesanan("0", "Mak Yem", "Sedang Dikirim", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "27 Oktober 2015", "15.00", "40.000");
 		LIST_PESANAN.add(modelDeliver0);
@@ -162,7 +158,7 @@ public class FragmentPesanan extends Fragment {
 						String time = "";
 
                         ModelPesanan menu = new ModelPesanan(address, status, date, time, price);
-                        LIST_PESANAN.add(menu);
+                        LIST_PESANAN.add(0,menu);
                     }
 
                     return "OK";
@@ -193,6 +189,15 @@ public class FragmentPesanan extends Fragment {
                     Log.d("jumlah menu : ",""+LIST_PESANAN.size());
                     mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
                     mListView.setAdapter(mAdapter);
+                    jmlPesanan.setText(LIST_PESANAN.size() + " Pesanan");
+                    if(LIST_PESANAN.size() > 0){
+                        mListView.setVisibility(View.VISIBLE);
+                        noData.setVisibility(View.GONE);
+                    }
+                    else {
+                        mListView.setVisibility(View.GONE);
+                        noData.setVisibility(View.VISIBLE);
+                    }
                     break;
 
             }
