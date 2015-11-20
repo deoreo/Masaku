@@ -178,6 +178,21 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject getPesanan(String token) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.TRANSACTIONS, ConfigManager.DUKUHKUPANG, token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+
     public JSONObject calculatePrice(String kode, String accessToken,List<ModelCart> cart) {
 
         JSONObject jsonObj = new JSONObject();
@@ -284,7 +299,7 @@ public class JSONControl {
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(param, data));
-            jsonObj = _JSONResponse.PutResponseTokenString(ConfigManager.UPDATE_PROFILE,token,ConfigManager.DUKUHKUPANG, params);
+            jsonObj = _JSONResponse.PutResponseTokenString(ConfigManager.UPDATE_PROFILE, token, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
             e.printStackTrace();

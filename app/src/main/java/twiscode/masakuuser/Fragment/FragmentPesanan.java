@@ -1,11 +1,17 @@
 package twiscode.masakuuser.Fragment;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +19,22 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
+import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Adapter.AdapterPesanan;
+import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
 public class FragmentPesanan extends Fragment {
 
@@ -84,7 +97,8 @@ public class FragmentPesanan extends Fragment {
 	}
 
 	private void DummyData() {
-		LIST_PESANAN = new ArrayList<ModelPesanan>();
+
+        new GetPesanan(getActivity()).execute();
 		/*
 		ModelPesanan modelDeliver0 = new ModelPesanan("0", "Mak Yem", "Sedang Dikirim", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "27 Oktober 2015", "15.00", "40.000");
 		LIST_PESANAN.add(modelDeliver0);
@@ -98,6 +112,85 @@ public class FragmentPesanan extends Fragment {
 		LIST_PESANAN.add(modelDeliver4);
 		*/
 	}
+
+    private class GetPesanan extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+
+        public GetPesanan(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Loading. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                LIST_PESANAN = new ArrayList<ModelPesanan>();
+                JSONControl jsControl = new JSONControl();
+                JSONObject response = jsControl.getPesanan(ApplicationManager.getInstance(context).getUserToken());
+                Log.d("json response", response.toString());
+                JSONArray menus = response.getJSONArray("transactions");
+                if(menus.length() > 0){
+                    for(int i=0;i<menus.length();i++){
+                        String id = menus.getJSONObject(i).getString("_id");
+                        String nama = menus.getJSONObject(i).getString("name");
+                        String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
+                        String price = menus.getJSONObject(i).getString("price");
+                        String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
+                        String status = "";
+                        String date = "";
+                        ModelPesanan menu = new ModelPesanan(id, nama, status, foto, date, time, price);
+                        LIST_PESANAN.add(menu);
+                    }
+
+                    return "OK";
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.d("json response id 0", "FAIL");
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            switch (result) {
+                case "FAIL":
+                    //DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+                    break;
+                case "OK":
+                    //Intent i = new Intent(getBaseContext(), ActivityHome.class);
+                    //startActivity(i);
+                    //finish();
+                    Log.d("jumlah menu : ",""+LIST_PESANAN.size());
+                    mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
+                    mListView.setAdapter(mAdapter);
+                    break;
+
+            }
+        }
+    }
 
 
 }
