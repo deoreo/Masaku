@@ -70,7 +70,7 @@ public class AdapterPesanan extends BaseAdapter {
             holder.dateOrder = (TextView) convertView.findViewById(R.id.datePesanan);
             holder.statusOrder = (TextView) convertView.findViewById(R.id.statusPesanan);
             holder.harga = (TextView) convertView.findViewById(R.id.hargaPesanan);
-            holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
+            //holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
             convertView.setTag(position);
 
             final ModelPesanan modelPesanan = mSourceData.get(position);
@@ -83,11 +83,11 @@ public class AdapterPesanan extends BaseAdapter {
             final String VENDOR_IMAGE = modelPesanan.getFoto();
 
 
-            holder.namaVendor.setText(VENDOR_NAMA );
+            holder.namaVendor.setText(ID );
             holder.dateOrder.setText(VENDOR_DATE+" "+VENDOR_TIME);
             holder.statusOrder.setText(VENDOR_STATUS);
             holder.harga.setText("Rp "+VENDOR_HARGA);
-            Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
+            //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
 
         }
         return convertView;
@@ -98,7 +98,7 @@ public class AdapterPesanan extends BaseAdapter {
         public TextView dateOrder;
         public TextView statusOrder;
         public TextView harga;
-        public ImageView imgVendor;
+        //public ImageView imgVendor;
     }
 
 

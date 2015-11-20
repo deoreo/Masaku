@@ -22,7 +22,10 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
@@ -62,7 +65,7 @@ public class FragmentPesanan extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		DummyData();
+
 		View rootView = inflater.inflate(R.layout.activity_pesanan, container, false);
 		noData = (TextView) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
@@ -92,6 +95,7 @@ public class FragmentPesanan extends Fragment {
 			mListView.setVisibility(View.GONE);
 			noData.setVisibility(View.VISIBLE);
 		}
+        DummyData();
 
 		return rootView;
 	}
@@ -148,12 +152,14 @@ public class FragmentPesanan extends Fragment {
                 if(menus.length() > 0){
                     for(int i=0;i<menus.length();i++){
                         String id = menus.getJSONObject(i).getString("_id");
+                        String address = menus.getJSONObject(i).getString("address");
                         String price = menus.getJSONObject(i).getString("price");
                         String status = menus.getJSONObject(i).getString("status");;
 						String create = menus.getJSONObject(i).getString("createdAt");;
                         String date = "";
 						String time = "";
-                        ModelPesanan menu = new ModelPesanan(id, status, date, time, price);
+
+                        ModelPesanan menu = new ModelPesanan(address, status, date, time, price);
                         LIST_PESANAN.add(menu);
                     }
 
