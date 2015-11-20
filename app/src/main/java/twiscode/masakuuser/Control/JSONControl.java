@@ -212,6 +212,35 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject checkOut(String kode, String address, String note, String accessToken,List<ModelCart> cart) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            HashMap<String,Integer> ca = new HashMap<>();
+            JSONArray jsArr = new JSONArray();
+            Gson gson = new Gson();
+            String json = gson.toJson(ca);
+
+            params.add(new BasicNameValuePair("promoCode", kode));
+            params.add(new BasicNameValuePair("address", address));
+            params.add(new BasicNameValuePair("note", note));
+            for(int i=0;i<cart.size();i++){
+                params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
+            }
+
+
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CHECKOUT, ConfigManager.DUKUHKUPANG, accessToken, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+
     public String postLogoutAll(String token) {
 
         String jsonObj = null;
