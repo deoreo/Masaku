@@ -20,6 +20,14 @@ public class ModelPesanan {
         this.foto = foto;
     }
 
+    public ModelPesanan(String id, String status, String tanggal, String jam, String harga){
+        this.id = id;
+        this.status = status;
+        this.tanggal = tanggal;
+        this.jam = jam;
+        this.harga = harga;
+    }
+
     public String getId() {
         return id;
     }

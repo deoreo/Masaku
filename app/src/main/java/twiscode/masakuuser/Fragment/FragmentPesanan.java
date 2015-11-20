@@ -148,13 +148,12 @@ public class FragmentPesanan extends Fragment {
                 if(menus.length() > 0){
                     for(int i=0;i<menus.length();i++){
                         String id = menus.getJSONObject(i).getString("_id");
-                        String nama = menus.getJSONObject(i).getString("name");
-                        String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
                         String price = menus.getJSONObject(i).getString("price");
-                        String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
-                        String status = "";
+                        String status = menus.getJSONObject(i).getString("status");;
+						String create = menus.getJSONObject(i).getString("createdAt");;
                         String date = "";
-                        ModelPesanan menu = new ModelPesanan(id, nama, status, foto, date, time, price);
+						String time = "";
+                        ModelPesanan menu = new ModelPesanan(id, status, date, time, price);
                         LIST_PESANAN.add(menu);
                     }
 
