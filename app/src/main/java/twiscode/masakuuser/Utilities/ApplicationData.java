@@ -32,6 +32,7 @@ public class ApplicationData {
     public static int isVerify = 0;
     public static String temp_token = "";
     public static ModelUser temp_user= null;
+    public static ModelPesanan pesanan = null;
 
     public static final String PARSE_CHANNEL = "masaku_user";
     public static final String PARSE_APPLICATION_ID = "ZXWmpJgJjgEBRDPI4HjVhlFkfpg7SvYJeh1B4NlQ";
