@@ -155,8 +155,10 @@ public class FragmentPesanan extends Fragment {
                         String address = menus.getJSONObject(i).getString("address");
                         String price = menus.getJSONObject(i).getString("price");
                         String status = menus.getJSONObject(i).getString("status");;
-						String create = menus.getJSONObject(i).getString("createdAt");;
-                        String date = "";
+						String create = menus.getJSONObject(i).getString("createdAt");
+                        String dt = create.split("T")[0];
+                        String[] dd = dt.split("-");
+                        String date = dd[2]+" "+getMonth(dd[1])+" "+dd[0];
 						String time = "";
 
                         ModelPesanan menu = new ModelPesanan(address, status, date, time, price);
@@ -196,6 +198,54 @@ public class FragmentPesanan extends Fragment {
             }
         }
     }
+
+    String getMonth(String bulan){
+        String bln="";
+        switch (bulan){
+            case "01":
+                bln = "Januari";
+                break;
+            case "02":
+                bln = "Februari";
+                break;
+            case "03":
+                bln = "Maret";
+                break;
+            case "04":
+                bln = "April";
+                break;
+            case "05":
+                bln = "Mei";
+                break;
+            case "06":
+                bln = "Juni";
+                break;
+            case "07":
+                bln = "Juli";
+                break;
+            case "08":
+                bln = "Agustus";
+                break;
+            case "09":
+                bln = "September";
+                break;
+            case "10":
+                bln = "Oktober";
+                break;
+            case "11":
+                bln = "November";
+                break;
+            case "12":
+                bln = "Desember";
+                break;
+            default:
+                bln = "Januari";
+                break;
+        }
+        return bln;
+    }
+
+
 
 
 }
