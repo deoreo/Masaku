@@ -395,7 +395,7 @@ public class ActivityCheckout extends AppCompatActivity {
                     break;
                 case "OK":
                     try {
-                        Context ctx = ActivityCheckout.this;
+                        final Context ctx = ActivityCheckout.this;
                         new MaterialDialog.Builder(ctx)
                                 .title("Anda yakin untuk order?")
                                 .positiveText("OK")
@@ -403,11 +403,27 @@ public class ActivityCheckout extends AppCompatActivity {
                                     @Override
                                     public void onPositive(MaterialDialog dialog) {
                                         if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
-                                            ApplicationData.cart = new HashMap<String, ModelCart>();
-                                            Intent j = new Intent(getBaseContext(), ActivityHome.class);
-                                            startActivity(j);
-                                            finish();
-
+                                            new MaterialDialog.Builder(ctx)
+                                                    .title("Terima kasih")
+                                                    .content("Pesanan Anda akan segera kami proses")
+                                                    .positiveText("OK")
+                                                    .callback(new MaterialDialog.ButtonCallback() {
+                                                        @Override
+                                                        public void onPositive(MaterialDialog dialog) {
+                                                            if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
+                                                                ApplicationData.cart = new HashMap<String, ModelCart>();
+                                                                Intent j = new Intent(getBaseContext(), ActivityHome.class);
+                                                                startActivity(j);
+                                                                finish();
+                                                            } else {
+                                                                DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
+                                                            }
+                                                            dialog.dismiss();
+                                                        }
+                                                    })
+                                                    .cancelable(false)
+                                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                                    .show();
                                         } else {
                                             DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
                                         }
