@@ -8,11 +8,13 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
@@ -31,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -45,6 +49,8 @@ import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.DialogManager;
+import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -58,6 +64,7 @@ public class ActivityCheckout extends AppCompatActivity {
     private ImageView btnBack;
     private ListView mListView;
     private TextView txtSubtotal,txtTip,txtDelivery,txtTotal,txtDiskon,noData,txtAlamat;
+    private Button btnKonfirmasi;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     SegmentedGroup segmented;
@@ -96,11 +103,18 @@ public class ActivityCheckout extends AppCompatActivity {
         txtTip = (TextView)footer.findViewById(R.id.tipCheckout);
         txtDiskon = (TextView)footer.findViewById(R.id.diskonCheckout);
         txtTotal = (TextView)footer.findViewById(R.id.totalCheckout);
+        btnKonfirmasi = (Button) footer.findViewById(R.id.btnKonfirmasi);
+
         txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
         txtSubtotal.setText("Rp. "+decimalFormat.format(subtotal));
         txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
         txtTip.setText("Rp. "+decimalFormat.format(tip));
         txtTotal.setText("Rp. "+decimalFormat.format(total));
+
+        String alamat = ApplicationData.location;
+        if(alamat!=""){
+            txtAlamat.setText(alamat);
+        }
         paySpiner = (NiceSpinner) footer.findViewById(R.id.paySpinner);
         segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
         segmented.setTintColor(Color.parseColor("#D02D2E"));
@@ -185,6 +199,23 @@ public class ActivityCheckout extends AppCompatActivity {
         }
 
         new CalculatePrice(ActivityCheckout.this).execute(txtKode.getText().toString());
+
+        btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtAlamat.getText().toString()==""){
+                    DialogManager.showDialog(act,"Mohon Maaf", "Isi alamat anda");
+                }
+                else {
+                    new CheckOut(ActivityCheckout.this).execute(
+                            txtKode.getText().toString(),
+                            txtAlamat.getText().toString(),
+                            txtNote.getText().toString()
+                    );
+                }
+
+            }
+        });
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -300,6 +331,115 @@ public class ActivityCheckout extends AppCompatActivity {
 
 
     }
+
+
+    private class CheckOut extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+
+        public CheckOut(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Loading. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                String kode = params[0];
+                String address = params[1];
+                String note = params[2];
+
+                JSONControl jsControl = new JSONControl();
+                List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                JSONObject response = jsControl.checkOut(kode, address, note, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
+                Log.d("json response checkout", response.toString());
+                try{
+                    return "OK";
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+
+            switch (result) {
+                case "FAIL":
+
+                    break;
+                case "OK":
+                    try {
+                        Context ctx = ActivityCheckout.this;
+                        new MaterialDialog.Builder(ctx)
+                                .title("Anda yakin untuk order?")
+                                .positiveText("OK")
+                                .callback(new MaterialDialog.ButtonCallback() {
+                                    @Override
+                                    public void onPositive(MaterialDialog dialog) {
+                                        if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
+                                            ApplicationData.cart = new HashMap<String, ModelCart>();
+                                            Intent j = new Intent(getBaseContext(), ActivityHome.class);
+                                            startActivity(j);
+                                            finish();
+
+                                        } else {
+                                            DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
+                                        }
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .negativeText("Tidak")
+                                .cancelable(false)
+                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                .show();
+                    } catch (Exception e) {
+
+                    }
+
+
+
+                    break;
+            }
+            progressDialog.dismiss();
+
+        }
+
+
+    }
+
+    private void SendBroadcast(String typeBroadcast,String type){
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(act).sendBroadcast(intent);
+    }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

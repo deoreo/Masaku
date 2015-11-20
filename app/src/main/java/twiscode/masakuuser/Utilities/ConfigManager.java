@@ -12,6 +12,7 @@ public class ConfigManager {
     public static final String RESET_PASSWORD = SERVER+"/forgot/reset";
     public static final String MENU_SPEED = SERVER+"/menu/speed/";
     public static final String CALCULATE_PRICE = SERVER+"/calculate-price";
+    public static final String CHECKOUT = SERVER+"/checkout";
     public static final String LOGOUT_ALL = SERVER+"/logout-all";
     public static final String REFRESH_TOKEN = SERVER+"/refresh-token";
     public static final String VERIFY_PHONE_NUMBER = SERVER+"/verify";
