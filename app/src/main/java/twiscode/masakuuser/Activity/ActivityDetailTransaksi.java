@@ -83,12 +83,12 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
 
         DummyData();
 
-        View header = getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
+        View header = getLayoutInflater().inflate(R.layout.layout_header_detail_transaksi, null);
         txtKode = (TextView) header.findViewById(R.id.kodePromoCheckout);
         txtNote = (TextView) header.findViewById(R.id.noteCheckout);
         txtAlamat = (TextView)header.findViewById(R.id.alamatCheckout);
         mListView.addHeaderView(header);
-        View footer = getLayoutInflater().inflate(R.layout.layout_footer_checkout, null);
+        View footer = getLayoutInflater().inflate(R.layout.layout_footer_detail_transaksi, null);
         txtSubtotal = (TextView)footer.findViewById(R.id.subtotalCheckout);
         txtDelivery = (TextView)footer.findViewById(R.id.deliveryCheckout);
         txtTip = (TextView)footer.findViewById(R.id.tipCheckout);
