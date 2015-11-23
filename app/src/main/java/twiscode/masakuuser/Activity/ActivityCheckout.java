@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -75,12 +76,14 @@ public class ActivityCheckout extends AppCompatActivity {
     int total = 0;
     int diskon = 0;
     private DecimalFormat decimalFormat;
+    private ProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
         act = this;
         applicationManager = new ApplicationManager(act);
+        progress = (ProgressBar) findViewById(R.id.progress);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         mListView = (ListView) findViewById(R.id.listCheckout);
         noData = (TextView)findViewById(R.id.noData);
@@ -119,7 +122,7 @@ public class ActivityCheckout extends AppCompatActivity {
         segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
         segmented.setTintColor(Color.parseColor("#D02D2E"));
         segmented.check(R.id.button23);
-        List<String> dataPay = new LinkedList<>(Arrays.asList("Cash", "E-Cash Mandiri"));
+        List<String> dataPay = new LinkedList<>(Arrays.asList("Cash"));
         paySpiner.attachDataSource(dataPay);
         mListView.addFooterView(footer);
         mAdapter = new AdapterCheckout(this, LIST_MENU);
@@ -188,7 +191,7 @@ public class ActivityCheckout extends AppCompatActivity {
                     }
                 });
 
-
+        /*
         if(ApplicationData.cart.size() > 0){
             mListView.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
@@ -197,6 +200,7 @@ public class ActivityCheckout extends AppCompatActivity {
             mListView.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
+        */
 
         new CalculatePrice(ActivityCheckout.this).execute(txtKode.getText().toString());
 
@@ -261,12 +265,15 @@ public class ActivityCheckout extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            /*
             progressDialog = new ProgressDialog(activity);
             progressDialog.setMessage("Loading. . .");
             progressDialog.setIndeterminate(false);
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
+            */
+            progress.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -306,7 +313,7 @@ public class ActivityCheckout extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-
+            progress.setVisibility(View.GONE);
             switch (result) {
                 case "FAIL":
                     if(delivery==0){
@@ -325,7 +332,15 @@ public class ActivityCheckout extends AppCompatActivity {
                     txtTotal.setText("Rp. "+decimalFormat.format(total));
                     break;
             }
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
+            if(ApplicationData.cart.size() > 0){
+                mListView.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+            }
+            else {
+                mListView.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            }
 
         }
 
@@ -348,6 +363,7 @@ public class ActivityCheckout extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            /*
             super.onPreExecute();
             progressDialog = new ProgressDialog(activity);
             progressDialog.setMessage("Loading. . .");
@@ -355,6 +371,8 @@ public class ActivityCheckout extends AppCompatActivity {
             progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
+            */
+            progress.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -388,7 +406,7 @@ public class ActivityCheckout extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-
+            progress.setVisibility(View.GONE);
             switch (result) {
                 case "FAIL":
 
@@ -442,7 +460,7 @@ public class ActivityCheckout extends AppCompatActivity {
 
                     break;
             }
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
 
         }
 

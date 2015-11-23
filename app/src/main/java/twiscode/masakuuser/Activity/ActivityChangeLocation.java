@@ -80,16 +80,18 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
     private LatLng posFrom, posTemp, mapCenter;
     public static LinearLayout layoutMarkerFrom;
     private Button btnLocationFrom;
-    private TextView txtLocationFrom;
+    private TextView txtLocationFrom,upLocation;
     private ProgressBar progressMapFrom;
     public Boolean isSearchCurrent = false;
     private LinearLayout layoutfillForm;
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_location);
         mActivity = this;
+        progress = (ProgressBar) findViewById(R.id.progress);
         txtFrom = (EditText) findViewById(R.id.txtFrom);
         btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
         btnBack = (ImageView) findViewById(R.id.btnBack);
@@ -97,6 +99,7 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
         layoutMarkerFrom = (LinearLayout) findViewById(R.id.layoutMarkerFrom);
         btnLocationFrom = (Button) findViewById(R.id.btnLocationFrom);
         txtLocationFrom = (TextView) findViewById(R.id.txtLocationFrom);
+        upLocation = (TextView) findViewById(R.id.txtLocation);
         progressMapFrom = (ProgressBar) findViewById(R.id.progressMapFrom);
         layoutfillForm = (LinearLayout) findViewById(R.id.layoutfillForm);
         SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
@@ -111,6 +114,19 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
         } else {
             DialogManager.showDialog(mActivity, "Mohon Maaf", "Anda tidak terhubung internet!");
         }
+
+        upLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         layoutfillForm.setOnClickListener(new View.OnClickListener() {
             @Override
