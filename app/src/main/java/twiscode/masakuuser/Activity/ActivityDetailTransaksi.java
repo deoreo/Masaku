@@ -113,9 +113,6 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         mListView.setAdapter(mAdapter);
         mListView.setScrollingCacheEnabled(false);
 
-
-
-
         if(ApplicationData.cart.size() > 0){
             mListView.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
@@ -124,7 +121,6 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
             mListView.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
-
 
         new DetailTransaksi(ActivityDetailTransaksi.this).execute();
 
@@ -176,12 +172,10 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         protected String doInBackground(String... params) {
             try {
 
-
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
                 JSONObject response = jsControl.detailTransaksi(ApplicationData.pesanan.getId(), applicationManager.getUserToken());
                 Log.d("json response", response.toString());
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -194,7 +188,6 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
 
             switch (result) {
                 case "FAIL":
@@ -211,9 +204,6 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
 
     }
 
-
-
-
     private void SendBroadcast(String typeBroadcast,String type){
         Intent intent = new Intent(typeBroadcast);
         // add data
@@ -225,7 +215,5 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
 
 }
