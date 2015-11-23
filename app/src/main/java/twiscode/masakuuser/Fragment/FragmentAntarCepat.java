@@ -103,6 +103,7 @@ public class FragmentAntarCepat extends Fragment {
 			public void onClick(View view) {
 				Intent i = new Intent(getActivity(), ActivityCheckout.class);
 				startActivity(i);
+				getActivity().finish();
 			}
 		});
 		/*

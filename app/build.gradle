@@ -5,7 +5,7 @@ android {
         apksignkey {
             keyAlias 'apksignkey'
             keyPassword 'kiasu123'
-            storeFile file('C:/apksignkey_masaku_user.jks')
+            storeFile file('C:/masaku_user.jks')
             storePassword 'kiasu123'
         }
     }
