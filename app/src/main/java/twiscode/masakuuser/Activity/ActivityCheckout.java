@@ -61,10 +61,10 @@ public class ActivityCheckout extends AppCompatActivity {
 
     Activity act;
     ApplicationManager applicationManager;
-    private EditText txtKode,txtNote;
+    private EditText txtKode, txtNote;
     private ImageView btnBack;
     private ListView mListView;
-    private TextView txtSubtotal,txtTip,txtDelivery,txtTotal,txtDiskon,noData,txtAlamat;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat;
     private Button btnKonfirmasi;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
@@ -77,6 +77,7 @@ public class ActivityCheckout extends AppCompatActivity {
     int diskon = 0;
     private DecimalFormat decimalFormat;
     private ProgressBar progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,7 @@ public class ActivityCheckout extends AppCompatActivity {
         progress = (ProgressBar) findViewById(R.id.progress);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         mListView = (ListView) findViewById(R.id.listCheckout);
-        noData = (TextView)findViewById(R.id.noData);
+        noData = (TextView) findViewById(R.id.noData);
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
         otherSymbols.setDecimalSeparator(',');
         otherSymbols.setGroupingSeparator('.');
@@ -98,24 +99,24 @@ public class ActivityCheckout extends AppCompatActivity {
         View header = getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
         txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
         txtNote = (EditText) header.findViewById(R.id.noteCheckout);
-        txtAlamat = (TextView)header.findViewById(R.id.alamatCheckout);
+        txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
         mListView.addHeaderView(header);
         View footer = getLayoutInflater().inflate(R.layout.layout_footer_checkout, null);
-        txtSubtotal = (TextView)footer.findViewById(R.id.subtotalCheckout);
-        txtDelivery = (TextView)footer.findViewById(R.id.deliveryCheckout);
-        txtTip = (TextView)footer.findViewById(R.id.tipCheckout);
-        txtDiskon = (TextView)footer.findViewById(R.id.diskonCheckout);
-        txtTotal = (TextView)footer.findViewById(R.id.totalCheckout);
+        txtSubtotal = (TextView) footer.findViewById(R.id.subtotalCheckout);
+        txtDelivery = (TextView) footer.findViewById(R.id.deliveryCheckout);
+        txtTip = (TextView) footer.findViewById(R.id.tipCheckout);
+        txtDiskon = (TextView) footer.findViewById(R.id.diskonCheckout);
+        txtTotal = (TextView) footer.findViewById(R.id.totalCheckout);
         btnKonfirmasi = (Button) footer.findViewById(R.id.btnKonfirmasi);
 
-        txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
-        txtSubtotal.setText("Rp. "+decimalFormat.format(subtotal));
-        txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
-        txtTip.setText("Rp. "+decimalFormat.format(tip));
-        txtTotal.setText("Rp. "+decimalFormat.format(total));
+        txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+        txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
+        txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+        txtTip.setText("Rp. " + decimalFormat.format(tip));
+        txtTotal.setText("Rp. " + decimalFormat.format(total));
 
         String alamat = ApplicationData.location;
-        if(alamat!=""){
+        if (alamat != "") {
             txtAlamat.setText(alamat);
         }
         paySpiner = (NiceSpinner) footer.findViewById(R.id.paySpinner);
@@ -207,21 +208,36 @@ public class ActivityCheckout extends AppCompatActivity {
         btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(txtAlamat.getText().toString()==""){
-                    DialogManager.showDialog(act,"Mohon Maaf", "Isi alamat anda");
-                }
-                else {
-                    new CheckOut(ActivityCheckout.this).execute(
-                            txtKode.getText().toString(),
-                            txtAlamat.getText().toString(),
-                            txtNote.getText().toString()
-                    );
+                if (txtAlamat.getText().toString() == "") {
+                    DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
+                } else {
+                    try {
+                        final Context ctx = ActivityCheckout.this;
+                        new MaterialDialog.Builder(ctx)
+                                .title("Anda yakin untuk order?")
+                                .positiveText("OK")
+                                .callback(new MaterialDialog.ButtonCallback() {
+                                    @Override
+                                    public void onPositive(MaterialDialog dialog) {
+                                        new CheckOut(ActivityCheckout.this).execute(
+                                                txtKode.getText().toString(),
+                                                txtAlamat.getText().toString(),
+                                                txtNote.getText().toString()
+                                        );
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .negativeText("Tidak")
+                                .cancelable(false)
+                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                .show();
+                    } catch (Exception e) {
+
+                    }
                 }
 
             }
         });
-
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -230,7 +246,7 @@ public class ActivityCheckout extends AppCompatActivity {
         });
     }
 
-    private void DummyData(){
+    private void DummyData() {
 
         LIST_MENU = new ArrayList<ModelCart>();
         /*
@@ -240,13 +256,13 @@ public class ActivityCheckout extends AppCompatActivity {
         LIST_MENU.add(modelDeliver1);
         */
         LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
-        if(LIST_MENU.size()>0){
-            for(int i=0;i<LIST_MENU.size();i++){
-                subtotal = subtotal+(LIST_MENU.get(i).getJumlah()*LIST_MENU.get(i).getHarga());
+        if (LIST_MENU.size() > 0) {
+            for (int i = 0; i < LIST_MENU.size(); i++) {
+                subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
             }
-            tip = (int)Math.round(subtotal/10);
+            tip = (int) Math.round(subtotal / 10);
         }
-        total = subtotal+tip+delivery-diskon;
+        total = subtotal + tip + delivery - diskon;
     }
 
     private class CalculatePrice extends AsyncTask<String, Void, String> {
@@ -283,12 +299,12 @@ public class ActivityCheckout extends AppCompatActivity {
                 String kode = params[0];
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.calculatePrice(kode, applicationManager.getUserToken(),cart);
+                JSONObject response = jsControl.calculatePrice(kode, applicationManager.getUserToken(), cart);
                 Log.d("json response", response.toString());
-                try{
+                try {
                     JSONArray transaksi = response.getJSONArray("transactions");
-                    if(transaksi.length() > 0){
-                        for(int i=0;i<transaksi.length();i++){
+                    if (transaksi.length() > 0) {
+                        for (int i = 0; i < transaksi.length(); i++) {
                             String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
                             diskon = Integer.parseInt(discountPrice);
                             String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
@@ -296,8 +312,7 @@ public class ActivityCheckout extends AppCompatActivity {
                         }
                         return "OK";
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -316,28 +331,27 @@ public class ActivityCheckout extends AppCompatActivity {
             progress.setVisibility(View.GONE);
             switch (result) {
                 case "FAIL":
-                    if(delivery==0){
+                    if (delivery == 0) {
                         delivery = ApplicationData.def_delivery;
                     }
                     diskon = 0;
                     total = subtotal + tip + delivery - diskon;
-                    txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
-                    txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
-                    txtTotal.setText("Rp. "+decimalFormat.format(total));
+                    txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                    txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                    txtTotal.setText("Rp. " + decimalFormat.format(total));
                     break;
                 case "OK":
                     total = subtotal + tip + delivery - diskon;
-                    txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
-                    txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
-                    txtTotal.setText("Rp. "+decimalFormat.format(total));
+                    txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                    txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                    txtTotal.setText("Rp. " + decimalFormat.format(total));
                     break;
             }
             //progressDialog.dismiss();
-            if(ApplicationData.cart.size() > 0){
+            if (ApplicationData.cart.size() > 0) {
                 mListView.setVisibility(View.VISIBLE);
                 noData.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 mListView.setVisibility(View.GONE);
                 noData.setVisibility(View.VISIBLE);
             }
@@ -387,10 +401,9 @@ public class ActivityCheckout extends AppCompatActivity {
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
                 JSONObject response = jsControl.checkOut(kode, address, note, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
-                try{
+                try {
                     return "OK";
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -409,55 +422,38 @@ public class ActivityCheckout extends AppCompatActivity {
             progress.setVisibility(View.GONE);
             switch (result) {
                 case "FAIL":
-
                     break;
                 case "OK":
-                    try {
-                        final Context ctx = ActivityCheckout.this;
-                        new MaterialDialog.Builder(ctx)
-                                .title("Anda yakin untuk order?")
-                                .positiveText("OK")
-                                .callback(new MaterialDialog.ButtonCallback() {
-                                    @Override
-                                    public void onPositive(MaterialDialog dialog) {
-                                        if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
-                                            new MaterialDialog.Builder(ctx)
-                                                    .title("Terima kasih")
-                                                    .content("Pesanan Anda akan segera kami proses")
-                                                    .positiveText("OK")
-                                                    .callback(new MaterialDialog.ButtonCallback() {
-                                                        @Override
-                                                        public void onPositive(MaterialDialog dialog) {
-                                                            if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
-                                                                ApplicationData.cart = new HashMap<String, ModelCart>();
-                                                                Intent j = new Intent(getBaseContext(), ActivityHome.class);
-                                                                startActivity(j);
-                                                                finish();
-                                                            } else {
-                                                                DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
-                                                            }
-                                                            dialog.dismiss();
-                                                        }
-                                                    })
-                                                    .cancelable(false)
-                                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                                                    .show();
-                                        } else {
-                                            DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
+                    if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
+                        try {
+                            final Context ctx = ActivityCheckout.this;
+                            new MaterialDialog.Builder(ctx)
+                                    .title("Terima kasih")
+                                    .content("Pesanan Anda akan segera kami proses")
+                                    .positiveText("OK")
+                                    .callback(new MaterialDialog.ButtonCallback() {
+                                        @Override
+                                        public void onPositive(MaterialDialog dialog) {
+                                            if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
+                                                ApplicationData.cart = new HashMap<String, ModelCart>();
+                                                Intent j = new Intent(getBaseContext(), ActivityHome.class);
+                                                startActivity(j);
+                                                finish();
+                                            } else {
+                                                DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
+                                            }
+                                            dialog.dismiss();
                                         }
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .negativeText("Tidak")
-                                .cancelable(false)
-                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                                .show();
-                    } catch (Exception e) {
+                                    })
+                                    .cancelable(false)
+                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                    .show();
+                        } catch (Exception e) {
 
+                        }
+                    } else {
+                        DialogManager.showDialog(ActivityCheckout.this, "Mohon Maaf", "Tidak ada koneksi internet!");
                     }
-
-
-
                     break;
             }
             //progressDialog.dismiss();
@@ -467,7 +463,7 @@ public class ActivityCheckout extends AppCompatActivity {
 
     }
 
-    private void SendBroadcast(String typeBroadcast,String type){
+    private void SendBroadcast(String typeBroadcast, String type) {
         Intent intent = new Intent(typeBroadcast);
         // add data
         intent.putExtra("message", type);
@@ -478,7 +474,6 @@ public class ActivityCheckout extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
 
 
 }
