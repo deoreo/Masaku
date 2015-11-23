@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class FragmentMenu extends Fragment {
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenu> LIST_MENU = new ArrayList<>();
-	private SwipeRefreshLayout mSwipeRefreshLayout;
+	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	AdapterMenu mAdapter;
 	NiceSpinner sort,category;
@@ -62,7 +64,7 @@ public class FragmentMenu extends Fragment {
 		noData = (TextView) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
-		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+		//mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
 		category = (NiceSpinner) header.findViewById(R.id.categorySpinner);

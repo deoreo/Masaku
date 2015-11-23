@@ -83,6 +83,7 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
     private TextView txtLocationFrom;
     private ProgressBar progressMapFrom;
     public Boolean isSearchCurrent = false;
+    private LinearLayout layoutfillForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
         btnLocationFrom = (Button) findViewById(R.id.btnLocationFrom);
         txtLocationFrom = (TextView) findViewById(R.id.txtLocationFrom);
         progressMapFrom = (ProgressBar) findViewById(R.id.progressMapFrom);
+        layoutfillForm = (LinearLayout) findViewById(R.id.layoutfillForm);
         SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         googleMap = fm.getMap();
         try {
@@ -109,6 +111,14 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
         } else {
             DialogManager.showDialog(mActivity, "Mohon Maaf", "Anda tidak terhubung internet!");
         }
+
+        layoutfillForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         btnCurrent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

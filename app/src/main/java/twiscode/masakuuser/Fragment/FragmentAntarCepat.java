@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -48,7 +50,7 @@ public class FragmentAntarCepat extends Fragment {
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
-	private SwipeRefreshLayout mSwipeRefreshLayout;
+	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	AdapterMenuNew mAdapter;
 	TextView noData;
@@ -83,6 +85,8 @@ public class FragmentAntarCepat extends Fragment {
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
+		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		//mListView.addHeaderView(header);
@@ -131,6 +135,12 @@ public class FragmentAntarCepat extends Fragment {
 
 			}
 		};
+		mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				DummyData();
+			}
+		});
 
 		DummyData();
 		if(LIST_MENU.size() > 0){
@@ -165,7 +175,7 @@ public class FragmentAntarCepat extends Fragment {
 		private Activity activity;
 		private Context context;
 		private Resources resources;
-		private ProgressDialog progressDialog;
+		//private ProgressDialog progressDialog;
 
 		public GetMenu(Activity activity) {
 			super();
@@ -177,12 +187,15 @@ public class FragmentAntarCepat extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			mSwipeRefreshLayout.setRefreshing(true);
+			/*
 			progressDialog = new ProgressDialog(activity);
 			progressDialog.setMessage("Loading. . .");
 			progressDialog.setIndeterminate(false);
 			progressDialog.setCancelable(false);
 			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			progressDialog.show();
+			*/
 		}
 
 		@Override
@@ -222,7 +235,8 @@ public class FragmentAntarCepat extends Fragment {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 
-			progressDialog.dismiss();
+			mSwipeRefreshLayout.setRefreshing(false);
+			//progressDialog.dismiss();
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
