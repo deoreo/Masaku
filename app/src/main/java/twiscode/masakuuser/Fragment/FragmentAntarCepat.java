@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,7 +51,7 @@ public class FragmentAntarCepat extends Fragment {
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
-	private SwipeRefreshLayout mSwipeRefreshLayout;
+	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	AdapterMenuNew mAdapter;
 	TextView noData;
@@ -87,13 +89,14 @@ public class FragmentAntarCepat extends Fragment {
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
-		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		//mListView.addHeaderView(header);
 		//mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 		//mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
-		//mSwipeRefreshLayout.setRefreshing(false);
+		mSwipeRefreshLayout.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -137,6 +140,12 @@ public class FragmentAntarCepat extends Fragment {
 
 			}
 		};
+		mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				DummyData();
+			}
+		});
 
 		DummyData();
 		/*
@@ -173,7 +182,7 @@ public class FragmentAntarCepat extends Fragment {
 		private Activity activity;
 		private Context context;
 		private Resources resources;
-		private ProgressDialog progressDialog;
+
 
 		public GetMenu(Activity activity) {
 			super();
@@ -185,6 +194,7 @@ public class FragmentAntarCepat extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			mSwipeRefreshLayout.setRefreshing(true);
 			/*
 			progressDialog = new ProgressDialog(activity);
 			progressDialog.setMessage("Loading. . .");
@@ -232,6 +242,7 @@ public class FragmentAntarCepat extends Fragment {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 
+
 			//progressDialog.dismiss();
 			progress.setVisibility(View.GONE);
 			switch (result) {
@@ -264,6 +275,7 @@ public class FragmentAntarCepat extends Fragment {
 					break;
 
 			}
+			mSwipeRefreshLayout.setRefreshing(false);
 		}
 	}
 

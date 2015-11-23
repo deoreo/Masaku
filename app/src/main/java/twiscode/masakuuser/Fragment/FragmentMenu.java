@@ -64,7 +64,8 @@ public class FragmentMenu extends Fragment {
 		noData = (TextView) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
-		//mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
 		category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
@@ -77,7 +78,7 @@ public class FragmentMenu extends Fragment {
 		mAdapter = new AdapterMenu(getActivity(), LIST_MENU);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
-		//mSwipeRefreshLayout.setRefreshing(false);
+		mSwipeRefreshLayout.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
