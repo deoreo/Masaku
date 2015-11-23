@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,6 +51,7 @@ public class FragmentPesanan extends Fragment {
 	private int mPage;
 	private ImageView btnCart;
     int page = 1;
+    private PullRefreshLayout mSwipeRefreshLayout;
 
 	TextView noData;
 
@@ -71,24 +74,33 @@ public class FragmentPesanan extends Fragment {
 		noData = (TextView) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
+        mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
+        mSwipeRefreshLayout.setRefreshing(false);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_pesanan, null);
 		jmlPesanan = (TextView)header.findViewById(R.id.jumlahPesanan);
 
 
+
 		mListView.addHeaderView(header);
-		//mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
 		mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent(getActivity(), ActivityCheckout.class);
-				startActivity(i);
-			}
-		});
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ActivityCheckout.class);
+                startActivity(i);
+            }
+        });
 
+        mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new GetPesanan(getActivity()).execute();
+            }
+        });
 
 
         new GetPesanan(getActivity()).execute();
@@ -118,7 +130,7 @@ public class FragmentPesanan extends Fragment {
         private Activity activity;
         private Context context;
         private Resources resources;
-        private ProgressDialog progressDialog;
+
 
         public GetPesanan(Activity activity) {
             super();
@@ -130,12 +142,7 @@ public class FragmentPesanan extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(activity);
-            progressDialog.setMessage("Loading. . .");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
+            mSwipeRefreshLayout.setRefreshing(true);
         }
 
         @Override
@@ -177,8 +184,6 @@ public class FragmentPesanan extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            progressDialog.dismiss();
             switch (result) {
                 case "FAIL":
                     //DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
@@ -192,9 +197,6 @@ public class FragmentPesanan extends Fragment {
                     }
                     break;
                 case "OK":
-                    //Intent i = new Intent(getBaseContext(), ActivityHome.class);
-                    //startActivity(i);
-                    //finish();
                     Log.d("jumlah menu : ",""+LIST_PESANAN.size());
                     mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
                     mListView.setAdapter(mAdapter);
@@ -208,8 +210,8 @@ public class FragmentPesanan extends Fragment {
                         noData.setVisibility(View.VISIBLE);
                     }
                     break;
-
             }
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
