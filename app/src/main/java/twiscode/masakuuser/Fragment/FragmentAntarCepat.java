@@ -51,6 +51,7 @@ public class FragmentAntarCepat extends Fragment {
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	AdapterMenuNew mAdapter;
+	TextView noData;
 
 	int page =1;
 
@@ -77,6 +78,7 @@ public class FragmentAntarCepat extends Fragment {
 
 
 		View rootView = inflater.inflate(R.layout.activity_antar_cepat, container, false);
+		noData = (TextView) rootView.findViewById(R.id.noData);
 		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
@@ -131,7 +133,14 @@ public class FragmentAntarCepat extends Fragment {
 		};
 
 		DummyData();
-
+		if(LIST_MENU.size() > 0){
+			mListView.setVisibility(View.VISIBLE);
+			noData.setVisibility(View.GONE);
+		}
+		else {
+			mListView.setVisibility(View.GONE);
+			noData.setVisibility(View.VISIBLE);
+		}
 
 
 		return rootView;
@@ -217,6 +226,14 @@ public class FragmentAntarCepat extends Fragment {
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+					if(LIST_MENU.size() > 0){
+						mListView.setVisibility(View.VISIBLE);
+						noData.setVisibility(View.GONE);
+					}
+					else {
+						mListView.setVisibility(View.GONE);
+						noData.setVisibility(View.VISIBLE);
+					}
 					break;
 				case "OK":
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
@@ -225,6 +242,14 @@ public class FragmentAntarCepat extends Fragment {
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
 					mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 					mListView.setAdapter(mAdapter);
+					if(LIST_MENU.size() > 0){
+						mListView.setVisibility(View.VISIBLE);
+						noData.setVisibility(View.GONE);
+					}
+					else {
+						mListView.setVisibility(View.GONE);
+						noData.setVisibility(View.VISIBLE);
+					}
 					break;
 
 			}
