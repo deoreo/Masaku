@@ -102,7 +102,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
         try {
             String message = json.getString("alert");
             Intent resultIntent = new Intent(context, ActivityHome.class);
-            showNotificationMessage(context, "Notifikasi LadyJek", message, resultIntent);
+            showNotificationMessage(context, "Notifikasi Masaku", message, resultIntent);
             Message msg = new Message();
             msg.setMessage(message);
             msg.setTimestamp(new Time(System.currentTimeMillis()).getHours());
