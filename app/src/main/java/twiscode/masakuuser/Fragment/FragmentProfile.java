@@ -29,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityAbout;
@@ -164,6 +165,7 @@ public class FragmentProfile extends Fragment {
 		logout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				ApplicationData.cart = new HashMap<String, ModelCart>();
 				db.logout();
 				Intent i = new Intent(getActivity(), ActivityLogin.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -178,6 +180,7 @@ public class FragmentProfile extends Fragment {
 				if (NetworkManager.getInstance(getActivity()).isConnectedInternet()) {
 					//InitProgress();
 					//new DoLogoutAll(getActivity()).execute();
+					ApplicationData.cart = new HashMap<String, ModelCart>();
 					db.logout();
 					Intent i = new Intent(getActivity(), ActivityLogin.class);
 					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
