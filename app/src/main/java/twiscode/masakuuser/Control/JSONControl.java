@@ -178,13 +178,13 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject getPesanan(String token) {
+    public JSONObject getPesanan(String token,int page) {
 
         JSONObject jsonObj = new JSONObject();
-
+        Log.d("token",token);
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.TRANSACTIONS, ConfigManager.DUKUHKUPANG, token);
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.TRANSACTIONS+page, ConfigManager.DUKUHKUPANG, token);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -48,6 +48,7 @@ public class FragmentPesanan extends Fragment {
 	private TextView jmlPesanan;
 	private int mPage;
 	private ImageView btnCart;
+    int page = 1;
 
 	TextView noData;
 
@@ -142,7 +143,7 @@ public class FragmentPesanan extends Fragment {
             try {
                 LIST_PESANAN = new ArrayList<ModelPesanan>();
                 JSONControl jsControl = new JSONControl();
-                JSONObject response = jsControl.getPesanan(ApplicationManager.getInstance(context).getUserToken());
+                JSONObject response = jsControl.getPesanan(ApplicationManager.getInstance(context).getUserToken(),page);
                 Log.d("json response", response.toString());
                 JSONArray menus = response.getJSONArray("transactions");
                 if(menus.length() > 0){
@@ -181,6 +182,14 @@ public class FragmentPesanan extends Fragment {
             switch (result) {
                 case "FAIL":
                     //DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+                    if(LIST_PESANAN.size() > 0){
+                        mListView.setVisibility(View.VISIBLE);
+                        noData.setVisibility(View.GONE);
+                    }
+                    else {
+                        mListView.setVisibility(View.GONE);
+                        noData.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case "OK":
                     //Intent i = new Intent(getBaseContext(), ActivityHome.class);

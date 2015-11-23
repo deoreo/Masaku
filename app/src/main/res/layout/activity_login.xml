@@ -123,7 +123,7 @@
                                     android:textColor="@color/colorBlack"
                                     android:singleLine="true"
                                     android:maxLines="1"
-                                    android:inputType="numberPassword"
+                                    android:inputType="textPassword"
                                     android:textSize="16dp"
                                     android:gravity="center_vertical"
                                     />

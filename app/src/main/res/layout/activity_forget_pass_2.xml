@@ -69,7 +69,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorRed"
+                                android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
                                 android:text="Masukkan kode verifikasi"
                                 android:textSize="22dp"
@@ -78,7 +78,7 @@
                                 android:layout_marginTop="2dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorRed"
+                                android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
                                 android:text="dari SMS ke bawah ini"
                                 android:textSize="22dp"
@@ -100,22 +100,22 @@
                                     android:layout_weight="1"
                                     android:layout_height="50dp"
                                     android:hint="kode verifikasi"
-                                    android:textColorHint="@drawable/hint_selector_red"
+                                    android:textColorHint="@drawable/hint_selector_black"
                                     android:padding="10dp"
                                     android:background="@null"
-                                    android:textColor="@color/colorRed"
+                                    android:textColor="@color/colorBlack"
                                     android:textStyle="bold"
                                     android:singleLine="true"
                                     android:maxLines="1"
                                     android:inputType="text"
-                                    android:textCursorDrawable="@drawable/cursor_red"/>
+                                    android:textCursorDrawable="@drawable/cursor_black"/>
 
                             </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
-                                android:background="@color/colorRed"
+                                android:background="@color/colorBlack"
                                 />
                         </LinearLayout>
                         <TextView
@@ -123,7 +123,7 @@
                             android:id="@+id/resendCode"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
-                            android:textColor="@color/colorRed"
+                            android:textColor="@color/colorBlack"
                             android:textStyle="bold"
                             android:textSize="16dp"
                             android:padding="10dp"

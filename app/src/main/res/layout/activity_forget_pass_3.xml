@@ -69,7 +69,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorRed"
+                                android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
                                 android:text="Masukkan password baru kamu"
                                 android:textSize="22dp"
@@ -81,7 +81,7 @@
                                 android:textStyle="bold"
                                 android:text="di bawah ini"
                                 android:textSize="22dp"
-                                android:textColor="@color/colorRed"
+                                android:textColor="@color/colorBlack"
                                 />
 
 
@@ -104,18 +104,18 @@
                                     android:hint="kata sandi baru"
                                     android:padding="10dp"
                                     android:background="@null"
-                                    android:textColorHint="@drawable/hint_selector_red"
+                                    android:textColor="@color/colorBlack"
+                                    android:textColorHint="@drawable/hint_selector_black"
+                                    android:textCursorDrawable="@drawable/cursor_black"
                                     android:inputType="textPassword"
-                                    android:textColor="@color/colorRed"
-                                    android:textStyle="bold"
-                                    android:textCursorDrawable="@drawable/cursor_red"/>
+                                    android:textStyle="bold" />
 
                             </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
-                                android:background="@color/colorRed"
+                                android:background="@color/colorBlack"
                                 />
                         </LinearLayout>
 
@@ -137,18 +137,18 @@
                                     android:hint="konfirmasi kata sandi"
                                     android:padding="10dp"
                                     android:background="@null"
-                                    android:textColorHint="@drawable/hint_selector_red"
                                     android:inputType="textPassword"
-                                    android:textColor="@color/colorRed"
                                     android:textStyle="bold"
-                                    android:textCursorDrawable="@drawable/cursor_red"/>
+                                    android:textColor="@color/colorBlack"
+                                    android:textColorHint="@drawable/hint_selector_black"
+                                    android:textCursorDrawable="@drawable/cursor_black"/>
 
                             </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
-                                android:background="@color/colorRed"
+                                android:background="@color/colorBlack"
                                 />
                         </LinearLayout>
 
