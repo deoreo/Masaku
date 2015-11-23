@@ -55,6 +55,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
         <ListView
             android:id="@+id/list_delivery"
@@ -65,6 +70,7 @@
             android:background="@null"
 
             />
+        </com.baoyz.widget.PullRefreshLayout>
         <TextView
             android:id="@+id/noData"
             android:layout_width="wrap_content"
