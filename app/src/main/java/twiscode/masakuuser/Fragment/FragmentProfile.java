@@ -35,6 +35,7 @@ import java.util.List;
 import twiscode.masakuuser.Activity.ActivityAbout;
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Activity.ActivityLogin;
+import twiscode.masakuuser.Activity.ActivityProfileNama;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelCart;
@@ -48,10 +49,9 @@ import twiscode.masakuuser.Utilities.NetworkManager;
 public class FragmentProfile extends Fragment {
 
 	public static final String ARG_PAGE = "ARG_PAGE";
-	private LinearLayout btnAbout;
-	private LinearLayout btnLogout;
+	private LinearLayout btnAbout, btnLogout, btnNamaProfile;
 	private TextView telponProfile;
-	private EditText namaprofile;
+	public static EditText namaprofile;
 	private ImageView btnCart;
 	private Dialog dialog;
 	private ProgressDialog progressDialog;
@@ -86,6 +86,7 @@ public class FragmentProfile extends Fragment {
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		btnAbout = (LinearLayout) rootView.findViewById(R.id.btnAboutProfile);
 		btnLogout = (LinearLayout) rootView.findViewById(R.id.btnLogout);
+		btnNamaProfile = (LinearLayout) rootView.findViewById(R.id.btnNamaProfile);
 		btnAbout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -116,7 +117,15 @@ public class FragmentProfile extends Fragment {
 				startActivity(i);
 			}
 		});
+		btnNamaProfile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityProfileNama.class);
+				startActivity(i);
+			}
+		});
 
+		/*
 		namaprofile.setOnEditorActionListener(
 				new EditText.OnEditorActionListener() {
 					@Override
@@ -132,6 +141,15 @@ public class FragmentProfile extends Fragment {
 						return false;
 					}
 				});
+				*/
+		namaprofile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityProfileNama.class);
+				startActivity(i);
+
+			}
+		});
 
 		if(ApplicationData.phoneNumber != ""){
 			telponProfile.setText(ApplicationData.phoneNumber);

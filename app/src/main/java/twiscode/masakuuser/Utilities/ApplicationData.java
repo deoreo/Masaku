@@ -41,6 +41,7 @@ public class ApplicationData {
     public static String PARSE_DEVICE_TOKEN = "";
     public static String location = "";
     public static LatLng posFrom;
+    public static String smsCode;
 
 
 
