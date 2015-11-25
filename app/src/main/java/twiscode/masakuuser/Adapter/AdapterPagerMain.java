@@ -18,7 +18,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class AdapterPagerMain extends FragmentPagerAdapter {
     int PAGE_COUNT = 0;
-    private String titles[] = {"Spesial","Menu", "Pesanan","Profile",};
+    private String titles[] = {"SPEED DELIVERY","PRE ORDER"};
 
     public AdapterPagerMain(FragmentManager fm) {
         super(fm);
@@ -37,20 +37,12 @@ public class AdapterPagerMain extends FragmentPagerAdapter {
         {
             return FragmentAntarCepat.newInstance(position + 1);
         }
-        else if(position == 1)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        else        // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
             return FragmentMenu.newInstance(position + 1);
         }
 
-        else if(position == 2)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            return FragmentPesanan.newInstance(position + 1);
-        }
 
-        else          // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            return FragmentProfile.newInstance(position + 1);
-        }
 
         //return fragment;
         //return fragment.newInstance(position + 1);

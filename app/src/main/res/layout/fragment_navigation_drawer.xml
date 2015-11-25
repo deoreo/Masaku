@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+<!--
+
+    <RelativeLayout
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/nav_drawer_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="132dp"
+                    android:orientation="horizontal"
+                    android:background="@color/primary_color">
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="132dp"
+                        android:padding="10dp">
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/profpicDrawer"
+                            android:layout_width="80dip"
+                            android:layout_height="80dip"
+                            app:riv_corner_radius="80dip"
+                            android:src="@drawable/person_icon"
+                            android:layout_marginTop="22dp"
+                            />
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="132dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/drawer_toggle_inside"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_drawer_toggle"
+                                android:background="@null"
+                                android:layout_alignParentRight="true"
+                                android:padding="10dp"/>
+
+                            <TextView
+                                android:id="@+id/drawerUsername"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white_color"
+                                android:textStyle="bold"
+                                android:text="Username"
+                                android:textSize="18dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_below="@id/drawer_toggle_inside"
+                                android:singleLine="true"/>
+
+                            <TextView
+                                android:id="@+id/drawerID"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white_color"
+                                android:textStyle="bold"
+                                android:text="Email / Facebook ID / Google ID / "
+                                android:textSize="14dp"
+                                android:layout_below="@id/drawerUsername"
+                                android:singleLine="true"
+                                android:ellipsize="end"/>
+
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:background="@color/white_color">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/drawerList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_color"
+
+                        />
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/gotoProfile"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/colorDarkGrey2"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp">
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/img_circle_white"
+                />
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/drawerUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Budi Santoso"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Klik untuk melihat akun anda"
+                    android:textColor="@color/colorWhite"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/drawer_toggle_inside"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_drawer_toggle"
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"/>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listMenu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@color/colorRed"
+        android:text="Logout"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="true"/>
+
+</LinearLayout>

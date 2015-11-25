@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
+import twiscode.masakuuser.Model.ModelNavDrawer;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -161,7 +162,7 @@ public class ActivitySplash extends AppCompatActivity {
                     catch (Exception ex){
                         ex.printStackTrace();
                     }
-                    Intent j = new Intent(getBaseContext(), ActivityHome.class);
+                    Intent j = new Intent(getBaseContext(), Main.class);
                     startActivity(j);
                     finish();
                     break;

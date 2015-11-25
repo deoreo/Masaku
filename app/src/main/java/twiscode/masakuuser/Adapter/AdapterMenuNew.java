@@ -47,6 +47,7 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -140,8 +141,14 @@ public class AdapterMenuNew extends BaseAdapter {
             height = holder.imgMenu.getHeight();
             width = holder.imgMenu.getWidth();
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgMenu);
-            new DownloadImageTask(holder.imgMenu,holder.progress)
-                    .execute(VENDOR_IMAGE);
+            if(ApplicationData.temp_img.containsKey(VENDOR_IMAGE)){
+                holder.imgMenu.setImageBitmap(ApplicationData.temp_img.get(VENDOR_IMAGE));
+            }
+            else {
+                new DownloadImageTask(holder.imgMenu,holder.progress)
+                        .execute(VENDOR_IMAGE);
+            }
+
 
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -215,6 +222,7 @@ public class AdapterMenuNew extends BaseAdapter {
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        String url;
         ImageView bmImage;
         ProgressBar progressBar;
 
@@ -225,6 +233,7 @@ public class AdapterMenuNew extends BaseAdapter {
 
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
+            url = urldisplay;
             Log.d("url promo slider", urldisplay);
             Bitmap mIcon11 = null;
             try {
@@ -249,6 +258,12 @@ public class AdapterMenuNew extends BaseAdapter {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
+            ApplicationData.temp_img.put(url, result);
+            if(ApplicationData.temp_img.size() > 10){
+                List<String> players = new ArrayList<>(ApplicationData.temp_img.keySet());
+                String key = players.get(players.size()-1);
+                ApplicationData.temp_img.remove(key);
+            }
 
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);

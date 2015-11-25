@@ -1,9 +1,13 @@
 package twiscode.masakuuser.Utilities;
 
 
+import android.graphics.Bitmap;
+import android.support.v4.app.Fragment;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
@@ -41,6 +45,8 @@ public class ApplicationData {
     public static String PARSE_DEVICE_TOKEN = "";
     public static String location = "";
     public static LatLng posFrom;
+    public static Stack<Fragment> fragments = new Stack<>();
+    public static HashMap<String,Bitmap> temp_img = new HashMap<>();
 
 
 
