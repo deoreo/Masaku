@@ -80,6 +80,7 @@
                     android:background="@null"
                     android:singleLine="true"
                     android:maxLines="1"
+                    android:editable="false"
                     android:imeOptions="actionDone"
                     />
                 <ImageView

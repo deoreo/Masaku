@@ -2,15 +2,12 @@ package twiscode.masakuuser.Fragment;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,19 +21,12 @@ import com.baoyz.widget.PullRefreshLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
-import twiscode.masakuuser.Adapter.AdapterMenu;
-import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Adapter.AdapterPesanan;
 import twiscode.masakuuser.Control.JSONControl;
-import twiscode.masakuuser.Model.ModelMenuSpeed;
-import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationManager;
@@ -50,7 +40,7 @@ public class FragmentPesanan extends Fragment {
 	private TextView jmlPesanan;
 	private int mPage;
 	private ImageView btnCart;
-    int page = 1;
+    private final int PAGE = 1;
     private PullRefreshLayout mSwipeRefreshLayout;
 
 	TextView noData;
@@ -150,7 +140,7 @@ public class FragmentPesanan extends Fragment {
             try {
                 LIST_PESANAN = new ArrayList<ModelPesanan>();
                 JSONControl jsControl = new JSONControl();
-                JSONObject response = jsControl.getPesanan(ApplicationManager.getInstance(context).getUserToken(),page);
+                JSONObject response = jsControl.getPesanan(ApplicationManager.getInstance(context).getUserToken(), PAGE);
                 Log.d("json response", response.toString());
                 JSONArray menus = response.getJSONArray("transactions");
                 if(menus.length() > 0){

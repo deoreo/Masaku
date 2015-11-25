@@ -2,11 +2,14 @@ package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +37,7 @@ public class ActivityVerifyHp extends AppCompatActivity {
     private RelativeLayout btnSend;
     private EditText txtPhone;
     private TextView txtResend;
-
+    private BroadcastReceiver smsCode;
     Activity act;
 
     private String code;
@@ -52,6 +55,15 @@ public class ActivityVerifyHp extends AppCompatActivity {
         btnBack = (ImageView) findViewById(R.id.btnBack);
         btnSend = (RelativeLayout) findViewById(R.id.wrapperSend);
         txtResend = (TextView) findViewById(R.id.resendCode);
+
+        smsCode = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String messageCode = intent.getStringExtra("messageCode");
+                txtPhone.setText(messageCode);
+            }
+        };
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,6 +263,13 @@ public class ActivityVerifyHp extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(smsCode,
+                new IntentFilter("smsCode"));
     }
 
     @Override
