@@ -1,12 +1,17 @@
 package twiscode.masakuuser.Fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +32,18 @@ import java.util.List;
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterPagerMain;
+import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 
 public class FragmentMainMenu extends Fragment {
 
 
 	public static final String ARG_PAGE = "ARG_PAGE";
-
+	ViewPager viewPager;
+	PagerSlidingTabStrip tabsStrip;
+	private BroadcastReceiver gotoPO;
 
 
 
@@ -52,11 +61,11 @@ public class FragmentMainMenu extends Fragment {
 
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_mainmenu, container, false);
-		ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-		viewPager.setAdapter(new AdapterPagerMain(getFragmentManager()));
+		viewPager = (ViewPager) rootView.findViewById(R.id.pager);
+		viewPager.setAdapter(new AdapterPagerMain(getChildFragmentManager()));
 
 		// Give the PagerSlidingTabStrip the ViewPager
-		PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
+		tabsStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
 		// Attach the view pager to the tab strip
 		tabsStrip.setViewPager(viewPager);
 		tabsStrip.setTextColor(Color.WHITE);
@@ -83,6 +92,20 @@ public class FragmentMainMenu extends Fragment {
 			}
 		});
 
+		gotoPO = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// Extract data included in the Intent
+				Log.d("", "broadcast gotoPO");
+				String message = intent.getStringExtra("message");
+				if (message.equals("true")) {
+					viewPager.setCurrentItem(1);
+				}
+
+
+			}
+		};
+
 
 		return rootView;
 	}
@@ -91,6 +114,17 @@ public class FragmentMainMenu extends Fragment {
 
 
 	}
+
+	public void onResume() {
+		super.onResume();
+
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(gotoPO,
+				new IntentFilter("gotoPO"));
+
+
+	}
+
+
 
 
 }

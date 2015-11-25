@@ -3,6 +3,7 @@ package twiscode.masakuuser.Utilities;
 
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -47,7 +48,8 @@ public class ApplicationData {
     public static LatLng posFrom;
     public static Stack<Fragment> fragments = new Stack<>();
     public static HashMap<String,Bitmap> temp_img = new HashMap<>();
+    public static String smsCode;
 
-
+    public static TextView titleBar;
 
 }

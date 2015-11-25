@@ -1,11 +1,14 @@
 package twiscode.masakuuser.Fragment;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,13 +27,20 @@ import android.widget.TextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import twiscode.masakuuser.Activity.ActivityLogin;
 import twiscode.masakuuser.Adapter.NavigationDrawerAdapter;
 import twiscode.masakuuser.Database.DatabaseHandler;
+import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelNavDrawer;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.DataFragmentHelper;
+import twiscode.masakuuser.Utilities.NetworkManager;
+import twiscode.masakuuser.Utilities.PersistenceDataHelper;
 
 
 /**
@@ -56,6 +66,8 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
     private TextView btnLogout,drawerName;
     private ApplicationManager appManager;
     private DatabaseHandler db;
+    DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
+    private Dialog dialog;
 
     public FragmentDrawer() {
 
@@ -117,13 +129,35 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
                mDrawerLayout.closeDrawer(containerView);
            }
        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
         gotoProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //mDrawerLayout.closeDrawer(containerView);
+                android.support.v4.app.Fragment fragment = null;
+                fragment = new FragmentProfile();
+                FragmentManager fragmentManager = getFragmentManager();
+
+                datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
+                datafragmentHelper.ChangeFragment(fragment);
+               /*
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container_body, fragment)
+                        .commit();
+                */
+
+                // set the toolbar title
+                ApplicationData.titleBar.setText("Profile");
+                mDrawerLayout.closeDrawer(containerView);
             }
         });
         SetupProfile();
+        InitDialog();
         return layout;
     }
 
@@ -243,7 +277,57 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
     }
 
     void SetupProfile(){
+        if(ApplicationData.name != ""){
+            drawerName.setText(ApplicationData.name);
+        }
 
+    }
+
+    void InitDialog(){
+        dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.popup_logout);
+        dialog.setTitle("Logout");
+
+        // set the custom dialog components - text, image and button
+
+        TextView logout = (TextView) dialog.findViewById(R.id.btnLogoutPop);
+        TextView device = (TextView) dialog.findViewById(R.id.btnLogoutAllPop);
+        TextView cancel = (TextView) dialog.findViewById(R.id.btnCancelPop);
+        // if button is clicked, close the custom dialog
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationData.cart = new HashMap<String, ModelCart>();
+                db.logout();
+                Intent i = new Intent(getActivity(), ActivityLogin.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
+
+        device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NetworkManager.getInstance(getActivity()).isConnectedInternet()) {
+                    //InitProgress();
+                    //new DoLogoutAll(getActivity()).execute();
+                    ApplicationData.cart = new HashMap<String, ModelCart>();
+                    db.logout();
+                    Intent i = new Intent(getActivity(), ActivityLogin.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    getActivity().finish();
+                }
+            }
+        });
 
     }
 

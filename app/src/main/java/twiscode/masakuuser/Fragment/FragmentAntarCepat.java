@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -54,7 +55,8 @@ public class FragmentAntarCepat extends Fragment {
 	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	AdapterMenuNew mAdapter;
-	TextView noData;
+	LinearLayout noData;
+	Button btnPO;
 
 	int page =1;
 
@@ -84,7 +86,8 @@ public class FragmentAntarCepat extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.activity_antar_cepat, container, false);
 		progress = (ProgressBar) rootView.findViewById(R.id.progress);
-		noData = (TextView) rootView.findViewById(R.id.noData);
+		noData = (LinearLayout) rootView.findViewById(R.id.noData);
+		btnPO = (Button) rootView.findViewById(R.id.btnPO);
 		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
@@ -104,6 +107,13 @@ public class FragmentAntarCepat extends Fragment {
 				Intent i = new Intent(getActivity(), ActivityCheckout.class);
 				startActivity(i);
 				getActivity().finish();
+			}
+		});
+
+		btnPO.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				SendBroadcast("gotoPO","true");
 			}
 		});
 		/*
@@ -287,6 +297,13 @@ public class FragmentAntarCepat extends Fragment {
 				new IntentFilter("updateCart"));
 
 
+	}
+
+	private void SendBroadcast(String typeBroadcast,String type){
+		Intent intent = new Intent(typeBroadcast);
+		// add data
+		intent.putExtra("message", type);
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
 	}
 
 

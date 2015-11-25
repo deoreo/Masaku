@@ -84,6 +84,7 @@
                     android:imeOptions="actionDone"
                     />
                 <ImageView
+                    android:padding="4dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/next_grey"
@@ -118,6 +119,7 @@
                     android:textColor="@color/colorBlack"
                     />
                 <ImageView
+                    android:padding="4dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/next_grey"
@@ -152,6 +154,7 @@
                     android:textColor="@color/colorBlack"
                     />
                 <ImageView
+                    android:padding="4dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/next_grey"
@@ -186,13 +189,14 @@
                     android:textColor="@color/colorBlack"
                     />
                 <ImageView
+                    android:padding="4dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/next_grey"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
-
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnAboutProfile"
                 android:layout_width="match_parent"
@@ -226,7 +230,7 @@
                     android:src="@drawable/next_grey"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
-            <LinearLayout
+            <LinearLayout android:visibility="gone"
             android:layout_marginTop="10dp"
             android:id="@+id/btnHotline"
             android:layout_width="match_parent"
@@ -274,6 +278,7 @@
 
         </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"

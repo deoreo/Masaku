@@ -26,8 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twiscode.masakuuser.Fragment.FragmentAntarCepat;
+import twiscode.masakuuser.Fragment.FragmentBantuan;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
 import twiscode.masakuuser.Fragment.FragmentMainMenu;
+import twiscode.masakuuser.Fragment.FragmentPesanan;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -72,6 +74,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         btnCart = (ImageView) mCustomView.findViewById(R.id.btnCart);
         actionBar.setCustomView(mCustomView);
         actionBar.setDisplayShowCustomEnabled(true);
+        ApplicationData.titleBar = titleBar;
 
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer); //getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
@@ -187,6 +190,16 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 //title = getString(R.string.app_name);
                 title = "Masaku";
                 break;
+            case 1:
+                fragment = new FragmentPesanan();
+                //title = getString(R.string.app_name);
+                title = "Histori Pesanan";
+                break;
+            case 3:
+                fragment = new FragmentBantuan();
+                //title = getString(R.string.app_name);
+                title = "Bantuan";
+                break;
 
             default:
                 break;
@@ -202,9 +215,15 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
             */
 
             FragmentManager fragmentManager = getSupportFragmentManager();
+
             datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
             datafragmentHelper.ChangeFragment(fragment);
 
+            /*
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_body, fragment)
+                    .commit();
+            */
             // set the toolbar title
             titleBar.setText(title);
         }
