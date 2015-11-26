@@ -214,7 +214,7 @@ public class ActivityLogin extends Activity{
                     DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
                     break;
                 case "OK":
-                    Intent i = new Intent(getBaseContext(), ActivityHome.class);
+                    Intent i = new Intent(getBaseContext(), Main.class);
                     startActivity(i);
                     finish();
                     break;
