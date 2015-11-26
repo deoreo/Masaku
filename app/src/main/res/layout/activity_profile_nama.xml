@@ -103,6 +103,7 @@
                     android:background="@null"
                     android:singleLine="true"
                     android:maxLines="1"
+                    android:textSize="15sp"
                     android:imeOptions="actionDone"
                     />
                 <ImageView

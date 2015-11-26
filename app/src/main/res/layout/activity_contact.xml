@@ -48,6 +48,7 @@
                     android:textColor="@color/colorBlack"/>
             </LinearLayout>
             <RelativeLayout
+                android:id="@+id/btnCallUs"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="15dp"

@@ -60,7 +60,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         actionBar = getSupportActionBar();
 
         actionBar.setDisplayShowHomeEnabled(false);

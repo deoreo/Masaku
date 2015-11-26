@@ -29,6 +29,12 @@ public class ModelMenu {
         this.minOrder = minOrder;
     }
 
+    public ModelMenu(String id, String nama, String foto){
+        this.id = id;
+        this.nama = nama;
+        this.foto = foto;
+    }
+
     public String getId() {
         return id;
     }

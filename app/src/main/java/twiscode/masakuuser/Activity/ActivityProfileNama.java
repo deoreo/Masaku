@@ -172,11 +172,4 @@ public class ActivityProfileNama extends Activity {
         finish();
 
     }
-
-
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 }
