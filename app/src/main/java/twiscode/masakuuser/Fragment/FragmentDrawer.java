@@ -66,7 +66,7 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
     private TextView btnLogout,drawerName;
     private ApplicationManager appManager;
     private DatabaseHandler db;
-    DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
+    private DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
     private Dialog dialog;
 
     public FragmentDrawer() {
@@ -96,6 +96,7 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
 
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+        db = new DatabaseHandler(getActivity());
     }
 
     @Override
