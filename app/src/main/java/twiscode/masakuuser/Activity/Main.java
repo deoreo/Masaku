@@ -30,6 +30,8 @@ import twiscode.masakuuser.Fragment.FragmentBantuan;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
 import twiscode.masakuuser.Fragment.FragmentMainMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
+import twiscode.masakuuser.Fragment.FragmentProfile;
+import twiscode.masakuuser.Fragment.FragmentPromo;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -195,6 +197,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 fragment = new FragmentPesanan();
                 //title = getString(R.string.app_name);
                 title = "Histori Pesanan";
+                break;
+            case 2:
+                fragment = new FragmentPromo();
+                //title = getString(R.string.app_name);
+                title = "Promo";
                 break;
             case 3:
                 fragment = new FragmentBantuan();
