@@ -149,6 +149,10 @@ public class ActivityRegisterNext extends AppCompatActivity {
                 }
                 else {
                     message = responseRegister.getString("message");
+                    if(message.equalsIgnoreCase("User validation failed")){
+                        message = "Nomor ponsel Anda telah terdaftar";
+                    }
+                    return "FAIL";
                 }
 
             } catch (Exception e) {
@@ -165,7 +169,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
             progressDialog.dismiss();
             switch (result) {
                 case "FAIL":
-                    DialogManager.showDialog(mActivity, "Warning", message);
+                    DialogManager.showDialog(mActivity, "Mohon Maaf", message);
                     break;
                 case "OK":
                     ApplicationData.isVerify = 0;
