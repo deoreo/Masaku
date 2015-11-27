@@ -29,6 +29,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/plan_gradient"/>
         <LinearLayout
+            android:id="@+id/layoutTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
