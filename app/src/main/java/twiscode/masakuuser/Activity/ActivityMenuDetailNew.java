@@ -233,7 +233,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(getBaseContext(), ActivityHome.class);
+        Intent i = new Intent(getBaseContext(), Main.class);
         startActivity(i);
         finish();
 
