@@ -298,7 +298,8 @@ public class ActivityCheckout extends AppCompatActivity {
                         mListView.setAdapter(mAdapter);
                     }
                     else{
-                        onBackPressed();
+                        ApplicationData.cart = new HashMap<>();
+                        finish();
                     }
                 }
 

@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
@@ -69,6 +70,8 @@ public class FragmentAntarCepat extends Fragment {
 	private RecyclerView recyclerView;
 
 	private BroadcastReceiver updateCart;
+
+	private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
 
 
 
@@ -182,7 +185,7 @@ public class FragmentAntarCepat extends Fragment {
 		}
 		*/
 
-		ApplicationData.isFirstSpeed = false;
+
 		return rootView;
 	}
 
@@ -254,7 +257,16 @@ public class FragmentAntarCepat extends Fragment {
 						String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
 						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
 						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,feedback);
-						LIST_MENU.add(menu);
+						//LIST_MENU.add(menu);
+						if(speedmenu.size() > 0){
+							if(!speedmenu.containsKey(id)){
+								speedmenu.put(id,menu);
+							}
+						}
+						else {
+							speedmenu.put(id,menu);
+						}
+						LIST_MENU = new ArrayList<>(speedmenu.values());
 					}
 
 					return "OK";
@@ -311,6 +323,7 @@ public class FragmentAntarCepat extends Fragment {
 				mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
 
 			}
+			ApplicationData.isFirstSpeed = false;
 		}
 	}
 
@@ -319,6 +332,7 @@ public class FragmentAntarCepat extends Fragment {
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
 				new IntentFilter("updateCart"));
+
 		if(!ApplicationData.isFirstSpeed){
 			if(ApplicationData.cart.size() > 0){
 				isNodata = false;
@@ -326,7 +340,7 @@ public class FragmentAntarCepat extends Fragment {
 			else {
 				isNodata = true;
 			}
-
+/*
 			List<ModelCart>list = new ArrayList<ModelCart>(ApplicationData.cart.values());
 			if(list.size() > 0){
 				int jml = 0;
@@ -339,9 +353,11 @@ public class FragmentAntarCepat extends Fragment {
 			else {
 				wrapCount.setVisibility(View.GONE);
 			}
-
+*/
+			SendBroadcast("updateCart", "true");
 			DummyData(isNodata);
 		}
+
 
 
 
