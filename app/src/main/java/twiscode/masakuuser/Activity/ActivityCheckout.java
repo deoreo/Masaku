@@ -2,8 +2,10 @@ package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -77,6 +79,7 @@ public class ActivityCheckout extends AppCompatActivity {
     int diskon = 0;
     private DecimalFormat decimalFormat;
     private ProgressBar progress;
+    private BroadcastReceiver updateCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +247,64 @@ public class ActivityCheckout extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        updateCart = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast updateCart");
+                String message = intent.getStringExtra("message");
+                if (message.equals("true")) {
+                    if(ApplicationData.cart.size() > 0){
+                        LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                        if (LIST_MENU.size() > 0) {
+                            subtotal = 0;
+                            for (int i = 0; i < LIST_MENU.size(); i++) {
+                                subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
+                            }
+                            tip = (int) Math.round(subtotal / 10);
+                        }
+                        total = subtotal + tip + delivery - diskon;
+                        txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                        txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
+                        txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    }
+                    else{
+                        onBackPressed();
+                    }
+
+
+
+                }
+                else if(message.equals("delete")){
+                    if(ApplicationData.cart.size() > 0){
+                        LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                        if (LIST_MENU.size() > 0) {
+                            subtotal = 0;
+                            for (int i = 0; i < LIST_MENU.size(); i++) {
+                                subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
+                            }
+                            tip = (int) Math.round(subtotal / 10);
+                        }
+                        total = subtotal + tip + delivery - diskon;
+                        txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                        txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
+                        txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        mAdapter = new AdapterCheckout(ActivityCheckout.this, LIST_MENU);
+                        mListView.setAdapter(mAdapter);
+                    }
+                    else{
+                        onBackPressed();
+                    }
+                }
+
+
+            }
+        };
     }
 
     private void DummyData() {
@@ -473,6 +534,15 @@ public class ActivityCheckout extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(ActivityCheckout.this).registerReceiver(updateCart,
+                new IntentFilter("updateCart"));
+
+
     }
 
 

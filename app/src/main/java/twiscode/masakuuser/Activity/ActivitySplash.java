@@ -17,6 +17,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelNavDrawer;
@@ -50,6 +52,9 @@ public class ActivitySplash extends AppCompatActivity {
         appManager = new ApplicationManager(ctx);
         mProgressBar = (ProgressBar) findViewById(R.id.splash_progress);
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        ApplicationData.cart = new HashMap<>();
+        ApplicationData.isFirstSpeed = true;
 
         final Thread splashThread = new Thread() {
             @Override
