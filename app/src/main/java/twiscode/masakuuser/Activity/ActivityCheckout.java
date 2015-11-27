@@ -272,7 +272,7 @@ public class ActivityCheckout extends AppCompatActivity {
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                     }
                     else{
-                        onBackPressed();
+                        finish();
                     }
 
 
