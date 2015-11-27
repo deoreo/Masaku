@@ -99,7 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -109,13 +108,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/tutup_banner" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -132,77 +124,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
-                            android:text="Speed delivery tidak tersedia"
+                            android:text="Menu tidak tersedia"
                             android:textColor="@color/colorBlack"
                             android:textSize="15dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
-                        <View
-                            android:layout_width="100dp"
-                            android:layout_height="1dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
-                            android:background="@color/colorDarkGrey2" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="30dp"
-                            android:gravity="center"
-                            android:text="Kita buka pada"
-                            android:textColor="@color/colorDarkGrey"
-                            android:textSize="14dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:gravity="center"
-                            android:text="Senin - Sabtu"
-                            android:textColor="@color/colorLightRed"
-                            android:textSize="14dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:gravity="center"
-                            android:text="11.00 AM - 2.00 PM"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="14dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:gravity="center"
-                            android:text="(selama stok masih ada)"
-                            android:textColor="@color/colorDarkGrey"
-                            android:textSize="12dp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="100dp"
-                            android:layout_height="1dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
-                            android:background="@color/colorDarkGrey2" />
-
-                        <Button
-                            android:id="@+id/btnPO"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/rounded_red"
-                            android:padding="15dp"
-                            android:text="LIHAT MENU SELANJUTNYA"
-                            android:textColor="@color/colorWhite"
-                            android:textStyle="bold" />
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
