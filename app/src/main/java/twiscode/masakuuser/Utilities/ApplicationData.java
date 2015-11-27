@@ -52,4 +52,6 @@ public class ApplicationData {
 
     public static TextView titleBar;
 
+    public static boolean isFirstSpeed = true;
+
 }
