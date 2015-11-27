@@ -52,13 +52,14 @@ public class FragmentAntarCepat extends Fragment {
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
-	private PullRefreshLayout mSwipeRefreshLayout;
+	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
 	private ListView mListView;
 	AdapterMenuNew mAdapter;
 	LinearLayout noData;
 	Button btnPO;
 
 	int page =1;
+	boolean isNodata = false;
 
 	private ProgressBar progress;
 
@@ -94,12 +95,15 @@ public class FragmentAntarCepat extends Fragment {
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
+		mSwipeRefreshLayoutNoData = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayoutNoData);
+		mSwipeRefreshLayoutNoData.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		//mListView.addHeaderView(header);
 		//mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 		//mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
+		mSwipeRefreshLayoutNoData.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -154,11 +158,19 @@ public class FragmentAntarCepat extends Fragment {
 		mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				DummyData();
+				isNodata = false;
+				DummyData(isNodata);
+			}
+		});
+		mSwipeRefreshLayoutNoData.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				isNodata = true;
+				DummyData(isNodata);
 			}
 		});
 
-		DummyData();
+		DummyData(isNodata);
 		/*
 		if(LIST_MENU.size() > 0){
 			mListView.setVisibility(View.VISIBLE);
@@ -174,7 +186,8 @@ public class FragmentAntarCepat extends Fragment {
 		return rootView;
 	}
 
-	private void DummyData(){
+	private void DummyData(boolean isnodata){
+		isNodata = isnodata;
 		LIST_MENU = new ArrayList<ModelMenuSpeed>();
 		String p = Integer.toString(page);
 		/*
@@ -205,7 +218,14 @@ public class FragmentAntarCepat extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mSwipeRefreshLayout.setRefreshing(true);
+			if(isNodata){
+				mSwipeRefreshLayoutNoData.setRefreshing(true);
+			}
+			else {
+				mSwipeRefreshLayout.setRefreshing(true);
+			}
+
+			//
 			/*
 			progressDialog = new ProgressDialog(activity);
 			progressDialog.setMessage("Loading. . .");
@@ -259,14 +279,7 @@ public class FragmentAntarCepat extends Fragment {
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
-					if(LIST_MENU.size() > 0){
-						mListView.setVisibility(View.VISIBLE);
-						noData.setVisibility(View.GONE);
-					}
-					else {
-						mListView.setVisibility(View.GONE);
-						noData.setVisibility(View.VISIBLE);
-					}
+
 					break;
 				case "OK":
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
@@ -275,18 +288,29 @@ public class FragmentAntarCepat extends Fragment {
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
 					mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 					mListView.setAdapter(mAdapter);
-					if(LIST_MENU.size() > 0){
-						mListView.setVisibility(View.VISIBLE);
-						noData.setVisibility(View.GONE);
-					}
-					else {
-						mListView.setVisibility(View.GONE);
-						noData.setVisibility(View.VISIBLE);
-					}
+
 					break;
 
 			}
 			mSwipeRefreshLayout.setRefreshing(false);
+			mSwipeRefreshLayoutNoData.setRefreshing(false);
+			if(LIST_MENU.size() > 0){
+
+				//mListView.setVisibility(View.VISIBLE);
+				//noData.setVisibility(View.GONE);
+				mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+				mSwipeRefreshLayoutNoData.setVisibility(View.GONE);
+				Log.d("datalist","ada");
+			}
+			else {
+				/*
+				mListView.setVisibility(View.GONE);
+				noData.setVisibility(View.VISIBLE);
+				*/
+				mSwipeRefreshLayout.setVisibility(View.GONE);
+				mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
+
+			}
 		}
 	}
 

@@ -82,15 +82,21 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:divider="@null"
-                android:dividerHeight="1dp"
-                android:visibility="gone" />
+                android:dividerHeight="1dp"/>
+
+
+
+        </com.baoyz.widget.PullRefreshLayout>
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/swipeRefreshLayoutNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/noData"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -198,6 +204,8 @@
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
+
+
 
         </com.baoyz.widget.PullRefreshLayout>
 

@@ -68,6 +68,7 @@ public class AdapterMenuNew extends BaseAdapter {
     private boolean mKeyIsEmpty = false;
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
+    int noImage = R.drawable.masaku_dummy_480x360;
 
     public AdapterMenuNew(Activity activity, List<ModelMenuSpeed> d) {
         mAct = activity;
@@ -141,13 +142,16 @@ public class AdapterMenuNew extends BaseAdapter {
             height = holder.imgMenu.getHeight();
             width = holder.imgMenu.getWidth();
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgMenu);
-            if(ApplicationData.temp_img.containsKey(VENDOR_IMAGE)){
-                holder.imgMenu.setImageBitmap(ApplicationData.temp_img.get(VENDOR_IMAGE));
+            if(VENDOR_IMAGE.length()==0 || VENDOR_IMAGE==""){
+                holder.imgMenu.setImageResource(noImage);
+                holder.progress.setVisibility(View.GONE);
             }
             else {
                 new DownloadImageTask(holder.imgMenu,holder.progress)
                         .execute(VENDOR_IMAGE);
+
             }
+
 
 
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
@@ -252,18 +256,22 @@ public class AdapterMenuNew extends BaseAdapter {
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
+                //bmImage.setImageResource(noImage);
+
             }
+
+
             return mIcon11;
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-            ApplicationData.temp_img.put(url, result);
-            if(ApplicationData.temp_img.size() > 10){
-                List<String> players = new ArrayList<>(ApplicationData.temp_img.keySet());
-                String key = players.get(players.size()-1);
-                ApplicationData.temp_img.remove(key);
+            if(result != null){
+                bmImage.setImageBitmap(result);
             }
+            else {
+                bmImage.setImageResource(noImage);
+            }
+
 
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);

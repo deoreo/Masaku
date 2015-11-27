@@ -12,10 +12,10 @@
     <string name="drawer_close">Close</string>
 
     <string-array name="nav_drawer_labels">
-        <item>MENU</item>
-        <item>HISTORI PESANAN</item>
-        <item>PROMO</item>
-        <item>BANTUAN</item>
+        <item>Menu</item>
+        <item>Histori Pesanan</item>
+        <item>Promo</item>
+        <item>Bantuan</item>
     </string-array>
 
 </resources>

@@ -183,6 +183,6 @@
         android:background="@color/colorRed"
         android:text="Logout"
         android:textColor="@color/colorWhite"
-        android:textAllCaps="true"/>
+        android:gravity="center"/>
 
 </LinearLayout>

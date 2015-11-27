@@ -123,7 +123,7 @@ public class FragmentMenu extends Fragment {
 	private void DummyData(){
 
 		LIST_MENU = new ArrayList<ModelMenu>();
-		new GetMenu(getActivity()).execute();
+		//new GetMenu(getActivity()).execute();
 
 		/*
 		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11", "20.000");
