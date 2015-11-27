@@ -372,6 +372,25 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         LocalBroadcastManager.getInstance(ActivityMenuDetailNew.this).registerReceiver(updateCart,
                 new IntentFilter("updateCart"));
 
+        if(ApplicationData.cart.size() > 0){
+            List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
+            int jml = 0;
+            for(int i = 0;i<list.size();i++){
+                jml = jml + list.get(i).getJumlah();
+            }
+            countCart.setText(""+jml);
+            wrapCount.setVisibility(View.VISIBLE);
+        }
+        else {
+            wrapCount.setVisibility(View.GONE);
+        }
+
+        CheckCounter(modelMenu.getId());
+
+
+
+
+
 
     }
 
