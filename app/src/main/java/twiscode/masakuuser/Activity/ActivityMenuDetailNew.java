@@ -75,6 +75,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     public TextView nameMenu;
     public TextView timeMenu;
     public TextView priceMenu;
+    public TextView txtDeskripsi;
     public ImageView imgMenu;
     private ScrollView scroll;
     private ModelMenuSpeed modelMenu;
@@ -113,6 +114,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         nameMenu = (TextView) findViewById(R.id.nameMenu);
         timeMenu = (TextView) findViewById(R.id.timeMenu);
         priceMenu = (TextView) findViewById(R.id.priceMenu);
+        txtDeskripsi = (TextView) findViewById(R.id.txtDeskripsi);
         imgMenu = (ImageView) findViewById(R.id.imgMenu);
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         scroll = (ScrollView) findViewById(R.id.scrollMenuDetail);
