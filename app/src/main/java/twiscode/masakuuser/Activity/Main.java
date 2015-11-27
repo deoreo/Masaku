@@ -36,6 +36,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
+import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
 
 
@@ -85,8 +86,12 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Main.this, ActivityCheckout.class);
-                startActivity(i);
+                if(ApplicationData.cart.size()>0) {
+                    Intent i = new Intent(Main.this, ActivityCheckout.class);
+                    startActivity(i);
+                }else{
+                    DialogManager.showDialog(Main.this,"Mohon Maaf", "Anda belum memiliki pesanan");
+                }
             }
         });
         if(ApplicationData.cart.size() > 0){

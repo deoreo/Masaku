@@ -2,11 +2,14 @@ package twiscode.masakuuser.Fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,7 +52,7 @@ import twiscode.masakuuser.Utilities.NetworkManager;
 public class FragmentProfile extends Fragment {
 
 	public static final String ARG_PAGE = "ARG_PAGE";
-	private LinearLayout btnAbout, btnLogout, btnNamaProfile;
+	private LinearLayout btnAbout, btnLogout, btnNamaProfile, btnLokasi;
 	private TextView telponProfile;
 	public static EditText namaprofile;
 	private ImageView btnCart;
@@ -57,6 +60,8 @@ public class FragmentProfile extends Fragment {
 	private ProgressDialog progressDialog;
 	private DatabaseHandler db;
 	private ApplicationManager applicationManager;
+	private CharSequence[] listcities;
+	private TextView txtCity;
 
 	public static FragmentProfile newInstance(int page) {
 		Bundle args = new Bundle();
@@ -81,12 +86,33 @@ public class FragmentProfile extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.activity_profile, container, false);
 		InitDialog();
+		listcities = new CharSequence[2];
+		listcities[0] = "Surabaya";
+		listcities[1] = "Jakarta (Coming Soon)";
 		namaprofile = (EditText) rootView.findViewById(R.id.namaProfile);
 		telponProfile = (TextView) rootView.findViewById(R.id.telponProfile);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		btnAbout = (LinearLayout) rootView.findViewById(R.id.btnAboutProfile);
 		btnLogout = (LinearLayout) rootView.findViewById(R.id.btnLogout);
 		btnNamaProfile = (LinearLayout) rootView.findViewById(R.id.btnNamaProfile);
+		btnLokasi = (LinearLayout) rootView.findViewById(R.id.btnLokasiProfile);
+		txtCity = (TextView) rootView.findViewById(R.id.lokasiProfile);
+
+		btnLokasi.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle("Pilih Kota Anda");
+				builder.setItems(listcities, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int item) {
+						txtCity.setText(listcities[item].toString());
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+
 		btnAbout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

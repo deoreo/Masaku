@@ -54,9 +54,9 @@ public class FragmentAntarCepat extends Fragment {
 	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
 	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
 	private ListView mListView;
-	AdapterMenuNew mAdapter;
-	LinearLayout noData;
-	Button btnPO;
+	private AdapterMenuNew mAdapter;
+	private LinearLayout noData;
+	private Button btnPO;
 
 	int page =1;
 	boolean isNodata = false;
