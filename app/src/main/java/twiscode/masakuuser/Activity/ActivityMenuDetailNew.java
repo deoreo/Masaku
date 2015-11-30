@@ -135,7 +135,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                //onBackPressed();
+                finish();
             }
         });
 

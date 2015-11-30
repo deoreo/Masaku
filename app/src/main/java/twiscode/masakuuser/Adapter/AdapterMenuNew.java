@@ -160,7 +160,7 @@ public class AdapterMenuNew extends BaseAdapter {
                     ApplicationData.modelMenuSpeed = modelMenu;
                     Intent i = new Intent(mAct, ActivityMenuDetailNew.class);
                     mAct.startActivity(i);
-                    mAct.finish();
+                    //mAct.finish();
                 }
 
             });

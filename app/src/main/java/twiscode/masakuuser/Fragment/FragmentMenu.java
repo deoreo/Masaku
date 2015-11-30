@@ -45,7 +45,7 @@ public class FragmentMenu extends Fragment {
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelMenu> LIST_MENU = new ArrayList<>();
-	private PullRefreshLayout mSwipeRefreshLayout;
+	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
 	private ListView mListView;
 	AdapterMenuPO mAdapter;
 	NiceSpinner sort,category;
@@ -68,7 +68,7 @@ public class FragmentMenu extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+							 Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
 		noData = (LinearLayout) rootView.findViewById(R.id.noData);
@@ -76,7 +76,8 @@ public class FragmentMenu extends Fragment {
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
-
+		mSwipeRefreshLayoutNoData = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayoutNoData);
+		mSwipeRefreshLayoutNoData.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
 		category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
@@ -90,6 +91,7 @@ public class FragmentMenu extends Fragment {
 		mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
+		mSwipeRefreshLayoutNoData.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -109,12 +111,12 @@ public class FragmentMenu extends Fragment {
 		DummyData();
 
 		if(LIST_MENU.size() > 0){
-			mListView.setVisibility(View.VISIBLE);
-			noData.setVisibility(View.GONE);
+			mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+			mSwipeRefreshLayoutNoData.setVisibility(View.GONE);
 		}
 		else {
-			mListView.setVisibility(View.GONE);
-			noData.setVisibility(View.VISIBLE);
+			mSwipeRefreshLayout.setVisibility(View.GONE);
+			mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
 		}
 
 		return rootView;

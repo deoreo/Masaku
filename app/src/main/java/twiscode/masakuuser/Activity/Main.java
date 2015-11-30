@@ -198,17 +198,17 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 //title = getString(R.string.app_name);
                 title = "Masaku";
                 break;
-            case 1:
+            case 2:
                 fragment = new FragmentPesanan();
                 //title = getString(R.string.app_name);
                 title = "Histori Pesanan";
                 break;
-            case 2:
+            case 3:
                 fragment = new FragmentPromo();
                 //title = getString(R.string.app_name);
                 title = "Promo";
                 break;
-            case 3:
+            case 4:
                 fragment = new FragmentBantuan();
                 //title = getString(R.string.app_name);
                 title = "Bantuan";
