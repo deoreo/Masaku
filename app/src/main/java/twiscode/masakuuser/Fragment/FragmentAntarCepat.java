@@ -255,8 +255,9 @@ public class FragmentAntarCepat extends Fragment {
 						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
 						String price = menus.getJSONObject(i).getString("price");
 						String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
+						String desc = menus.getJSONObject(i).getString("description");
 						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
-						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,feedback);
+						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback);
 						//LIST_MENU.add(menu);
 						if(speedmenu.size() > 0){
 							if(!speedmenu.containsKey(id)){

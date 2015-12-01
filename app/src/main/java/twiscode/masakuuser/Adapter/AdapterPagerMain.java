@@ -35,11 +35,11 @@ public class AdapterPagerMain extends FragmentPagerAdapter {
         //Fragment fragment = null;
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            return FragmentAntarCepat.newInstance(position + 1);
+            return FragmentMenu.newInstance(position + 1);
         }
         else        // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            return FragmentMenu.newInstance(position + 1);
+            return FragmentAntarCepat.newInstance(position + 1);
         }
 
 

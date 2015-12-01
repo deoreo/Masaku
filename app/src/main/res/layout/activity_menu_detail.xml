@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollMenuDetail"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorGrey">
-
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/colorGrey">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal"
-            android:padding="15dp"
+            android:padding="10dp"
             android:background="@color/colorRed"
             >
             <ImageView
-                android:padding="5dp"
                 android:id="@+id/btnBack"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/back"
                 android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_centerVertical="true"/>
             <ImageView
                 android:layout_width="113dp"
                 android:layout_height="24dp"
@@ -73,12 +69,11 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-
         </RelativeLayout>
         <ScrollView
-            android:id="@+id/scroll"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:fillViewport="true">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -89,13 +84,14 @@
                     android:orientation="vertical">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="300dp">
+                        android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/imgMenu"
                             android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:scaleType="fitXY"
+                            android:layout_height="wrap_content"
                             android:background="@color/colorDarkGrey"
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
                             />
                         <ProgressBar
                             android:id="@+id/progress"
@@ -142,146 +138,129 @@
                                 android:layout_gravity="center_horizontal"
                                 />
                         </LinearLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:gravity="bottom"
-                            android:layout_alignParentBottom="true">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="bottom"
-                                android:layout_alignParentBottom="true"
-                                >
-                                <TextView
-                                    android:id="@+id/nameMenu"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Nama menu"
-                                    android:textColor="@color/colorWhite"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginBottom="15dp"
-                                    />
-                                <TextView
-                                    android:id="@+id/txtDeskripsi"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Deskripsi"
-                                    android:textColor="@color/colorWhite"
-                                    android:textSize="16dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginBottom="15dp"
-                                    android:visibility="gone"
-                                    />
-
-                            </LinearLayout>
-
-                        </RelativeLayout>
                     </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/colorWhite"
+                        android:padding="10dp">
 
+                        <TextView
+                            android:id="@+id/nameMenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama menu"
+                            android:textColor="@color/colorDarkGrey"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="10dp"
+
+                            />
+                        <TextView
+                            android:id="@+id/txtDeskripsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Deskripsi"
+                            />
+
+                    </LinearLayout>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:layout_margin="10dp"
-                        android:layout_gravity="center_vertical"
-                        android:visibility="gone"
-                        android:text="FEEDBACK"/>
+                        android:padding="10dp"
+                        android:background="@color/colorWhite"
+                        android:text="FEEDBACK"
+                        android:visibility="gone"/>
                     <ListView
                         android:id="@+id/feedbackList"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:minHeight="400dp"
+                        android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
-                        android:visibility="gone"
                         android:dividerHeight="1dp"
+                        android:visibility="gone"
                         />
                 </LinearLayout>
-            </RelativeLayout>
 
+            </RelativeLayout>
         </ScrollView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="@color/colorWhite">
-            <TextView
-                android:id="@+id/priceMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/colorRed"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="10dp"
-                android:layout_gravity="center_vertical"
-                android:text="Rp 15.000"
-                />
-            <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="120dp"
-                android:layout_height="40dp">
-                <Button
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/btnAdd"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/rounded_line_red"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/colorRed"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:text="+ ADD"
-                    />
-                <LinearLayout
-                    android:id="@+id/layCounter"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/btnMinus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:text="-"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorRed"/>
-                    <TextView
-                        android:id="@+id/txtCount"
-                        android:layout_width="60dp"
-                        android:layout_height="30dp"
-                        android:text="1"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical"/>
-                    <TextView
-                        android:id="@+id/btnPlus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:text="+"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="center"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorRed"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
     </LinearLayout>
-
-
-
-</ScrollView>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:id="@+id/priceMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorRed"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="Rp 15.000"
+            />
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp">
+            <Button
+                android:layout_alignParentRight="true"
+                android:id="@+id/btnAdd"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_line_red"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorRed"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="+ ADD"
+                />
+            <LinearLayout
+                android:id="@+id/layCounter"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/btnMinus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="-"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorRed"/>
+                <TextView
+                    android:id="@+id/txtCount"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:id="@+id/btnPlus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="+"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

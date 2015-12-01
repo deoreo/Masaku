@@ -9,7 +9,7 @@ import java.util.List;
  * Created by User on 10/21/2015.
  */
 public class ModelMenuSpeed {
-    String id, nama, foto, price, time;
+    String id, nama, foto, price, time, deskripsi;
     JSONArray feedback = new JSONArray();
 
     public ModelMenuSpeed(){
@@ -22,6 +22,16 @@ public class ModelMenuSpeed {
         this.price = price;
         this.foto = foto;
         this.time = time;
+        this.feedback = feedback;
+    }
+
+    public ModelMenuSpeed(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback){
+        this.id = id;
+        this.nama = nama;
+        this.price = price;
+        this.foto = foto;
+        this.time = time;
+        this.deskripsi = deskripsi;
         this.feedback = feedback;
     }
 
@@ -71,5 +81,13 @@ public class ModelMenuSpeed {
 
     public void setFeedback(JSONArray feedback) {
         this.feedback = feedback;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 }

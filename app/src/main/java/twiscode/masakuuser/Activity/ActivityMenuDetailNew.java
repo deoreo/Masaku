@@ -117,14 +117,12 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         txtDeskripsi = (TextView) findViewById(R.id.txtDeskripsi);
         imgMenu = (ImageView) findViewById(R.id.imgMenu);
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
-        scroll = (ScrollView) findViewById(R.id.scrollMenuDetail);
-        scroll.smoothScrollTo(0,0);
         modelMenu = ApplicationData.modelMenuSpeed;
 
         nameMenu.setText(modelMenu.getNama());
         timeMenu.setText(modelMenu.getTime());
         priceMenu.setText("Rp. " + decimalFormat.format(Double.parseDouble(modelMenu.getPrice())));
-
+        txtDeskripsi.setText(modelMenu.getDeskripsi());
         //Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(imgMenu);
         new DownloadImageTask(imgMenu)
                 .execute(modelMenu.getFoto());
