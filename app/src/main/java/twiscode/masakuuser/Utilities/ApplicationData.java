@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.HashMap;
 import java.util.Stack;
 
+import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
@@ -29,6 +30,7 @@ public class ApplicationData {
     public static String phoneNumber = "";
     public static String tokenPass = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
+    public static ModelAllMenus modelAllMenus = null;
     public static HashMap<String,ModelCart> cart = new HashMap<>();
     public static int def_delivery = 10000;
     public static String temp_hp = "";

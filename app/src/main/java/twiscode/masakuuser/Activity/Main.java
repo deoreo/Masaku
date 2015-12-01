@@ -25,6 +25,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import twiscode.masakuuser.Fragment.FragmentAllMenus;
 import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentBantuan;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
@@ -50,6 +51,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private TextView countCart;
     private LinearLayout wrapCount;
     private ImageView btnCart;
+    private final int MENU = 0, ALL_MENU = 1, HISTORI_PESANAN = 2, PROMO = 3, BANTUAN = 4;
 
     private BroadcastReceiver updateCart;
 
@@ -193,22 +195,27 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         String title = getString(R.string.app_name);
 
         switch (position) {
-            case 0:
+            case MENU:
                 fragment = new FragmentMainMenu();
                 //title = getString(R.string.app_name);
                 title = "Masaku";
                 break;
-            case 2:
+            case HISTORI_PESANAN:
                 fragment = new FragmentPesanan();
                 //title = getString(R.string.app_name);
                 title = "Histori Pesanan";
                 break;
-            case 3:
+            case ALL_MENU:
+                fragment = new FragmentAllMenus();
+                //title = getString(R.string.app_name);
+                title = "All Menu";
+                break;
+            case PROMO:
                 fragment = new FragmentPromo();
                 //title = getString(R.string.app_name);
                 title = "Promo";
                 break;
-            case 4:
+            case BANTUAN:
                 fragment = new FragmentBantuan();
                 //title = getString(R.string.app_name);
                 title = "Bantuan";
