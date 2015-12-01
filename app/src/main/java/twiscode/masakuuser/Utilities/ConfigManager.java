@@ -3,8 +3,8 @@ package twiscode.masakuuser.Utilities;
 public class ConfigManager {
 
     public static final String version ="~1";
-    //public static final String SERVER = "https://masaku.id:2083/user"; // develop
-    public static final String SERVER = "https://masaku.id:2053/user"; // live
+    public static final String SERVER = "https://masaku.id:2083/user"; // develop
+    //public static final String SERVER = "https://masaku.id:2053/user"; // live
     public static final String LOGIN = SERVER+"/authenticate";
     public static final String REGISTER = SERVER+"/register";
     public static final String FORGOT_PASSWORD = SERVER+"/forgot";

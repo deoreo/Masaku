@@ -84,8 +84,6 @@
                 android:divider="@null"
                 android:dividerHeight="1dp"/>
 
-
-
         </com.baoyz.widget.PullRefreshLayout>
         <com.baoyz.widget.PullRefreshLayout
             android:id="@+id/swipeRefreshLayoutNoData"

@@ -48,11 +48,10 @@ public class FragmentAllMenus extends Fragment {
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
 	private List<ModelAllMenus> LIST_MENU = new ArrayList<>();
-	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
+	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	private AdapterAllMenus mAdapter;
 	private LinearLayout noData;
-	private Button btnPO;
 
 	int page =1;
 	boolean isNodata = false;
@@ -86,22 +85,18 @@ public class FragmentAllMenus extends Fragment {
 		View rootView = inflater.inflate(R.layout.activity_all_menus, container, false);
 		progress = (ProgressBar) rootView.findViewById(R.id.progress);
 		noData = (LinearLayout) rootView.findViewById(R.id.noData);
-		btnPO = (Button) rootView.findViewById(R.id.btnPO);
 		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
-		mSwipeRefreshLayoutNoData = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayoutNoData);
-		mSwipeRefreshLayoutNoData.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		//mListView.addHeaderView(header);
 		//mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 		//mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
-		mSwipeRefreshLayoutNoData.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -112,12 +107,7 @@ public class FragmentAllMenus extends Fragment {
 			}
 		});
 
-		btnPO.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				SendBroadcast("gotoPO","true");
-			}
-		});
+
 		/*
 		if(ApplicationData.cart.size() > 0){
 			countCart.setText(""+ApplicationData.cart.size());
@@ -157,13 +147,6 @@ public class FragmentAllMenus extends Fragment {
 			@Override
 			public void onRefresh() {
 				isNodata = false;
-				DummyData(isNodata);
-			}
-		});
-		mSwipeRefreshLayoutNoData.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				isNodata = true;
 				DummyData(isNodata);
 			}
 		});
@@ -217,7 +200,7 @@ public class FragmentAllMenus extends Fragment {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			if(isNodata){
-				mSwipeRefreshLayoutNoData.setRefreshing(true);
+
 			}
 			else {
 				mSwipeRefreshLayout.setRefreshing(true);
@@ -301,13 +284,11 @@ public class FragmentAllMenus extends Fragment {
 
 			}
 			mSwipeRefreshLayout.setRefreshing(false);
-			mSwipeRefreshLayoutNoData.setRefreshing(false);
 			if(LIST_MENU.size() > 0){
 
 				//mListView.setVisibility(View.VISIBLE);
 				//noData.setVisibility(View.GONE);
 				mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-				mSwipeRefreshLayoutNoData.setVisibility(View.GONE);
 				Log.d("datalist","ada");
 			}
 			else {
@@ -316,8 +297,6 @@ public class FragmentAllMenus extends Fragment {
 				noData.setVisibility(View.VISIBLE);
 				*/
 				mSwipeRefreshLayout.setVisibility(View.GONE);
-				mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
-
 			}
 			ApplicationData.isFirstSpeed = false;
 		}
