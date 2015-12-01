@@ -349,6 +349,20 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject getAllMenus(int page, String token) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.ALL_MENU + page, ConfigManager.DUKUHKUPANG,token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
 
 
 

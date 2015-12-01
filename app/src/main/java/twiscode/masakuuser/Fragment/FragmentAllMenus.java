@@ -40,6 +40,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
 public class FragmentAllMenus extends Fragment {
 
@@ -51,7 +52,7 @@ public class FragmentAllMenus extends Fragment {
 	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	private AdapterAllMenus mAdapter;
-	private LinearLayout noData;
+	//private LinearLayout noData;
 
 	int page =1;
 	boolean isNodata = false;
@@ -67,6 +68,7 @@ public class FragmentAllMenus extends Fragment {
 
 	private HashMap<String,ModelAllMenus> allMenus = new HashMap<>();
 
+	ApplicationManager appManager;
 
 
 	public static FragmentAllMenus newInstance(int page) {
@@ -81,10 +83,10 @@ public class FragmentAllMenus extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-
+		appManager = new ApplicationManager(getActivity());
 		View rootView = inflater.inflate(R.layout.activity_all_menus, container, false);
 		progress = (ProgressBar) rootView.findViewById(R.id.progress);
-		noData = (LinearLayout) rootView.findViewById(R.id.noData);
+		//noData = (LinearLayout) rootView.findViewById(R.id.noData);
 		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
@@ -223,7 +225,7 @@ public class FragmentAllMenus extends Fragment {
 
 				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getMenuSpeed(page);
+				JSONObject response = jsControl.getAllMenus(page,appManager.getUserToken() );
 				Log.d("json response", response.toString());
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){
@@ -270,7 +272,19 @@ public class FragmentAllMenus extends Fragment {
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+					mSwipeRefreshLayout.setRefreshing(false);
+					if(LIST_MENU.size() > 0){
 
+						mListView.setVisibility(View.VISIBLE);
+						//noData.setVisibility(View.GONE);
+						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+						Log.d("datalist","ada");
+					}
+					else {
+						mListView.setVisibility(View.GONE);
+						//noData.setVisibility(View.VISIBLE);
+						mSwipeRefreshLayout.setVisibility(View.GONE);
+					}
 					break;
 				case "OK":
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
@@ -279,26 +293,24 @@ public class FragmentAllMenus extends Fragment {
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
 					mAdapter = new AdapterAllMenus(getActivity(), LIST_MENU);
 					mListView.setAdapter(mAdapter);
+					mSwipeRefreshLayout.setRefreshing(false);
+					if(LIST_MENU.size() > 0){
 
+						mListView.setVisibility(View.VISIBLE);
+						//noData.setVisibility(View.GONE);
+						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+						Log.d("datalist","ada");
+					}
+					else {
+						mListView.setVisibility(View.GONE);
+						//noData.setVisibility(View.VISIBLE);
+						mSwipeRefreshLayout.setVisibility(View.GONE);
+					}
 					break;
 
 			}
-			mSwipeRefreshLayout.setRefreshing(false);
-			if(LIST_MENU.size() > 0){
 
-				//mListView.setVisibility(View.VISIBLE);
-				//noData.setVisibility(View.GONE);
-				mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-				Log.d("datalist","ada");
-			}
-			else {
-				/*
-				mListView.setVisibility(View.GONE);
-				noData.setVisibility(View.VISIBLE);
-				*/
-				mSwipeRefreshLayout.setVisibility(View.GONE);
-			}
-			ApplicationData.isFirstSpeed = false;
+			//ApplicationData.isFirstSpeed = false;
 		}
 	}
 
