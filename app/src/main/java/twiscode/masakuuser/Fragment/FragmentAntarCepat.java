@@ -36,6 +36,7 @@ import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Activity.ActivityHome;
+import twiscode.masakuuser.Activity.ActivitySpeedNext;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelCart;
@@ -59,7 +60,7 @@ public class FragmentAntarCepat extends Fragment {
 	private LinearLayout noData;
 	private Button btnPO;
 
-	int page =1;
+	int pages =1;
 	boolean isNodata = false;
 
 	private ProgressBar progress;
@@ -120,18 +121,12 @@ public class FragmentAntarCepat extends Fragment {
 		btnPO.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				SendBroadcast("gotoPO","true");
+				Intent i = new Intent(getActivity(), ActivitySpeedNext.class);
+				startActivity(i);
 			}
 		});
-		/*
-		if(ApplicationData.cart.size() > 0){
-			countCart.setText(""+ApplicationData.cart.size());
-			wrapCount.setVisibility(View.VISIBLE);
-		}
-		else {
-			wrapCount.setVisibility(View.GONE);
-		}
-		*/
+
+
 
 		updateCart = new BroadcastReceiver() {
 			@Override
@@ -192,7 +187,7 @@ public class FragmentAntarCepat extends Fragment {
 	private void DummyData(boolean isnodata){
 		isNodata = isnodata;
 		LIST_MENU = new ArrayList<ModelMenuSpeed>();
-		String p = Integer.toString(page);
+		String p = Integer.toString(pages);
 		/*
 		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "8.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11");
 		LIST_MENU.add(modelDeliver0);
