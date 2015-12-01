@@ -184,7 +184,7 @@ public class JSONControl {
         Log.d("token",token);
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.TRANSACTIONS+page, ConfigManager.DUKUHKUPANG, token);
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.TRANSACTIONS + page, ConfigManager.DUKUHKUPANG, token);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -313,7 +313,35 @@ public class JSONControl {
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.DETAIL_TRANSACTION+id, ConfigManager.DUKUHKUPANG, token);
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.DETAIL_TRANSACTION + id, ConfigManager.DUKUHKUPANG, token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public JSONObject getMenuSpeedNext(int page, String token) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.MENU_NEXT + page, ConfigManager.DUKUHKUPANG, token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public JSONObject getMenuPreOrder(int page, String token) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.MENU_PREORDER + page, ConfigManager.DUKUHKUPANG,token);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -3,8 +3,8 @@ package twiscode.masakuuser.Utilities;
 public class ConfigManager {
 
     public static final String version ="~1";
-    public static final String SERVER = "https://masaku.id:2083/user"; // develop
-    //public static final String SERVER = "https://masaku.id:2053/user"; // live
+    //public static final String SERVER = "https://masaku.id:2083/user"; // develop
+    public static final String SERVER = "https://masaku.id:2053/user"; // live
     public static final String LOGIN = SERVER+"/authenticate";
     public static final String REGISTER = SERVER+"/register";
     public static final String FORGOT_PASSWORD = SERVER+"/forgot";
@@ -12,8 +12,7 @@ public class ConfigManager {
     public static final String CHECK_RESET_PASSWORD = SERVER+"/forgot/check";
     public static final String RESET_PASSWORD = SERVER+"/forgot/reset";
     public static final String MENU_SPEED = SERVER+"/menu/speed/";
-    public static final String MENU_PREORDER = SERVER+"/hawker/";
-    public static final String MENU_PREORDER_MENU = SERVER+"/hawker/";
+    public static final String MENU_PREORDER = SERVER+"/preoder/";
     public static final String ALL_MENU = SERVER+"/menu/";
     public static final String MENU_NEXT = SERVER+"/menu/next/";
     public static final String CALCULATE_PRICE = SERVER+"/calculate-price";
