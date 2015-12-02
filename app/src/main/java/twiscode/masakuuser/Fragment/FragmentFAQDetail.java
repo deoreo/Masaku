@@ -44,7 +44,7 @@ public class FragmentFAQDetail extends Fragment {
 		txtQuestion.setText(Html.fromHtml(ApplicationData.question));
 		txtAnswer.setText(Html.fromHtml(ApplicationData.answer));
 
-		
+
 
 		return rootView;
 	}

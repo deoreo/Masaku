@@ -209,7 +209,8 @@ public class FragmentAllMenus extends Fragment {
 						String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
 						String desc = menus.getJSONObject(i).getString("description");
 						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
-						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback);
+						boolean added = false;
+						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added);
 						//LIST_MENU.add(menu);
 						if(allMenus.size() > 0){
 							if(!allMenus.containsKey(id)){
@@ -220,6 +221,7 @@ public class FragmentAllMenus extends Fragment {
 							allMenus.put(id, menu);
 						}
 						LIST_MENU = new ArrayList<>(allMenus.values());
+						ApplicationData.allmenus = allMenus;
 					}
 
 					return "OK";

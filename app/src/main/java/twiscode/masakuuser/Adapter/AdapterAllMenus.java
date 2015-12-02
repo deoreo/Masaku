@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -119,6 +120,7 @@ public class AdapterAllMenus extends BaseAdapter {
             final String VENDOR_HARGA = modelMenu.getPrice();
             final String VENDOR_TIME = modelMenu.getTime();
             final String VENDOR_IMAGE = modelMenu.getFoto();
+            final boolean VENDOR_ADDED = modelMenu.isAdded();
 
             final ViewHolder holder2 = holder;
 
@@ -140,6 +142,16 @@ public class AdapterAllMenus extends BaseAdapter {
 
             }
 
+            if(VENDOR_ADDED){
+                holder.btnAdd.setVisibility(View.GONE);
+                holder.btnAdded.setVisibility(View.VISIBLE);
+
+            }
+            else {
+                holder.btnAdd.setVisibility(View.VISIBLE);
+                holder.btnAdded.setVisibility(View.GONE);
+            }
+
 
 
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +170,10 @@ public class AdapterAllMenus extends BaseAdapter {
                 public void onClick(View view) {
                     holder.btnAdd.setVisibility(View.GONE);
                     holder.btnAdded.setVisibility(View.VISIBLE);
+                    if(ApplicationData.allmenus.containsKey(ID)){
+                        ApplicationData.allmenus.get(ID).setAdded(true);
+                    }
+
                 }
             });
 
@@ -166,6 +182,9 @@ public class AdapterAllMenus extends BaseAdapter {
                 public void onClick(View view) {
                     holder.btnAdd.setVisibility(View.VISIBLE);
                     holder.btnAdded.setVisibility(View.GONE);
+                    if(ApplicationData.allmenus.containsKey(ID)){
+                        ApplicationData.allmenus.get(ID).setAdded(false);
+                    }
                 }
             });
 

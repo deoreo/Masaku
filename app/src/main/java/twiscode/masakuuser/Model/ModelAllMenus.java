@@ -8,6 +8,7 @@ import org.json.JSONArray;
 public class ModelAllMenus {
     String id, nama, foto, price, time, deskripsi;
     JSONArray feedback = new JSONArray();
+    boolean added;
 
     public ModelAllMenus(){
 
@@ -30,6 +31,17 @@ public class ModelAllMenus {
         this.time = time;
         this.deskripsi = deskripsi;
         this.feedback = feedback;
+    }
+
+    public ModelAllMenus(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, boolean added){
+        this.id = id;
+        this.nama = nama;
+        this.price = price;
+        this.foto = foto;
+        this.time = time;
+        this.deskripsi = deskripsi;
+        this.feedback = feedback;
+        this.added = added;
     }
 
     public String getId() {
@@ -86,5 +98,13 @@ public class ModelAllMenus {
 
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
+    }
+
+    public boolean isAdded() {
+        return added;
+    }
+
+    public void setAdded(boolean added) {
+        this.added = added;
     }
 }
