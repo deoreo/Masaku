@@ -147,7 +147,9 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     @Override
     public void onBackPressed() {
         Log.d("counter stack", Integer.toString(getFragmentManager().getBackStackEntryCount()));
-        if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Contact Us")){
+        if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Contact Us")
+                || ApplicationData.titleBar.getText().toString().equalsIgnoreCase("FAQ")
+                ){
             datafragmentHelper.ReturnLastFragment();
         }
     }

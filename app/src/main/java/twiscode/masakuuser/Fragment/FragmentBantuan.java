@@ -67,7 +67,12 @@ public class FragmentBantuan extends Fragment {
 		btnFAQ.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				DialogManager.showDialog(getActivity(), "Mohon Maaf", "FAQ Belum Tersedia");
+				android.support.v4.app.Fragment fragment = null;
+				fragment = new FragmentFAQ();
+				FragmentManager fragmentManager = getFragmentManager();
+				datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
+				datafragmentHelper.ChangeFragment(fragment);
+				ApplicationData.titleBar.setText("Contact Us");
 			}
 		});
 		btnTerms.setOnClickListener(new View.OnClickListener() {
