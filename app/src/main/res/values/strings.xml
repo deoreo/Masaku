@@ -88,4 +88,42 @@
         ]]>
     </string>
 
+    <string name="contentCopyright">
+        <![CDATA[
+         All text and images on Masaku website or Masaku Mobile Application remains copyright of Masaku. Usage of any of this material is prohibited, unless authorised by the copyright holder. Masaku is authorised to use all images that are used on Masaku website and Mobile Application
+         ]]>
+    </string>
+    <string name="contentTerms">
+        <![CDATA[
+          <p>By making a purchase with us on this website/Mobile Application, you are agreeing to the following terms and conditions.</p>
+          <br/>
+          <p>Prices</p>
+          <p>All of our prices are exclusive of taxes.</p>
+          <p>On the occasion that any item is incorrectly priced, we reserve the right to cancel the purchase and relist the product at the correct price.</p>
+          <br/>
+          <p>Privacy</p>
+          <p>We only store necessary information required to make a purchase.</p>
+          <p>We do not sell or lease any of your personal information. All information left with www.masaku.id or Masaku mobile application is entirely confidential.</p>
+          ]]>
+    </string>
+    <string name="contentGuarantee">
+        <![CDATA[
+          <p>Masaku Mobile Application is committed to ensuring your food will be delivered to you. If the food you order are not delivered, we will refund your order.</p>
+          ]]>
+    </string>
+    <string name="contentPrivacy">
+        <![CDATA[
+          <p>This is for reasons of fraud protection. Fraudulent orders will be submitted to the appropriate authorities.</p>
+          <p>Masaku collects personally identifiable information that you may voluntarily provide on online forms, which may include: user registration, contact requests, guest comments, online surveys, and other online activities. The personally identifiable information (Personal Information) collected on this application can include some or all of the following: your name, address, telephone number, email addresses, demographic information, and any other information you may voluntarily provide.
+In addition to the personal information identified above, our web servers automatically identify computers by their IP addresses. Company may use IP addresses to analyze trends, administer the site, track users’ movement and gather broad demographic information for aggregate use. To emphasize, IP addresses are not linked to personal information.</p>
+          ]]>
+    </string>
+    <string name="contentDisclaimer">
+        <![CDATA[
+          <p>It is your own responsibility to ensure that you are fully aware of all of these terms and conditions when making a purchase on Masaku Mobile Application.</p>
+          <p>Masaku reserve the right to change / modify these terms & conditions at their own discretion anytime.</p>
+          <p>The images shown are only indicative in nature and the actual product may vary in size, colour etc.</p>
+          <p>Masaku reserves the right to change any part or piece of information on Masaku Mobile Application without any notice to customers or visitors.</p>
+          ]]>
+    </string>
     </resources>
