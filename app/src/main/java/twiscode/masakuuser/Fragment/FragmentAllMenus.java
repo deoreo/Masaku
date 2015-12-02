@@ -108,15 +108,6 @@ public class FragmentAllMenus extends Fragment {
 		});
 
 
-		/*
-		if(ApplicationData.cart.size() > 0){
-			countCart.setText(""+ApplicationData.cart.size());
-			wrapCount.setVisibility(View.VISIBLE);
-		}
-		else {
-			wrapCount.setVisibility(View.GONE);
-		}
-		*/
 
 		updateCart = new BroadcastReceiver() {
 			@Override
@@ -290,53 +281,9 @@ public class FragmentAllMenus extends Fragment {
 					break;
 
 			}
-
-			//ApplicationData.isFirstSpeed = false;
 		}
 	}
 
-	public void onResume() {
-		super.onResume();
-
-		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
-				new IntentFilter("updateCart"));
-
-		if(!ApplicationData.isFirstSpeed){
-			if(ApplicationData.cart.size() > 0){
-				isNodata = false;
-			}
-			else {
-				isNodata = true;
-			}
-/*
-			List<ModelCart>list = new ArrayList<ModelCart>(ApplicationData.cart.values());
-			if(list.size() > 0){
-				int jml = 0;
-				for(int i = 0;i<list.size();i++){
-					jml = jml + list.get(i).getJumlah();
-				}
-				countCart.setText(""+jml);
-				wrapCount.setVisibility(View.VISIBLE);
-			}
-			else {
-				wrapCount.setVisibility(View.GONE);
-			}
-*/
-			SendBroadcast("updateCart", "true");
-			DummyData(isNodata);
-		}
-
-
-
-
-	}
-
-	private void SendBroadcast(String typeBroadcast,String type){
-		Intent intent = new Intent(typeBroadcast);
-		// add data
-		intent.putExtra("message", type);
-		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
-	}
 
 
 }

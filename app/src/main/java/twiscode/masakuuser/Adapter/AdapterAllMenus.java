@@ -103,6 +103,8 @@ public class AdapterAllMenus extends BaseAdapter {
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
             holder.priceMenu = (TextView) convertView.findViewById(R.id.priceMenu);
             holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
+            holder.btnAdd = (Button) convertView.findViewById(R.id.btnAdd);
+            holder.btnAdded = (Button) convertView.findViewById(R.id.btnAdded);
             convertView.setTag(position);
 
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
@@ -149,6 +151,22 @@ public class AdapterAllMenus extends BaseAdapter {
                     //mAct.finish();
                 }
 
+            });
+
+            holder.btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.btnAdd.setVisibility(View.GONE);
+                    holder.btnAdded.setVisibility(View.VISIBLE);
+                }
+            });
+
+            holder.btnAdded.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.btnAdd.setVisibility(View.VISIBLE);
+                    holder.btnAdded.setVisibility(View.GONE);
+                }
             });
 
 

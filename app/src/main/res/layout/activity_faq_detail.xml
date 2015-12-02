@@ -49,15 +49,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp">
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/txtQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Dimana pesanan saya?"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold"
