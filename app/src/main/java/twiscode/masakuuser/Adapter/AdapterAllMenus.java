@@ -46,6 +46,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Locale;
 
+import twiscode.masakuuser.Activity.ActivityAllMenusDetail;
 import twiscode.masakuuser.Activity.ActivityMenuDetailNew;
 import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.R;
@@ -143,7 +144,7 @@ public class AdapterAllMenus extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ApplicationData.modelAllMenus = modelMenu;
-                    Intent i = new Intent(mAct, ActivityMenuDetailNew.class);
+                    Intent i = new Intent(mAct, ActivityAllMenusDetail.class);
                     mAct.startActivity(i);
                     //mAct.finish();
                 }

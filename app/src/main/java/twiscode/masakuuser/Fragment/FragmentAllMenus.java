@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,7 +36,6 @@ import twiscode.masakuuser.Adapter.AdapterAllMenus;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelCart;
-import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
@@ -173,25 +171,19 @@ public class FragmentAllMenus extends Fragment {
 		isNodata = isnodata;
 		LIST_MENU = new ArrayList<ModelAllMenus>();
 		String p = Integer.toString(page);
-		/*
-		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "8.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11");
-		LIST_MENU.add(modelDeliver0);
-		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Bu Winda", "14.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "15");
-		LIST_MENU.add(modelDeliver1);
-		*/
-		new GetMenu(getActivity()).execute(
+		new GetAllMenus(getActivity()).execute(
 				p
 		);
 
 	}
 
-	private class GetMenu extends AsyncTask<String, Void, String> {
+	private class GetAllMenus extends AsyncTask<String, Void, String> {
 		private Activity activity;
 		private Context context;
 		private Resources resources;
 
 
-		public GetMenu(Activity activity) {
+		public GetAllMenus(Activity activity) {
 			super();
 			this.activity = activity;
 			this.context = activity.getApplicationContext();
@@ -202,21 +194,10 @@ public class FragmentAllMenus extends Fragment {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			if(isNodata){
-
 			}
 			else {
 				mSwipeRefreshLayout.setRefreshing(true);
 			}
-
-			//
-			/*
-			progressDialog = new ProgressDialog(activity);
-			progressDialog.setMessage("Loading. . .");
-			progressDialog.setIndeterminate(false);
-			progressDialog.setCancelable(false);
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progressDialog.show();
-			*/
 		}
 
 		@Override

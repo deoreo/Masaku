@@ -87,7 +87,6 @@
                 android:visibility="visible"/>
 
 
-
         </com.baoyz.widget.PullRefreshLayout>
 
 
