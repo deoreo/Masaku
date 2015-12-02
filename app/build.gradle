@@ -18,7 +18,6 @@ android {
         versionCode 2
         versionName "1.0.1"
         signingConfig signingConfigs.apksignkey
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -29,9 +28,7 @@ android {
     }
     productFlavors {
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
+
 }
 
 dependencies {
