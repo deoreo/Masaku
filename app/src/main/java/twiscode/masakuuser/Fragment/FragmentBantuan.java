@@ -72,13 +72,17 @@ public class FragmentBantuan extends Fragment {
 				FragmentManager fragmentManager = getFragmentManager();
 				datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
 				datafragmentHelper.ChangeFragment(fragment);
-				ApplicationData.titleBar.setText("Contact Us");
+				ApplicationData.titleBar.setText("FAQ");
 			}
 		});
 		btnTerms.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				DialogManager.showDialog(getActivity(), "Mohon Maaf", "Terms and Condition Belum Tersedia");
+				android.support.v4.app.Fragment fragment = null;
+				fragment = new FragmentTerms();
+				FragmentManager fragmentManager = getFragmentManager();
+				datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
+				datafragmentHelper.ChangeFragment(fragment);
 			}
 		});
 
