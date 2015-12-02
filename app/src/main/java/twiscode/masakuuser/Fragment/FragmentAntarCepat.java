@@ -262,9 +262,9 @@ public class FragmentAntarCepat extends Fragment {
 						else {
 							speedmenu.put(id,menu);
 						}
-						LIST_MENU = new ArrayList<>(speedmenu.values());
-					}
 
+					}
+					LIST_MENU = new ArrayList<>(speedmenu.values());
 					return "OK";
 				}
 

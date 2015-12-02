@@ -7,10 +7,15 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +31,9 @@ import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class ActivityLogin extends Activity{
 
     private TextView btnForget;
@@ -34,6 +42,8 @@ public class ActivityLogin extends Activity{
     private Button btnLogin, btnRegister;
     private ModelUser userLogin;
     private DatabaseHandler db;
+    private CheckBox showPass;
+    int idShowPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,9 @@ public class ActivityLogin extends Activity{
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        showPass = (CheckBox) findViewById(R.id.showPassword);
+
+        idShowPass = showPass.getInputType();
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +110,31 @@ public class ActivityLogin extends Activity{
                         );
                     }
 
+                }
+            }
+        });
+
+        txtPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus) {
+                    txtPhone.setHint("xxxxxx");
+                } else {
+                    txtPhone.setHint("");
+                }
+            }
+        });
+
+        showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else  {
+                    txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
             }
         });

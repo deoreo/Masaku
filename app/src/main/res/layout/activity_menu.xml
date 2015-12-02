@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
+    android:background="@color/colorWhite">
 
     <!-- Screen Design for Photos -->
     <RelativeLayout
@@ -65,68 +65,6 @@
             android:divider="@null"
             android:background="@null" />
     </com.baoyz.widget.PullRefreshLayout>
-    <com.baoyz.widget.PullRefreshLayout
-        android:id="@+id/swipeRefreshLayoutNoData"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <LinearLayout
-            android:id="@+id/noData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/colorWhite">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ponodata" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:gravity="center"
-                        android:text="Menu Pre Order akan segera tersedia"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="100dp"
-                        android:layout_height="1dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/colorDarkGrey2" />
-
-                    <Button
-                        android:id="@+id/btnPO"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/rounded_red"
-                        android:padding="15dp"
-                        android:text="Notify Me When it's ready"
-                        android:textColor="@color/colorWhite"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
-    </com.baoyz.widget.PullRefreshLayout>
 
 </LinearLayout>

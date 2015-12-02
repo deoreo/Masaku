@@ -2,6 +2,7 @@ package twiscode.masakuuser.Fragment;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,12 +41,13 @@ import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
 public class FragmentMenu extends Fragment {
 
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
-	private List<ModelMenu> LIST_MENU = new ArrayList<>();
+	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
 	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
 	private ListView mListView;
 	AdapterMenuPO mAdapter;
@@ -52,10 +55,15 @@ public class FragmentMenu extends Fragment {
 	LinearLayout noData;
 
 
-	private int mPage;
+	private int mPage = 1;
 
-	private RecyclerView recyclerView;
+	private BroadcastReceiver updateCart;
 
+	private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
+
+	ApplicationManager applicationManager;
+
+	View header;
 
 
 	public static FragmentMenu newInstance(int page) {
@@ -69,16 +77,13 @@ public class FragmentMenu extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-
+		applicationManager = new ApplicationManager(getActivity());
 		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
-		noData = (LinearLayout) rootView.findViewById(R.id.noData);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
-		mSwipeRefreshLayoutNoData = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayoutNoData);
-		mSwipeRefreshLayoutNoData.setRefreshStyle(PullRefreshLayout.STYLE_RING);
-		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
+		header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
 		category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
 
@@ -86,12 +91,9 @@ public class FragmentMenu extends Fragment {
 		List<String> dataSort = new LinkedList<>(Arrays.asList("Popular", "Lowest Price", "Highest Price", "Nearest"));
 		sort.attachDataSource(dataSort);
 		category.attachDataSource(dataCategory);
-		mListView.addHeaderView(header);
-		mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
-		mListView.setAdapter(mAdapter);
+
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
-		mSwipeRefreshLayoutNoData.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -110,22 +112,15 @@ public class FragmentMenu extends Fragment {
 
 		DummyData();
 
-		if(LIST_MENU.size() > 0){
-			mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-			mSwipeRefreshLayoutNoData.setVisibility(View.GONE);
-		}
-		else {
-			mSwipeRefreshLayout.setVisibility(View.GONE);
-			mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
-		}
+
 
 		return rootView;
 	}
 
 	private void DummyData(){
 
-		LIST_MENU = new ArrayList<ModelMenu>();
-		//new GetAllMenus(getActivity()).execute();
+		LIST_MENU = new ArrayList<ModelMenuSpeed>();
+		new GetMenu(getActivity()).execute(Integer.toString(mPage));
 
 		/*
 		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "5", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11", "20.000");
@@ -152,6 +147,7 @@ public class FragmentMenu extends Fragment {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			mSwipeRefreshLayout.setRefreshing(true);
+
 		}
 
 		@Override
@@ -160,7 +156,7 @@ public class FragmentMenu extends Fragment {
 
 				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getMenuSpeed(page);
+				JSONObject response = jsControl.getMenuPreOrder(page,applicationManager.getUserToken());
 				Log.d("json response", response.toString());
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){
@@ -168,9 +164,23 @@ public class FragmentMenu extends Fragment {
 						String id = menus.getJSONObject(i).getString("_id");
 						String nama = menus.getJSONObject(i).getString("name");
 						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
-						ModelMenu menu = new ModelMenu(id,nama,foto);
-						LIST_MENU.add(menu);
+						String price = menus.getJSONObject(i).getString("price");
+						String time = "";
+						String desc = menus.getJSONObject(i).getString("description");
+						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback);
+						//LIST_MENU.add(menu);
+						if(speedmenu.size() > 0){
+							if(!speedmenu.containsKey(id)){
+								speedmenu.put(id,menu);
+							}
+						}
+						else {
+							speedmenu.put(id,menu);
+						}
+
 					}
+					LIST_MENU = new ArrayList<>(speedmenu.values());
 
 					return "OK";
 				}
@@ -192,33 +202,20 @@ public class FragmentMenu extends Fragment {
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
-					if(LIST_MENU.size() > 0){
-						mListView.setVisibility(View.VISIBLE);
-						noData.setVisibility(View.GONE);
-					}
-					else {
-						mListView.setVisibility(View.GONE);
-						noData.setVisibility(View.VISIBLE);
-					}
+
 					break;
 				case "OK":
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
 					//startActivity(i);
 					//finish();
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
-					mAdapter = new AdapterMenuPO(activity, LIST_MENU);
-					mListView.setAdapter(mAdapter);
-					if(LIST_MENU.size() > 0){
-						mListView.setVisibility(View.VISIBLE);
-						noData.setVisibility(View.GONE);
-					}
-					else {
-						mListView.setVisibility(View.GONE);
-						noData.setVisibility(View.VISIBLE);
-					}
+					mListView.addHeaderView(header);
+
 					break;
 
 			}
+			mAdapter = new AdapterMenuPO(activity, LIST_MENU);
+			mListView.setAdapter(mAdapter);
 			mSwipeRefreshLayout.setRefreshing(false);
 		}
 	}
