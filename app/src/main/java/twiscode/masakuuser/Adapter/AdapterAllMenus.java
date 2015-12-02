@@ -163,6 +163,7 @@ public class AdapterAllMenus extends BaseAdapter {
         public TextView priceMenu;
         public ImageView imgMenu;
         public ProgressBar progress;
+        public Button btnAdd, btnAdded;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

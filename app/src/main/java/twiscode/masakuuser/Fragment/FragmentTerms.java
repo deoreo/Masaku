@@ -8,27 +8,20 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 
-public class FragmentFAQDetail extends Fragment {
+public class FragmentTerms extends Fragment {
 
 	public static final String ARG_PAGE = "ARG_PAGE";
 
-	private int mPage;
 
-	private RecyclerView recyclerView;
-	private TextView txtQuestion, txtAnswer;
-
-
-
-	public static FragmentFAQDetail newInstance(int page) {
+	public static FragmentTerms newInstance(int page) {
 		Bundle args = new Bundle();
 		args.putInt(ARG_PAGE, page);
-		FragmentFAQDetail fragment = new FragmentFAQDetail();
+		FragmentTerms fragment = new FragmentTerms();
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -38,12 +31,6 @@ public class FragmentFAQDetail extends Fragment {
 			Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.activity_faq_detail, container, false);
-		txtQuestion = (TextView) rootView.findViewById(R.id.txtQuestion);
-		txtAnswer = (TextView) rootView.findViewById(R.id.txtAnswer);
-
-		txtQuestion.setText(Html.fromHtml(ApplicationData.question));
-		txtAnswer.setText(Html.fromHtml(ApplicationData.answer));
-
 		return rootView;
 	}
 
