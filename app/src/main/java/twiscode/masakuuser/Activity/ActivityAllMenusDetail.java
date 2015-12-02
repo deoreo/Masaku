@@ -78,7 +78,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
     private BroadcastReceiver updateCart;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
-
+    int noImage = R.drawable.masaku_dummy_480x360;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,7 +226,12 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+            if(result != null){
+                bmImage.setImageBitmap(result);
+            }
+            else {
+                bmImage.setImageResource(noImage);
+            }
 
             if (progress != null) {
                 progress.setVisibility(View.GONE);

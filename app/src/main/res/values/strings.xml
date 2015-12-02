@@ -19,4 +19,73 @@
         <item>Bantuan</item>
     </string-array>
 
-</resources>
+    <string name="AnsFaq1">
+        <![CDATA[
+        Pesanan Pre-order akan dikirim pada tanggal pengiriman yang sudah ditentukan oleh vendor.
+        <br>Pengiriman akan dilakukan pada jam 11 hingga jam 2 siang.
+        <br>Pesanan Speed delivery akan dikirim dalam waktu kurang lebih 30 menit sejak pemesanan dilakukan.
+        ]]>
+    </string>
+    <string name="AnsFaq2">
+        <![CDATA[
+        1. Order : Hanya dengan memilih makanan yang anda inginkan di tabs speed delivery maupun Pre-order.
+        <br>2. Checkout : Masukan alamat tempat lokasi anda dan nomor handphone.
+        <br>Pastikan nomor yang anda berikan selalu aktif untuk memudahkan kami menghubungi anda mengenai order anda.
+        ]]>
+    </string>
+    <string name="AnsFaq3">
+        <![CDATA[
+        Pesanan yang telah diterima tidak bisa dibatalkan atau diganti dengan orderan yang lain.
+        <br>Untuk penggantian alamat pengiriman dapat langsung menghubungi driver dengan jangka waktu paling lambat jam 9 pagi di hari pengiriman.
+        ]]>
+    </string>
+    <string name="AnsFaq4">
+        <![CDATA[
+        Pesanan Speed delivery akan dikirim dalam waktu kurang lebih 30 menit sejak pemesanan dilakukan.
+        <p>
+        <br>Pesanan Pre-order akan dikirim pada tanggal pengiriman yang sudah ditentukan oleh vendor.
+        <br>Pengiriman akan dilakukan pada jam 11 hingga jam 2 siang.
+        ]]>
+    </string>
+    <string name="AnsFaq5">
+        <![CDATA[
+        Biaya pengiriman Speed delivery sebesar Rp 20.000,-
+        <br>Biaya pengiriman Pre-order sebesar Rp 10.000,-
+        ]]>
+    </string>
+    <string name="AnsFaq6">
+        <![CDATA[
+        Pembayaran Pre Order dilakukan menggunakan system Transfer. Pesanan akan dibuat setelah pembayaran dilakukan.
+        <br>Pembayaran Speed Delivery dilakukan dengan system Cash on Delivery. Uang yang dibayarkan diharapkan sesuai dengan jumlah total.
+        ]]>
+    </string>
+    <string name="AnsFaq7">
+        <![CDATA[
+        Masaku adalah platform online pertama di Surabaya yang menyediakan makanan rumahan. Pengguna dapat memilih banyak varian makanan rumahan yang siap diantarkan hingga ke rumah.
+        ]]>
+    </string>
+    <string name="AnsFaq8">
+        <![CDATA[
+        Bila anda ingin mengecek semua menu di Masaku, buka aplikasi kami dan pilih tab <b>"speed delivery"</b> atau <b>"pre-order"</b> menu akan ditampilkan sesuai dengan kategorinya
+        ]]>
+    </string>
+    <string name="AnsFaq9">
+        <![CDATA[
+        Jam buka untuk Speed delivery adalah setiap hari pukul 11.00-14.00
+        <br>Jam buka untuk Pre-order ditentukan oleh masing-masing vendor.
+        <br>Jam buka vendor akan dituliskan pada profile vendor. Standarnya dari jam 11:00 – 23:00.
+        ]]>
+    </string>
+    <string name="AnsFaq10">
+        <![CDATA[
+        Masaku tidak memiliki kuasa dalam hal ini. Order anda dapat ditolak oleh vendor bila
+        kuota vendor yang tidak memadai, area anda tidak dapat dijangkau oleh vendor, maupun alasan-alasan lain.
+        ]]>
+    </string>
+    <string name="AnsFaq11">
+        <![CDATA[
+        Bila sudah memiliki account Masaku. Silahkan kembali ke halaman login dan klik lupa password. Password yang baru akan dikirimkan
+        ]]>
+    </string>
+
+    </resources>

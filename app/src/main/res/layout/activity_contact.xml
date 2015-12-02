@@ -173,8 +173,15 @@
                 android:hint="Ketik feedback anda disini"
                 android:padding="10dp"
                 android:textSize="14dp"
-                android:maxLines="3"
+                android:maxLines="5"
+                android:lines="5"
+                android:gravity="left"
                 />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDarkGrey2"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btnKirim"
                 android:layout_marginTop="30dp"

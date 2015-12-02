@@ -51,9 +51,8 @@ public class ApplicationData {
     public static Stack<Fragment> fragments = new Stack<>();
     public static HashMap<String,Bitmap> temp_img = new HashMap<>();
     public static String smsCode;
-
     public static TextView titleBar;
-
     public static boolean isFirstSpeed = true;
+    public static String question, answer;
 
 }

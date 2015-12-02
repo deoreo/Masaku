@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey">
+    <!-- Screen Design for Photos -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="@color/colorRed"
+        android:elevation="5dp"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Profile"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="16dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:padding="5dp"
+                android:id="@+id/btnCart"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/cart_90"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+            <TextView
+                android:id="@+id/txtQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:text="Dimana pesanan saya?"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                />
+            <LinearLayout
+                android:id="@+id/btnFaq1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorWhite"
+                android:layout_margin="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp">
+                <TextView
+                    android:id="@+id/txtAnswer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="30dp"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:background="@null"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
