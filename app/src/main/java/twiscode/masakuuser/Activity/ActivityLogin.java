@@ -130,16 +130,12 @@ public class ActivityLogin extends Activity{
         showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d("showpass",""+isChecked);
                 if(!isChecked){
-                    //txtPassword.setInputType(idShowPass);
                     txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 else  {
                     txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    //txtPassword.setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
                 }
-                //txtPassword.setSelection(txtPassword.length());
             }
         });
 

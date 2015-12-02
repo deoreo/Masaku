@@ -163,7 +163,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginTop="15dp">
+                            android:layout_marginTop="5dp">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -190,15 +190,23 @@
                                     android:textSize="16dp"
                                     android:gravity="center_vertical"
                                     />
+                                <CheckBox
+                                    android:id="@+id/showPassword"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="show"/>
                             </LinearLayout>
 
                         </LinearLayout>
+
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginTop="15dp">
+                            android:layout_marginTop="5dp">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -225,6 +233,13 @@
                                     android:textSize="16dp"
                                     android:gravity="center_vertical"
                                     />
+                                <CheckBox
+                                    android:id="@+id/showConfirmPassword"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="show"/>
+
                             </LinearLayout>
 
                         </LinearLayout>
