@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,13 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.astuetz.PagerSlidingTabStrip;
-import com.makeramen.roundedimageview.RoundedImageView;
-import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -52,19 +45,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import twiscode.masakuuser.Adapter.AdapterPagerMenuDetail;
 import twiscode.masakuuser.Adapter.AdapterVendorFeedback;
 import twiscode.masakuuser.Model.ModelCart;
-import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelVendorFeedback;
-import twiscode.masakuuser.Model.ModelVendorRating;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActivityMenuDetailNew extends ActionBarActivity {
+public class ActivitySpeedNextDetail extends ActionBarActivity {
 
     public LinearLayout layCounter;
     public TextView btnMinus;
@@ -93,7 +83,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_detail);
+        setContentView(R.layout.activity_speed_next_detail);
 
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
         otherSymbols.setDecimalSeparator(',');
@@ -103,15 +93,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
         DummyFeedback();
         progress = (ProgressBar) findViewById(R.id.progress);
-        wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
-        countCart = (TextView) findViewById(R.id.countCart);
-        layCounter = (LinearLayout) findViewById(R.id.layCounter);
-        btnMinus = (TextView) findViewById(R.id.btnMinus);
-        btnPlus = (TextView) findViewById(R.id.btnPlus);
-        txtCount = (TextView) findViewById(R.id.txtCount);
-        btnAdd = (Button) findViewById(R.id.btnAdd);
+
         btnBack = (ImageView) findViewById(R.id.btnBack);
-        btnCart = (ImageView) findViewById(R.id.btnCart);
         nameMenu = (TextView) findViewById(R.id.nameMenu);
         timeMenu = (TextView) findViewById(R.id.timeMenu);
         priceMenu = (TextView) findViewById(R.id.priceMenu);
@@ -125,7 +108,6 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         priceMenu.setText("Rp. " + decimalFormat.format(Double.parseDouble(modelMenu.getPrice())));
         txtDeskripsi.setText(modelMenu.getDeskripsi());
         //Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(imgMenu);
-
         if(modelMenu.getFoto().length()==0 || modelMenu.getFoto()==""){
             imgMenu.setImageResource(noImage);
             progress.setVisibility(View.GONE);
@@ -136,8 +118,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
         }
 
-
-        adapterFeedback = new AdapterVendorFeedback(ActivityMenuDetailNew.this, LIST_FEEDBACK);
+        adapterFeedback = new AdapterVendorFeedback(ActivitySpeedNextDetail.this, LIST_FEEDBACK);
         mListFeedback.setAdapter(adapterFeedback);
         mListFeedback.setScrollingCacheEnabled(false);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -148,94 +129,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             }
         });
 
-        btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), ActivityCheckout.class);
-                startActivity(i);
-            }
-        });
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ModelCart cart = new ModelCart(modelMenu.getId(), modelMenu.getNama(), 1, Integer.parseInt(modelMenu.getPrice()));
-                AddCount(modelMenu.getId(), cart);
-                SendBroadcast("updateCart", "true");
-            }
-
-        });
-
-        btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ModelCart cart = new ModelCart(modelMenu.getId(),modelMenu.getNama(),1,Integer.parseInt(modelMenu.getPrice()));
-                AddCount(modelMenu.getId(),cart);
-                int jml = ApplicationData.cart.get(modelMenu.getId()).getJumlah();
-                txtCount.setText("" + jml);
-                SendBroadcast("updateCart", "true");
-            }
-
-        });
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int jml = ApplicationData.cart.get(modelMenu.getId()).getJumlah();
-                if(jml > 1){
-                    int last = jml-1;
-                    ApplicationData.cart.get(modelMenu.getId()).setJumlah(last);
-                    txtCount.setText(""+last);
-                }
-                else {
-                    ApplicationData.cart.remove(modelMenu.getId());
-                    btnAdd.setVisibility(View.VISIBLE);
-                    layCounter.setVisibility(View.GONE);
-                }
-                SendBroadcast("updateCart", "true");
-            }
-
-        });
-
-        CheckCounter(modelMenu.getId());
-
-        if(ApplicationData.cart.size() > 0){
-            List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
-            int jml = 0;
-            for(int i = 0;i<list.size();i++){
-                jml = jml + list.get(i).getJumlah();
-            }
-            countCart.setText(""+jml);
-            wrapCount.setVisibility(View.VISIBLE);
-        }
-        else {
-            wrapCount.setVisibility(View.GONE);
-        }
-
-        updateCart = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                // Extract data included in the Intent
-                Log.d("", "broadcast updateCart");
-                String message = intent.getStringExtra("message");
-                if (message.equals("true")) {
-                    List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                    if(list.size() > 0){
-                        int jml = 0;
-                        for(int i = 0;i<list.size();i++){
-                            jml = jml + list.get(i).getJumlah();
-                        }
-                        countCart.setText(""+jml);
-                        wrapCount.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        wrapCount.setVisibility(View.GONE);
-                    }
-
-                }
-
-
-            }
-        };
 
 
 
@@ -338,75 +232,10 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         }
     }
 
-    private void CheckCounter(String ID){
-        if(ApplicationData.cart.size() > 0){
-            btnAdd.setVisibility(View.GONE);
-            layCounter.setVisibility(View.VISIBLE);
-            if(ApplicationData.cart.containsKey(ID)){
-                int jml = ApplicationData.cart.get(ID).getJumlah();
-                txtCount.setText(""+jml);
-            }
-            else {
-                btnAdd.setVisibility(View.VISIBLE);
-                layCounter.setVisibility(View.GONE);
-            }
-        }
-        else {
-            btnAdd.setVisibility(View.VISIBLE);
-            layCounter.setVisibility(View.GONE);
-        }
-    }
 
-    private void AddCount(String ID,ModelCart c){
-        if(ApplicationData.cart.size() > 0){
-            if(ApplicationData.cart.containsKey(ID)){
-                ModelCart cart = ApplicationData.cart.get(ID);
-                int jumlah = cart.getJumlah()+1;
-                cart.setJumlah(jumlah);
-                ApplicationData.cart.get(ID).setJumlah(jumlah);
-            }
-            else {
-                ApplicationData.cart.put(ID, c);
-            }
-        }
-        else {
-            ApplicationData.cart.put(ID, c);
-        }
-        CheckCounter(ID);
-    }
-
-    private void SendBroadcast(String typeBroadcast,String type){
-        Intent intent = new Intent(typeBroadcast);
-        // add data
-        intent.putExtra("message", type);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
 
     public void onResume() {
         super.onResume();
-
-        LocalBroadcastManager.getInstance(ActivityMenuDetailNew.this).registerReceiver(updateCart,
-                new IntentFilter("updateCart"));
-
-        if(ApplicationData.cart.size() > 0){
-            List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
-            int jml = 0;
-            for(int i = 0;i<list.size();i++){
-                jml = jml + list.get(i).getJumlah();
-            }
-            countCart.setText(""+jml);
-            wrapCount.setVisibility(View.VISIBLE);
-        }
-        else {
-            wrapCount.setVisibility(View.GONE);
-        }
-
-        CheckCounter(modelMenu.getId());
-
-
-
-
-
 
     }
 

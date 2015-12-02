@@ -71,6 +71,7 @@
         <activity android:name=".Activity.ActivityProfileNama" />
         <activity android:name=".Activity.ActivityDetailTransaksi" />
         <activity android:name=".Activity.ActivitySpeedNext" />
+        <activity android:name=".Activity.ActivitySpeedNextDetail" />
         <service android:name="com.parse.PushService" />
         <receiver
             android:name=".Parse.CustomPushReceiver"

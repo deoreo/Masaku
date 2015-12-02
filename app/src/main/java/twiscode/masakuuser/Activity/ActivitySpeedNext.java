@@ -51,7 +51,6 @@ public class ActivitySpeedNext extends AppCompatActivity {
     private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
     private ProgressBar progress;
     ApplicationManager applicationManager;
-    LinearLayout noData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class ActivitySpeedNext extends AppCompatActivity {
         setContentView(R.layout.activity_antar_cepat_next);
 
         applicationManager = new ApplicationManager(ActivitySpeedNext.this);
-        noData = (LinearLayout) findViewById(R.id.noData);
         progress = (ProgressBar) findViewById(R.id.progress);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
         countCart = (TextView) findViewById(R.id.countCart);
@@ -239,26 +237,12 @@ public class ActivitySpeedNext extends AppCompatActivity {
                     break;
 
             }
+            mAdapter = new AdapterMenuNext(ActivitySpeedNext.this, LIST_MENU);
+            mListView.setAdapter(mAdapter);
             mSwipeRefreshLayout.setRefreshing(false);
 
             //mSwipeRefreshLayoutNoData.setRefreshing(false);
-            if(LIST_MENU.size() > 0){
 
-                mListView.setVisibility(View.VISIBLE);
-                noData.setVisibility(View.GONE);
-                //mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                //mSwipeRefreshLayoutNoData.setVisibility(View.GONE);
-                Log.d("datalist","ada");
-            }
-            else {
-
-				mListView.setVisibility(View.GONE);
-				noData.setVisibility(View.VISIBLE);
-
-                //mSwipeRefreshLayout.setVisibility(View.GONE);
-               //mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
-
-            }
         }
     }
 

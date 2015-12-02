@@ -47,8 +47,10 @@ import java.util.List;
 import java.util.Locale;
 
 
+import twiscode.masakuuser.Activity.ActivitySpeedNextDetail;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 
 
@@ -90,7 +92,7 @@ public class AdapterMenuNext extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
-            convertView = mInflater.inflate(R.layout.row_delivery_empty2, null);
+            convertView = mInflater.inflate(R.layout.row_empty_antar_cepat_next, null);
         }
         else {
             final ViewHolder holder;
@@ -135,18 +137,18 @@ public class AdapterMenuNext extends BaseAdapter {
             }
 
 
-            /*
+
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ApplicationData.modelMenuSpeed = modelMenu;
-                    Intent i = new Intent(mAct, ActivityMenuSpeedDetail.class);
+                    Intent i = new Intent(mAct, ActivitySpeedNextDetail.class);
                     mAct.startActivity(i);
                     //mAct.finish();
                 }
 
             });
-            */
+
 
 
 
