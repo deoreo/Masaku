@@ -149,6 +149,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         Log.d("counter stack", Integer.toString(getFragmentManager().getBackStackEntryCount()));
         if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Contact Us")
                 || ApplicationData.titleBar.getText().toString().equalsIgnoreCase("FAQ")
+                || ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Terms and Conditions")
                 ){
             datafragmentHelper.ReturnLastFragment();
         }
