@@ -55,5 +55,6 @@ public class ApplicationData {
     public static boolean isFirstSpeed = true;
     public static String question, answer;
     public static HashMap<String,ModelAllMenus> allmenus = new HashMap<>();
+    public static String idLike = "";
 
 }

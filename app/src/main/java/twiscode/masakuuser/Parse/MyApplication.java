@@ -1,7 +1,9 @@
 package twiscode.masakuuser.Parse;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 import android.util.Base64;
 import android.util.Log;
 
@@ -37,11 +39,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-
+/*
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Gotham.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
+                */
         ParseManager.registerParse(this);
         ParseManager.getDeviceToken(this);
         NewEncrypt("k!asu123");
@@ -145,6 +148,14 @@ public class MyApplication extends Application {
 
         return result;
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+
 
 
 

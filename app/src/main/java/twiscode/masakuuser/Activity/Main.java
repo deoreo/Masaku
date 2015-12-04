@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -272,6 +273,8 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         // Unregister since the activity is not visible
         super.onPause();
     }
+
+
 
 
 
