@@ -17,7 +17,7 @@ public class ConfigManager {
     public static final String LIKE = SERVER+"/menu/like";
     public static final String DISLIKE = SERVER+"/menu/dislike";
     public static final String MENU_NEXT = SERVER+"/menu/next/";
-    public static final String WISHLIST = SERVER+"/user/like/";
+    public static final String WISHLIST = SERVER+"/like";
     public static final String CALCULATE_PRICE = SERVER+"/calculate-price";
     public static final String CHECKOUT = SERVER+"/checkout";
     public static final String LOGOUT_ALL = SERVER+"/logout-all";

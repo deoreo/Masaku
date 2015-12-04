@@ -160,9 +160,7 @@ public class FragmentWishlist extends Fragment {
 		isNodata = isnodata;
 		LIST_MENU = new ArrayList<ModelWishlist>();
 		String p = Integer.toString(page);
-		new GetWishlist(getActivity()).execute(
-				p
-		);
+		new GetWishlist(getActivity()).execute();
 
 	}
 
@@ -193,9 +191,8 @@ public class FragmentWishlist extends Fragment {
 		protected String doInBackground(String... params) {
 			try {
 
-				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getWishlist(page,appManager.getUserToken() );
+				JSONObject response = jsControl.getWishlist(appManager.getUserToken() );
 				Log.d("json response", response.toString());
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){

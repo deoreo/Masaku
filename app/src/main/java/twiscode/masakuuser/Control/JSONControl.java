@@ -363,6 +363,20 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject getWishlist(String token) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.WISHLIST, ConfigManager.DUKUHKUPANG,token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
     public String LikeMenu(String data, String token) {
 
         String jsonObj = null;
