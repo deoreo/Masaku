@@ -33,6 +33,7 @@ import twiscode.masakuuser.Fragment.FragmentMainMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
 import twiscode.masakuuser.Fragment.FragmentProfile;
 import twiscode.masakuuser.Fragment.FragmentPromo;
+import twiscode.masakuuser.Fragment.FragmentWishlist;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -51,7 +52,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private TextView countCart;
     private LinearLayout wrapCount;
     private ImageView btnCart;
-    private final int MENU = 0, ALL_MENU = 1, HISTORI_PESANAN = 2, PROMO = 3, BANTUAN = 4;
+    private final int MENU = 0, ALL_MENU = 1, WISHLIST = 2, HISTORI_PESANAN = 3, PROMO = 4, BANTUAN = 5;
 
     private BroadcastReceiver updateCart;
 
@@ -212,6 +213,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 fragment = new FragmentAllMenus();
                 //title = getString(R.string.app_name);
                 title = "All Menu";
+                break;
+            case WISHLIST:
+                fragment = new FragmentWishlist();
+                //title = getString(R.string.app_name);
+                title = "Wishlist";
                 break;
             case PROMO:
                 fragment = new FragmentPromo();

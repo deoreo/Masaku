@@ -18,6 +18,7 @@ import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.Model.ModelVendor;
 import twiscode.masakuuser.Model.ModelVendorMenu;
+import twiscode.masakuuser.Model.ModelWishlist;
 
 /**
  * Created by User on 10/21/2015.
@@ -31,6 +32,7 @@ public class ApplicationData {
     public static String tokenPass = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static ModelAllMenus modelAllMenus = null;
+    public static ModelWishlist modelWishlist = null;
     public static HashMap<String,ModelCart> cart = new HashMap<>();
     public static int def_delivery = 10000;
     public static String temp_hp = "";
@@ -55,5 +57,6 @@ public class ApplicationData {
     public static boolean isFirstSpeed = true;
     public static String question, answer;
     public static HashMap<String,ModelAllMenus> allmenus = new HashMap<>();
+    public static HashMap<String,ModelWishlist> wishlist = new HashMap<>();
 
 }

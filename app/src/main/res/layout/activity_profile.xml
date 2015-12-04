@@ -152,7 +152,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="right"
                     android:paddingRight="30dp"
-                    android:text="Pengaturan Lokasi"
+                    android:text="Surabaya"
                     android:textSize="15sp"
                     android:textColor="@color/colorBlack"
                     />

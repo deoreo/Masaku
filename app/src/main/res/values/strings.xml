@@ -14,6 +14,7 @@
     <string-array name="nav_drawer_labels">
         <item>Menu</item>
         <item>All Menu</item>
+        <item>Wishlist</item>
         <item>Histori Pesanan</item>
         <item>Promo</item>
         <item>Bantuan</item>

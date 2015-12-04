@@ -2,23 +2,18 @@ package twiscode.masakuuser.Fragment;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,31 +30,27 @@ import java.util.HashMap;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
-import twiscode.masakuuser.Activity.ActivitySpeedNext;
-import twiscode.masakuuser.Adapter.AdapterMenuNew;
+import twiscode.masakuuser.Adapter.AdapterWishlist;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelCart;
-import twiscode.masakuuser.Model.ModelMenu;
-import twiscode.masakuuser.Model.ModelMenuSpeed;
-import twiscode.masakuuser.Model.ModelUser;
+import twiscode.masakuuser.Model.ModelWishlist;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
-import twiscode.masakuuser.Utilities.DialogManager;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
-public class FragmentAntarCepat extends Fragment {
+public class FragmentWishlist extends Fragment {
 
 	private TextView countCart;
 	private LinearLayout wrapCount;
 	private ImageView btnCart;
 	public static final String ARG_PAGE = "ARG_PAGE";
-	private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
-	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
+	private List<ModelWishlist> LIST_MENU = new ArrayList<>();
+	private PullRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
-	private AdapterMenuNew mAdapter;
-	private LinearLayout noData;
-	private Button btnPO;
+	private AdapterWishlist mAdapter;
+	//private LinearLayout noData;
 
-	int pages =1;
+	int page =1;
 	boolean isNodata = false;
 
 	private ProgressBar progress;
@@ -71,14 +62,15 @@ public class FragmentAntarCepat extends Fragment {
 
 	private BroadcastReceiver updateCart;
 
-	private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
+	private HashMap<String,ModelWishlist> allMenus = new HashMap<>();
+
+	ApplicationManager appManager;
 
 
-
-	public static FragmentAntarCepat newInstance(int page) {
+	public static FragmentWishlist newInstance(int page) {
 		Bundle args = new Bundle();
 		args.putInt(ARG_PAGE, page);
-		FragmentAntarCepat fragment = new FragmentAntarCepat();
+		FragmentWishlist fragment = new FragmentWishlist();
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -87,26 +79,22 @@ public class FragmentAntarCepat extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-
-		View rootView = inflater.inflate(R.layout.activity_antar_cepat, container, false);
+		appManager = new ApplicationManager(getActivity());
+		View rootView = inflater.inflate(R.layout.activity_all_menus, container, false);
 		progress = (ProgressBar) rootView.findViewById(R.id.progress);
-		noData = (LinearLayout) rootView.findViewById(R.id.noData);
-		btnPO = (Button) rootView.findViewById(R.id.btnPO);
+		//noData = (LinearLayout) rootView.findViewById(R.id.noData);
 		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
-		mSwipeRefreshLayoutNoData = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayoutNoData);
-		mSwipeRefreshLayoutNoData.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 		//mListView.addHeaderView(header);
 		//mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
 		//mListView.setAdapter(mAdapter);
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
-		mSwipeRefreshLayoutNoData.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -114,14 +102,6 @@ public class FragmentAntarCepat extends Fragment {
 				Intent i = new Intent(getActivity(), ActivityCheckout.class);
 				startActivity(i);
 				getActivity().finish();
-			}
-		});
-
-		btnPO.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent(getActivity(), ActivitySpeedNext.class);
-				startActivity(i);
 			}
 		});
 
@@ -159,13 +139,6 @@ public class FragmentAntarCepat extends Fragment {
 				DummyData(isNodata);
 			}
 		});
-		mSwipeRefreshLayoutNoData.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				isNodata = true;
-				DummyData(isNodata);
-			}
-		});
 
 		DummyData(isNodata);
 		/*
@@ -185,27 +158,21 @@ public class FragmentAntarCepat extends Fragment {
 
 	private void DummyData(boolean isnodata){
 		isNodata = isnodata;
-		LIST_MENU = new ArrayList<ModelMenuSpeed>();
-		String p = Integer.toString(pages);
-		/*
-		ModelMenu modelDeliver0 = new ModelMenu("0", "Pecel Mak Yem", "8.000", "https://upload.wikimedia.org/wikipedia/commons/a/a1/Pecel_Solo.JPG", "11");
-		LIST_MENU.add(modelDeliver0);
-		ModelMenu modelDeliver1 = new ModelMenu("0", "Soto Spesial Bu Winda", "14.000", "http://blog.travelio.com/wp-content/uploads/2015/03/Soto-Lamongan-Jawa-Timur-Indonesia.jpg", "15");
-		LIST_MENU.add(modelDeliver1);
-		*/
-		new GetMenu(getActivity()).execute(
+		LIST_MENU = new ArrayList<ModelWishlist>();
+		String p = Integer.toString(page);
+		new GetWishlist(getActivity()).execute(
 				p
 		);
 
 	}
 
-	private class GetMenu extends AsyncTask<String, Void, String> {
+	private class GetWishlist extends AsyncTask<String, Void, String> {
 		private Activity activity;
 		private Context context;
 		private Resources resources;
 
 
-		public GetMenu(Activity activity) {
+		public GetWishlist(Activity activity) {
 			super();
 			this.activity = activity;
 			this.context = activity.getApplicationContext();
@@ -216,21 +183,10 @@ public class FragmentAntarCepat extends Fragment {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			if(isNodata){
-				mSwipeRefreshLayoutNoData.setRefreshing(true);
 			}
 			else {
 				mSwipeRefreshLayout.setRefreshing(true);
 			}
-
-			//
-			/*
-			progressDialog = new ProgressDialog(activity);
-			progressDialog.setMessage("Loading. . .");
-			progressDialog.setIndeterminate(false);
-			progressDialog.setCancelable(false);
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progressDialog.show();
-			*/
 		}
 
 		@Override
@@ -239,7 +195,7 @@ public class FragmentAntarCepat extends Fragment {
 
 				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getMenuSpeed(page);
+				JSONObject response = jsControl.getWishlist(page,appManager.getUserToken() );
 				Log.d("json response", response.toString());
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){
@@ -248,22 +204,24 @@ public class FragmentAntarCepat extends Fragment {
 						String nama = menus.getJSONObject(i).getString("name");
 						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
 						String price = menus.getJSONObject(i).getString("price");
-						String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
+						String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
 						String desc = menus.getJSONObject(i).getString("description");
-						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
-						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback);
+						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
+						boolean added = false;
+						ModelWishlist menu = new ModelWishlist(id,nama,price,foto,time,desc,feedback,added);
 						//LIST_MENU.add(menu);
-						if(speedmenu.size() > 0){
-							if(!speedmenu.containsKey(id)){
-								speedmenu.put(id,menu);
+						if(allMenus.size() > 0){
+							if(!allMenus.containsKey(id)){
+								allMenus.put(id,menu);
 							}
 						}
 						else {
-							speedmenu.put(id,menu);
+							allMenus.put(id, menu);
 						}
-
+						LIST_MENU = new ArrayList<>(allMenus.values());
+						ApplicationData.wishlist = allMenus;
 					}
-					LIST_MENU = new ArrayList<>(speedmenu.values());
+
 					return "OK";
 				}
 
@@ -286,84 +244,46 @@ public class FragmentAntarCepat extends Fragment {
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+					mSwipeRefreshLayout.setRefreshing(false);
+					if(LIST_MENU.size() > 0){
 
+						mListView.setVisibility(View.VISIBLE);
+						//noData.setVisibility(View.GONE);
+						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+						Log.d("datalist","ada");
+					}
+					else {
+						mListView.setVisibility(View.GONE);
+						//noData.setVisibility(View.VISIBLE);
+						mSwipeRefreshLayout.setVisibility(View.GONE);
+					}
 					break;
 				case "OK":
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
 					//startActivity(i);
 					//finish();
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
-					mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
+					mAdapter = new AdapterWishlist(getActivity(), LIST_MENU);
 					mListView.setAdapter(mAdapter);
+					mSwipeRefreshLayout.setRefreshing(false);
+					if(LIST_MENU.size() > 0){
 
+						mListView.setVisibility(View.VISIBLE);
+						//noData.setVisibility(View.GONE);
+						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+						Log.d("datalist","ada");
+					}
+					else {
+						mListView.setVisibility(View.GONE);
+						//noData.setVisibility(View.VISIBLE);
+						mSwipeRefreshLayout.setVisibility(View.GONE);
+					}
 					break;
 
 			}
-			mSwipeRefreshLayout.setRefreshing(false);
-			mSwipeRefreshLayoutNoData.setRefreshing(false);
-			if(LIST_MENU.size() > 0){
-
-				//mListView.setVisibility(View.VISIBLE);
-				//noData.setVisibility(View.GONE);
-				mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-				mSwipeRefreshLayoutNoData.setVisibility(View.GONE);
-				Log.d("datalist","ada");
-			}
-			else {
-				/*
-				mListView.setVisibility(View.GONE);
-				noData.setVisibility(View.VISIBLE);
-				*/
-				mSwipeRefreshLayout.setVisibility(View.GONE);
-				mSwipeRefreshLayoutNoData.setVisibility(View.VISIBLE);
-
-			}
-			ApplicationData.isFirstSpeed = false;
 		}
 	}
 
-	public void onResume() {
-		super.onResume();
-
-		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
-				new IntentFilter("updateCart"));
-
-		if(!ApplicationData.isFirstSpeed){
-			if(ApplicationData.cart.size() > 0){
-				isNodata = false;
-			}
-			else {
-				isNodata = true;
-			}
-/*
-			List<ModelCart>list = new ArrayList<ModelCart>(ApplicationData.cart.values());
-			if(list.size() > 0){
-				int jml = 0;
-				for(int i = 0;i<list.size();i++){
-					jml = jml + list.get(i).getJumlah();
-				}
-				countCart.setText(""+jml);
-				wrapCount.setVisibility(View.VISIBLE);
-			}
-			else {
-				wrapCount.setVisibility(View.GONE);
-			}
-*/
-			SendBroadcast("updateCart", "true");
-			DummyData(isNodata);
-		}
-
-
-
-
-	}
-
-	private void SendBroadcast(String typeBroadcast,String type){
-		Intent intent = new Intent(typeBroadcast);
-		// add data
-		intent.putExtra("message", type);
-		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
-	}
 
 
 }

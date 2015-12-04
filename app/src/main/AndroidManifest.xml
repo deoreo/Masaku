@@ -54,7 +54,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Main" />
-        <activity android:name=".Activity.ActivityHome" />
         <activity android:name=".Activity.ActivityLogin" />
         <activity android:name=".Activity.ActivityRegister" />
         <activity android:name=".Activity.ActivityRegisterNext" />

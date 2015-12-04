@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import twiscode.masakuuser.Activity.ActivityHome;
 import twiscode.masakuuser.Activity.ActivityLogin;
 import twiscode.masakuuser.Activity.Main;
 import twiscode.masakuuser.R;

@@ -15,6 +15,7 @@ public class ConfigManager {
     public static final String MENU_PREORDER = SERVER+"/menu/preorder/";
     public static final String ALL_MENU = SERVER+"/menu/all/";
     public static final String MENU_NEXT = SERVER+"/menu/next/";
+    public static final String WISHLIST = SERVER+"/user/like/";
     public static final String CALCULATE_PRICE = SERVER+"/calculate-price";
     public static final String CHECKOUT = SERVER+"/checkout";
     public static final String LOGOUT_ALL = SERVER+"/logout-all";

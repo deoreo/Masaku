@@ -18,6 +18,7 @@ android {
         versionCode 2
         versionName "1.0.1"
         signingConfig signingConfigs.apksignkey
+        multiDexEnabled true
 
     }
     buildTypes {
@@ -53,4 +54,5 @@ dependencies {
     compile 'com.parse:parse-android:1.10.1'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
+    compile 'com.android.support:multidex:1.0.0'
 }

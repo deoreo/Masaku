@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityMenuDetail;
+import twiscode.masakuuser.Activity.ActivityMenuDetailNew;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;

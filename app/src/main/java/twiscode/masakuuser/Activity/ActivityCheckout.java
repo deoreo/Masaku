@@ -498,7 +498,7 @@ public class ActivityCheckout extends AppCompatActivity {
                                         public void onPositive(MaterialDialog dialog) {
                                             if (NetworkManager.getInstance(ActivityCheckout.this).isConnectedInternet()) {
                                                 ApplicationData.cart = new HashMap<String, ModelCart>();
-                                                Intent j = new Intent(getBaseContext(), ActivityHome.class);
+                                                Intent j = new Intent(getBaseContext(), Main.class);
                                                 startActivity(j);
                                                 finish();
                                             } else {

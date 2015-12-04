@@ -1,7 +1,9 @@
 package twiscode.masakuuser.Parse;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 import android.util.Base64;
 import android.util.Log;
 
@@ -44,8 +46,14 @@ public class MyApplication extends Application {
                 .build());
         ParseManager.registerParse(this);
         ParseManager.getDeviceToken(this);
-        NewEncrypt("k!asu123");
 
+
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 
@@ -81,69 +89,6 @@ public class MyApplication extends Application {
         }
 
         return publicKey;
-    }
-
-    public String encrypt(String text){
-        String result = "";
-
-        try {
-            byte[] cipherText=null;
-            final Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.PUBLIC_KEY,(RSAPublicKey)getPublicKey());
-            byte[] textB = cipher.doFinal(text.getBytes("UTF-8"));
-            cipherText = Base64.encode(textB, Base64.CRLF);
-            result = new String(cipherText);
-            Log.d("MyApplication", "cipherText : " + result);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public String NewEncrypt(String text){
-        String result = "";
-        try {
-            /* Development */
-            //BigInteger modulus = new BigInteger("D6C00AC47FB8E87F5995B27107BF4C54E1873D0A520E632DA17EC3D1BF8F45F0B1C4B0C5A114299DAE655A301630294D58C8FE8B299EE6A45AE1966D2289E9BD", 16);
-            /* Production */
-            BigInteger modulus = new BigInteger("00F0A500AC000F8E76BEB6ACBDA4EEE0333BA2D25FF11DC7E48268A50AB83D318E701478CD3735B21ABC51B96EBC90806843BAFC1DA608F9E8DA142EF966904D09C759CB90E9556346E573418EF595979B279235C4C9B43C0A044911379DBD7301B7C736E8EFB13BC308F833F91E09EA55B96EB2035C46329E2CC0CAB0F6A7B8CF",16);
-
-            BigInteger exp = new BigInteger("65537");
-
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            RSAPublicKeySpec keySpec = new RSAPublicKeySpec(modulus, exp);
-            RSAPublicKey key = (RSAPublicKey) keyFactory.generatePublic(keySpec);
-
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] temp = cipher.doFinal(text.getBytes());
-
-            result = Base64.encodeToString(temp, Base64.NO_WRAP);
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("EncryptUtils", e.getMessage());
-        } catch (InvalidKeySpecException e) {
-            Log.e("EncryptUtils", e.getMessage());
-        } catch (NoSuchPaddingException e) {
-            Log.e("EncryptUtils", e.getMessage());
-        } catch (InvalidKeyException e) {
-            Log.e("EncryptUtils", e.getMessage());
-        } catch (BadPaddingException e) {
-            Log.e("EncryptUtils", e.getMessage());
-        } catch (IllegalBlockSizeException e) {
-            Log.e("EncryptUtils", e.getMessage());
-        }
-
-        return result;
     }
 
 

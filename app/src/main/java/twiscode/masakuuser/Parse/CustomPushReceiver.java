@@ -11,8 +11,7 @@ import org.json.JSONObject;
 
 import java.sql.Time;
 
-import twiscode.masakuuser.Activity.ActivityHome;
-import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Activity.Main;
 
 
 public class CustomPushReceiver extends ParsePushBroadcastReceiver {
@@ -53,7 +52,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     protected void onPushOpen(Context context, Intent intent) {
         super.onPushOpen(context, intent);
         Log.e("Push", "Clicked");
-        Intent i = new Intent(context, ActivityHome.class);
+        Intent i = new Intent(context, Main.class);
         i.putExtras(intent.getExtras());
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
@@ -73,7 +72,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
             String title = data.getString("title");
             String message = data.getString("message");
 
-            Intent resultIntent = new Intent(context, ActivityHome.class);
+            Intent resultIntent = new Intent(context, Main.class);
             showNotificationMessage(context, title, message, resultIntent);
 
         } catch (JSONException e) {
@@ -101,7 +100,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     private void parsePushJsonCustom(Context context, JSONObject json) {
         try {
             String message = json.getString("alert");
-            Intent resultIntent = new Intent(context, ActivityHome.class);
+            Intent resultIntent = new Intent(context, Main.class);
             showNotificationMessage(context, "Notifikasi Masaku", message, resultIntent);
             Message msg = new Message();
             msg.setMessage(message);
