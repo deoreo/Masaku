@@ -188,8 +188,33 @@ public class ActivitySpeedNext extends AppCompatActivity {
                         String price = menus.getJSONObject(i).getString("price");
                         String desc = menus.getJSONObject(i).getString("description");
                         String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
-                        JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
-                        ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback);
+                        JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
+                        try{
+                            feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+                        }
+                        catch (Exception ex){
+                            feedback = new JSONArray();
+                        }
+                        JSONArray category = new JSONArray();
+                        try{
+                            category = menus.getJSONObject(i).getJSONArray("category");
+                        }
+                        catch (Exception ex){
+                            category = new JSONArray();
+                        }
+                        String hashtag = "";
+                        if(category.length() > 0){
+                            for(int j=0;j<category.length();j++){
+                                if(j==0){
+                                    hashtag = "#"+category.getString(j);
+                                }
+                                else {
+                                    hashtag = hashtag+" #"+category.getString(j);
+                                }
+                            }
+                            Log.d("hashtag",hashtag);
+                        }
+                        ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag);
                         //LIST_MENU.add(menu);
                         if(speedmenu.size() > 0){
                             if(!speedmenu.containsKey(id)){

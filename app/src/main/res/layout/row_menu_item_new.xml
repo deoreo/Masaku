@@ -40,7 +40,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/timeMenu"
                 android:layout_width="wrap_content"

@@ -214,7 +214,31 @@ public class FragmentAllMenus extends Fragment {
 						String desc = menus.getJSONObject(i).getString("description");
 						boolean added = Boolean.parseBoolean(menus.getJSONObject(i).getString("isLiked"));
 						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
-						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added);
+						try{
+							feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+						}
+						catch (Exception ex){
+							feedback = new JSONArray();
+						}
+						JSONArray category = new JSONArray();
+						try{
+							category = menus.getJSONObject(i).getJSONArray("category");
+						}
+						catch (Exception ex){
+							category = new JSONArray();
+						}
+						String hashtag = "";
+						if(category.length() > 0){
+							for(int j=0;j<category.length();j++){
+								if(j==0){
+									hashtag = "#"+category.getString(j);
+								}
+								else {
+									hashtag = hashtag+" #"+category.getString(j);
+								}
+							}
+						}
+						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added,hashtag);
 						//LIST_MENU.add(menu);
 						if(allMenus.size() > 0){
 							if(!allMenus.containsKey(id)){

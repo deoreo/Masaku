@@ -59,7 +59,7 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
     public LinearLayout layCounter;
     public TextView btnMinus;
     public TextView btnPlus;
-    public TextView txtCount;
+    public TextView txtCount,txtHashtag;
     private Button btnAdd;
     private ImageView btnBack,btnCart;
     public TextView nameMenu;
@@ -99,6 +99,7 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
         timeMenu = (TextView) findViewById(R.id.timeMenu);
         priceMenu = (TextView) findViewById(R.id.priceMenu);
         txtDeskripsi = (TextView) findViewById(R.id.txtDeskripsi);
+        txtHashtag = (TextView) findViewById(R.id.txtHashtag);
         imgMenu = (ImageView) findViewById(R.id.imgMenu);
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         modelMenu = ApplicationData.modelMenuSpeed;
@@ -107,6 +108,12 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
         timeMenu.setText(modelMenu.getTime());
         priceMenu.setText("Rp. " + decimalFormat.format(Double.parseDouble(modelMenu.getPrice())));
         txtDeskripsi.setText(modelMenu.getDeskripsi());
+        try{
+            txtHashtag.setText(modelMenu.getHashtag());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         //Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(imgMenu);
         if(modelMenu.getFoto().length()==0 || modelMenu.getFoto()==""){
             imgMenu.setImageResource(noImage);
