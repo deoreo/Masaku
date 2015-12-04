@@ -46,7 +46,6 @@ import java.util.List;
 import java.util.Locale;
 
 import twiscode.masakuuser.Activity.ActivityAllMenusDetail;
-import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelWishlist;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;

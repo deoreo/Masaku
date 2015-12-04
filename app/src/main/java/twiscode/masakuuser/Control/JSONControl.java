@@ -368,8 +368,8 @@ public class JSONControl {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.WISHLIST, ConfigManager.DUKUHKUPANG,token);
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.WISHLIST, ConfigManager.DUKUHKUPANG, token);
+            Log.d("url response wishlist", ConfigManager.WISHLIST);
 
         } catch (Exception e) {
             e.printStackTrace();

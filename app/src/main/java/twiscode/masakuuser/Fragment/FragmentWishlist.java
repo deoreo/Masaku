@@ -62,7 +62,7 @@ public class FragmentWishlist extends Fragment {
 
 	private BroadcastReceiver updateCart;
 
-	private HashMap<String,ModelWishlist> allMenus = new HashMap<>();
+	private HashMap<String,ModelWishlist> wishlistMenus = new HashMap<>();
 
 	ApplicationManager appManager;
 
@@ -159,7 +159,6 @@ public class FragmentWishlist extends Fragment {
 	private void DummyData(boolean isnodata){
 		isNodata = isnodata;
 		LIST_MENU = new ArrayList<ModelWishlist>();
-		String p = Integer.toString(page);
 		new GetWishlist(getActivity()).execute();
 
 	}
@@ -192,8 +191,9 @@ public class FragmentWishlist extends Fragment {
 			try {
 
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getWishlist(appManager.getUserToken() );
-				Log.d("json response", response.toString());
+				JSONObject response = jsControl.getWishlist(appManager.getUserToken());
+				Log.d("json response wishlist", response.toString());
+				Log.d("user token wishlist", appManager.getUserToken());
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){
 					for(int i=0;i<menus.length();i++){
@@ -207,16 +207,16 @@ public class FragmentWishlist extends Fragment {
 						boolean added = false;
 						ModelWishlist menu = new ModelWishlist(id,nama,price,foto,time,desc,feedback,added);
 						//LIST_MENU.add(menu);
-						if(allMenus.size() > 0){
-							if(!allMenus.containsKey(id)){
-								allMenus.put(id,menu);
+						if(wishlistMenus.size() > 0){
+							if(!wishlistMenus.containsKey(id)){
+								wishlistMenus.put(id,menu);
 							}
 						}
 						else {
-							allMenus.put(id, menu);
+							wishlistMenus.put(id, menu);
 						}
-						LIST_MENU = new ArrayList<>(allMenus.values());
-						ApplicationData.wishlist = allMenus;
+						LIST_MENU = new ArrayList<>(wishlistMenus.values());
+						ApplicationData.wishlist = wishlistMenus;
 					}
 
 					return "OK";
