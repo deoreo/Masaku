@@ -168,7 +168,32 @@ public class FragmentMenu extends Fragment {
 						String time = "";
 						String desc = menus.getJSONObject(i).getString("description");
 						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
-						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback);
+						try{
+							feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+						}
+						catch (Exception ex){
+							feedback = new JSONArray();
+						}
+						JSONArray category = new JSONArray();
+						try{
+							category = menus.getJSONObject(i).getJSONArray("category");
+						}
+						catch (Exception ex){
+							category = new JSONArray();
+						}
+
+						String hashtag = "";
+						if(category.length() > 0){
+							for(int j=0;j<category.length();j++){
+								if(j==0){
+									hashtag = "#"+category.getString(j);
+								}
+								else {
+									hashtag = hashtag+" #"+category.getString(j);
+								}
+							}
+						}
+						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag);
 						//LIST_MENU.add(menu);
 						if(speedmenu.size() > 0){
 							if(!speedmenu.containsKey(id)){

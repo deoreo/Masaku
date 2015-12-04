@@ -66,7 +66,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityMenuDetailNew extends ActionBarActivity {
 
-    public LinearLayout layCounter;
+    public LinearLayout layCounter,timeLayout;
     public TextView btnMinus;
     public TextView btnPlus;
     public TextView txtCount;
@@ -75,7 +75,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     public TextView nameMenu;
     public TextView timeMenu;
     public TextView priceMenu;
-    public TextView txtDeskripsi;
+    public TextView txtDeskripsi,txtHashtag;
     public ImageView imgMenu;
     private ScrollView scroll;
     private ModelMenuSpeed modelMenu;
@@ -116,12 +116,27 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         timeMenu = (TextView) findViewById(R.id.timeMenu);
         priceMenu = (TextView) findViewById(R.id.priceMenu);
         txtDeskripsi = (TextView) findViewById(R.id.txtDeskripsi);
+        txtHashtag = (TextView) findViewById(R.id.txtHashtag);
         imgMenu = (ImageView) findViewById(R.id.imgMenu);
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         modelMenu = ApplicationData.modelMenuSpeed;
+        timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
 
         nameMenu.setText(modelMenu.getNama());
-        timeMenu.setText(modelMenu.getTime());
+        if(modelMenu.getTime()=="" || modelMenu.getTime()==null){
+            timeLayout.setVisibility(View.GONE);
+        }
+        else {
+            timeMenu.setText(modelMenu.getTime());
+        }
+
+        try{
+            txtHashtag.setText(modelMenu.getHashtag());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         priceMenu.setText("Rp. " + decimalFormat.format(Double.parseDouble(modelMenu.getPrice())));
         txtDeskripsi.setText(modelMenu.getDeskripsi());
         //Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(imgMenu);

@@ -120,8 +120,6 @@ public class AdapterWishlist extends BaseAdapter {
 
             final ViewHolder holder2 = holder;
 
-
-
             holder.nameMenu.setText(VENDOR_NAMA );
             holder.priceMenu.setText("Rp. "+decimalFormat.format(Integer.parseInt(VENDOR_HARGA)));
             Log.d("image : ", VENDOR_IMAGE);
@@ -138,9 +136,6 @@ public class AdapterWishlist extends BaseAdapter {
 
             }
 
-
-
-
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -152,16 +147,12 @@ public class AdapterWishlist extends BaseAdapter {
 
             });
 
-
             holder.btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
             });
-
-
-
 
         }
         return convertView;
@@ -254,17 +245,11 @@ public class AdapterWishlist extends BaseAdapter {
         }
     }
 
-
-
-
-
     private void SendBroadcast(String typeBroadcast,String type){
         Intent intent = new Intent(typeBroadcast);
         // add data
         intent.putExtra("message", type);
         LocalBroadcastManager.getInstance(mAct).sendBroadcast(intent);
     }
-
-
 
 }

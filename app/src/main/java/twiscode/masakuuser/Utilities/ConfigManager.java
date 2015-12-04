@@ -14,6 +14,7 @@ public class ConfigManager {
     public static final String MENU_SPEED = SERVER+"/menu/speed/";
     public static final String MENU_PREORDER = SERVER+"/menu/preorder/";
     public static final String ALL_MENU = SERVER+"/menu/all/";
+    public static final String CATEGORY = SERVER+"/menu/categories";
     public static final String LIKE = SERVER+"/menu/like";
     public static final String DISLIKE = SERVER+"/menu/dislike";
     public static final String MENU_NEXT = SERVER+"/menu/next/";

@@ -407,6 +407,20 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject getCategories(String token) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.CATEGORY, ConfigManager.DUKUHKUPANG, token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
 
 
 
