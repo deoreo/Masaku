@@ -187,7 +187,7 @@ public class ActivityVerifyHp extends AppCompatActivity {
                     ApplicationData.temp_nama = "";
                     ApplicationData.temp_token = "";
                     ApplicationData.temp_user = new ModelUser();
-                    Intent i = new Intent(getBaseContext(), ActivityHome.class);
+                    Intent i = new Intent(getBaseContext(), ActivityTutorial.class);
                     startActivity(i);
                     finish();
                     break;

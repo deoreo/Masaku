@@ -206,9 +206,9 @@ public class FragmentAllMenus extends Fragment {
 						String nama = menus.getJSONObject(i).getString("name");
 						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
 						String price = menus.getJSONObject(i).getString("price");
-						String time = menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
+						String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
 						String desc = menus.getJSONObject(i).getString("description");
-						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
 						boolean added = false;
 						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added);
 						//LIST_MENU.add(menu);

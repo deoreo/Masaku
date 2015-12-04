@@ -12,8 +12,8 @@ public class ConfigManager {
     public static final String CHECK_RESET_PASSWORD = SERVER+"/forgot/check";
     public static final String RESET_PASSWORD = SERVER+"/forgot/reset";
     public static final String MENU_SPEED = SERVER+"/menu/speed/";
-    public static final String MENU_PREORDER = SERVER+"/preorder/";
-    public static final String ALL_MENU = SERVER+"/menu/";
+    public static final String MENU_PREORDER = SERVER+"/menu/preorder/";
+    public static final String ALL_MENU = SERVER+"/menu/all/";
     public static final String MENU_NEXT = SERVER+"/menu/next/";
     public static final String CALCULATE_PRICE = SERVER+"/calculate-price";
     public static final String CHECKOUT = SERVER+"/checkout";

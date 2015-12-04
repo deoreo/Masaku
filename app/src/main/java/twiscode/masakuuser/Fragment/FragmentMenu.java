@@ -167,7 +167,7 @@ public class FragmentMenu extends Fragment {
 						String price = menus.getJSONObject(i).getString("price");
 						String time = "";
 						String desc = menus.getJSONObject(i).getString("description");
-						JSONArray feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
 						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback);
 						//LIST_MENU.add(menu);
 						if(speedmenu.size() > 0){
