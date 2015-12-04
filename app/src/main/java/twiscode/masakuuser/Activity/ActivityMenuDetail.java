@@ -119,9 +119,5 @@ public class ActivityMenuDetail extends ActionBarActivity {
     }
 
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 
 }

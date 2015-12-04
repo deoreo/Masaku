@@ -157,11 +157,6 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
     }
 
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
     private HttpClient createDevelopmentHttpClientInstance() {
         try {
             KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
