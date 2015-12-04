@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
+    android:background="@color/colorWhite">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -165,6 +165,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Deskripsi"
+                            />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Category"
+                            android:textColor="@color/colorDarkGrey"
+                            android:textStyle="bold"
+                            android:layout_alignParentBottom="true"
+
                             />
 
                         <TextView
