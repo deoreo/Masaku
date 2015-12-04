@@ -7,6 +7,7 @@ package twiscode.masakuuser.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -170,9 +171,13 @@ public class AdapterAllMenus extends BaseAdapter {
                 public void onClick(View view) {
                     holder.btnAdd.setVisibility(View.GONE);
                     holder.btnAdded.setVisibility(View.VISIBLE);
+                    /*
                     if(ApplicationData.allmenus.containsKey(ID)){
                         ApplicationData.allmenus.get(ID).setAdded(true);
                     }
+                    */
+                    ApplicationData.idLike = ID;
+                    SendBroadcast("doLike","like");
 
                 }
             });
@@ -182,9 +187,13 @@ public class AdapterAllMenus extends BaseAdapter {
                 public void onClick(View view) {
                     holder.btnAdd.setVisibility(View.VISIBLE);
                     holder.btnAdded.setVisibility(View.GONE);
+                    /*
                     if(ApplicationData.allmenus.containsKey(ID)){
                         ApplicationData.allmenus.get(ID).setAdded(false);
                     }
+                    */
+                    ApplicationData.idLike = ID;
+                    SendBroadcast("doLike","dislike");
                 }
             });
 
@@ -292,6 +301,8 @@ public class AdapterAllMenus extends BaseAdapter {
         intent.putExtra("message", type);
         LocalBroadcastManager.getInstance(mAct).sendBroadcast(intent);
     }
+
+
 
 
 

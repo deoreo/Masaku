@@ -39,6 +39,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 
 public class FragmentAllMenus extends Fragment {
 
@@ -57,12 +58,7 @@ public class FragmentAllMenus extends Fragment {
 
 	private ProgressBar progress;
 
-
-	private int mPage;
-
-	private RecyclerView recyclerView;
-
-	private BroadcastReceiver updateCart;
+	private BroadcastReceiver doLike;
 
 	private HashMap<String,ModelAllMenus> allMenus = new HashMap<>();
 
@@ -84,18 +80,14 @@ public class FragmentAllMenus extends Fragment {
 		appManager = new ApplicationManager(getActivity());
 		View rootView = inflater.inflate(R.layout.activity_all_menus, container, false);
 		progress = (ProgressBar) rootView.findViewById(R.id.progress);
-		//noData = (LinearLayout) rootView.findViewById(R.id.noData);
 		wrapCount = (LinearLayout) rootView.findViewById(R.id.wrapCount);
 		countCart = (TextView) rootView.findViewById(R.id.countCart);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
-		View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
-		//mListView.addHeaderView(header);
-		//mAdapter = new AdapterMenuNew(getActivity(), LIST_MENU);
-		//mListView.setAdapter(mAdapter);
-		mListView.setScrollingCacheEnabled(false);
+
+		//mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
 
 		btnCart.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +100,7 @@ public class FragmentAllMenus extends Fragment {
 		});
 
 
-
+		/*
 		updateCart = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -134,6 +126,27 @@ public class FragmentAllMenus extends Fragment {
 
 			}
 		};
+		*/
+		doLike = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// Extract data included in the Intent
+				Log.d("", "broadcast doLike");
+				String message = intent.getStringExtra("message");
+				if (message.equals("like")) {
+					new DoLike().execute(
+							ApplicationData.idLike,"like"
+					);
+				}
+				else{
+					new DoLike().execute(
+							ApplicationData.idLike,"dislike"
+					);
+				}
+
+
+			}
+		};
 		mSwipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -143,16 +156,7 @@ public class FragmentAllMenus extends Fragment {
 		});
 
 		DummyData(isNodata);
-		/*
-		if(LIST_MENU.size() > 0){
-			mListView.setVisibility(View.VISIBLE);
-			noData.setVisibility(View.GONE);
-		}
-		else {
-			mListView.setVisibility(View.GONE);
-			noData.setVisibility(View.VISIBLE);
-		}
-		*/
+
 
 
 		return rootView;
@@ -197,7 +201,7 @@ public class FragmentAllMenus extends Fragment {
 
 				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getAllMenus(page,appManager.getUserToken() );
+				JSONObject response = jsControl.getAllMenus(page, appManager.getUserToken());
 				Log.d("json response", response.toString());
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){
@@ -208,8 +212,8 @@ public class FragmentAllMenus extends Fragment {
 						String price = menus.getJSONObject(i).getString("price");
 						String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
 						String desc = menus.getJSONObject(i).getString("description");
+						boolean added = Boolean.parseBoolean(menus.getJSONObject(i).getString("isLiked"));
 						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
-						boolean added = false;
 						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added);
 						//LIST_MENU.add(menu);
 						if(allMenus.size() > 0){
@@ -284,6 +288,100 @@ public class FragmentAllMenus extends Fragment {
 
 			}
 		}
+	}
+
+	private class DoLike extends AsyncTask<String, Void, String> {
+		private Activity activity;
+		private Context context;
+		private Resources resources;
+
+
+		public DoLike() {
+			super();
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			try {
+
+				String id = params[0];
+				String tipe = params[1];
+				JSONControl jsControl = new JSONControl();
+				if(tipe=="like"){
+					Log.d("like", ConfigManager.LIKE+" - "+id);
+					String response = jsControl.LikeMenu(id, appManager.getUserToken());
+					Log.d("json response", response.toString());
+
+					if(response.contains("true")){
+						ApplicationData.allmenus.get(ApplicationData.idLike).setAdded(true);
+						allMenus = new HashMap<>(ApplicationData.allmenus);
+						return "OK";
+					}
+				}
+				else {
+					Log.d("dislike", ConfigManager.DISLIKE+" - "+id);
+					String response = jsControl.DislikeMenu(id, appManager.getUserToken());
+					Log.d("json response", response.toString());
+
+					if(response.contains("true")){
+						ApplicationData.allmenus.get(ApplicationData.idLike).setAdded(false);
+						allMenus = new HashMap<>(ApplicationData.allmenus);
+						return "OK";
+					}
+				}
+
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Log.d("json response id 0", "FAIL");
+			return "FAIL";
+
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+
+
+			//progressDialog.dismiss();
+			progress.setVisibility(View.GONE);
+			switch (result) {
+				case "FAIL":
+					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+
+					break;
+				case "OK":
+					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
+					//startActivity(i);
+					//finish();
+					Log.d("jumlah menu : ",""+LIST_MENU.size());
+
+
+					break;
+
+			}
+			//LIST_MENU = new ArrayList<>(allMenus.values());
+			//mAdapter = new AdapterAllMenus(getActivity(), LIST_MENU);
+			//mListView.setAdapter(mAdapter);
+		}
+	}
+
+
+
+	public void onResume() {
+		super.onResume();
+
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(doLike,
+				new IntentFilter("doLike"));
+
 	}
 
 

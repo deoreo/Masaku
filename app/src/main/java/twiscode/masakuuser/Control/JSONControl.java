@@ -363,13 +363,29 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject getWishlist(int page, String token) {
+    public String LikeMenu(String data, String token) {
 
-        JSONObject jsonObj = new JSONObject();
+        String jsonObj = null;
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.WISHLIST + page, ConfigManager.DUKUHKUPANG,token);
+            params.add(new BasicNameValuePair("id", data));
+            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.LIKE, token, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+    public String DislikeMenu(String data, String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", data));
+            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.DISLIKE, token, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
             e.printStackTrace();
