@@ -191,19 +191,18 @@ public class FragmentWishlist extends Fragment {
 			try {
 
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getWishlist(appManager.getUserToken());
+				JSONArray response = jsControl.getWishlist(appManager.getUserToken());
 				Log.d("json response wishlist", response.toString());
 				Log.d("user token wishlist", appManager.getUserToken());
-				JSONArray menus = response.getJSONArray("menus");
-				if(menus.length() > 0){
-					for(int i=0;i<menus.length();i++){
-						String id = menus.getJSONObject(i).getString("_id");
-						String nama = menus.getJSONObject(i).getString("name");
-						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
-						String price = menus.getJSONObject(i).getString("price");
-						String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
-						String desc = menus.getJSONObject(i).getString("description");
-						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
+				if(response.length() > 0){
+					for(int i=0;i<response.length();i++){
+						String id = response.getJSONObject(i).getString("_id");
+						String nama = response.getJSONObject(i).getString("name");
+						String foto = response.getJSONObject(i).getJSONArray("imageUrls").getString(0);
+						String price = response.getJSONObject(i).getString("price");
+						String time = "";//response.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
+						String desc = response.getJSONObject(i).getString("description");
+						JSONArray feedback = new JSONArray();//response.getJSONObject(i).getJSONArray("feedbacks");
 						boolean added = false;
 						ModelWishlist menu = new ModelWishlist(id,nama,price,foto,time,desc,feedback,added);
 						//LIST_MENU.add(menu);

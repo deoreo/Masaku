@@ -363,12 +363,12 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject getWishlist(String token) {
+    public JSONArray getWishlist(String token) {
 
-        JSONObject jsonObj = new JSONObject();
+        JSONArray jsonObj = new JSONArray();
 
         try {
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.WISHLIST, ConfigManager.DUKUHKUPANG, token);
+            jsonObj = _JSONResponse.GETResponseArray(ConfigManager.WISHLIST, ConfigManager.DUKUHKUPANG, token);
             Log.d("url response wishlist", ConfigManager.WISHLIST);
 
         } catch (Exception e) {
