@@ -59,5 +59,6 @@ public class ApplicationData {
     public static HashMap<String,ModelAllMenus> allmenus = new HashMap<>();
     public static HashMap<String,ModelWishlist> wishlist = new HashMap<>();
     public static String idLike = "";
+    public static String type="";
 
 }

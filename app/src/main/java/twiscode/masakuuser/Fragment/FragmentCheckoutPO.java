@@ -1,0 +1,573 @@
+package twiscode.masakuuser.Fragment;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.angmarch.views.NiceSpinner;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+
+import info.hoang8f.android.segmented.SegmentedGroup;
+import twiscode.masakuuser.Activity.ActivityChangeLocation;
+import twiscode.masakuuser.Activity.Main;
+import twiscode.masakuuser.Adapter.AdapterCheckout;
+import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Model.ModelCart;
+import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.DialogManager;
+import twiscode.masakuuser.Utilities.NetworkManager;
+
+
+/**
+ * Created by Unity on 01/09/2015.
+ */
+public class FragmentCheckoutPO extends Fragment {
+    private static final String ARG_COLOR = "color";
+    Activity act;
+    ApplicationManager applicationManager;
+    private EditText txtKode, txtNote;
+    private ImageView btnBack;
+    private ListView mListView;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat;
+    private Button btnKonfirmasi;
+    AdapterCheckout mAdapter;
+    private List<ModelCart> LIST_MENU = new ArrayList<>();
+    SegmentedGroup segmented;
+    NiceSpinner paySpiner;
+    int delivery = 0;
+    int subtotal = 0;
+    int tip = 0;
+    int total = 0;
+    int diskon = 0;
+    private DecimalFormat decimalFormat;
+    private ProgressBar progress;
+    private BroadcastReceiver updateCart;
+
+    public static FragmentCheckoutPO newInstance() {
+        FragmentCheckoutPO fragment = new FragmentCheckoutPO();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public FragmentCheckoutPO() {
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_checkout_po, container, false);
+        act = getActivity();
+        applicationManager = new ApplicationManager(act);
+        progress = (ProgressBar) v.findViewById(R.id.progress);
+        mListView = (ListView) v.findViewById(R.id.listCheckout);
+        noData = (TextView) v.findViewById(R.id.noData);
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
+        otherSymbols.setDecimalSeparator(',');
+        otherSymbols.setGroupingSeparator('.');
+        decimalFormat = new DecimalFormat();
+        decimalFormat.setDecimalFormatSymbols(otherSymbols);
+
+        DummyData();
+
+
+        View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
+        txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
+        txtNote = (EditText) header.findViewById(R.id.noteCheckout);
+        txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
+        mListView.addHeaderView(header);
+        View footer = getActivity().getLayoutInflater().inflate(R.layout.layout_footer_checkout_po, null);
+        txtSubtotal = (TextView) footer.findViewById(R.id.subtotalCheckout);
+        txtDelivery = (TextView) footer.findViewById(R.id.deliveryCheckout);
+        txtTip = (TextView) footer.findViewById(R.id.tipCheckout);
+        txtDiskon = (TextView) footer.findViewById(R.id.diskonCheckout);
+        txtTotal = (TextView) footer.findViewById(R.id.totalCheckout);
+        btnKonfirmasi = (Button) footer.findViewById(R.id.btnKonfirmasi);
+
+        txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+        txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
+        txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+        txtTip.setText("Rp. " + decimalFormat.format(tip));
+        txtTotal.setText("Rp. " + decimalFormat.format(total));
+
+        String alamat = ApplicationData.location;
+        if (alamat != "") {
+            txtAlamat.setText(alamat);
+        }
+        segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
+        segmented.setTintColor(Color.parseColor("#D02D2E"));
+        segmented.check(R.id.button23);
+        mListView.addFooterView(footer);
+        mAdapter = new AdapterCheckout(getActivity(), LIST_MENU);
+        mListView.setAdapter(mAdapter);
+        mListView.setScrollingCacheEnabled(false);
+        segmented.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.button21:
+                        tip = 0;
+                        total = subtotal + tip + delivery - diskon;
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        return;
+                    case R.id.button22:
+                        tip = (int) Math.round(subtotal * 0.05);
+                        total = subtotal + tip + delivery - diskon;
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        return;
+                    case R.id.button23:
+                        tip = (int) Math.round(subtotal * 0.1);
+                        total = subtotal + tip + delivery - diskon;
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        return;
+                    case R.id.button24:
+                        tip = (int) Math.round(subtotal * 0.15);
+                        total = subtotal + tip + delivery - diskon;
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        return;
+                    case R.id.button25:
+                        tip = (int) Math.round(subtotal * 0.2);
+                        total = subtotal + tip + delivery - diskon;
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        return;
+                    default:
+                        // Nothing to do
+                }
+
+            }
+        });
+
+        txtAlamat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ActivityChangeLocation.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
+
+        txtKode.setOnEditorActionListener(
+                new EditText.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            Log.d("kupon", txtKode.getText().toString());
+                            new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+
+        /*
+        if(ApplicationData.cart.size() > 0){
+            mListView.setVisibility(View.VISIBLE);
+            noData.setVisibility(View.GONE);
+        }
+        else {
+            mListView.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+        }
+        */
+
+
+        btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (txtAlamat.getText().toString() == "") {
+                    DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
+                } else {
+                    try {
+                        final Context ctx = getActivity();
+                        new MaterialDialog.Builder(ctx)
+                                .title("Anda yakin untuk order?")
+                                .positiveText("OK")
+                                .callback(new MaterialDialog.ButtonCallback() {
+                                    @Override
+                                    public void onPositive(MaterialDialog dialog) {
+                                        new CheckOut(act).execute(
+                                                txtKode.getText().toString(),
+                                                txtAlamat.getText().toString(),
+                                                txtNote.getText().toString()
+                                        );
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .negativeText("Tidak")
+                                .cancelable(false)
+                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                .show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+        });
+
+        updateCart = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast updateCart");
+                String message = intent.getStringExtra("message");
+                if (message.equals("true")) {
+                    if(ApplicationData.cart.size() > 0){
+                        LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                        if (LIST_MENU.size() > 0) {
+                            subtotal = 0;
+                            for (int i = 0; i < LIST_MENU.size(); i++) {
+                                subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
+                            }
+                            tip = (int) Math.round(subtotal / 10);
+                        }
+                        total = subtotal + tip + delivery - diskon;
+                        txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                        txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
+                        txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    }
+                    else{
+                        getActivity().finish();
+                    }
+
+
+
+                }
+                else if(message.equals("delete")){
+                    if(ApplicationData.cart.size() > 0){
+                        LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                        if (LIST_MENU.size() > 0) {
+                            subtotal = 0;
+                            for (int i = 0; i < LIST_MENU.size(); i++) {
+                                subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
+                            }
+                            tip = (int) Math.round(subtotal / 10);
+                        }
+                        total = subtotal + tip + delivery - diskon;
+                        txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                        txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
+                        txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                        txtTip.setText("Rp. " + decimalFormat.format(tip));
+                        txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        mAdapter = new AdapterCheckout(act, LIST_MENU);
+                        mListView.setAdapter(mAdapter);
+                    }
+                    else{
+                        ApplicationData.cart = new HashMap<>();
+                        getActivity().finish();
+                    }
+                }
+
+
+            }
+        };
+
+
+        if(LIST_MENU.size() > 0){
+            new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+        }
+        else {
+
+                noData.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.GONE);
+                progress.setVisibility(View.GONE);
+
+        }
+
+
+        return v;
+    }
+
+    private void DummyData() {
+
+        LIST_MENU = new ArrayList<ModelCart>();
+        ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
+        for(int i=0;i<newlist.size();i++){
+            ModelCart c = newlist.get(i);
+            if(c.getType()=="po"){
+                LIST_MENU.add(c);
+            }
+        }
+        /*
+        ModelCart modelDeliver0 = new ModelCart("1","Pecel Mak Yem", "5", "50.000");
+        LIST_MENU.add(modelDeliver0);
+        ModelCart modelDeliver1 = new ModelCart("2","Soto Spesial Bu Winda", "4", "60.000");
+        LIST_MENU.add(modelDeliver1);
+        */
+        //LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
+        if (LIST_MENU.size() > 0) {
+            for (int i = 0; i < LIST_MENU.size(); i++) {
+                subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
+            }
+            tip = (int) Math.round(subtotal / 10);
+            //
+        }
+
+        total = subtotal + tip + delivery - diskon;
+    }
+
+    private class CalculatePrice extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+
+        public CalculatePrice(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            /*
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Loading. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            */
+            progress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                String kode = params[0];
+                JSONControl jsControl = new JSONControl();
+                List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                JSONObject response = jsControl.calculatePrice(kode, applicationManager.getUserToken(), cart);
+                Log.d("json response", response.toString());
+                try {
+                    JSONArray transaksi = response.getJSONArray("transactions");
+                    if (transaksi.length() > 0) {
+                        for (int i = 0; i < transaksi.length(); i++) {
+                            String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
+                            diskon = Integer.parseInt(discountPrice);
+                            String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
+                            delivery = Integer.parseInt(shippingPrice);
+                        }
+                        return "OK";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progress.setVisibility(View.GONE);
+            switch (result) {
+                case "FAIL":
+                    if (delivery == 0) {
+                        delivery = ApplicationData.def_delivery;
+                    }
+                    diskon = 0;
+                    total = subtotal + tip + delivery - diskon;
+                    txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                    txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                    txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    break;
+                case "OK":
+                    total = subtotal + tip + delivery - diskon;
+                    txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
+                    txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
+                    txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    break;
+            }
+            //progressDialog.dismiss();
+            if (ApplicationData.cart.size() > 0) {
+                mListView.setVisibility(View.VISIBLE);
+                noData.setVisibility(View.GONE);
+            } else {
+                mListView.setVisibility(View.GONE);
+                noData.setVisibility(View.VISIBLE);
+            }
+
+        }
+
+
+    }
+
+
+    private class CheckOut extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+
+        public CheckOut(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            /*
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Loading. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            */
+            progress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                String kode = params[0];
+                String address = params[1];
+                String note = params[2];
+
+                JSONControl jsControl = new JSONControl();
+                List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                JSONObject response = jsControl.checkOut(kode, address, note, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
+                Log.d("json response checkout", response.toString());
+                try {
+                    return "OK";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progress.setVisibility(View.GONE);
+            switch (result) {
+                case "FAIL":
+                    break;
+                case "OK":
+                    if (NetworkManager.getInstance(act).isConnectedInternet()) {
+                        try {
+                            final Context ctx = act;
+                            new MaterialDialog.Builder(ctx)
+                                    .title("Terima kasih")
+                                    .content("Pesanan Anda akan segera kami proses")
+                                    .positiveText("OK")
+                                    .callback(new MaterialDialog.ButtonCallback() {
+                                        @Override
+                                        public void onPositive(MaterialDialog dialog) {
+                                            if (NetworkManager.getInstance(act).isConnectedInternet()) {
+                                                ApplicationData.cart = new HashMap<String, ModelCart>();
+                                                Intent j = new Intent(act, Main.class);
+                                                startActivity(j);
+                                                act.finish();
+                                            } else {
+                                                DialogManager.showDialog(act, "Mohon Maaf", "Tidak ada koneksi internet!");
+                                            }
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .cancelable(false)
+                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                    .show();
+                        } catch (Exception e) {
+
+                        }
+                    } else {
+                        DialogManager.showDialog(act, "Mohon Maaf", "Tidak ada koneksi internet!");
+                    }
+                    break;
+            }
+            //progressDialog.dismiss();
+
+        }
+
+
+    }
+
+    private void SendBroadcast(String typeBroadcast, String type) {
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(act).sendBroadcast(intent);
+    }
+
+
+    public void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(act).registerReceiver(updateCart,
+                new IntentFilter("updateCart"));
+
+
+    }
+}

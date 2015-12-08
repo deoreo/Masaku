@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGrey">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Sub Total"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/subtotalCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 110.000"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Diskon"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/diskonCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 0"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Ongkos Delivery"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/deliveryCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 10.000"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Tip"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/tipCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 2.000"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <info.hoang8f.android.segmented.SegmentedGroup
+            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            segmentedgroup:sc_border_width="2dp"
+            segmentedgroup:sc_corner_radius="5dp">
+
+            <RadioButton
+                android:id="@+id/button21"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="0%"
+                style="@style/RadioButton" />
+
+            <RadioButton
+                android:id="@+id/button22"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="5%"
+                style="@style/RadioButton" />
+            <RadioButton
+                android:id="@+id/button23"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="10%"
+                style="@style/RadioButton" />
+            <RadioButton
+                android:id="@+id/button24"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="15%"
+                style="@style/RadioButton" />
+            <RadioButton
+                android:id="@+id/button25"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="20%"
+                style="@style/RadioButton" />
+
+        </info.hoang8f.android.segmented.SegmentedGroup>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Total"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"            />
+        <TextView
+            android:id="@+id/totalCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rp 122.000"
+            android:textColor="@color/colorDarkGrey"
+            android:textStyle="bold"
+            android:gravity="right"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"/>
+
+    <Button
+        android:layout_margin="20dp"
+        android:id="@+id/btnKonfirmasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/rounded_red"
+        android:textStyle="bold"
+        android:text="Konfirmasi Order"
+        android:padding="10dp"
+        android:layout_gravity="center"/>
+</LinearLayout>

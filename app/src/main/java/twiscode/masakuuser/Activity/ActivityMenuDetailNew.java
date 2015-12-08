@@ -174,9 +174,17 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ModelCart cart = new ModelCart(modelMenu.getId(), modelMenu.getNama(), 1, Integer.parseInt(modelMenu.getPrice()));
-                AddCount(modelMenu.getId(), cart);
-                SendBroadcast("updateCart", "true");
+                if(ApplicationData.type=="po"){
+                    ModelCart cart = new ModelCart(modelMenu.getId(), modelMenu.getNama(), 1, Integer.parseInt(modelMenu.getPrice()),"po");
+                    AddCount(modelMenu.getId(), cart);
+                    SendBroadcast("updateCart", "true");
+                }
+                else if(ApplicationData.type=="speed"){
+                    ModelCart cart = new ModelCart(modelMenu.getId(), modelMenu.getNama(), 1, Integer.parseInt(modelMenu.getPrice()),"speed");
+                    AddCount(modelMenu.getId(), cart);
+                    SendBroadcast("updateCart", "true");
+                }
+
             }
 
         });

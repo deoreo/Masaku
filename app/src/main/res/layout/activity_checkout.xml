@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
+    android:background="@color/colorGrey"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,28 +36,41 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/listCheckout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/colorGrey"
-            android:dividerHeight="2dp"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/noData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:textColor="@color/colorBlack"
-            android:text="Belum ada pesanan"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/tabs"
+                app:pstsShouldExpand="true"
+                app:pstsTextAllCaps="true"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:pstsIndicatorColor="@color/colorWhite"
+                app:pstsUnderlineColor="@color/colorDarkRed"
+                app:pstsDividerColor="@color/colorRed"
+                app:pstsTabPaddingLeftRight="10dp"
+                android:background="@color/colorRed"
+                android:elevation="5dp"
+
+                >
+            </com.astuetz.PagerSlidingTabStrip>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:elevation="5dp"
+                />
+        </LinearLayout>
+
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
     </RelativeLayout>
 
 </LinearLayout>

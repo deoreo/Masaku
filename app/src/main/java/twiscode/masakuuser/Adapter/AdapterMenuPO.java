@@ -152,6 +152,7 @@ public class AdapterMenuPO extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ApplicationData.modelMenuSpeed = modelMenu;
+                    ApplicationData.type = "po";
                     Intent i = new Intent(mAct, ActivityMenuDetailNew.class);
                     mAct.startActivity(i);
                     //mAct.finish();
@@ -162,7 +163,7 @@ public class AdapterMenuPO extends BaseAdapter {
             holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
+                    ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA),"po");
                     AddCount(holder2, ID, cart);
                     SendBroadcast("updateCart","true");
                 }
@@ -172,7 +173,7 @@ public class AdapterMenuPO extends BaseAdapter {
             holder.btnPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
+                    ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA),"po");
                     AddCount(holder2,ID,cart);
                     int jml = ApplicationData.cart.get(ID).getJumlah();
                     holder.txtCount.setText("" + jml);
