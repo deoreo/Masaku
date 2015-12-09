@@ -134,7 +134,7 @@ public class FragmentMenu extends Fragment {
 		private Activity activity;
 		private Context context;
 		private Resources resources;
-
+		private List<String> datacategory;
 
 		public GetMenu(Activity activity) {
 			super();
@@ -157,7 +157,15 @@ public class FragmentMenu extends Fragment {
 				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
 				JSONObject response = jsControl.getMenuPreOrder(page,applicationManager.getUserToken());
+				JSONArray responseCategory = jsControl.getCategories(applicationManager.getUserToken());
 				Log.d("json response", response.toString());
+				Log.d("category", responseCategory.toString());
+				datacategory = new LinkedList<>();
+				datacategory.add("Semua Kategori");
+				for(int i = 0;i<responseCategory.length();i++){
+					datacategory.add(responseCategory.getString(i));
+				}
+
 				JSONArray menus = response.getJSONArray("menus");
 				if(menus.length() > 0){
 					for(int i=0;i<menus.length();i++){
@@ -235,7 +243,7 @@ public class FragmentMenu extends Fragment {
 					//finish();
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
 					mListView.addHeaderView(header);
-
+					category.attachDataSource(datacategory);
 					break;
 
 			}

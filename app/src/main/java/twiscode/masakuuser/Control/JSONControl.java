@@ -407,13 +407,13 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject getCategories(String token) {
+    public JSONArray getCategories(String token) {
 
-        JSONObject jsonObj = new JSONObject();
+        JSONArray jsonObj = new JSONArray();
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            jsonObj = _JSONResponse.GETResponse(ConfigManager.CATEGORY, ConfigManager.DUKUHKUPANG, token);
+            jsonObj = _JSONResponse.GETResponseArray(ConfigManager.CATEGORY, ConfigManager.DUKUHKUPANG, token);
 
         } catch (Exception e) {
             e.printStackTrace();

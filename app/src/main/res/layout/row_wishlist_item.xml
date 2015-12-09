@@ -125,7 +125,6 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:text="REMOVE FROM WISHLIST"
-                android:visibility="gone"
                 />
 
         </RelativeLayout>

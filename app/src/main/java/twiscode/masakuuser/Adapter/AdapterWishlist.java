@@ -150,7 +150,8 @@ public class AdapterWishlist extends BaseAdapter {
             holder.btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    ApplicationData.idLike = ID;
+                    SendBroadcast("doDislike","dislike");
                 }
             });
 
