@@ -113,6 +113,13 @@ public class ActivityCheckout extends AppCompatActivity {
                 // Code goes here
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

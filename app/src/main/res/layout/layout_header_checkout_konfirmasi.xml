@@ -18,7 +18,7 @@
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"            />
         <TextView
-            android:id="@+id/subtotalWaktu"
+            android:id="@+id/checkoutWaktu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
