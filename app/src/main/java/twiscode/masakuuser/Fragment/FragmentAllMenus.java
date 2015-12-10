@@ -157,8 +157,6 @@ public class FragmentAllMenus extends Fragment {
 
 		DummyData(isNodata);
 
-
-
 		return rootView;
 	}
 
@@ -293,7 +291,7 @@ public class FragmentAllMenus extends Fragment {
 					//startActivity(i);
 					//finish();
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
-					mAdapter = new AdapterAllMenus(getActivity(), LIST_MENU);
+					mAdapter = new AdapterAllMenus(activity, LIST_MENU);
 					mListView.setAdapter(mAdapter);
 					mSwipeRefreshLayout.setRefreshing(false);
 					if(LIST_MENU.size() > 0){

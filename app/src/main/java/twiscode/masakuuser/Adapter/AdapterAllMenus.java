@@ -23,6 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Response;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -40,6 +48,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.text.DecimalFormat;
@@ -54,6 +63,7 @@ import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 
 public class AdapterAllMenus extends BaseAdapter {
@@ -63,6 +73,7 @@ public class AdapterAllMenus extends BaseAdapter {
     private boolean mKeyIsEmpty = false;
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
+    private OkHttpClient okHttpClient;
     int noImage = R.drawable.masaku_dummy_480x360;
 
     public AdapterAllMenus(Activity activity, List<ModelAllMenus> d) {
@@ -127,20 +138,24 @@ public class AdapterAllMenus extends BaseAdapter {
 
 
 
-            holder.nameMenu.setText(VENDOR_NAMA );
-            holder.priceMenu.setText("Rp. "+decimalFormat.format(Integer.parseInt(VENDOR_HARGA)));
+            holder.nameMenu.setText(VENDOR_NAMA);
+            holder.priceMenu.setText("Rp. " + decimalFormat.format(Integer.parseInt(VENDOR_HARGA)));
             Log.d("image : ", VENDOR_IMAGE);
             height = holder.imgMenu.getHeight();
             width = holder.imgMenu.getWidth();
-            //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgMenu);
+
+
             if(VENDOR_IMAGE.length()==0 || VENDOR_IMAGE==""){
                 holder.imgMenu.setImageResource(noImage);
                 holder.progress.setVisibility(View.GONE);
             }
             else {
-                new DownloadImageTask(holder.imgMenu,holder.progress)
-                        .execute(VENDOR_IMAGE);
-
+                //new DownloadImageTask(holder.imgMenu,holder.progress).execute(VENDOR_IMAGE);
+                PicassoTrustAll.getInstance(mAct)
+                        .load(VENDOR_IMAGE)
+                        .placeholder(noImage)
+                        .into(holder.imgMenu);
+                holder.progress.setVisibility(View.GONE);
             }
 
             if(VENDOR_ADDED){
