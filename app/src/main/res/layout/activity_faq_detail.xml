@@ -8,38 +8,28 @@
     <!-- Screen Design for Photos -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:padding="15dp"
+        android:padding="10dp"
         android:background="@color/colorRed"
-        android:elevation="5dp"
-        android:visibility="gone"
         >
-
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/back"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"/>
         <TextView
-            android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Profile"
+            android:text="FAQ"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textSize="16dp"
             />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:padding="5dp"
-                android:id="@+id/btnCart"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/cart_90"/>
-        </LinearLayout>
 
     </RelativeLayout>
     <ScrollView

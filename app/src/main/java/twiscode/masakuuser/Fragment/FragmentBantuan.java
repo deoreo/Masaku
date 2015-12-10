@@ -12,7 +12,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import twiscode.masakuuser.Activity.ActivityAbout;
+import twiscode.masakuuser.Activity.ActivityContactUs;
+import twiscode.masakuuser.Activity.ActivityFAQ;
+import twiscode.masakuuser.Activity.ActivityFAQDetail;
 import twiscode.masakuuser.Activity.ActivityRegister;
+import twiscode.masakuuser.Activity.ActivityTerms;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
@@ -56,33 +60,23 @@ public class FragmentBantuan extends Fragment {
 		btnContactUs.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				android.support.v4.app.Fragment fragment = null;
-				fragment = new FragmentContactUs();
-				FragmentManager fragmentManager = getFragmentManager();
-				datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
-				datafragmentHelper.ChangeFragment(fragment);
-				ApplicationData.titleBar.setText("Contact Us");
+				Intent i = new Intent(getActivity(), ActivityContactUs.class);
+				startActivity(i);
+
 			}
 		});
 		btnFAQ.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				android.support.v4.app.Fragment fragment = null;
-				fragment = new FragmentFAQ();
-				FragmentManager fragmentManager = getFragmentManager();
-				datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
-				datafragmentHelper.ChangeFragment(fragment);
-				ApplicationData.titleBar.setText("FAQ");
+				Intent i = new Intent(getActivity(), ActivityFAQ.class);
+				startActivity(i);
 			}
 		});
 		btnTerms.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				android.support.v4.app.Fragment fragment = null;
-				fragment = new FragmentTerms();
-				FragmentManager fragmentManager = getFragmentManager();
-				datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
-				datafragmentHelper.ChangeFragment(fragment);
+				Intent i = new Intent(getActivity(), ActivityTerms.class);
+				startActivity(i);
 			}
 		});
 

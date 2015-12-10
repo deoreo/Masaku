@@ -276,9 +276,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                     }
-                    else{
-                        getActivity().finish();
-                    }
+
 
 
 
@@ -303,8 +301,25 @@ public class FragmentCheckoutPO extends Fragment {
                         mListView.setAdapter(mAdapter);
                     }
                     else{
-                        ApplicationData.cart = new HashMap<>();
-                        getActivity().finish();
+                        //act.finish();
+                        if(ApplicationData.cart.size() > 0){
+                            LIST_MENU = new ArrayList<ModelCart>();
+                            ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                            for(int i=0;i<newlist.size();i++){
+                                ModelCart c = newlist.get(i);
+                                if(c.getType()=="po"){
+                                    LIST_MENU.add(c);
+                                }
+                            }
+                            if(LIST_MENU.size() < 1){
+                                mListView.setVisibility(View.GONE);
+                                noData.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                        else {
+                            act.finish();
+                        }
                     }
                 }
 
@@ -526,9 +541,14 @@ public class FragmentCheckoutPO extends Fragment {
                                         @Override
                                         public void onPositive(MaterialDialog dialog) {
                                             if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                                                ApplicationData.cart = new HashMap<String, ModelCart>();
-                                                Intent j = new Intent(act, Main.class);
-                                                startActivity(j);
+                                                //ApplicationData.cart = new HashMap<String, ModelCart>();
+                                                for(int i=0;i<LIST_MENU.size();i++){
+                                                    if(LIST_MENU.get(i).getType()=="po"){
+                                                        ApplicationData.cart.remove(LIST_MENU.get(i).getId());
+                                                    }
+                                                }
+                                                //Intent j = new Intent(act, Main.class);
+                                                //startActivity(j);
                                                 act.finish();
                                             } else {
                                                 DialogManager.showDialog(act, "Mohon Maaf", "Tidak ada koneksi internet!");
