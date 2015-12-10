@@ -54,6 +54,7 @@ import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 
 public class AdapterMenuPO extends BaseAdapter {
@@ -141,8 +142,12 @@ public class AdapterMenuPO extends BaseAdapter {
                 holder.progress.setVisibility(View.GONE);
             }
             else {
-                new DownloadImageTask(holder.imgMenu,holder.progress)
-                        .execute(VENDOR_IMAGE);
+                //new DownloadImageTask(holder.imgMenu,holder.progress).execute(VENDOR_IMAGE);
+                PicassoTrustAll.getInstance(mAct)
+                        .load(VENDOR_IMAGE)
+                        .placeholder(noImage)
+                        .into(holder.imgMenu);
+                holder.progress.setVisibility(View.GONE);
 
             }
 

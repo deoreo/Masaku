@@ -50,6 +50,7 @@ import twiscode.masakuuser.Model.ModelWishlist;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 
 public class AdapterWishlist extends BaseAdapter {
@@ -131,9 +132,12 @@ public class AdapterWishlist extends BaseAdapter {
                 holder.progress.setVisibility(View.GONE);
             }
             else {
-                new DownloadImageTask(holder.imgMenu,holder.progress)
-                        .execute(VENDOR_IMAGE);
-
+                //new DownloadImageTask(holder.imgMenu,holder.progress).execute(VENDOR_IMAGE);
+                PicassoTrustAll.getInstance(mAct)
+                        .load(VENDOR_IMAGE)
+                        .placeholder(noImage)
+                        .into(holder.imgMenu);
+                holder.progress.setVisibility(View.GONE);
             }
 
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
