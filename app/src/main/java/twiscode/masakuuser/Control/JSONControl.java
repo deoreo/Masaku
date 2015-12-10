@@ -421,6 +421,22 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject ConfirmPO(String kode, String accessToken) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.TRANSACTION+kode+"/confirm", ConfigManager.DUKUHKUPANG, accessToken, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
 
 
 

@@ -4,7 +4,8 @@ public class ConfigManager {
 
     public static final String version ="~1";
     //public static final String SERVER = "https://masaku.id:2083/user"; // develop
-    public static final String SERVER = "https://masaku.id:2053/user"; // live
+    // public static final String SERVER = "https://masaku.id:2053/user"; // live
+    public static final String SERVER = "https://umkkf6ee2ac1.masaku.koding.io:2053/user"; // live
     public static final String LOGIN = SERVER+"/authenticate";
     public static final String REGISTER = SERVER+"/register";
     public static final String FORGOT_PASSWORD = SERVER+"/forgot";
@@ -27,6 +28,7 @@ public class ConfigManager {
     public static final String RESEND_VERIFY_CODE = SERVER+"/resend-code";
     public static final String UPDATE_PROFILE = SERVER+"/profile";
     public static final String TRANSACTIONS = SERVER+"/transactions/";
+    public static final String TRANSACTION = SERVER+"/transaction/";
     public static final String DETAIL_TRANSACTION = SERVER+"/transaction/";
     public static final String DUKUHKUPANG = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlUb2tlbiI6Iic0T3M0VDlOMzg4J0NMMUs-MTlAZCwlT1pCJkBEOSIsImlhdCI6MTQ0NzIxMDY3MH0.xgocnzsQOLoSNZ3VoC3vlhVlzqakkNhr5hRayz008jo";
 

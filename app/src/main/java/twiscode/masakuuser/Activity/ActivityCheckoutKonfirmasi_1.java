@@ -1,8 +1,11 @@
 package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,15 +13,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Timer;
 
 import twiscode.masakuuser.Adapter.AdapterPagerCheckout;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 
 /**
@@ -34,6 +40,12 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
 
+    CountDownTimer countDownTimer;
+
+
+    // Change by Lucifer
+    long seconds;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +53,6 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         setContentView(R.layout.activity_checkout_konfirmasi);
         act = this;
         applicationManager = new ApplicationManager(act);
-        progress = (ProgressBar) findViewById(R.id.progress);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         txtWaktu = (TextView) findViewById(R.id.checkoutWaktu);
         txtID = (TextView) findViewById(R.id.checkoutID);
@@ -58,6 +69,9 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         btnBayar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), ActivityCheckoutKonfirmasi_2.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -67,8 +81,47 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
+        txtID.setText(ApplicationData.detailTransaksi.getId());
+        txtSubtotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())));
+        txtTotal.setText("Rp. "+decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTotal())));
+        txtConvience.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getConvience())));
+
+
+        startTimer();
+
+
+
 
     }
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(Integer.parseInt(ApplicationData.detailTransaksi.getWaktu())*60*1000, 1000) {
+            // 500 means, onTick function will be called at every 500
+            // milliseconds
+
+            @Override
+            public void onTick(long leftTimeInMilliseconds) {
+                long seconds = leftTimeInMilliseconds / 1000;
+                ApplicationData.timer = seconds;
+
+
+                txtWaktu.setText(
+                        String.format("%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, (seconds % 60)));
+                // format the textview to show the easily readable format
+
+            }
+
+            @Override
+            public void onFinish() {
+                // this function will be called when the timecount is finished
+                txtWaktu.setText("Time up!");
+            }
+
+        }.start();
+
+    }
+
+
 
 
 
