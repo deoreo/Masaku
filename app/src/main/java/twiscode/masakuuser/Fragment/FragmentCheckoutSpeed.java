@@ -280,9 +280,7 @@ public class FragmentCheckoutSpeed extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                     }
-                    else{
-                        getActivity().finish();
-                    }
+
 
 
 
@@ -307,8 +305,25 @@ public class FragmentCheckoutSpeed extends Fragment {
                         mListView.setAdapter(mAdapter);
                     }
                     else{
-                        ApplicationData.cart = new HashMap<>();
-                        getActivity().finish();
+                        //act.finish();
+                        if(ApplicationData.cart.size() > 0){
+                            LIST_MENU = new ArrayList<ModelCart>();
+                            ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                            for(int i=0;i<newlist.size();i++){
+                                ModelCart c = newlist.get(i);
+                                if(c.getType()=="speed"){
+                                    LIST_MENU.add(c);
+                                }
+                            }
+                            if(LIST_MENU.size() < 1){
+                                mListView.setVisibility(View.GONE);
+                                noData.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                        else {
+                            act.finish();
+                        }
                     }
                 }
 

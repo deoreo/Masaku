@@ -73,6 +73,13 @@
         <activity android:name=".Activity.ActivitySpeedNext" />
         <activity android:name=".Activity.ActivitySpeedNextDetail" />
         <activity android:name=".Activity.ActivityTutorial" />
+        <activity android:name=".Activity.ActivityContactUs" />
+        <activity android:name=".Activity.ActivityFAQ" />
+        <activity android:name=".Activity.ActivityFAQDetail" />
+        <activity android:name=".Activity.ActivityTerms" />
+        <activity android:name=".Activity.ActivityCheckoutKonfirmasi_1" />
+        <activity android:name=".Activity.ActivityCheckoutKonfirmasi_2" />
+        <activity android:name=".Activity.ActivityCheckoutVerify" />
         <service android:name="com.parse.PushService" />
         <receiver
             android:name=".Parse.CustomPushReceiver"

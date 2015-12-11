@@ -1,198 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-        <LinearLayout
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="@color/colorRed"
+        >
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/back"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Contact Us"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
             >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:text="Jam Customer Service"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                />
             <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/operator"
-                    />
-                <TextView
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mon - Fri"
-                    android:textSize="16dp"
-                    android:layout_gravity="center_vertical"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="08.00 - 17.00"
-                    android:textSize="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/colorBlack"/>
-            </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/btnCallUs"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_red"
-                android:padding="5dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
                 >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:text="Jam Customer Service"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    />
                 <LinearLayout
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_centerInParent="true">
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/phone_icon"
-                        />
-                    <TextView
-                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Call us : 081234534488"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/operator"
+                        />
+                    <TextView
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mon - Fri"
                         android:textSize="16dp"
-                        android:layout_gravity="center"
-                        android:textColor="@color/colorWhite"
-                        android:textAllCaps="true"/>
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="08.00 - 17.00"
+                        android:textSize="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/colorBlack"/>
                 </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/btnCallUs"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_red"
+                    android:padding="5dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerInParent="true">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/phone_icon"
+                            />
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Call us : 081234534488"
+                            android:textSize="16dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:textAllCaps="true"/>
+                    </LinearLayout>
 
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorDarkGrey2"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="or"
+                        android:layout_gravity="center"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorDarkGrey2"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kontak kami melalui"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="feedback form di bawah ini"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
                 <View
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_weight="1"
                     android:background="@color/colorDarkGrey2"
                     android:layout_gravity="center"/>
-                <TextView
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="or"
-                    android:layout_gravity="center"/>
+                <EditText
+                    android:id="@+id/txtNama"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@null"
+                    android:textColor="@color/colorBlack"
+                    android:hint="Nama"
+                    android:padding="10dp"
+                    android:textSize="14dp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    />
                 <View
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_weight="1"
                     android:background="@color/colorDarkGrey2"
                     android:layout_gravity="center"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="kontak kami melalui"
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@null"
+                    android:textColor="@color/colorBlack"
+                    android:hint="Email"
+                    android:padding="10dp"
+                    android:textSize="14dp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorDarkGrey2"
                     android:layout_gravity="center"/>
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/txtFeedback"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="feedback form di bawah ini"
+                    android:background="@null"
+                    android:textColor="@color/colorBlack"
+                    android:hint="Ketik feedback anda disini"
+                    android:padding="10dp"
+                    android:textSize="14dp"
+                    android:maxLines="5"
+                    android:lines="5"
+                    android:gravity="left"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorDarkGrey2"
                     android:layout_gravity="center"/>
+                <Button
+                    android:id="@+id/btnKirim"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_red"
+                    android:text="Kirim"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite"
+                    />
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorDarkGrey2"
-                android:layout_gravity="center"/>
-            <EditText
-                android:id="@+id/txtNama"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@null"
-                android:textColor="@color/colorBlack"
-                android:hint="Nama"
-                android:padding="10dp"
-                android:textSize="14dp"
-                android:singleLine="true"
-                android:maxLines="1"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorDarkGrey2"
-                android:layout_gravity="center"/>
-            <EditText
-                android:id="@+id/txtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@null"
-                android:textColor="@color/colorBlack"
-                android:hint="Email"
-                android:padding="10dp"
-                android:textSize="14dp"
-                android:singleLine="true"
-                android:maxLines="1"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorDarkGrey2"
-                android:layout_gravity="center"/>
-            <EditText
-                android:id="@+id/txtFeedback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:textColor="@color/colorBlack"
-                android:hint="Ketik feedback anda disini"
-                android:padding="10dp"
-                android:textSize="14dp"
-                android:maxLines="5"
-                android:lines="5"
-                android:gravity="left"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorDarkGrey2"
-                android:layout_gravity="center"/>
-            <Button
-                android:id="@+id/btnKirim"
-                android:layout_marginTop="30dp"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_red"
-                android:text="Kirim"
-                android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
-                />
-        </LinearLayout>
-</ScrollView>
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

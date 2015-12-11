@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,10 +44,12 @@ import java.util.Locale;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Activity.ActivityChangeLocation;
+import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_1;
 import twiscode.masakuuser.Activity.Main;
 import twiscode.masakuuser.Adapter.AdapterCheckout;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelCart;
+import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
@@ -276,9 +279,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                     }
-                    else{
-                        getActivity().finish();
-                    }
+
 
 
 
@@ -303,8 +304,25 @@ public class FragmentCheckoutPO extends Fragment {
                         mListView.setAdapter(mAdapter);
                     }
                     else{
-                        ApplicationData.cart = new HashMap<>();
-                        getActivity().finish();
+                        //act.finish();
+                        if(ApplicationData.cart.size() > 0){
+                            LIST_MENU = new ArrayList<ModelCart>();
+                            ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                            for(int i=0;i<newlist.size();i++){
+                                ModelCart c = newlist.get(i);
+                                if(c.getType()=="po"){
+                                    LIST_MENU.add(c);
+                                }
+                            }
+                            if(LIST_MENU.size() < 1){
+                                mListView.setVisibility(View.GONE);
+                                noData.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                        else {
+                            act.finish();
+                        }
                     }
                 }
 
@@ -493,7 +511,43 @@ public class FragmentCheckoutPO extends Fragment {
                 JSONObject response = jsControl.checkOut(kode, address, note, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
-                    return "OK";
+                    JSONArray transaction = response.getJSONArray("transaction");
+                    if(transaction.length() > 0){
+                        for(int t=0;t<transaction.length();t++){
+                            String _id = transaction.getJSONObject(t).getString("id");
+                            String _status = transaction.getJSONObject(t).getString("status");
+                            String _waktu = transaction.getJSONObject(t).getString("timeLapse");
+                            String _uid = transaction.getJSONObject(t).getString("user");
+                            String _alamat = transaction.getJSONObject(t).getString("address");
+                            String _note = transaction.getJSONObject(t).getString("note");
+                            String _subtotal = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("base");
+                            String _delivery = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("shipping");
+                            String _diskon = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("discount");
+                            String _total = transaction.getJSONObject(t).getString("price");
+                            String _type = transaction.getJSONObject(t).getString("type");
+                            String _nama = "first name";
+                            String _phone = "088888888";
+                            String _convience = "0";
+                            String _tip = "0";
+                            JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
+                            List<ModelCart> _carts = new ArrayList<>();
+                            if(_order.length() > 0){
+                                for(int i=0;i<_order.length();i++){
+                                    ModelCart c = new ModelCart();
+                                    c.setId(_order.getJSONObject(i).getString("_id"));
+                                    c.setJumlah(Integer.parseInt(_order.getJSONObject(i).getString("quantity")));
+                                    c.setNama("menu " + (i + 1));
+                                    c.setHarga((i + 1) * 5000);
+                                    c.setType(_type);
+                                    _carts.add(c);
+                                }
+                            }
+                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convience,_total,_waktu,_diskon,_tip,_delivery,_status,_carts);
+                            ApplicationData.idLastTransaction = _id;
+                            return "OK";
+                        }
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -526,8 +580,13 @@ public class FragmentCheckoutPO extends Fragment {
                                         @Override
                                         public void onPositive(MaterialDialog dialog) {
                                             if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                                                ApplicationData.cart = new HashMap<String, ModelCart>();
-                                                Intent j = new Intent(act, Main.class);
+                                                //ApplicationData.cart = new HashMap<String, ModelCart>();
+                                                for(int i=0;i<LIST_MENU.size();i++){
+                                                    if(LIST_MENU.get(i).getType()=="po"){
+                                                        ApplicationData.cart.remove(LIST_MENU.get(i).getId());
+                                                    }
+                                                }
+                                                Intent j = new Intent(act, ActivityCheckoutKonfirmasi_1.class);
                                                 startActivity(j);
                                                 act.finish();
                                             } else {

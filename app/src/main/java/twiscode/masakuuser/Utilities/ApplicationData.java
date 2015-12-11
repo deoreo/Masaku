@@ -8,10 +8,12 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelCart;
+import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelPesanan;
@@ -60,5 +62,8 @@ public class ApplicationData {
     public static HashMap<String,ModelWishlist> wishlist = new HashMap<>();
     public static String idLike = "";
     public static String type="";
+    public static String idLastTransaction="";
+    public static ModelDetailTransaksi detailTransaksi;
+    public static long timer = 0;
 
 }
