@@ -13,13 +13,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_1;
+import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_2;
+import twiscode.masakuuser.Activity.ActivityCheckoutVerify;
 import twiscode.masakuuser.Activity.ActivityDetailTransaksi;
+import twiscode.masakuuser.Activity.ActivityRegister;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -72,6 +77,7 @@ public class AdapterPesanan extends BaseAdapter {
             holder.statusOrder = (TextView) convertView.findViewById(R.id.statusPesanan);
             holder.harga = (TextView) convertView.findViewById(R.id.hargaPesanan);
             holder.btnPesan = (TextView) convertView.findViewById(R.id.btnPesan);
+            holder.btnDetailPesanan = (LinearLayout) convertView.findViewById(R.id.layoutPesanan);
             //holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
             convertView.setTag(position);
 
@@ -83,11 +89,21 @@ public class AdapterPesanan extends BaseAdapter {
             final String VENDOR_TIME = modelPesanan.getJam();
             final String VENDOR_HARGA = modelPesanan.getHarga();
             final String VENDOR_IMAGE = modelPesanan.getFoto();
-
+            String status = "";
 
             holder.namaVendor.setText(ID );
             holder.dateOrder.setText(VENDOR_DATE+" "+VENDOR_TIME);
-            holder.statusOrder.setText(VENDOR_STATUS);
+            if(VENDOR_STATUS.equalsIgnoreCase("canceled")){
+                status = "CANCEL";
+            }
+            else if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
+                status = "MENUNGGU PEMBAYARAN";
+            }
+            else if(VENDOR_STATUS.equalsIgnoreCase("verifyingPayment")){
+                status = "PEMBAYARAN SEDANG DIVERIFIKASI";
+            }
+
+            holder.statusOrder.setText(status);
             holder.harga.setText("Rp " + VENDOR_HARGA);
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
             holder.btnPesan.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +112,28 @@ public class AdapterPesanan extends BaseAdapter {
                     ApplicationData.pesanan = modelPesanan;
                     Intent j = new Intent(mAct, ActivityDetailTransaksi.class);
                     mAct.startActivity(j);
+                }
+            });
+
+            holder.btnDetailPesanan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
+                        Intent i = new Intent(mAct, ActivityCheckoutKonfirmasi_1.class);
+                        mAct.startActivity(i);
+                        mAct.finish();
+                    }
+                    else if(VENDOR_STATUS.equalsIgnoreCase("verifyingPayment")){
+                        Intent i = new Intent(mAct, ActivityCheckoutVerify.class);
+                        mAct.startActivity(i);
+                        mAct.finish();
+                    }
+                    else{
+                        Intent i = new Intent(mAct, ActivityDetailTransaksi.class);
+                        mAct.startActivity(i);
+                        mAct.finish();
+                    }
+
                 }
             });
 
@@ -110,6 +148,7 @@ public class AdapterPesanan extends BaseAdapter {
         public TextView statusOrder;
         public TextView harga;
         public TextView btnPesan;
+        public LinearLayout btnDetailPesanan;
         //public ImageView imgVendor;
     }
 

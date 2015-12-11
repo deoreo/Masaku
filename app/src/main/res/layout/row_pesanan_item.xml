@@ -7,6 +7,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/layoutPesanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -98,7 +99,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/next_grey"
                 android:layout_gravity="center"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginRight="5dp"/>
         </LinearLayout>
         <TextView
