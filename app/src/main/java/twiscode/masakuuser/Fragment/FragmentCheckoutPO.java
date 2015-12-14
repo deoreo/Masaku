@@ -525,10 +525,11 @@ public class FragmentCheckoutPO extends Fragment {
                             String _diskon = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("discount");
                             String _total = transaction.getJSONObject(t).getString("price");
                             String _type = transaction.getJSONObject(t).getString("type");
-                            String _nama = "first name";
-                            String _phone = "088888888";
+                            String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
+                            String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
                             String _convience = "0";
                             String _tip = "0";
+                            String _detailID=transaction.getJSONObject(t).getString("prettyId");
                             JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                             List<ModelCart> _carts = new ArrayList<>();
                             if(_order.length() > 0){
@@ -542,7 +543,7 @@ public class FragmentCheckoutPO extends Fragment {
                                     _carts.add(c);
                                 }
                             }
-                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convience,_total,_waktu,_diskon,_tip,_delivery,_status,_carts);
+                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convience,_total,_waktu,_diskon,_tip,_delivery,_status,_detailID,_carts);
                             ApplicationData.idLastTransaction = _id;
                             return "OK";
                         }

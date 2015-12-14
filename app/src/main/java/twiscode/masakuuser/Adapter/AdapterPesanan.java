@@ -25,6 +25,7 @@ import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_2;
 import twiscode.masakuuser.Activity.ActivityCheckoutVerify;
 import twiscode.masakuuser.Activity.ActivityDetailTransaksi;
 import twiscode.masakuuser.Activity.ActivityRegister;
+import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -32,11 +33,11 @@ import twiscode.masakuuser.Utilities.ApplicationData;
 
 public class AdapterPesanan extends BaseAdapter {
     private Activity mAct;
-    private List<ModelPesanan> mSourceData, mFilterData;
+    private List<ModelDetailTransaksi> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
 
-    public AdapterPesanan(Activity activity, List<ModelPesanan> d) {
+    public AdapterPesanan(Activity activity, List<ModelDetailTransaksi> d) {
         mAct = activity;
         mSourceData = d;
         mInflater = (LayoutInflater) mAct.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -81,18 +82,20 @@ public class AdapterPesanan extends BaseAdapter {
             //holder.imgVendor = (ImageView) convertView.findViewById(R.id.imgVendor);
             convertView.setTag(position);
 
-            final ModelPesanan modelPesanan = mSourceData.get(position);
+            final ModelDetailTransaksi modelPesanan = mSourceData.get(position);
             final String ID = modelPesanan.getId();
+            final String DETAIL_ID = modelPesanan.getDetailID();
             final String VENDOR_NAMA = modelPesanan.getNama();
             final String VENDOR_STATUS = modelPesanan.getStatus();
-            final String VENDOR_DATE = modelPesanan.getTanggal();
-            final String VENDOR_TIME = modelPesanan.getJam();
-            final String VENDOR_HARGA = modelPesanan.getHarga();
-            final String VENDOR_IMAGE = modelPesanan.getFoto();
+            final String VENDOR_DATE = modelPesanan.getDate();
+            final String VENDOR_TIME = modelPesanan.getTime();
+            final String VENDOR_HARGA = modelPesanan.getTotal();
+            //final String VENDOR_IMAGE = modelPesanan.getFoto();
             String status = "";
 
-            holder.namaVendor.setText(ID );
+            holder.namaVendor.setText(DETAIL_ID );
             holder.dateOrder.setText(VENDOR_DATE+" "+VENDOR_TIME);
+            /*
             if(VENDOR_STATUS.equalsIgnoreCase("canceled")){
                 status = "CANCEL";
             }
@@ -102,10 +105,12 @@ public class AdapterPesanan extends BaseAdapter {
             else if(VENDOR_STATUS.equalsIgnoreCase("verifyingPayment")){
                 status = "PEMBAYARAN SEDANG DIVERIFIKASI";
             }
+            */
 
-            holder.statusOrder.setText(status);
+            holder.statusOrder.setText(VENDOR_STATUS);
             holder.harga.setText("Rp " + VENDOR_HARGA);
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
+            /*
             holder.btnPesan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -114,24 +119,26 @@ public class AdapterPesanan extends BaseAdapter {
                     mAct.startActivity(j);
                 }
             });
+            */
 
             holder.btnDetailPesanan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ApplicationData.detailTransaksi = modelPesanan;
                     if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
                         Intent i = new Intent(mAct, ActivityCheckoutKonfirmasi_1.class);
                         mAct.startActivity(i);
-                        mAct.finish();
+                       // mAct.finish();
                     }
                     else if(VENDOR_STATUS.equalsIgnoreCase("verifyingPayment")){
                         Intent i = new Intent(mAct, ActivityCheckoutVerify.class);
                         mAct.startActivity(i);
-                        mAct.finish();
+                        //mAct.finish();
                     }
                     else{
                         Intent i = new Intent(mAct, ActivityDetailTransaksi.class);
                         mAct.startActivity(i);
-                        mAct.finish();
+                        //mAct.finish();
                     }
 
                 }

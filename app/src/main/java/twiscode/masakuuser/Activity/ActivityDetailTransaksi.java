@@ -174,7 +174,7 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.detailTransaksi(ApplicationData.pesanan.getId(), applicationManager.getUserToken());
+                JSONObject response = jsControl.detailTransaksi(ApplicationData.detailTransaksi.getId(), applicationManager.getUserToken());
                 Log.d("json response", response.toString());
 
             } catch (Exception e) {

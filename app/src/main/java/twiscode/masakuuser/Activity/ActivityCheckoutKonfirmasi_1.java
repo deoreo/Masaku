@@ -81,7 +81,7 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
-        txtID.setText(ApplicationData.detailTransaksi.getId());
+        txtID.setText(ApplicationData.detailTransaksi.getDetailID());
         txtSubtotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())));
         txtTotal.setText("Rp. "+decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTotal())));
         txtConvience.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getConvience())));

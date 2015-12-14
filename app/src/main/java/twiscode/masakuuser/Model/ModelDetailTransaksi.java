@@ -7,10 +7,10 @@ import java.util.List;
  * Created by TwisCode-02 on 12/10/2015.
  */
 public class ModelDetailTransaksi {
-    private String type="",id="",userID="",nama="",alamat="",phone="",note="",subtotal="0",convience="0",total="0",delivery="",waktu="0",diskon="0",tip="0",status="";
+    private String type="",id="",userID="",nama="",alamat="",phone="",note="",subtotal="0",convience="0",total="0",delivery="",waktu="0",diskon="0",tip="0",status="",detailID="",date="",time="";
     private List<ModelCart> cart = new ArrayList<>();
     public ModelDetailTransaksi(){}
-    public ModelDetailTransaksi(String id, String type, String userID, String nama, String alamat, String phone, String note, String subtotal, String convience, String total, String waktu, String diskon, String tip, String delivery, String status,List<ModelCart>cart){
+    public ModelDetailTransaksi(String id, String type, String userID, String nama, String alamat, String phone, String note, String subtotal, String convience, String total, String waktu, String diskon, String tip, String delivery, String status,String detailID, List<ModelCart>cart){
         this.id = id;
         this.type = type;
         this.userID = userID;
@@ -27,6 +27,28 @@ public class ModelDetailTransaksi {
         this.tip = tip;
         this.cart = cart;
         this.status = status;
+        this.detailID = detailID;
+    }
+    public ModelDetailTransaksi(String id, String type, String userID, String nama, String alamat, String phone, String note, String subtotal, String convience, String total, String waktu, String diskon, String tip, String delivery, String status, String detailID, String date, String time,List<ModelCart>cart){
+        this.id = id;
+        this.type = type;
+        this.userID = userID;
+        this.nama = nama;
+        this.alamat = alamat;
+        this.phone = phone;
+        this.note = note;
+        this.subtotal = subtotal;
+        this.convience = convience;
+        this.total = total;
+        this.diskon = diskon;
+        this.delivery = delivery;
+        this.waktu = waktu;
+        this.tip = tip;
+        this.cart = cart;
+        this.status = status;
+        this.detailID = detailID;
+        this.date = date;
+        this.time = time;
     }
 
     public String getId() {
@@ -139,5 +161,45 @@ public class ModelDetailTransaksi {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getDetailID() {
+        return detailID;
+    }
+
+    public void setDetailID(String detailID) {
+        this.detailID = detailID;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

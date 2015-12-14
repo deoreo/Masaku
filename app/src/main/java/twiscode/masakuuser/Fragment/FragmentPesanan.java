@@ -27,14 +27,17 @@ import java.util.List;
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterPesanan;
 import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Model.ModelCart;
+import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 
 public class FragmentPesanan extends Fragment {
 
 	public static final String ARG_PAGE = "ARG_PAGE";
-	private List<ModelPesanan> LIST_PESANAN = new ArrayList<>();
+	private List<ModelDetailTransaksi> LIST_PESANAN = new ArrayList<>();
 	private ListView mListView;
 	AdapterPesanan mAdapter;
 	private TextView jmlPesanan;
@@ -138,13 +141,14 @@ public class FragmentPesanan extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             try {
-                LIST_PESANAN = new ArrayList<ModelPesanan>();
+                LIST_PESANAN = new ArrayList<ModelDetailTransaksi>();
                 JSONControl jsControl = new JSONControl();
                 JSONObject response = jsControl.getPesanan(ApplicationManager.getInstance(context).getUserToken(), PAGE);
                 Log.d("json response", response.toString());
-                JSONArray menus = response.getJSONArray("transactions");
-                if(menus.length() > 0){
-                    for(int i=0;i<menus.length();i++){
+                JSONArray transaction = response.getJSONArray("transactions");
+                if(transaction.length() > 0){
+                    for(int t=0;t<transaction.length();t++){
+                        /*
                         String id = menus.getJSONObject(i).getString("_id");
                         String address = menus.getJSONObject(i).getString("address");
                         String price = menus.getJSONObject(i).getString("price");
@@ -157,6 +161,45 @@ public class FragmentPesanan extends Fragment {
 
                         ModelPesanan menu = new ModelPesanan(address, status, date, time, price);
                         LIST_PESANAN.add(0,menu);
+                        */
+                        String _id = transaction.getJSONObject(t).getString("id");
+                        String _status = transaction.getJSONObject(t).getString("status");
+                        String _waktu = transaction.getJSONObject(t).getString("timeLapse");
+                        String _uid = transaction.getJSONObject(t).getString("user");
+                        String _alamat = transaction.getJSONObject(t).getString("address");
+                        String _note = transaction.getJSONObject(t).getString("note");
+                        String _subtotal = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("base");
+                        String _delivery = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("shipping");
+                        String _diskon = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("discount");
+                        String _total = transaction.getJSONObject(t).getString("price");
+                        String _type = transaction.getJSONObject(t).getString("type");
+                        String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
+                        String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
+                        String _convience = "0";
+                        String _tip = "0";
+                        String _detailID=transaction.getJSONObject(t).getString("prettyId");
+                        JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
+                        List<ModelCart> _carts = new ArrayList<>();
+                        if(_order.length() > 0){
+                            for(int i=0;i<_order.length();i++){
+                                ModelCart c = new ModelCart();
+                                c.setId(_order.getJSONObject(i).getString("_id"));
+                                c.setJumlah(Integer.parseInt(_order.getJSONObject(i).getString("quantity")));
+                                c.setNama("menu " + (i + 1));
+                                c.setHarga((i + 1) * 5000);
+                                c.setType(_type);
+                                _carts.add(c);
+                            }
+                        }
+                        String create = transaction.getJSONObject(t).getString("createdAt");
+                        String dt = create.split("T")[0];
+                        String[] dd = dt.split("-");
+                        String _date = dd[2]+" "+getMonth(dd[1])+" "+dd[0];
+                        String _time = "";
+                        ModelDetailTransaksi menu = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convience,_total,_waktu,_diskon,_tip,_delivery,_status,_detailID,_date,_time,_carts);
+                        //ApplicationData.idLastTransaction = _id;
+                        LIST_PESANAN.add(0,menu);
+
                     }
 
                     return "OK";
