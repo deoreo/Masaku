@@ -229,7 +229,7 @@ public class JSONControl {
         return jsonObj;
     }
 
-    public JSONObject checkOut(String kode, String address, String note, LatLng pos, String accessToken,List<ModelCart> cart) {
+    public JSONObject checkOut(String kode, String address, String note, String tip, LatLng pos, String accessToken,List<ModelCart> cart) {
 
         JSONObject jsonObj = new JSONObject();
 
@@ -244,6 +244,7 @@ public class JSONControl {
                 e.printStackTrace();
             }
 
+            params.add(new BasicNameValuePair("tip", tip));
             params.add(new BasicNameValuePair("promoCode", kode));
             params.add(new BasicNameValuePair("address", address));
             params.add(new BasicNameValuePair("note", note));

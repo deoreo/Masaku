@@ -129,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
-                            android:text="Speed delivery tidak tersedia"
+                            android:text="Speed delivery belum tersedia"
                             android:textColor="@color/colorBlack"
                             android:textSize="15dp"
                             android:textStyle="bold" />

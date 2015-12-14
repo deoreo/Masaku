@@ -78,6 +78,7 @@ public class FragmentCheckoutPO extends Fragment {
     int tip = 0;
     int total = 0;
     int diskon = 0;
+    String tips = "";
     private DecimalFormat decimalFormat;
     private ProgressBar progress;
     private BroadcastReceiver updateCart;
@@ -136,6 +137,8 @@ public class FragmentCheckoutPO extends Fragment {
         txtTip.setText("Rp. " + decimalFormat.format(tip));
         txtTotal.setText("Rp. " + decimalFormat.format(total));
 
+        tips = "10";
+
         String alamat = ApplicationData.location;
         if (alamat != "") {
             txtAlamat.setText(alamat);
@@ -152,30 +155,35 @@ public class FragmentCheckoutPO extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.button21:
+                        tips = "0";
                         tip = 0;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button22:
+                        tips = "5";
                         tip = (int) Math.round(subtotal * 0.05);
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button23:
+                        tips = "10";
                         tip = (int) Math.round(subtotal * 0.1);
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button24:
+                        tips = "15";
                         tip = (int) Math.round(subtotal * 0.15);
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button25:
+                        tips = "20";
                         tip = (int) Math.round(subtotal * 0.2);
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
@@ -508,7 +516,7 @@ public class FragmentCheckoutPO extends Fragment {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.checkOut(kode, address, note, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
+                JSONObject response = jsControl.checkOut(kode, address, note, tips, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
@@ -529,7 +537,7 @@ public class FragmentCheckoutPO extends Fragment {
                             String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
                             String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
                             //String _convience = "0";
-                            String _tip = "0";
+                            String _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");;
                             String _detailID=transaction.getJSONObject(t).getString("prettyId");
                             JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                             List<ModelCart> _carts = new ArrayList<>();

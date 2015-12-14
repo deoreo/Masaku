@@ -110,6 +110,7 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
 
         startTimer();
 
+        double tip = Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())/Integer.parseInt(ApplicationData.detailTransaksi.getTip());
         txtAlamat.setText(ApplicationData.detailTransaksi.getAlamat());
         txtNama.setText(ApplicationData.detailTransaksi.getNama());
         txtTelpon.setText(ApplicationData.detailTransaksi.getPhone());
@@ -119,6 +120,7 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
         txtTotal2.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTotal())));
         txtConvience.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getConvience())));
         txtDelivery.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getDelivery())));
+        txtTip.setText("Rp. " + decimalFormat.format(tip));
 
 
 

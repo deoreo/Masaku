@@ -93,12 +93,12 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorGrey"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorWhite"
-        android:visibility="gone">
+        android:background="@color/colorWhite">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -122,8 +122,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorGrey"
-        android:visibility="gone"/>
+        android:background="@color/colorGrey"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

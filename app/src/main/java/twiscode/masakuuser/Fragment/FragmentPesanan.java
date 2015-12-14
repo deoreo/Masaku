@@ -176,7 +176,7 @@ public class FragmentPesanan extends Fragment {
                         String _type = transaction.getJSONObject(t).getString("type");
                         String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
                         String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
-                        String _tip = "0";
+                        String _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");;
                         String _detailID=transaction.getJSONObject(t).getString("prettyId");
                         JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                         List<ModelCart> _carts = new ArrayList<>();

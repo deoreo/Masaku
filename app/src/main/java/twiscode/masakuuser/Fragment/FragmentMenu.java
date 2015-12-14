@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,6 +49,7 @@ import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 
 public class FragmentMenu extends Fragment {
@@ -315,6 +318,19 @@ public class FragmentMenu extends Fragment {
 				break;
 		}
 		return bln;
+	}
+
+	public void onResume() {
+		super.onResume();
+
+		if(ApplicationData.cart.size() > 0){
+			ApplicationData.cart = new HashMap<>();
+		}
+		mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
+		mListView.setAdapter(mAdapter);
+
+
+
 	}
 
 
