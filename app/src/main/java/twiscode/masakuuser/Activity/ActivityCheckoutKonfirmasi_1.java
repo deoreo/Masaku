@@ -35,7 +35,7 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
     Activity act;
     ApplicationManager applicationManager;
     private ImageView btnBack;
-    private TextView txtWaktu, txtID, txtSubtotal, txtConvience, txtTotal;
+    private TextView txtWaktu, txtID, txtSubtotal, txtConvience, txtTotal, txtDelivery;
     private Button btnBayar;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
@@ -57,6 +57,7 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         txtWaktu = (TextView) findViewById(R.id.checkoutWaktu);
         txtID = (TextView) findViewById(R.id.checkoutID);
         txtSubtotal = (TextView) findViewById(R.id.checkoutSubtotal);
+        txtDelivery = (TextView) findViewById(R.id.checkoutDelivery);
         txtConvience = (TextView) findViewById(R.id.checkoutConvience);
         txtTotal = (TextView) findViewById(R.id.checkoutTotal);
         btnBayar = (Button) findViewById(R.id.btnKonfirmasi);
@@ -82,6 +83,7 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
         txtID.setText(ApplicationData.detailTransaksi.getDetailID());
+        txtDelivery.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getDelivery())));
         txtSubtotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())));
         txtTotal.setText("Rp. "+decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTotal())));
         txtConvience.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getConvience())));

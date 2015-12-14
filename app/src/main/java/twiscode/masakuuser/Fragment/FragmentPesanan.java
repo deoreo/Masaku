@@ -171,11 +171,11 @@ public class FragmentPesanan extends Fragment {
                         String _subtotal = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("base");
                         String _delivery = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("shipping");
                         String _diskon = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("discount");
+                        String _convenience = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("convenientFee");
                         String _total = transaction.getJSONObject(t).getString("price");
                         String _type = transaction.getJSONObject(t).getString("type");
                         String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
                         String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
-                        String _convience = "0";
                         String _tip = "0";
                         String _detailID=transaction.getJSONObject(t).getString("prettyId");
                         JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
@@ -196,7 +196,7 @@ public class FragmentPesanan extends Fragment {
                         String[] dd = dt.split("-");
                         String _date = dd[2]+" "+getMonth(dd[1])+" "+dd[0];
                         String _time = "";
-                        ModelDetailTransaksi menu = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convience,_total,_waktu,_diskon,_tip,_delivery,_status,_detailID,_date,_time,_carts);
+                        ModelDetailTransaksi menu = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convenience,_total,_waktu,_diskon,_tip,_delivery,_status,_detailID,_date,_time,_carts);
                         //ApplicationData.idLastTransaction = _id;
                         LIST_PESANAN.add(0,menu);
 

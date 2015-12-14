@@ -92,7 +92,7 @@ public class AdapterWishlist extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
-            convertView = mInflater.inflate(R.layout.row_delivery_empty2, null);
+            convertView = mInflater.inflate(R.layout.row_wishlist_empty, null);
         }
         else {
             final ViewHolder holder;

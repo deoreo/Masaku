@@ -181,7 +181,7 @@ public class JSONControl {
     public JSONObject getPesanan(String token,int page) {
 
         JSONObject jsonObj = new JSONObject();
-        Log.d("token",token);
+
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             jsonObj = _JSONResponse.GETResponse(ConfigManager.TRANSACTIONS + page, ConfigManager.DUKUHKUPANG, token);
@@ -189,6 +189,7 @@ public class JSONControl {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d("token",jsonObj.toString());
         return jsonObj;
     }
 
