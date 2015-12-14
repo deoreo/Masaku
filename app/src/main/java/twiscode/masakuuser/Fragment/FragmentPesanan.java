@@ -185,8 +185,8 @@ public class FragmentPesanan extends Fragment {
                                 ModelCart c = new ModelCart();
                                 c.setId(_order.getJSONObject(i).getString("_id"));
                                 c.setJumlah(Integer.parseInt(_order.getJSONObject(i).getString("quantity")));
-                                c.setNama("menu " + (i + 1));
-                                c.setHarga((i + 1) * 5000);
+                                c.setNama(_order.getJSONObject(i).getJSONObject("menu").getString("name"));
+                                c.setHarga(Integer.parseInt(_order.getJSONObject(i).getJSONObject("menu").getString("price")));
                                 c.setType(_type);
                                 _carts.add(c);
                             }

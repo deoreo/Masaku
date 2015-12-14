@@ -19,7 +19,6 @@
             android:text="Serabi Mania"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"
-            android:gravity="center_horizontal"
             />
         <TextView
             android:layout_marginTop="5dp"

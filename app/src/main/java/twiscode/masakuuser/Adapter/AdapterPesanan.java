@@ -95,19 +95,17 @@ public class AdapterPesanan extends BaseAdapter {
 
             holder.namaVendor.setText(DETAIL_ID );
             holder.dateOrder.setText(VENDOR_DATE+" "+VENDOR_TIME);
-            /*
-            if(VENDOR_STATUS.equalsIgnoreCase("canceled")){
-                status = "CANCEL";
-            }
-            else if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
-                status = "MENUNGGU PEMBAYARAN";
+            if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
+                status = "waiting payment";
             }
             else if(VENDOR_STATUS.equalsIgnoreCase("verifyingPayment")){
-                status = "PEMBAYARAN SEDANG DIVERIFIKASI";
+                status = "verifying payment";
             }
-            */
+            else {
+                status = VENDOR_STATUS;
+            }
 
-            holder.statusOrder.setText(VENDOR_STATUS);
+            holder.statusOrder.setText(status);
             holder.harga.setText("Rp " + VENDOR_HARGA);
             //Picasso.with(mAct).load(VENDOR_IMAGE).error(R.drawable.icon).fit().into(holder.imgVendor);
             /*

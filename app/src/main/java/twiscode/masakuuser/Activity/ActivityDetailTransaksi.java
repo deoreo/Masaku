@@ -38,6 +38,7 @@ import java.util.Locale;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Adapter.AdapterCheckout;
+import twiscode.masakuuser.Adapter.AdapterCheckoutKonfirmasi;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
@@ -57,8 +58,8 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     private TextView txtKode,txtNote;
     private ImageView btnBack;
     private ListView mListView;
-    private TextView txtSubtotal,txtTip,txtDelivery,txtTotal,txtDiskon,noData,txtAlamat;
-    AdapterCheckout mAdapter;
+    private TextView txtSubtotal,txtStatus,txtDelivery,txtTotal,noData,txtAlamat,txtNama,txtPhone;
+    AdapterCheckoutKonfirmasi mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     int delivery = 0;
     int subtotal = 0;
@@ -81,38 +82,35 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
-        DummyData();
+        //DummyData();
 
         View header = getLayoutInflater().inflate(R.layout.layout_header_detail_transaksi, null);
-        txtKode = (TextView) header.findViewById(R.id.kodePromoCheckout);
-        txtNote = (TextView) header.findViewById(R.id.noteCheckout);
-        txtAlamat = (TextView)header.findViewById(R.id.alamatCheckout);
+        txtNama = (TextView) header.findViewById(R.id.checkoutName);
+        txtNote = (TextView) header.findViewById(R.id.checkoutNote);
+        txtAlamat = (TextView)header.findViewById(R.id.checkoutAddress);
+        txtPhone = (TextView)header.findViewById(R.id.checkoutPhone);
         mListView.addHeaderView(header);
         View footer = getLayoutInflater().inflate(R.layout.layout_footer_detail_transaksi, null);
         txtSubtotal = (TextView)footer.findViewById(R.id.subtotalCheckout);
         txtDelivery = (TextView)footer.findViewById(R.id.deliveryCheckout);
-        txtTip = (TextView)footer.findViewById(R.id.tipCheckout);
-        txtDiskon = (TextView)footer.findViewById(R.id.diskonCheckout);
         txtTotal = (TextView)footer.findViewById(R.id.totalCheckout);
-/*
+        txtStatus = (TextView)footer.findViewById(R.id.statusCheckout);
 
-        txtDiskon.setText("Rp. "+decimalFormat.format(diskon));
-        txtSubtotal.setText("Rp. "+decimalFormat.format(subtotal));
-        txtDelivery.setText("Rp. "+decimalFormat.format(delivery));
-        txtTip.setText("Rp. "+decimalFormat.format(tip));
-        txtTotal.setText("Rp. "+decimalFormat.format(total));
-
-        String alamat = ApplicationData.location;
-        if(alamat!=""){
-            txtAlamat.setText(alamat);
-        }
-        */
+        txtStatus.setText(ApplicationData.detailTransaksi.getStatus());
+        txtAlamat.setText(ApplicationData.detailTransaksi.getAlamat());
+        txtNama.setText(ApplicationData.detailTransaksi.getNama());
+        txtPhone.setText(ApplicationData.detailTransaksi.getPhone());
+        txtNote.setText(ApplicationData.detailTransaksi.getNote());
+        txtSubtotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())));
+        txtTotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTotal())));
+        txtDelivery.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getDelivery())));
 
         mListView.addFooterView(footer);
-        mAdapter = new AdapterCheckout(this, LIST_MENU);
+        List<ModelCart> LIST_MENU = ApplicationData.detailTransaksi.getCart();
+        mAdapter = new AdapterCheckoutKonfirmasi(this, LIST_MENU);
         mListView.setAdapter(mAdapter);
         mListView.setScrollingCacheEnabled(false);
-
+    /*
         if(ApplicationData.cart.size() > 0){
             mListView.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
@@ -123,7 +121,7 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         }
 
         new DetailTransaksi(ActivityDetailTransaksi.this).execute();
-
+    */
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
