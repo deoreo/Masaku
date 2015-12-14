@@ -27,8 +27,14 @@ import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -173,7 +179,19 @@ public class FragmentMenu extends Fragment {
 						String nama = menus.getJSONObject(i).getString("name");
 						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
 						String price = menus.getJSONObject(i).getString("price");
+						String open = menus.getJSONObject(i).getString("openAt");
 						String time = "";
+						String openAt = "";
+						String dt = open.split("T")[0];
+						String[] dd = dt.split("-");
+						String input_date=dd[2]+"-"+dd[1]+"-"+dd[0];
+						SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy");
+						Date dt1=format1.parse(input_date);
+						DateFormat format2=new SimpleDateFormat("EEEE");
+						String finalDay=format2.format(dt1);
+						Log.d("delivery 2", ""+finalDay);
+						openAt = finalDay+", "+dd[2]+" "+getMonth(dd[1])+" "+dd[0];
+
 						String desc = menus.getJSONObject(i).getString("description");
 						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
 						try{
@@ -201,7 +219,7 @@ public class FragmentMenu extends Fragment {
 								}
 							}
 						}
-						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag);
+						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag,openAt);
 						//LIST_MENU.add(menu);
 						if(speedmenu.size() > 0){
 							if(!speedmenu.containsKey(id)){
@@ -242,7 +260,7 @@ public class FragmentMenu extends Fragment {
 					//startActivity(i);
 					//finish();
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
-					mListView.addHeaderView(header);
+					//mListView.addHeaderView(header);
 					category.attachDataSource(datacategory);
 					break;
 
@@ -251,6 +269,52 @@ public class FragmentMenu extends Fragment {
 			mListView.setAdapter(mAdapter);
 			mSwipeRefreshLayout.setRefreshing(false);
 		}
+	}
+
+	String getMonth(String bulan){
+		String bln="";
+		switch (bulan){
+			case "01":
+				bln = "Januari";
+				break;
+			case "02":
+				bln = "Februari";
+				break;
+			case "03":
+				bln = "Maret";
+				break;
+			case "04":
+				bln = "April";
+				break;
+			case "05":
+				bln = "Mei";
+				break;
+			case "06":
+				bln = "Juni";
+				break;
+			case "07":
+				bln = "Juli";
+				break;
+			case "08":
+				bln = "Agustus";
+				break;
+			case "09":
+				bln = "September";
+				break;
+			case "10":
+				bln = "Oktober";
+				break;
+			case "11":
+				bln = "November";
+				break;
+			case "12":
+				bln = "Desember";
+				break;
+			default:
+				bln = "Januari";
+				break;
+		}
+		return bln;
 	}
 
 

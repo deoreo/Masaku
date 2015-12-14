@@ -105,6 +105,7 @@ public class AdapterMenuPO extends BaseAdapter {
             holder.progress = (ProgressBar) convertView.findViewById(R.id.progress);
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
 
+            holder.deliveryMenu = (TextView) convertView.findViewById(R.id.deliveryMenu);
             holder.priceMenu = (TextView) convertView.findViewById(R.id.priceMenu);
             holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
             holder.add = (Button) convertView.findViewById(R.id.btnAdd);
@@ -126,10 +127,12 @@ public class AdapterMenuPO extends BaseAdapter {
             final String VENDOR_HARGA = modelMenu.getPrice();
             final String VENDOR_TIME = modelMenu.getTime();
             final String VENDOR_IMAGE = modelMenu.getFoto();
+            final String VENDOR_DELIVERY = modelMenu.getDelivery();
 
             final ViewHolder holder2 = holder;
 
 
+            holder.deliveryMenu.setText(VENDOR_DELIVERY );
 
             holder.nameMenu.setText(VENDOR_NAMA );
             holder.priceMenu.setText("Rp. "+decimalFormat.format(Integer.parseInt(VENDOR_HARGA)));
@@ -213,7 +216,7 @@ public class AdapterMenuPO extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        public TextView nameMenu;
+        public TextView nameMenu,deliveryMenu;
         public TextView priceMenu;
         public ImageView imgMenu;
         public Button add;

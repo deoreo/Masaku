@@ -9,7 +9,7 @@ import java.util.List;
  * Created by User on 10/21/2015.
  */
 public class ModelMenuSpeed {
-    String id, nama, foto, price, time, deskripsi,hashtag;
+    String id, nama, foto, price, time, deskripsi,hashtag,delivery;
     JSONArray feedback = new JSONArray();
 
     public ModelMenuSpeed(){
@@ -44,6 +44,18 @@ public class ModelMenuSpeed {
         this.deskripsi = deskripsi;
         this.feedback = feedback;
         this.hashtag = hashtag;
+    }
+
+    public ModelMenuSpeed(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, String hashtag, String delivery){
+        this.id = id;
+        this.nama = nama;
+        this.price = price;
+        this.foto = foto;
+        this.time = time;
+        this.deskripsi = deskripsi;
+        this.feedback = feedback;
+        this.hashtag = hashtag;
+        this.delivery = delivery;
     }
 
     public String getId() {
@@ -108,5 +120,13 @@ public class ModelMenuSpeed {
 
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
     }
 }
