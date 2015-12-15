@@ -167,7 +167,34 @@
                     android:src="@drawable/next_grey"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_marginTop="2dp"
+                android:id="@+id/btnTutorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="30dp"
+                    android:text="Tutorial"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    />
+                <ImageView
+                    android:padding="4dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/next_grey"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -17,6 +17,7 @@ import twiscode.masakuuser.Activity.ActivityFAQ;
 import twiscode.masakuuser.Activity.ActivityFAQDetail;
 import twiscode.masakuuser.Activity.ActivityRegister;
 import twiscode.masakuuser.Activity.ActivityTerms;
+import twiscode.masakuuser.Activity.ActivityTutorialBantuan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
@@ -28,7 +29,7 @@ public class FragmentBantuan extends Fragment {
 	public static final String ARG_PAGE = "ARG_PAGE";
 
 	private int mPage;
-	private LinearLayout btnAbout, btnContactUs, btnFAQ, btnTerms;
+	private LinearLayout btnAbout, btnContactUs, btnFAQ, btnTerms,btnTutor;
 	private RecyclerView recyclerView;
 	private DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
 
@@ -50,6 +51,8 @@ public class FragmentBantuan extends Fragment {
 		btnContactUs = (LinearLayout) rootView.findViewById(R.id.btnContactUs);
 		btnFAQ = (LinearLayout) rootView.findViewById(R.id.btnFAQ);
 		btnTerms = (LinearLayout) rootView.findViewById(R.id.btnTerms);
+		btnTutor = (LinearLayout) rootView.findViewById(R.id.btnTutorial);
+
 		btnAbout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -62,7 +65,6 @@ public class FragmentBantuan extends Fragment {
 			public void onClick(View view) {
 				Intent i = new Intent(getActivity(), ActivityContactUs.class);
 				startActivity(i);
-
 			}
 		});
 		btnFAQ.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +78,13 @@ public class FragmentBantuan extends Fragment {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent(getActivity(), ActivityTerms.class);
+				startActivity(i);
+			}
+		});
+		btnTutor.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityTutorialBantuan.class);
 				startActivity(i);
 			}
 		});
