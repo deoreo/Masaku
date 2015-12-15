@@ -27,7 +27,10 @@ import com.baoyz.widget.PullRefreshLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -211,6 +214,23 @@ public class FragmentAllMenus extends Fragment {
 						String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
 						String desc = menus.getJSONObject(i).getString("description");
 						boolean added = Boolean.parseBoolean(menus.getJSONObject(i).getString("isLiked"));
+						String openAt = "";
+						try {
+							String open = menus.getJSONObject(i).getString("openAt");
+							String dt = open.split("T")[0];
+							String[] dd = dt.split("-");
+							String input_date=dd[2]+"-"+dd[1]+"-"+dd[0];
+							SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy");
+							Date dt1=format1.parse(input_date);
+							DateFormat format2=new SimpleDateFormat("EEEE");
+							String finalDay=format2.format(dt1);
+							Log.d("delivery 2", ""+finalDay);
+							openAt = finalDay+", "+dd[2]+" "+getMonth(dd[1])+" "+dd[0];
+						}
+						catch (Exception ex){
+							ex.printStackTrace();
+						}
+
 						JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
 						try{
 							feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
@@ -236,7 +256,7 @@ public class FragmentAllMenus extends Fragment {
 								}
 							}
 						}
-						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added,hashtag);
+						ModelAllMenus menu = new ModelAllMenus(id,nama,price,foto,time,desc,feedback,added,hashtag,openAt);
 						//LIST_MENU.add(menu);
 						if(allMenus.size() > 0){
 							if(!allMenus.containsKey(id)){
@@ -404,6 +424,52 @@ public class FragmentAllMenus extends Fragment {
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(doLike,
 				new IntentFilter("doLike"));
 
+	}
+
+	String getMonth(String bulan){
+		String bln="";
+		switch (bulan){
+			case "01":
+				bln = "Januari";
+				break;
+			case "02":
+				bln = "Februari";
+				break;
+			case "03":
+				bln = "Maret";
+				break;
+			case "04":
+				bln = "April";
+				break;
+			case "05":
+				bln = "Mei";
+				break;
+			case "06":
+				bln = "Juni";
+				break;
+			case "07":
+				bln = "Juli";
+				break;
+			case "08":
+				bln = "Agustus";
+				break;
+			case "09":
+				bln = "September";
+				break;
+			case "10":
+				bln = "Oktober";
+				break;
+			case "11":
+				bln = "November";
+				break;
+			case "12":
+				bln = "Desember";
+				break;
+			default:
+				bln = "Januari";
+				break;
+		}
+		return bln;
 	}
 
 

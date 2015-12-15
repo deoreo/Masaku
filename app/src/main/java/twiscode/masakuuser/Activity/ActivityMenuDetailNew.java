@@ -82,8 +82,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private List<ModelVendorFeedback> LIST_FEEDBACK = new ArrayList<>();
     private ListView mListFeedback;
     private AdapterVendorFeedback adapterFeedback;
-    private TextView countCart;
-    private LinearLayout wrapCount;
+    private TextView countCart,deliveryMenu;
+    private LinearLayout wrapCount,deliveryLayout;
     private BroadcastReceiver updateCart;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
@@ -104,8 +104,10 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         DummyFeedback();
         progress = (ProgressBar) findViewById(R.id.progress);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
+        deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
         countCart = (TextView) findViewById(R.id.countCart);
         layCounter = (LinearLayout) findViewById(R.id.layCounter);
+        deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
         btnMinus = (TextView) findViewById(R.id.btnMinus);
         btnPlus = (TextView) findViewById(R.id.btnPlus);
         txtCount = (TextView) findViewById(R.id.txtCount);
@@ -121,6 +123,14 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         modelMenu = ApplicationData.modelMenuSpeed;
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
+
+        if(modelMenu.getDelivery()==""){
+            deliveryLayout.setVisibility(View.GONE);
+        }
+        else {
+            deliveryLayout.setVisibility(View.VISIBLE);
+            deliveryMenu.setText(modelMenu.getDelivery());
+        }
 
         nameMenu.setText(modelMenu.getNama());
         if(modelMenu.getTime()=="" || modelMenu.getTime()==null){

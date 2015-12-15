@@ -83,7 +83,7 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
-        double tip = Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())/Integer.parseInt(ApplicationData.detailTransaksi.getTip());
+        int tip = Math.round(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())*Integer.parseInt(ApplicationData.detailTransaksi.getTip())/100);
 
 
         txtID.setText(ApplicationData.detailTransaksi.getDetailID());

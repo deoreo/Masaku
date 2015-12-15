@@ -6,7 +6,7 @@ import org.json.JSONArray;
  * Created by User on 10/21/2015.
  */
 public class ModelAllMenus {
-    String id, nama, foto, price, time, deskripsi,hashtag;
+    String id, nama, foto, price, time, deskripsi,hashtag, delivery="";
     JSONArray feedback = new JSONArray();
     boolean added;
 
@@ -42,6 +42,19 @@ public class ModelAllMenus {
         this.deskripsi = deskripsi;
         this.feedback = feedback;
         this.added = added;
+    }
+
+    public ModelAllMenus(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, boolean added, String hashtag, String delivery){
+        this.id = id;
+        this.nama = nama;
+        this.price = price;
+        this.foto = foto;
+        this.time = time;
+        this.deskripsi = deskripsi;
+        this.feedback = feedback;
+        this.added = added;
+        this.hashtag = hashtag;
+        this.delivery = delivery;
     }
 
     public ModelAllMenus(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, boolean added, String hashtag){
@@ -126,5 +139,13 @@ public class ModelAllMenus {
 
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
     }
 }
