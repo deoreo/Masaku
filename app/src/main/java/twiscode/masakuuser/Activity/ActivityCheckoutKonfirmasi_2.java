@@ -92,6 +92,7 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationData.isNullCart = true;
                 finish();
             }
         });

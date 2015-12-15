@@ -69,4 +69,6 @@ public class ApplicationData {
     public static List<ModelMenuSpeed> tempPO = null;
     public static List<ModelMenuSpeed> tempSpeed = null;
 
+    public static boolean isNullCart = false;
+
 }

@@ -104,9 +104,6 @@ public class FragmentMenu extends Fragment {
 		sort.attachDataSource(dataSort);
 		category.attachDataSource(dataCategory);
 		LIST_MENU = new ArrayList<ModelMenuSpeed>();
-		mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU,1);
-		mListView.setAdapter(mAdapter);
-		mListView.setVisibility(View.GONE);
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
 
@@ -263,7 +260,9 @@ public class FragmentMenu extends Fragment {
 			switch (result) {
 				case "FAIL":
 					//DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
-
+					mAdapter = new AdapterMenuPO(activity, LIST_MENU);
+					mListView.setAdapter(mAdapter);
+					mSwipeRefreshLayout.setRefreshing(false);
 					break;
 				case "OK":
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
@@ -272,12 +271,13 @@ public class FragmentMenu extends Fragment {
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
 					//mListView.addHeaderView(header);
 					category.attachDataSource(datacategory);
+					mAdapter = new AdapterMenuPO(activity, LIST_MENU);
+					mListView.setAdapter(mAdapter);
+					mSwipeRefreshLayout.setRefreshing(false);
 					break;
 
 			}
-			mAdapter = new AdapterMenuPO(activity, LIST_MENU,2);
-			mListView.setAdapter(mAdapter);
-			mSwipeRefreshLayout.setRefreshing(false);
+
 			//mListView.setVisibility(View.VISIBLE);
 		}
 	}
@@ -343,16 +343,20 @@ public class FragmentMenu extends Fragment {
 			}
 			if(list.size()==0){
 				LIST_MENU = ApplicationData.tempPO;
-				mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU,2);
+				mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
 				mListView.setAdapter(mAdapter);
 				mListView.setVisibility(View.VISIBLE);
 			}
 		}
 		else {
-			LIST_MENU = ApplicationData.tempPO;
-			mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU,2);
-			mListView.setAdapter(mAdapter);
-			mListView.setVisibility(View.VISIBLE);
+			if(ApplicationData.isNullCart){
+				ApplicationData.isNullCart = false;
+				LIST_MENU = ApplicationData.tempPO;
+				mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
+				mListView.setAdapter(mAdapter);
+				mListView.setVisibility(View.VISIBLE);
+			}
+
 		}
 
 
