@@ -65,14 +65,16 @@ public class AdapterMenuPO extends BaseAdapter {
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
+    int tipe = 1;
 
-    public AdapterMenuPO(Activity activity, List<ModelMenuSpeed> d) {
+    public AdapterMenuPO(Activity activity, List<ModelMenuSpeed> d, int tipe) {
         mAct = activity;
         mSourceData = d;
         mInflater = (LayoutInflater) mAct.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(d==null || d.isEmpty()){
             mKeyIsEmpty = true;
         }
+        this.tipe = tipe;
 
     }
 
@@ -96,7 +98,14 @@ public class AdapterMenuPO extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
-            convertView = mInflater.inflate(R.layout.row_empty_po, null);
+            Log.d("tipe PO",""+tipe);
+            if(tipe==1){
+                convertView = mInflater.inflate(R.layout.row_delivery_empty2, null);
+            }
+            else {
+                convertView = mInflater.inflate(R.layout.row_empty_po, null);
+            }
+
         }
         else {
             final ViewHolder holder;

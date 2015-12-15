@@ -135,6 +135,8 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
                 }
 
+                SendBroadcast("cekOrderNow","true");
+
 
             }
         };
@@ -297,6 +299,13 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     public void onPause() {
         // Unregister since the activity is not visible
         super.onPause();
+    }
+
+    private void SendBroadcast(String typeBroadcast,String type){
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
 

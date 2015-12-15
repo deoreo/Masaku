@@ -61,6 +61,7 @@ import twiscode.masakuuser.Model.ModelVendorFeedback;
 import twiscode.masakuuser.Model.ModelVendorRating;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -187,8 +188,12 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), ActivityCheckout.class);
-                startActivity(i);
+                if(ApplicationData.cart.size()>0) {
+                    Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
+                    startActivity(i);
+                }else{
+                    DialogManager.showDialog(ActivityMenuDetailNew.this,"Mohon Maaf", "Anda belum memiliki pesanan");
+                }
             }
         });
 
@@ -292,8 +297,13 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
-                startActivity(i);
+                if(ApplicationData.cart.size()>0) {
+                    Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
+                    startActivity(i);
+                }else{
+                    DialogManager.showDialog(ActivityMenuDetailNew.this, "Mohon Maaf", "Anda belum memiliki pesanan");
+                }
+
             }
         });
 

@@ -103,7 +103,10 @@ public class FragmentMenu extends Fragment {
 		List<String> dataSort = new LinkedList<>(Arrays.asList("Popular", "Lowest Price", "Highest Price", "Nearest"));
 		sort.attachDataSource(dataSort);
 		category.attachDataSource(dataCategory);
-
+		LIST_MENU = new ArrayList<ModelMenuSpeed>();
+		mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU,1);
+		mListView.setAdapter(mAdapter);
+		mListView.setVisibility(View.GONE);
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
 
@@ -272,10 +275,10 @@ public class FragmentMenu extends Fragment {
 					break;
 
 			}
-			mAdapter = new AdapterMenuPO(activity, LIST_MENU);
+			mAdapter = new AdapterMenuPO(activity, LIST_MENU,2);
 			mListView.setAdapter(mAdapter);
 			mSwipeRefreshLayout.setRefreshing(false);
-			mListView.setVisibility(View.VISIBLE);
+			//mListView.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -340,14 +343,14 @@ public class FragmentMenu extends Fragment {
 			}
 			if(list.size()==0){
 				LIST_MENU = ApplicationData.tempPO;
-				mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
+				mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU,2);
 				mListView.setAdapter(mAdapter);
 				mListView.setVisibility(View.VISIBLE);
 			}
 		}
 		else {
 			LIST_MENU = ApplicationData.tempPO;
-			mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
+			mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU,2);
 			mListView.setAdapter(mAdapter);
 			mListView.setVisibility(View.VISIBLE);
 		}

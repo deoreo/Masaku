@@ -152,7 +152,7 @@ public class FragmentMainMenu extends Fragment {
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(gotoPO,
 				new IntentFilter("gotoPO"));
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
-				new IntentFilter("updateCart"));
+				new IntentFilter("cekOrderNow"));
 
 	}
 
