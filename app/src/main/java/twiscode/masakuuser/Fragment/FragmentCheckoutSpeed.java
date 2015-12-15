@@ -164,28 +164,28 @@ public class FragmentCheckoutSpeed extends Fragment {
                         return;
                     case R.id.button22:
                         tips = "5";
-                        tip = (int) Math.round(subtotal * 0.05);
+                        tip = (int) Math.floor(subtotal * 0.05 /100)*100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button23:
                         tips = "10";
-                        tip = (int) Math.round(subtotal * 0.1);
+                        tip = (int) Math.floor(subtotal * 0.1 /100)*100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button24:
                         tips = "15";
-                        tip = (int) Math.round(subtotal * 0.15);
+                        tip = (int) Math.floor(subtotal * 0.15 /100)*100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button25:
                         tips = "20";
-                        tip = (int) Math.round(subtotal * 0.2);
+                        tip = (int) Math.floor(subtotal * 0.2 /100)*100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
@@ -279,7 +279,7 @@ public class FragmentCheckoutSpeed extends Fragment {
                             for (int i = 0; i < LIST_MENU.size(); i++) {
                                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
                             }
-                            tip = (int) Math.round(subtotal / 10);
+                            tip = (int) Math.floor(subtotal * 0.1 /100)*100;
                         }
                         total = subtotal + tip + delivery - diskon;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
@@ -301,7 +301,7 @@ public class FragmentCheckoutSpeed extends Fragment {
                             for (int i = 0; i < LIST_MENU.size(); i++) {
                                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
                             }
-                            tip = (int) Math.round(subtotal / 10);
+                            tip = (int) Math.floor(subtotal * 0.1 /100)*100;
                         }
                         total = subtotal + tip + delivery - diskon;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
@@ -377,7 +377,7 @@ public class FragmentCheckoutSpeed extends Fragment {
             for (int i = 0; i < LIST_MENU.size(); i++) {
                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
             }
-            tip = (int) Math.round(subtotal / 10);
+            tip = (int) Math.floor(subtotal * 0.1 /100)*100;
             //new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
         }
 

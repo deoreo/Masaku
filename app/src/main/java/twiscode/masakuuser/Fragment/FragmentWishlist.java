@@ -27,7 +27,10 @@ import com.baoyz.widget.PullRefreshLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -212,6 +215,22 @@ public class FragmentWishlist extends Fragment {
                         String desc = response.getJSONObject(i).getString("description");
                         JSONArray feedback = new JSONArray();//response.getJSONObject(i).getJSONArray("feedbacks");
                         boolean added = false;
+                        String openAt = "";
+                        try {
+                            String open = response.getJSONObject(i).getString("openAt");
+                            String dt = open.split("T")[0];
+                            String[] dd = dt.split("-");
+                            String input_date=dd[2]+"-"+dd[1]+"-"+dd[0];
+                            SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy");
+                            Date dt1=format1.parse(input_date);
+                            DateFormat format2=new SimpleDateFormat("EEEE");
+                            String finalDay=format2.format(dt1);
+                            Log.d("delivery 2", ""+finalDay);
+                            openAt = finalDay+", "+dd[2]+" "+getMonth(dd[1])+" "+dd[0];
+                        }
+                        catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                         ModelWishlist menu = new ModelWishlist(id, nama, price, foto, time, desc, feedback, added);
                         //LIST_MENU.add(menu);
                         if (wishlistMenus.size() > 0) {
@@ -355,6 +374,52 @@ public class FragmentWishlist extends Fragment {
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(doDislike,
                 new IntentFilter("doDislike"));
 
+    }
+
+    String getMonth(String bulan){
+        String bln="";
+        switch (bulan){
+            case "01":
+                bln = "Januari";
+                break;
+            case "02":
+                bln = "Februari";
+                break;
+            case "03":
+                bln = "Maret";
+                break;
+            case "04":
+                bln = "April";
+                break;
+            case "05":
+                bln = "Mei";
+                break;
+            case "06":
+                bln = "Juni";
+                break;
+            case "07":
+                bln = "Juli";
+                break;
+            case "08":
+                bln = "Agustus";
+                break;
+            case "09":
+                bln = "September";
+                break;
+            case "10":
+                bln = "Oktober";
+                break;
+            case "11":
+                bln = "November";
+                break;
+            case "12":
+                bln = "Desember";
+                break;
+            default:
+                bln = "Januari";
+                break;
+        }
+        return bln;
     }
 
 

@@ -83,8 +83,8 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
         decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
-        int tip = Math.round(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())*Integer.parseInt(ApplicationData.detailTransaksi.getTip())/100);
-
+        //int tip = Math.round(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())*Integer.parseInt(ApplicationData.detailTransaksi.getTip())/100);
+        int tip = Integer.parseInt(ApplicationData.detailTransaksi.getTip());
 
         txtID.setText(ApplicationData.detailTransaksi.getDetailID());
         txtDelivery.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getDelivery())));

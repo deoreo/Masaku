@@ -66,4 +66,7 @@ public class ApplicationData {
     public static ModelDetailTransaksi detailTransaksi;
     public static long timer = 0;
 
+    public static List<ModelMenuSpeed> tempPO = null;
+    public static List<ModelMenuSpeed> tempSpeed = null;
+
 }

@@ -62,6 +62,7 @@ import twiscode.masakuuser.Model.ModelVendorRating;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityMenuDetailNew extends ActionBarActivity {
@@ -88,6 +89,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
+    Button btnPesan;
 
 
     @Override
@@ -102,6 +104,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
         DummyFeedback();
+        btnPesan = (Button) findViewById(R.id.btnPesanSkrg);
         progress = (ProgressBar) findViewById(R.id.progress);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
         deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
@@ -156,8 +159,16 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             progress.setVisibility(View.GONE);
         }
         else {
+            Log.d("image foto",modelMenu.getFoto());
+            /*
             new DownloadImageTask(imgMenu)
                     .execute(modelMenu.getFoto());
+                    */
+            PicassoTrustAll.getInstance(this)
+                    .load(modelMenu.getFoto())
+                    .placeholder(noImage)
+                    .into(imgMenu);
+            progress.setVisibility(View.GONE);
 
         }
 
@@ -239,9 +250,11 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             }
             countCart.setText(""+jml);
             wrapCount.setVisibility(View.VISIBLE);
+            btnPesan.setVisibility(View.VISIBLE);
         }
         else {
             wrapCount.setVisibility(View.GONE);
+            btnPesan.setVisibility(View.GONE);
         }
 
         updateCart = new BroadcastReceiver() {
@@ -265,10 +278,24 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
                     }
 
                 }
+                if(ApplicationData.cart.size() > 0){
+                    btnPesan.setVisibility(View.VISIBLE);
+                }
+                else {
+                    btnPesan.setVisibility(View.GONE);
+                }
 
 
             }
         };
+
+        btnPesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
+                startActivity(i);
+            }
+        });
 
 
 

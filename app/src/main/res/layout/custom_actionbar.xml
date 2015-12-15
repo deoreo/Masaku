@@ -22,7 +22,7 @@
         android:paddingRight="20dp"
         >
         <ImageView
-            android:padding="5dp"
+            android:padding="2dp"
             android:id="@+id/btnCart"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -31,12 +31,12 @@
             android:id="@+id/wrapCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="3dp"
             android:background="@drawable/bg_circle_green"
             android:orientation="horizontal"
             android:minHeight="12dp"
             android:minWidth="12dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             >
             <TextView
                 android:id="@+id/countCart"

@@ -288,6 +288,7 @@ public class FragmentAntarCepat extends Fragment {
 
 					}
 					LIST_MENU = new ArrayList<>(speedmenu.values());
+					ApplicationData.tempSpeed = LIST_MENU;
 					return "OK";
 				}
 

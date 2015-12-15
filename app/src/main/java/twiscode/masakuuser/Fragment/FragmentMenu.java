@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -46,6 +47,7 @@ import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Adapter.AdapterMenuPO;
 import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
@@ -62,6 +64,7 @@ public class FragmentMenu extends Fragment {
 	AdapterMenuPO mAdapter;
 	NiceSpinner sort,category;
 	LinearLayout noData;
+	RelativeLayout firstLay;
 
 
 	private int mPage = 1;
@@ -119,6 +122,7 @@ public class FragmentMenu extends Fragment {
 			}
 		});
 
+		//mListView.setVisibility(View.GONE);
 		DummyData();
 
 
@@ -235,7 +239,7 @@ public class FragmentMenu extends Fragment {
 
 					}
 					LIST_MENU = new ArrayList<>(speedmenu.values());
-
+					ApplicationData.tempPO = LIST_MENU;
 					return "OK";
 				}
 
@@ -271,6 +275,7 @@ public class FragmentMenu extends Fragment {
 			mAdapter = new AdapterMenuPO(activity, LIST_MENU);
 			mListView.setAdapter(mAdapter);
 			mSwipeRefreshLayout.setRefreshing(false);
+			mListView.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -324,10 +329,28 @@ public class FragmentMenu extends Fragment {
 		super.onResume();
 
 		if(ApplicationData.cart.size() > 0){
-			ApplicationData.cart = new HashMap<>();
+			//ApplicationData.cart = new HashMap<>();
+			List<ModelCart>list = new ArrayList<ModelCart>();
+			ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
+			for(int i=0;i<newlist.size();i++){
+				ModelCart c = newlist.get(i);
+				if(c.getType()=="po"){
+					list.add(c);
+				}
+			}
+			if(list.size()==0){
+				LIST_MENU = ApplicationData.tempPO;
+				mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
+				mListView.setAdapter(mAdapter);
+				mListView.setVisibility(View.VISIBLE);
+			}
 		}
-		mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
-		mListView.setAdapter(mAdapter);
+		else {
+			LIST_MENU = ApplicationData.tempPO;
+			mAdapter = new AdapterMenuPO(getActivity(), LIST_MENU);
+			mListView.setAdapter(mAdapter);
+			mListView.setVisibility(View.VISIBLE);
+		}
 
 
 

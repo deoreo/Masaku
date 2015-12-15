@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +45,8 @@ public class FragmentMainMenu extends Fragment {
 	ViewPager viewPager;
 	PagerSlidingTabStrip tabsStrip;
 	private BroadcastReceiver gotoPO;
+	Button btnPesan;
+	private BroadcastReceiver updateCart;
 
 
 
@@ -61,6 +64,7 @@ public class FragmentMainMenu extends Fragment {
 
 		DummyData();
 		View rootView = inflater.inflate(R.layout.activity_mainmenu, container, false);
+		btnPesan = (Button) rootView.findViewById(R.id.btnPesanSkrg);
 		viewPager = (ViewPager) rootView.findViewById(R.id.pager);
 		viewPager.setAdapter(new AdapterPagerMain(getChildFragmentManager()));
 
@@ -106,6 +110,31 @@ public class FragmentMainMenu extends Fragment {
 			}
 		};
 
+		updateCart = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// Extract data included in the Intent
+				Log.d("", "broadcast updateCart");
+				String message = intent.getStringExtra("message");
+				if(ApplicationData.cart.size() > 0){
+					btnPesan.setVisibility(View.VISIBLE);
+				}
+				else {
+					btnPesan.setVisibility(View.GONE);
+				}
+
+
+			}
+		};
+
+		btnPesan.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getActivity(), ActivityCheckout.class);
+				startActivity(i);
+			}
+		});
+
 
 		return rootView;
 	}
@@ -115,12 +144,15 @@ public class FragmentMainMenu extends Fragment {
 
 	}
 
+
+	@Override
 	public void onResume() {
 		super.onResume();
-
+		// Register mMessageReceiver to receive messages.
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(gotoPO,
 				new IntentFilter("gotoPO"));
-
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
+				new IntentFilter("updateCart"));
 
 	}
 

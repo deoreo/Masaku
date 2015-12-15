@@ -53,6 +53,7 @@ import twiscode.masakuuser.Model.ModelVendorFeedback;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityAllMenusDetail extends ActionBarActivity {
@@ -127,8 +128,22 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         priceMenu.setText("Rp. " + decimalFormat.format(Double.parseDouble(modelMenu.getPrice())));
         txtDeskripsi.setText(modelMenu.getDeskripsi());
         //Picasso.with(this).load(modelMenu.getFoto()).error(R.drawable.icon).fit().into(imgMenu);
-        new DownloadImageTask(imgMenu)
-                .execute(modelMenu.getFoto());
+        if(modelMenu.getFoto().length()==0 || modelMenu.getFoto()==""){
+            imgMenu.setImageResource(noImage);
+            progress.setVisibility(View.GONE);
+        }
+        else {
+            /*
+            new DownloadImageTask(imgMenu)
+                    .execute(modelMenu.getFoto());
+                    */
+            PicassoTrustAll.getInstance(this)
+                    .load(modelMenu.getFoto())
+                    .placeholder(noImage)
+                    .into(imgMenu);
+            progress.setVisibility(View.GONE);
+
+        }
 
         adapterFeedback = new AdapterVendorFeedback(ActivityAllMenusDetail.this, LIST_FEEDBACK);
         mListFeedback.setAdapter(adapterFeedback);

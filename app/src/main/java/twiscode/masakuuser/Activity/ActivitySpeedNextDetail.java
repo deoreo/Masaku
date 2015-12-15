@@ -52,6 +52,7 @@ import twiscode.masakuuser.Model.ModelVendorFeedback;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivitySpeedNextDetail extends ActionBarActivity {
@@ -120,8 +121,15 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
             progress.setVisibility(View.GONE);
         }
         else {
+            /*
             new DownloadImageTask(imgMenu)
                     .execute(modelMenu.getFoto());
+                    */
+            PicassoTrustAll.getInstance(this)
+                    .load(modelMenu.getFoto())
+                    .placeholder(noImage)
+                    .into(imgMenu);
+            progress.setVisibility(View.GONE);
 
         }
 

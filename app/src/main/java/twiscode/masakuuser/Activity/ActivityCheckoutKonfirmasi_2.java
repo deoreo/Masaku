@@ -110,8 +110,8 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
 
         startTimer();
 
-        int tip = Math.round(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())*Integer.parseInt(ApplicationData.detailTransaksi.getTip())/100);
-        
+        //int tip = Math.round(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())*Integer.parseInt(ApplicationData.detailTransaksi.getTip())/100);
+        int tip = Integer.parseInt(ApplicationData.detailTransaksi.getTip());
         txtAlamat.setText(ApplicationData.detailTransaksi.getAlamat());
         txtNama.setText(ApplicationData.detailTransaksi.getNama());
         txtTelpon.setText(ApplicationData.detailTransaksi.getPhone());

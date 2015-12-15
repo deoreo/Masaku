@@ -63,7 +63,8 @@
             android:layout_height="match_parent"
             android:dividerHeight="10dp"
             android:divider="@null"
-            android:background="@null" />
+            android:background="@null"
+            android:visibility="gone"/>
     </com.baoyz.widget.PullRefreshLayout>
 
 
