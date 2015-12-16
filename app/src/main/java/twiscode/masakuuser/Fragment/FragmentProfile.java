@@ -88,7 +88,7 @@ public class FragmentProfile extends Fragment {
 		InitDialog();
 		listcities = new CharSequence[2];
 		listcities[0] = "Surabaya";
-		listcities[1] = "Jakarta (Coming Soon)";
+		//listcities[1] = "Jakarta (Coming Soon)";
 		namaprofile = (EditText) rootView.findViewById(R.id.namaProfile);
 		telponProfile = (TextView) rootView.findViewById(R.id.telponProfile);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);

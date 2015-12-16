@@ -252,43 +252,43 @@ public class FragmentPesanan extends Fragment {
         String bln="";
         switch (bulan){
             case "01":
-                bln = "Januari";
+                bln = "Jan";
                 break;
             case "02":
-                bln = "Februari";
+                bln = "Feb";
                 break;
             case "03":
-                bln = "Maret";
+                bln = "Mar";
                 break;
             case "04":
-                bln = "April";
+                bln = "Apr";
                 break;
             case "05":
-                bln = "Mei";
+                bln = "May";
                 break;
             case "06":
-                bln = "Juni";
+                bln = "Jun";
                 break;
             case "07":
-                bln = "Juli";
+                bln = "Jul";
                 break;
             case "08":
-                bln = "Agustus";
+                bln = "Aug";
                 break;
             case "09":
-                bln = "September";
+                bln = "Sep";
                 break;
             case "10":
-                bln = "Oktober";
+                bln = "Oct";
                 break;
             case "11":
-                bln = "November";
+                bln = "Nov";
                 break;
             case "12":
-                bln = "Desember";
+                bln = "Dec";
                 break;
             default:
-                bln = "Januari";
+                bln = "Jan";
                 break;
         }
         return bln;

@@ -118,9 +118,14 @@ public class FragmentWishlist extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 String message = intent.getStringExtra("message");
                 if (message.equals("dislike")) {
-                    new DoDislike().execute(
-                            ApplicationData.idLike
-                    );
+                    Log.d("dodislike", "true");
+                    if(ApplicationData.idLike!=ApplicationData.historyIdLike){
+                        ApplicationData.historyIdLike = ApplicationData.idLike;
+                        new DoDislike().execute(
+                                ApplicationData.idLike
+                        );
+                    }
+
                 }
             }
         };
@@ -331,7 +336,7 @@ public class FragmentWishlist extends Fragment {
                 Log.d("json dislike wishlist", response.toString());
 
                 if (response.contains("true")) {
-                    ApplicationData.wishlist.get(ApplicationData.idLike).setAdded(false);
+                    //ApplicationData.wishlist.get(ApplicationData.idLike).setAdded(false);
                     wishlistMenus.remove(ApplicationData.idLike);
                     LIST_MENU = new ArrayList<>(wishlistMenus.values());
                     ApplicationData.wishlist = wishlistMenus;
@@ -380,43 +385,43 @@ public class FragmentWishlist extends Fragment {
         String bln="";
         switch (bulan){
             case "01":
-                bln = "Januari";
+                bln = "Jan";
                 break;
             case "02":
-                bln = "Februari";
+                bln = "Feb";
                 break;
             case "03":
-                bln = "Maret";
+                bln = "Mar";
                 break;
             case "04":
-                bln = "April";
+                bln = "Apr";
                 break;
             case "05":
-                bln = "Mei";
+                bln = "May";
                 break;
             case "06":
-                bln = "Juni";
+                bln = "Jun";
                 break;
             case "07":
-                bln = "Juli";
+                bln = "Jul";
                 break;
             case "08":
-                bln = "Agustus";
+                bln = "Aug";
                 break;
             case "09":
-                bln = "September";
+                bln = "Sep";
                 break;
             case "10":
-                bln = "Oktober";
+                bln = "Oct";
                 break;
             case "11":
-                bln = "November";
+                bln = "Nov";
                 break;
             case "12":
-                bln = "Desember";
+                bln = "Dec";
                 break;
             default:
-                bln = "Januari";
+                bln = "Jan";
                 break;
         }
         return bln;

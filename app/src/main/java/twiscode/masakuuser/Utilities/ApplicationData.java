@@ -61,6 +61,7 @@ public class ApplicationData {
     public static HashMap<String,ModelAllMenus> allmenus = new HashMap<>();
     public static HashMap<String,ModelWishlist> wishlist = new HashMap<>();
     public static String idLike = "";
+    public static String historyIdLike = "";
     public static String type="";
     public static String idLastTransaction="";
     public static ModelDetailTransaksi detailTransaksi;
