@@ -54,7 +54,8 @@
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         >
 
         <ListView
@@ -65,6 +66,11 @@
             android:divider="@null"
             android:background="@null"/>
     </com.baoyz.widget.PullRefreshLayout>
-
+    <LinearLayout
+        android:id="@+id/spaceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:visibility="gone"/>
 
 </LinearLayout>

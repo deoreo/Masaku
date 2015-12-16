@@ -103,11 +103,16 @@ public class ActivityLogin extends Activity{
 
                     }
                     else {
-                        phone = "08"+phone;
-                        new DoLogin(mActivity).execute(
-                                phone,
-                                password
-                        );
+                        if (!NetworkManager.getInstance(mActivity).isConnectedInternet()) {
+                            DialogManager.showDialog(mActivity, "Peringatan", "Tidak ada koneksi internet!");
+                        } else {
+                            phone = "08"+phone;
+                            new DoLogin(mActivity).execute(
+                                    phone,
+                                    password
+                            );
+                        }
+
                     }
 
                 }

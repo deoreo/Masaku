@@ -69,7 +69,7 @@ public class FragmentMenu extends Fragment {
 
 	private int mPage = 1;
 
-	private BroadcastReceiver updateCart;
+	private BroadcastReceiver spaceLayout;
 
 	private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
 
@@ -92,6 +92,7 @@ public class FragmentMenu extends Fragment {
 		applicationManager = new ApplicationManager(getActivity());
 		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
+		noData = (LinearLayout) rootView.findViewById(R.id.spaceLayout);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
@@ -121,6 +122,24 @@ public class FragmentMenu extends Fragment {
 				DummyData();
 			}
 		});
+
+		spaceLayout = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// Extract data included in the Intent
+				Log.d("", "broadcast updateCart");
+				String message = intent.getStringExtra("message");
+				if(message=="on"){
+					noData.setVisibility(View.VISIBLE);
+
+				}
+				else {
+					noData.setVisibility(View.GONE);
+				}
+
+
+			}
+		};
 
 		//mListView.setVisibility(View.GONE);
 		DummyData();
@@ -364,6 +383,9 @@ public class FragmentMenu extends Fragment {
 			}
 
 		}
+
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(spaceLayout,
+				new IntentFilter("spaceLayout"));
 
 
 

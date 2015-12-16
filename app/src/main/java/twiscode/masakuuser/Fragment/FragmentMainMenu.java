@@ -118,9 +118,11 @@ public class FragmentMainMenu extends Fragment {
 				String message = intent.getStringExtra("message");
 				if(ApplicationData.cart.size() > 0){
 					btnPesan.setVisibility(View.VISIBLE);
+					SendBroadcast("spaceLayout","on");
 				}
 				else {
 					btnPesan.setVisibility(View.GONE);
+					SendBroadcast("spaceLayout","off");
 				}
 
 
@@ -154,6 +156,13 @@ public class FragmentMainMenu extends Fragment {
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateCart,
 				new IntentFilter("cekOrderNow"));
 
+	}
+
+	private void SendBroadcast(String typeBroadcast,String type){
+		Intent intent = new Intent(typeBroadcast);
+		// add data
+		intent.putExtra("message", type);
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
 	}
 
 
