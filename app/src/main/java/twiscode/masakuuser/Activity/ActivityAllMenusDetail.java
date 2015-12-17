@@ -115,13 +115,19 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
         modelMenu = ApplicationData.modelAllMenus;
 
-        if(modelMenu.getDelivery()==""){
+        try{
+            if(modelMenu.getDelivery()==""){
+                deliveryLayout.setVisibility(View.GONE);
+            }
+            else {
+                deliveryLayout.setVisibility(View.VISIBLE);
+                deliveryMenu.setText(modelMenu.getDelivery());
+            }
+        }
+        catch (Exception x){
             deliveryLayout.setVisibility(View.GONE);
         }
-        else {
-            deliveryLayout.setVisibility(View.VISIBLE);
-            deliveryMenu.setText(modelMenu.getDelivery());
-        }
+
 
         nameMenu.setText(modelMenu.getNama());
         timeMenu.setText(modelMenu.getTime());

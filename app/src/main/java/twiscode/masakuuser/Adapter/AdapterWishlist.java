@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Locale;
 
 import twiscode.masakuuser.Activity.ActivityAllMenusDetail;
+import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelWishlist;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -55,14 +56,14 @@ import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 public class AdapterWishlist extends BaseAdapter {
     private Activity mAct;
-    private List<ModelWishlist> mSourceData, mFilterData;
+    private List<ModelAllMenus> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
 
-    public AdapterWishlist(Activity activity, List<ModelWishlist> d) {
+    public AdapterWishlist(Activity activity, List<ModelAllMenus> d) {
         mAct = activity;
         mSourceData = d;
         mInflater = (LayoutInflater) mAct.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -111,7 +112,7 @@ public class AdapterWishlist extends BaseAdapter {
             decimalFormat = new DecimalFormat();
             decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
-            final ModelWishlist modelMenu = mSourceData.get(position);
+            final ModelAllMenus modelMenu = mSourceData.get(position);
             final String ID = modelMenu.getId();
             final String VENDOR_NAMA = modelMenu.getNama();
             final String VENDOR_HARGA = modelMenu.getPrice();
@@ -143,7 +144,7 @@ public class AdapterWishlist extends BaseAdapter {
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ApplicationData.modelWishlist = modelMenu;
+                    ApplicationData.modelAllMenus = modelMenu;
                     Intent i = new Intent(mAct, ActivityAllMenusDetail.class);
                     mAct.startActivity(i);
                     //mAct.finish();

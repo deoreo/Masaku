@@ -37,6 +37,7 @@ import java.util.List;
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterWishlist;
 import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelWishlist;
 import twiscode.masakuuser.R;
@@ -50,7 +51,7 @@ public class FragmentWishlist extends Fragment {
     private LinearLayout wrapCount;
     private ImageView btnCart;
     public static final String ARG_PAGE = "ARG_PAGE";
-    private List<ModelWishlist> LIST_MENU = new ArrayList<>();
+    private List<ModelAllMenus> LIST_MENU = new ArrayList<>();
     private PullRefreshLayout mSwipeRefreshLayout;
     private ListView mListView;
     private AdapterWishlist mAdapter;
@@ -69,7 +70,7 @@ public class FragmentWishlist extends Fragment {
 
     private BroadcastReceiver updateCart;
 
-    private HashMap<String, ModelWishlist> wishlistMenus = new HashMap<>();
+    private HashMap<String, ModelAllMenus> wishlistMenus = new HashMap<>();
 
     ApplicationManager appManager;
 
@@ -180,7 +181,7 @@ public class FragmentWishlist extends Fragment {
 
     private void DummyData(boolean isnodata) {
         isNodata = isnodata;
-        LIST_MENU = new ArrayList<ModelWishlist>();
+        LIST_MENU = new ArrayList<ModelAllMenus>();
         new GetWishlist().execute();
 
     }
@@ -236,7 +237,25 @@ public class FragmentWishlist extends Fragment {
                         catch (Exception ex){
                             ex.printStackTrace();
                         }
-                        ModelWishlist menu = new ModelWishlist(id, nama, price, foto, time, desc, feedback, added);
+                        JSONArray category = new JSONArray();
+                        try{
+                            category = response.getJSONObject(i).getJSONArray("category");
+                        }
+                        catch (Exception ex){
+                            category = new JSONArray();
+                        }
+                        String hashtag = "";
+                        if(category.length() > 0){
+                            for(int j=0;j<category.length();j++){
+                                if(j==0){
+                                    hashtag = "#"+category.getString(j);
+                                }
+                                else {
+                                    hashtag = hashtag+" #"+category.getString(j);
+                                }
+                            }
+                        }
+                        ModelAllMenus menu = new ModelAllMenus(id, nama, price, foto, time, desc, feedback, added,openAt);
                         //LIST_MENU.add(menu);
                         if (wishlistMenus.size() > 0) {
                             if (!wishlistMenus.containsKey(id)) {
@@ -246,13 +265,13 @@ public class FragmentWishlist extends Fragment {
                             wishlistMenus.put(id, menu);
                         }
                         LIST_MENU = new ArrayList<>(wishlistMenus.values());
-                        ApplicationData.wishlist = wishlistMenus;
+                        ApplicationData.allmenus = wishlistMenus;
                     }
 
                     return "OK";
                 } else {
                     LIST_MENU = new ArrayList<>(wishlistMenus.values());
-                    ApplicationData.wishlist = wishlistMenus;
+                    ApplicationData.allmenus = wishlistMenus;
                 }
 
 
@@ -339,7 +358,7 @@ public class FragmentWishlist extends Fragment {
                     //ApplicationData.wishlist.get(ApplicationData.idLike).setAdded(false);
                     wishlistMenus.remove(ApplicationData.idLike);
                     LIST_MENU = new ArrayList<>(wishlistMenus.values());
-                    ApplicationData.wishlist = wishlistMenus;
+                    ApplicationData.allmenus = wishlistMenus;
                     return "OK";
                 }
 

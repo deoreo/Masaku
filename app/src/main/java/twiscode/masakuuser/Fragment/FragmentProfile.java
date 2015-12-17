@@ -86,7 +86,7 @@ public class FragmentProfile extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.activity_profile, container, false);
 		InitDialog();
-		listcities = new CharSequence[2];
+		listcities = new CharSequence[1];
 		listcities[0] = "Surabaya";
 		//listcities[1] = "Jakarta (Coming Soon)";
 		namaprofile = (EditText) rootView.findViewById(R.id.namaProfile);
