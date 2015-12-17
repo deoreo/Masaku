@@ -9,7 +9,7 @@ import java.util.List;
  * Created by User on 10/21/2015.
  */
 public class ModelMenuSpeed {
-    String id, nama, foto, price, time, deskripsi,hashtag,delivery;
+    String id, nama, foto, price, time, deskripsi,hashtag,delivery,isEvent,eventName;
     JSONArray feedback = new JSONArray();
 
     public ModelMenuSpeed(){
@@ -33,6 +33,8 @@ public class ModelMenuSpeed {
         this.time = time;
         this.deskripsi = deskripsi;
         this.feedback = feedback;
+        this.isEvent = "false";
+        this.eventName = "";
     }
 
     public ModelMenuSpeed(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, String hashtag){
@@ -44,6 +46,8 @@ public class ModelMenuSpeed {
         this.deskripsi = deskripsi;
         this.feedback = feedback;
         this.hashtag = hashtag;
+        this.isEvent = "false";
+        this.eventName = "";
     }
 
     public ModelMenuSpeed(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, String hashtag, String delivery){
@@ -56,6 +60,22 @@ public class ModelMenuSpeed {
         this.feedback = feedback;
         this.hashtag = hashtag;
         this.delivery = delivery;
+        this.isEvent = "false";
+        this.eventName = "";
+    }
+
+    public ModelMenuSpeed(String id, String nama, String price, String foto, String time, String deskripsi, JSONArray feedback, String hashtag, String delivery, String isEvent, String eventName){
+        this.id = id;
+        this.nama = nama;
+        this.price = price;
+        this.foto = foto;
+        this.time = time;
+        this.deskripsi = deskripsi;
+        this.feedback = feedback;
+        this.hashtag = hashtag;
+        this.delivery = delivery;
+        this.isEvent = isEvent;
+        this.eventName = eventName;
     }
 
     public String getId() {
