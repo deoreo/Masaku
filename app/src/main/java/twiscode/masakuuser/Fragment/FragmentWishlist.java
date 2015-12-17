@@ -117,14 +117,14 @@ public class FragmentWishlist extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String message = intent.getStringExtra("message");
-                if (message.equals("dislike")) {
-                    Log.d("dodislike", "true");
-                    if(ApplicationData.idLike!=ApplicationData.historyIdLike){
-                        ApplicationData.historyIdLike = ApplicationData.idLike;
+                if (message.equals("true")) {
+                    Log.d("removeWishlist", "true");
+                    //if(ApplicationData.idLike!=ApplicationData.historyIdLike){
+                       // ApplicationData.historyIdLike = ApplicationData.idLike;
                         new DoDislike().execute(
                                 ApplicationData.idLike
                         );
-                    }
+                    //}
 
                 }
             }
@@ -377,7 +377,14 @@ public class FragmentWishlist extends Fragment {
         super.onResume();
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(doDislike,
-                new IntentFilter("doDislike"));
+                new IntentFilter("removeWishlist"));
+
+    }
+
+    public void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(doDislike);
 
     }
 

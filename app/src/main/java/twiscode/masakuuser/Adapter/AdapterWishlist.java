@@ -155,7 +155,7 @@ public class AdapterWishlist extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ApplicationData.idLike = ID;
-                    SendBroadcast("doDislike","dislike");
+                    SendBroadcast("removeWishlist","true");
                 }
             });
 
