@@ -85,7 +85,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private ListView mListFeedback;
     private AdapterVendorFeedback adapterFeedback;
     private TextView countCart,deliveryMenu;
-    private LinearLayout wrapCount,deliveryLayout;
+    private LinearLayout wrapCount,deliveryLayout,spaceLayout;
     private BroadcastReceiver updateCart;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
@@ -107,6 +107,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         DummyFeedback();
         btnPesan = (Button) findViewById(R.id.btnPesanSkrg);
         progress = (ProgressBar) findViewById(R.id.progress);
+        spaceLayout = (LinearLayout) findViewById(R.id.spaceLayout);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
         deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
         countCart = (TextView) findViewById(R.id.countCart);
@@ -255,11 +256,13 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             }
             countCart.setText(""+jml);
             wrapCount.setVisibility(View.VISIBLE);
+            spaceLayout.setVisibility(View.VISIBLE);
             btnPesan.setVisibility(View.VISIBLE);
         }
         else {
             wrapCount.setVisibility(View.GONE);
             btnPesan.setVisibility(View.GONE);
+            spaceLayout.setVisibility(View.GONE);
         }
 
         updateCart = new BroadcastReceiver() {
@@ -277,9 +280,11 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
                         }
                         countCart.setText(""+jml);
                         wrapCount.setVisibility(View.VISIBLE);
+                        spaceLayout.setVisibility(View.VISIBLE);
                     }
                     else {
                         wrapCount.setVisibility(View.GONE);
+                        spaceLayout.setVisibility(View.GONE);
                     }
 
                 }

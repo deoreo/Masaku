@@ -307,6 +307,12 @@
                         android:dividerHeight="1dp"
                         android:visibility="gone"
                         />
+                    <LinearLayout
+                        android:id="@+id/spaceLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="vertical"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
             </RelativeLayout>
