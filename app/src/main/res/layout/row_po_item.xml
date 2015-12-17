@@ -53,7 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
         <TextView
             android:id="@+id/priceMenu"
             android:layout_width="0dp"

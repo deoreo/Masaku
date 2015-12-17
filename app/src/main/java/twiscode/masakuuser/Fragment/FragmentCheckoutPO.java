@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -67,7 +68,8 @@ public class FragmentCheckoutPO extends Fragment {
     private EditText txtKode, txtNote;
     private ImageView btnBack;
     private ListView mListView;
-    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat;
+    private LinearLayout laySpecial;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial;
     private Button btnKonfirmasi;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
@@ -82,6 +84,7 @@ public class FragmentCheckoutPO extends Fragment {
     private DecimalFormat decimalFormat;
     private ProgressBar progress;
     private BroadcastReceiver updateCart;
+    String eventMessage;
 
     public static FragmentCheckoutPO newInstance() {
         FragmentCheckoutPO fragment = new FragmentCheckoutPO();
@@ -119,6 +122,8 @@ public class FragmentCheckoutPO extends Fragment {
 
 
         View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
+        txtSpecial = (TextView) header.findViewById(R.id.specialText);
+        laySpecial = (LinearLayout) header.findViewById(R.id.specialLayout);
         txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
         txtNote = (EditText) header.findViewById(R.id.noteCheckout);
         txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
@@ -295,12 +300,18 @@ public class FragmentCheckoutPO extends Fragment {
                 else if(message.equals("delete")){
                     if(ApplicationData.cart.size() > 0){
                         LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                        boolean isEvent = false;
                         if (LIST_MENU.size() > 0) {
                             subtotal = 0;
+
                             for (int i = 0; i < LIST_MENU.size(); i++) {
                                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
+                                if(LIST_MENU.get(i).getIsEvent()=="true"){
+                                    isEvent = true;
+                                }
                             }
                             tip = (int) Math.floor(subtotal / 10 / 100)*100;
+
                         }
                         total = subtotal + tip + delivery - diskon;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
@@ -310,21 +321,37 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         mAdapter = new AdapterCheckout(act, LIST_MENU);
                         mListView.setAdapter(mAdapter);
+                        if(isEvent){
+                            laySpecial.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            laySpecial.setVisibility(View.GONE);
+                        }
                     }
                     else{
                         //act.finish();
                         if(ApplicationData.cart.size() > 0){
                             LIST_MENU = new ArrayList<ModelCart>();
                             ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
+                            boolean isEvent = false;
                             for(int i=0;i<newlist.size();i++){
                                 ModelCart c = newlist.get(i);
                                 if(c.getType()=="po"){
                                     LIST_MENU.add(c);
                                 }
+                                if(c.getIsEvent()=="true"){
+                                    isEvent = true;
+                                }
                             }
                             if(LIST_MENU.size() < 1){
                                 mListView.setVisibility(View.GONE);
                                 noData.setVisibility(View.VISIBLE);
+                            }
+                            if(isEvent){
+                                laySpecial.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                laySpecial.setVisibility(View.GONE);
                             }
 
                         }
@@ -425,6 +452,14 @@ public class FragmentCheckoutPO extends Fragment {
                             String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
                             diskon = Integer.parseInt(discountPrice);
                             String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
+                            eventMessage = "";
+                            try{
+                                eventMessage = transaksi.getJSONObject(i).getString("eventMessage");
+                            }
+                            catch (Exception x){
+                                x.printStackTrace();
+                            }
+
                             delivery = Integer.parseInt(shippingPrice);
                         }
                         return "OK";
@@ -462,6 +497,13 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    if(eventMessage != ""){
+                        laySpecial.setVisibility(View.VISIBLE);
+                        txtSpecial.setText(eventMessage);
+                    }
+                    else {
+                        laySpecial.setVisibility(View.GONE);
+                    }
                     break;
             }
             //progressDialog.dismiss();

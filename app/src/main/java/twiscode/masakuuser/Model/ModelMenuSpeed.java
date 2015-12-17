@@ -149,4 +149,20 @@ public class ModelMenuSpeed {
     public void setDelivery(String delivery) {
         this.delivery = delivery;
     }
+
+    public String getIsEvent() {
+        return isEvent;
+    }
+
+    public void setIsEvent(String isEvent) {
+        this.isEvent = isEvent;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
 }

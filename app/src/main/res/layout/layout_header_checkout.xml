@@ -64,6 +64,25 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/specialLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/plain_white_garis_red">
+        <TextView
+            android:id="@+id/specialText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mohon selesaikan pembayaran melalui mesin ATM"
+            android:textColor="@color/colorRed"
+            android:gravity="center"
+            android:textSize="13dp"/>
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

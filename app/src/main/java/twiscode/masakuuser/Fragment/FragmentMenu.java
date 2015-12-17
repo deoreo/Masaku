@@ -74,6 +74,8 @@ public class FragmentMenu extends Fragment {
 	private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
 
 	ApplicationManager applicationManager;
+	ArrayList<ModelMenuSpeed> listEvent = new ArrayList<>();
+	ArrayList<ModelMenuSpeed> listNonEvent = new ArrayList<>();
 
 	View header;
 
@@ -203,9 +205,18 @@ public class FragmentMenu extends Fragment {
 					for(int i=0;i<menus.length();i++){
 						String id = menus.getJSONObject(i).getString("_id");
 						String nama = menus.getJSONObject(i).getString("name");
-						String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
+						String foto = "";
+						try{
+							foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
+						}
+						catch (Exception x){
+
+						}
+
 						String price = menus.getJSONObject(i).getString("price");
 						String open = menus.getJSONObject(i).getString("openAt");
+						String isEevent = menus.getJSONObject(i).getString("isEvent");
+						String eventName = menus.getJSONObject(i).getString("eventName");
 						String time = "";
 						String openAt = "";
 						String dt = open.split("T")[0];
@@ -215,7 +226,7 @@ public class FragmentMenu extends Fragment {
 						Date dt1=format1.parse(input_date);
 						DateFormat format2=new SimpleDateFormat("EEEE");
 						String finalDay=format2.format(dt1);
-						Log.d("delivery 2", ""+finalDay);
+						Log.d("delivery 2", ""+input_date+" - "+finalDay);
 						openAt = finalDay+", "+dd[2]+" "+getMonth(dd[1])+" "+dd[0];
 
 						String desc = menus.getJSONObject(i).getString("description");
@@ -245,24 +256,45 @@ public class FragmentMenu extends Fragment {
 								}
 							}
 						}
-						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag,openAt);
+						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag,openAt,isEevent,eventName);
 						//LIST_MENU.add(menu);
+
 						if(speedmenu.size() > 0){
 							if(!speedmenu.containsKey(id)){
 								speedmenu.put(id,menu);
+								if(menu.getIsEvent()=="true"){
+									listEvent.add(menu);
+								}
+								else {
+									listNonEvent.add(menu);
+								}
 							}
 						}
 						else {
 							speedmenu.put(id,menu);
+							if(menu.getIsEvent()=="true"){
+								listEvent.add(menu);
+							}
+							else {
+								listNonEvent.add(menu);
+							}
 						}
 
 					}
 					ArrayList<ModelMenuSpeed> dt = new ArrayList<>(speedmenu.values());
+
 					//LIST_MENU = new ArrayList<>(speedmenu.values());
 					//ApplicationData.tempPO = LIST_MENU;
 					LIST_MENU = new ArrayList<>();
-					for(int k=0;k<dt.size();k++){
-						LIST_MENU.add(0,dt.get(k));
+
+					for(int l=0;l<listNonEvent.size();l++){
+
+						LIST_MENU.add(listNonEvent.get(l));
+
+					}
+					for(int m=0;m<listEvent.size();m++){
+						LIST_MENU.add(0,listEvent.get(m));
+
 					}
 					ApplicationData.tempPO = LIST_MENU;
 					return "OK";
