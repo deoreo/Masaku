@@ -85,6 +85,7 @@ public class FragmentCheckoutPO extends Fragment {
     private ProgressBar progress;
     private BroadcastReceiver updateCart;
     String eventMessage;
+    //boolean isClicked = false;
 
     public static FragmentCheckoutPO newInstance() {
         FragmentCheckoutPO fragment = new FragmentCheckoutPO();
@@ -238,35 +239,44 @@ public class FragmentCheckoutPO extends Fragment {
         btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (txtAlamat.getText().toString() == "") {
-                    DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
-                } else {
-                    try {
-                        final Context ctx = getActivity();
-                        new MaterialDialog.Builder(ctx)
-                                .title("Anda yakin untuk order?")
-                                .positiveText("OK")
-                                .callback(new MaterialDialog.ButtonCallback() {
-                                    @Override
-                                    public void onPositive(MaterialDialog dialog) {
-                                        new CheckOut(act).execute(
-                                                txtKode.getText().toString(),
-                                                txtAlamat.getText().toString(),
-                                                txtNote.getText().toString()
-                                        );
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .negativeText("Tidak")
-                                .cancelable(false)
-                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                                .show();
-                    } catch (Exception e) {
+                //if (isClicked == false) {
+                   // isClicked = true;
+                    if (NetworkManager.getInstance(act).isConnectedInternet()) {
+                        if (txtAlamat.getText().toString().isEmpty()) {
+                            DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
+                       ////     isClicked = false;
+                        } else {
+                            try {
+                                final Context ctx = getActivity();
+                                new MaterialDialog.Builder(ctx)
+                                        .title("Anda yakin untuk order?")
+                                        .positiveText("OK")
+                                        .callback(new MaterialDialog.ButtonCallback() {
+                                            @Override
+                                            public void onPositive(MaterialDialog dialog) {
+                                                new CheckOut(act).execute(
+                                                        txtKode.getText().toString(),
+                                                        txtAlamat.getText().toString(),
+                                                        txtNote.getText().toString()
+                                                );
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .negativeText("Tidak")
+                                        .cancelable(false)
+                                        .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                        .show();
+                            } catch (Exception e) {
 
+                            }
+                        }
+
+                    }else{
+                       // isClicked = false;
+                        DialogManager.showDialog(act,"Mohon Maaf", "Anda tidak terhubung dengan internet, Silahkan coba lagi!");
                     }
                 }
-
-            }
+            //}
         });
 
         updateCart = new BroadcastReceiver() {
@@ -579,7 +589,13 @@ public class FragmentCheckoutPO extends Fragment {
                             String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
                             String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
                             //String _convience = "0";
-                            String _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");;
+                            String _tip = "0";
+                            try{
+                             _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");
+                            }catch (Exception e){
+                                _tip = "0";
+                            }
+
                             String _detailID=transaction.getJSONObject(t).getString("prettyId");
                             JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                             List<ModelCart> _carts = new ArrayList<>();
@@ -619,6 +635,8 @@ public class FragmentCheckoutPO extends Fragment {
             progress.setVisibility(View.GONE);
             switch (result) {
                 case "FAIL":
+                    //isClicked = false;
+                    DialogManager.showDialog(activity, "Mohon maaf", "Anda Tidak Terhubung dengan Internet!");
                     break;
                 case "OK":
                     if (NetworkManager.getInstance(act).isConnectedInternet()) {
@@ -642,6 +660,7 @@ public class FragmentCheckoutPO extends Fragment {
                                                 startActivity(j);
                                                 act.finish();
                                             } else {
+                                                //isClicked = false;
                                                 DialogManager.showDialog(act, "Mohon Maaf", "Tidak ada koneksi internet!");
                                             }
                                             dialog.dismiss();
@@ -650,6 +669,7 @@ public class FragmentCheckoutPO extends Fragment {
                                     .cancelable(false)
                                     .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
                                     .show();
+                            //isClicked = false;
                         } catch (Exception e) {
 
                         }

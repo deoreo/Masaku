@@ -234,7 +234,7 @@ public class FragmentCheckoutSpeed extends Fragment {
         btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (txtAlamat.getText().toString() == "") {
+                if (txtAlamat.getText().toString().isEmpty()) {
                     DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
                 } else {
                     try {

@@ -33,6 +33,7 @@ import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.DialogManager;
 
 public class FragmentPesanan extends Fragment {
 
@@ -176,7 +177,12 @@ public class FragmentPesanan extends Fragment {
                         String _type = transaction.getJSONObject(t).getString("type");
                         String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
                         String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
-                        String _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");;
+                        String _tip = "";
+                        try {
+                             _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");
+                        }catch (Exception e){
+                            _tip = "";
+                        }
                         String _detailID=transaction.getJSONObject(t).getString("prettyId");
                         JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                         List<ModelCart> _carts = new ArrayList<>();
@@ -219,7 +225,7 @@ public class FragmentPesanan extends Fragment {
             super.onPostExecute(result);
             switch (result) {
                 case "FAIL":
-                    //DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+                    DialogManager.showDialog(activity, "Mohon maaf", "Anda Tidak Terhubung dengan Internet!");
                     if(LIST_PESANAN.size() > 0){
                         mListView.setVisibility(View.VISIBLE);
                         noData.setVisibility(View.GONE);
