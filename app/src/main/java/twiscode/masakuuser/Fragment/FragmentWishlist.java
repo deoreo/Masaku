@@ -313,20 +313,26 @@ public class FragmentWishlist extends Fragment {
                     //startActivity(i);
                     //finish();
                     Log.d("jumlah menu : ", "" + LIST_MENU.size());
-                    mAdapter = new AdapterWishlist(getActivity(), LIST_MENU);
-                    mListView.setAdapter(mAdapter);
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    if (LIST_MENU.size() > 0) {
+                    try{
+                        mAdapter = new AdapterWishlist(getActivity(), LIST_MENU);
+                        mListView.setAdapter(mAdapter);
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        if (LIST_MENU.size() > 0) {
 
-                        mListView.setVisibility(View.VISIBLE);
-                        //noData.setVisibility(View.GONE);
-                        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                        Log.d("datalist", "ada");
-                    } else {
-                        mListView.setVisibility(View.GONE);
-                        //noData.setVisibility(View.VISIBLE);
-                        mSwipeRefreshLayout.setVisibility(View.GONE);
+                            mListView.setVisibility(View.VISIBLE);
+                            //noData.setVisibility(View.GONE);
+                            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+                            Log.d("datalist", "ada");
+                        } else {
+                            mListView.setVisibility(View.GONE);
+                            //noData.setVisibility(View.VISIBLE);
+                            mSwipeRefreshLayout.setVisibility(View.GONE);
+                        }
                     }
+                    catch (Exception x){
+                        x.printStackTrace();
+                    }
+
                     break;
 
             }

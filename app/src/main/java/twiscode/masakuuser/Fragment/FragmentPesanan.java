@@ -237,17 +237,23 @@ public class FragmentPesanan extends Fragment {
                     break;
                 case "OK":
                     Log.d("jumlah menu : ",""+LIST_PESANAN.size());
-                    mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
-                    mListView.setAdapter(mAdapter);
-                    jmlPesanan.setText(LIST_PESANAN.size() + " Pesanan");
-                    if(LIST_PESANAN.size() > 0){
-                        mListView.setVisibility(View.VISIBLE);
-                        noData.setVisibility(View.GONE);
+                    try{
+                        mAdapter = new AdapterPesanan(getActivity(), LIST_PESANAN);
+                        mListView.setAdapter(mAdapter);
+                        jmlPesanan.setText(LIST_PESANAN.size() + " Pesanan");
+                        if(LIST_PESANAN.size() > 0){
+                            mListView.setVisibility(View.VISIBLE);
+                            noData.setVisibility(View.GONE);
+                        }
+                        else {
+                            mListView.setVisibility(View.GONE);
+                            noData.setVisibility(View.VISIBLE);
+                        }
                     }
-                    else {
-                        mListView.setVisibility(View.GONE);
-                        noData.setVisibility(View.VISIBLE);
+                    catch (Exception x){
+                        x.printStackTrace();
                     }
+
                     break;
             }
             mSwipeRefreshLayout.setRefreshing(false);
