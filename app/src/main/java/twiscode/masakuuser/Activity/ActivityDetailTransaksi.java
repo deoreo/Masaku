@@ -58,7 +58,7 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     private TextView txtKode,txtNote;
     private ImageView btnBack;
     private ListView mListView;
-    private TextView txtSubtotal,txtStatus,txtDelivery,txtTotal,noData,txtAlamat,txtNama,txtPhone;
+    private TextView txtSubtotal,txtStatus,txtDelivery,txtTotal,noData,txtAlamat,txtNama,txtPhone,txtTip,txtConveniene;
     AdapterCheckoutKonfirmasi mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     int delivery = 0;
@@ -93,6 +93,8 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         View footer = getLayoutInflater().inflate(R.layout.layout_footer_detail_transaksi, null);
         txtSubtotal = (TextView)footer.findViewById(R.id.subtotalCheckout);
         txtDelivery = (TextView)footer.findViewById(R.id.deliveryCheckout);
+        txtTip = (TextView)footer.findViewById(R.id.tipCheckout);
+        txtConveniene = (TextView)footer.findViewById(R.id.convienceCheckout);
         txtTotal = (TextView)footer.findViewById(R.id.totalCheckout);
         txtStatus = (TextView)footer.findViewById(R.id.statusCheckout);
 
@@ -101,6 +103,8 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         txtNama.setText(ApplicationData.detailTransaksi.getNama());
         txtPhone.setText(ApplicationData.detailTransaksi.getPhone());
         txtNote.setText(ApplicationData.detailTransaksi.getNote());
+        txtTip.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTip())));
+        txtConveniene.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getConvience())));
         txtSubtotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getSubtotal())));
         txtTotal.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getTotal())));
         txtDelivery.setText("Rp. " + decimalFormat.format(Integer.parseInt(ApplicationData.detailTransaksi.getDelivery())));

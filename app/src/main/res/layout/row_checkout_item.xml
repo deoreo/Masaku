@@ -28,19 +28,18 @@
         />
     <TextView
         android:id="@+id/namaCheckout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="Serabi Mania"
         android:textColor="@color/colorDarkGrey"
         android:textStyle="bold"
-        android:gravity="center_horizontal"
         />
     <TextView
         android:id="@+id/hargaCheckout"
-        android:layout_width="0dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Rp 10.000"
+        android:text="Rp 0"
         android:textColor="@color/colorDarkGrey"
         android:textStyle="bold"
         android:gravity="right"

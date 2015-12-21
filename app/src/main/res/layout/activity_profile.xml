@@ -75,7 +75,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="right"
                     android:paddingRight="30dp"
-                    android:text="Nama Anda"
+                    android:text="Nama"
                     android:textColor="@color/colorBlack"
                     android:background="@null"
                     android:singleLine="true"
@@ -116,7 +116,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="right"
                     android:paddingRight="30dp"
-                    android:text="08111111111"
+                    android:text="Nomor Handphone"
                     android:textSize="15sp"
                     android:textColor="@color/colorBlack"
                     />

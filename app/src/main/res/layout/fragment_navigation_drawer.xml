@@ -140,6 +140,7 @@
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:src="@drawable/img_circle_white"
+                android:visibility="gone"
                 />
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -150,7 +151,7 @@
                     android:id="@+id/drawerUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Budi Santoso"
+                    android:text="Nama"
                     android:textColor="@color/colorWhite"
                     android:textSize="16dp"/>
                 <TextView
