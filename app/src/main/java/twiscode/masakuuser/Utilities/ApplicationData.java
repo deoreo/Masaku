@@ -31,6 +31,7 @@ public class ApplicationData {
     public static ModelMenu modelMenu = null;
     public static ModelVendorMenu modelVendorMenu = null;
     public static String phoneNumber = "";
+    public static String phoneNumberLogin = "";
     public static String tokenPass = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static ModelAllMenus modelAllMenus = null;

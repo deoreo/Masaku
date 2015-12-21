@@ -59,6 +59,9 @@ public class ActivityRegister extends Activity {
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLogin = (Button) findViewById(R.id.btnLogin);
 
+        if(!ApplicationData.phoneNumberLogin.isEmpty()){
+            txtPhone.setText(ApplicationData.phoneNumberLogin);
+        }
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

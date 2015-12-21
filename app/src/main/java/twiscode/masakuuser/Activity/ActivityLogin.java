@@ -19,6 +19,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.json.JSONObject;
 
 import twiscode.masakuuser.Control.JSONControl;
@@ -87,7 +89,7 @@ public class ActivityLogin extends Activity{
                 String password = txtPassword.getText().toString();
 
                 if (phone == null || password == null || phone.trim().isEmpty() || password.trim().isEmpty()) {
-                    DialogManager.showDialog(mActivity, "Warning", "Isi Nomor Ponsel dan Password Anda!");
+                    DialogManager.showDialog(mActivity, "Mohon Maaf", "Isi Nomor Ponsel dan Password Anda!");
                 } else {
                     hideKeyboard();
                     String num=phone.substring(0,1);
@@ -254,7 +256,30 @@ public class ActivityLogin extends Activity{
             progressDialog.dismiss();
             switch (result) {
                 case "FAIL":
-                    DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
+                        try {
+                            final Context ctx = activity;
+                            new MaterialDialog.Builder(ctx)
+                                    .title("Mohon Maaf")
+                                    .content("Nomor ponsel Anda belum terdaftar")
+                                    .positiveText("OK")
+                                    .callback(new MaterialDialog.ButtonCallback() {
+                                        @Override
+                                        public void onPositive(MaterialDialog dialog) {
+                                            ApplicationData.phoneNumberLogin = txtPhone.getText().toString();
+                                            Intent i = new Intent(getBaseContext(), ActivityRegister.class);
+                                            startActivity(i);
+                                            finish();
+
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .cancelable(false)
+                                    .show();
+                            //isClicked = false;
+                        } catch (Exception e) {
+
+                        }
+
                     break;
                 case "OK":
                     Intent i = new Intent(getBaseContext(), Main.class);
