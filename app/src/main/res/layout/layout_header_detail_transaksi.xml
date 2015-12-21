@@ -72,5 +72,6 @@
         android:text="Order"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:textAllCaps="true"
         android:textColor="@color/colorRed"/>
 </LinearLayout>

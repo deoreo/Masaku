@@ -89,7 +89,7 @@ public class AdapterCheckoutKonfirmasi extends BaseAdapter {
 
             holder.namaItem.setText(VENDOR_NAMA);
             holder.txtCount.setText(""+VENDOR_ORDER);
-            holder.hargaItem.setText("Rp " + decimalFormat.format(VENDOR_HARGA));
+            holder.hargaItem.setText("Rp. " + decimalFormat.format(VENDOR_HARGA));
 
 
 
