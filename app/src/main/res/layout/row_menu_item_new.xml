@@ -5,7 +5,7 @@
     android:orientation="vertical"
     >
 
-    <RelativeLayout
+     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -31,7 +31,7 @@
         <RelativeLayout
             android:id="@+id/layoutTime"
             android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -45,16 +45,23 @@
                 >
                 <TextView
                     android:id="@+id/hariMenu"
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:text="minggu"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
                     />
+                <View
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorWhite" />
                 <TextView
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:id="@+id/tanggalMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,7 +71,6 @@
                     android:textColor="@color/colorWhite"
                     android:layout_gravity="center_horizontal"
                     />
-
             </LinearLayout>
         </RelativeLayout>
 

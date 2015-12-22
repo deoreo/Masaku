@@ -276,7 +276,7 @@ public class FragmentPesanan extends Fragment {
                 bln = "Apr";
                 break;
             case "05":
-                bln = "May";
+                bln = "Mei";
                 break;
             case "06":
                 bln = "Jun";
@@ -285,19 +285,19 @@ public class FragmentPesanan extends Fragment {
                 bln = "Jul";
                 break;
             case "08":
-                bln = "Aug";
+                bln = "Agu";
                 break;
             case "09":
                 bln = "Sep";
                 break;
             case "10":
-                bln = "Oct";
+                bln = "Okt";
                 break;
             case "11":
                 bln = "Nov";
                 break;
             case "12":
-                bln = "Dec";
+                bln = "Des";
                 break;
             default:
                 bln = "Jan";
