@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -77,7 +78,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     public TextView nameMenu;
     public TextView timeMenu;
     public TextView priceMenu;
-    public TextView txtDeskripsi,txtHashtag;
+    public TextView txtDeskripsi,txtHashtag,txtHari,txtTanggal;
     public ImageView imgMenu;
     private ScrollView scroll;
     private ModelMenuSpeed modelMenu;
@@ -91,6 +92,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
     Button btnPesan;
+    private RelativeLayout layoutTimePO;
 
 
     @Override
@@ -128,13 +130,29 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         modelMenu = ApplicationData.modelMenuSpeed;
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
+        layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
+        txtHari = (TextView) findViewById(R.id.hariMenu);
+        txtTanggal = (TextView) findViewById(R.id.tanggalMenu);
 
         if(modelMenu.getDelivery()==""){
             deliveryLayout.setVisibility(View.GONE);
         }
         else {
-            deliveryLayout.setVisibility(View.VISIBLE);
-            deliveryMenu.setText(modelMenu.getDelivery());
+            if(modelMenu.getType() != "po"){
+                layoutTimePO.setVisibility(View.GONE);
+                deliveryLayout.setVisibility(View.VISIBLE);
+                deliveryMenu.setText(modelMenu.getDelivery());
+            }
+            else {
+                String[] dev = modelMenu.getDelivery().split(", ");
+                String tgl = getDate(dev[1]);
+                String hr = getDay(dev[0]);
+
+                txtTanggal.setText(tgl);
+                txtHari.setText(hr);
+                layoutTimePO.setVisibility(View.VISIBLE);
+            }
+
         }
 
         nameMenu.setText(modelMenu.getNama());
@@ -144,6 +162,10 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         else {
             timeMenu.setText(modelMenu.getTime());
         }
+
+
+
+
 
         try{
             txtHashtag.setText(modelMenu.getHashtag());
@@ -472,11 +494,39 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
         CheckCounter(modelMenu.getId());
 
+    }
 
+    private String getDay(String date){
+        String day = "";
+        if(date.equalsIgnoreCase("monday")){
+            day = "Senin";
+        }
+        else if(date.equalsIgnoreCase("tueday")){
+            day = "Selasa";
+        }
+        else if(date.equalsIgnoreCase("wednesday")){
+            day = "Rabu";
+        }
+        else if(date.equalsIgnoreCase("thursday")){
+            day = "Kamis";
+        }
+        else if(date.equalsIgnoreCase("friday")){
+            day = "Jumat";
+        }
+        else if(date.equalsIgnoreCase("saturday")){
+            day = "Sabtu";
+        }
+        else {
+            day = "Minggu";
+        }
+        return  day;
+    }
 
-
-
-
+    private String getDate(String date){
+        String dt = "";
+        String [] d = date.split(" ");
+        dt = d[0]+" "+d[1];
+        return  dt;
     }
 
 }

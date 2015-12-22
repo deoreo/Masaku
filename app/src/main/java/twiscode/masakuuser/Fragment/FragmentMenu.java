@@ -256,7 +256,7 @@ public class FragmentMenu extends Fragment {
 								}
 							}
 						}
-						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag,openAt,isEevent,eventName);
+						ModelMenuSpeed menu = new ModelMenuSpeed(id,nama,price,foto,time,desc,feedback,hashtag,openAt,isEevent,eventName,"po");
 						//LIST_MENU.add(menu);
 
 						if(speedmenu.size() > 0){

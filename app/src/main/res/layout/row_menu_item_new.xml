@@ -28,48 +28,46 @@
             android:layout_height="200dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/plan_gradient"/>
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layoutTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_accent"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:visibility="gone">
-            <TextView
-                android:id="@+id/timeMenu"
+            android:background="@drawable/rounded_red"
+            >
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15"
-                android:textColor="@color/colorWhite"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MINS WAIT"
-                android:textColor="@color/colorWhite"
-                android:textSize="11dp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="OR LONGER"
-                android:textColor="@color/colorWhite"
-                android:textSize="10dp"
-                android:layout_gravity="center_horizontal"
-                />
-        </LinearLayout>
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/hariMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="minggu"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="true"
+                    />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tanggalMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="22 Des"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -99,7 +97,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
             <TextView
                 android:id="@+id/priceMenu"
                 android:layout_width="match_parent"
@@ -117,7 +116,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
