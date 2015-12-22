@@ -94,7 +94,11 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
         db = new DatabaseHandler(getActivity());
         JSONControl jsonControl = new JSONControl();
-        jsonControl.postDeviceToken(ApplicationData.PARSE_DEVICE_TOKEN, ApplicationManager.getInstance(getActivity()).getUserToken());
+        try {
+            jsonControl.postDeviceToken(ApplicationData.PARSE_DEVICE_TOKEN, ApplicationManager.getInstance(getActivity()).getUserToken());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
