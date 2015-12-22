@@ -34,6 +34,7 @@ import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityLogin;
 import twiscode.masakuuser.Adapter.NavigationDrawerAdapter;
+import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelNavDrawer;
@@ -45,14 +46,7 @@ import twiscode.masakuuser.Utilities.NetworkManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentDrawer.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentDrawer#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentDrawer extends android.support.v4.app.Fragment {
     private static String TAG = FragmentDrawer.class.getSimpleName();
 
@@ -99,6 +93,8 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
         db = new DatabaseHandler(getActivity());
+        JSONControl jsonControl = new JSONControl();
+        jsonControl.postDeviceToken(ApplicationData.PARSE_DEVICE_TOKEN, ApplicationManager.getInstance(getActivity()).getUserToken());
     }
 
     @Override
