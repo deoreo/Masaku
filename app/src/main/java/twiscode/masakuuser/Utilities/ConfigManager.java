@@ -30,6 +30,7 @@ public class ConfigManager {
     public static final String TRANSACTIONS = SERVER+"/transactions/";
     public static final String TRANSACTION = SERVER+"/transaction/";
     public static final String DETAIL_TRANSACTION = SERVER+"/transaction/";
+    public static final String POST_DEVICE_TOKEN = SERVER+"/device-token/";
     public static final String DUKUHKUPANG = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlUb2tlbiI6Iic0T3M0VDlOMzg4J0NMMUs-MTlAZCwlT1pCJkBEOSIsImlhdCI6MTQ0NzIxMDY3MH0.xgocnzsQOLoSNZ3VoC3vlhVlzqakkNhr5hRayz008jo";
 
 }

@@ -102,6 +102,21 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public String postDeviceToken(String devicetoken, String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("deviceToken", devicetoken));
+            jsonObj = _JSONResponse.POSTResponseTokenString(ConfigManager.POST_DEVICE_TOKEN, token, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
     public String postCheckCode(String phone, String token) {
 
         String jsonObj = null;
@@ -192,6 +207,8 @@ public class JSONControl {
         Log.d("token",jsonObj.toString());
         return jsonObj;
     }
+
+
 
 
     public JSONObject calculatePrice(String kode, String accessToken,List<ModelCart> cart) {
