@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -39,6 +40,7 @@ public class ActivityProfileNama extends Activity {
     private DatabaseHandler db;
     private ApplicationManager applicationManager;
     private Activity act;
+    private ImageView btnBack;
 
 
     @Override
@@ -47,6 +49,7 @@ public class ActivityProfileNama extends Activity {
         setContentView(R.layout.activity_profile_nama);
         namaProfile = (EditText) findViewById(R.id.namaProfile);
         btnSimpan = (RelativeLayout) findViewById(R.id.btnSimpan);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
         act = ActivityProfileNama.this;
         db = new DatabaseHandler(act);
         applicationManager = new ApplicationManager(act);
@@ -59,6 +62,13 @@ public class ActivityProfileNama extends Activity {
             @Override
             public void onClick(View view) {
                 new Updateprofile(act).execute(namaProfile.getText().toString(),"name","Update nama profile gagal!","Update nama profile sukses!");
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
@@ -170,6 +180,5 @@ public class ActivityProfileNama extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-
     }
 }

@@ -50,6 +50,14 @@
         android:background="@color/colorRed"
         >
 
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/back"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"/>
+
         <TextView
             android:id="@+id/labelNama"
             android:layout_width="wrap_content"

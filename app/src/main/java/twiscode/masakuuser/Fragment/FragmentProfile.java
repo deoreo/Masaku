@@ -177,10 +177,10 @@ public class FragmentProfile extends Fragment {
 			}
 		});
 
-		if(ApplicationData.phoneNumber != ""){
+		if(!ApplicationData.phoneNumber.isEmpty()){
 			telponProfile.setText(ApplicationData.phoneNumber);
 		}
-		if(ApplicationData.name != ""){
+		if(!ApplicationData.name.isEmpty()){
 			namaprofile.setText(ApplicationData.name);
 		}
 
