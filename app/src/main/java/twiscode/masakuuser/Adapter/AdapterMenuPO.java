@@ -111,6 +111,8 @@ public class AdapterMenuPO extends BaseAdapter {
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
 
             holder.deliveryMenu = (TextView) convertView.findViewById(R.id.deliveryMenu);
+            holder.hari = (TextView) convertView.findViewById(R.id.hariMenu);
+            holder.tanggal = (TextView) convertView.findViewById(R.id.tanggalMenu);
             holder.priceMenu = (TextView) convertView.findViewById(R.id.priceMenu);
             holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
             holder.add = (Button) convertView.findViewById(R.id.btnAdd);
@@ -138,6 +140,17 @@ public class AdapterMenuPO extends BaseAdapter {
 
 
             holder.deliveryMenu.setText(VENDOR_DELIVERY );
+
+            String[] dev = VENDOR_DELIVERY.split(", ");
+            Log.d("dev",dev.length+"");
+            for(int k=0;k<dev.length;k++){
+                Log.d("dev "+k,dev[k]);
+            }
+            String tgl = getDate(dev[1]);
+            String hr = getDay(dev[0]);
+
+            holder.tanggal.setText(tgl);
+            holder.hari.setText(hr);
 
             holder.nameMenu.setText(VENDOR_NAMA );
             holder.priceMenu.setText("Rp. "+decimalFormat.format(Integer.parseInt(VENDOR_HARGA)));
@@ -221,7 +234,7 @@ public class AdapterMenuPO extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        public TextView nameMenu,deliveryMenu;
+        public TextView nameMenu,deliveryMenu,hari,tanggal;
         public TextView priceMenu;
         public ImageView imgMenu;
         public Button add;
@@ -232,80 +245,7 @@ public class AdapterMenuPO extends BaseAdapter {
         public ProgressBar progress;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        String url;
-        ImageView bmImage;
-        ProgressBar progressBar;
 
-        public DownloadImageTask(ImageView bmImage, ProgressBar progressBar) {
-            this.bmImage = bmImage;
-            this.progressBar = progressBar;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            url = urldisplay;
-            Log.d("url promo slider", urldisplay);
-            Bitmap mIcon11 = null;
-            try {
-                /*
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-                */
-                DefaultHttpClient  httpClient = (DefaultHttpClient)createDevelopmentHttpClientInstance();
-                HttpGet httpGet = new HttpGet(urldisplay);
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity httpEntity = httpResponse.getEntity();
-
-                BufferedHttpEntity b_entity = new BufferedHttpEntity(httpEntity);
-                InputStream input = b_entity.getContent();
-                mIcon11 = BitmapFactory.decodeStream(input);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-            ApplicationData.temp_img.put(url, result);
-            if(ApplicationData.temp_img.size() > 10){
-                List<String> players = new ArrayList<>(ApplicationData.temp_img.keySet());
-                String key = players.get(players.size()-1);
-                ApplicationData.temp_img.remove(key);
-            }
-
-            if (progressBar != null) {
-                progressBar.setVisibility(View.GONE);
-            }
-
-        }
-    }
-
-    private HttpClient createDevelopmentHttpClientInstance() {
-        try {
-            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            trustStore.load(null, null);
-
-            org.apache.http.conn.ssl.SSLSocketFactory sf = new MySSLSocketFactoryManager(trustStore);
-            sf.setHostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-
-            HttpParams params = new BasicHttpParams();
-            HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-            HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
-
-            SchemeRegistry registry = new SchemeRegistry();
-            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-            registry.register(new Scheme("https", sf, 443));
-
-            ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
-
-            return new DefaultHttpClient(ccm, params);
-        } catch (Exception e) {
-            return new DefaultHttpClient();
-        }
-    }
 
 
     private void SendBroadcast(String typeBroadcast,String type){
@@ -350,6 +290,39 @@ public class AdapterMenuPO extends BaseAdapter {
             ApplicationData.cart.put(ID, c);
         }
         CheckCounter(holder, ID);
+    }
+
+    private String getDay(String date){
+        String day = "";
+        if(date.equalsIgnoreCase("monday")){
+            day = "Senin";
+        }
+        else if(date.equalsIgnoreCase("tueday")){
+            day = "Selasa";
+        }
+        else if(date.equalsIgnoreCase("wednesday")){
+            day = "Rabu";
+        }
+        else if(date.equalsIgnoreCase("thursday")){
+            day = "Kamis";
+        }
+        else if(date.equalsIgnoreCase("friday")){
+            day = "Jumat";
+        }
+        else if(date.equalsIgnoreCase("saturday")){
+            day = "Sabtu";
+        }
+        else {
+            day = "Minggu";
+        }
+        return  day;
+    }
+
+    private String getDate(String date){
+        String dt = "";
+        String [] d = date.split(" ");
+        dt = d[0]+" "+d[1];
+        return  dt;
     }
 
 
