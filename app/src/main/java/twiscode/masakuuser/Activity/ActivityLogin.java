@@ -212,10 +212,12 @@ public class ActivityLogin extends Activity{
                         userLogin.setPonsel(phone);
                         userLogin.setNama(name);
                         String verify = responseUser.getString("verified");
+                        String trusted = responseUser.getString("trusted");
                         JSONObject objRefreshToken = jsControl.postRefreshToken(token);
                         String token_refresh = objRefreshToken.getString("token");
                         //verify = "true";
                         if(verify.equalsIgnoreCase("true")){
+                            userLogin.setTrusted(trusted);
                             db.insertuser(userLogin);
                             ApplicationData.login_id = _id.toString();
                             ApplicationData.name = name;

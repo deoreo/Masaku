@@ -143,6 +143,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
                     user.setId(_id);
                     user.setNama(_name);
                     user.setPonsel(_phone);
+                    user.setTrusted("false");
                     ApplicationData.temp_user = user;
 
                     return "OK";

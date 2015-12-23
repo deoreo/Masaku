@@ -24,7 +24,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_USER_ID = "id_user";
     private static final String KEY_USER_NAME = "name_user";
-
+    private static final String KEY_TRUSTED = "trusted_user";
     private static final String KEY_USER_PHONE = "phone_user";
 
 
@@ -40,6 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_USER_ID + " TEXT PRIMARY KEY,"
                 + KEY_USER_NAME + " TEXT,"
                 + KEY_USER_PHONE + " TEXT"
+                + KEY_TRUSTED + " TEXT"
                 + ")";
 
         db.execSQL(CREATE_TABLE_user);
@@ -65,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_USER_ID, modeluser.getId());
         values.put(KEY_USER_NAME, modeluser.getNama());
         values.put(KEY_USER_PHONE, modeluser.getPonsel());
-
+        values.put(KEY_TRUSTED, modeluser.getTrusted());
         // Inserting Row
         db.insert(T_USER, null, values);
         db.close(); // Closing database connection
@@ -92,7 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
 
         ModelUser modeluser = new ModelUser(cursor.getString(0),
-                cursor.getString(1), cursor.getString(2)
+                cursor.getString(1), cursor.getString(2), cursor.getString(3)
         );
         return modeluser;
     }

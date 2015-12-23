@@ -182,6 +182,7 @@ public class ActivityVerifyHp extends AppCompatActivity {
                     ApplicationData.name = ApplicationData.temp_user.getNama();
                     ApplicationData.phoneNumber = ApplicationData.temp_user.getPonsel();
                     ApplicationManager.getInstance(ActivityVerifyHp.this).setUserToken(ApplicationData.temp_token);
+                    ApplicationManager.getInstance(ActivityVerifyHp.this).setUser(ApplicationData.temp_user);
                     ApplicationData.temp_hp = "";
                     ApplicationData.temp_password = "";
                     ApplicationData.temp_nama = "";

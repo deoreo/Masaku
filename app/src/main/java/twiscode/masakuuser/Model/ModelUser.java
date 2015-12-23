@@ -4,7 +4,7 @@ package twiscode.masakuuser.Model;
  * Created by User on 10/21/2015.
  */
 public class ModelUser {
-    private String id, ponsel, nama;
+    private String id, ponsel, nama, trusted="false";
 
     public ModelUser(){
 
@@ -15,6 +15,14 @@ public class ModelUser {
         this.id = id;
         this.ponsel = ponsel;
         this.nama = nama;
+        this.trusted = "false";
+    }
+
+    public ModelUser(String id, String ponsel, String nama, String trusted){
+        this.id = id;
+        this.ponsel = ponsel;
+        this.nama = nama;
+        this.trusted = trusted;
     }
 
     public String getId() {
@@ -40,5 +48,13 @@ public class ModelUser {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public String getTrusted() {
+        return trusted;
+    }
+
+    public void setTrusted(String trusted) {
+        this.trusted = trusted;
     }
 }

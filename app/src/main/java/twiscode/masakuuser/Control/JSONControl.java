@@ -280,6 +280,40 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject checkOutCOD(String kode, String address, String note, String tip, LatLng pos, String accessToken,List<ModelCart> cart) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            JSONArray loc = new JSONArray();
+            try {
+                loc.put(0, pos.longitude);
+                loc.put(1, pos.latitude);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            params.add(new BasicNameValuePair("payment", "cod"));
+            params.add(new BasicNameValuePair("tip", tip));
+            params.add(new BasicNameValuePair("promoCode", kode));
+            params.add(new BasicNameValuePair("address", address));
+            params.add(new BasicNameValuePair("note", note));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.longitude));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.latitude));
+            for(int i=0;i<cart.size();i++){
+                params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
+            }
+
+
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CHECKOUT, ConfigManager.DUKUHKUPANG, accessToken, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
 
     public String postLogoutAll(String token) {
 
