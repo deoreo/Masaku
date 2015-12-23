@@ -190,8 +190,15 @@ public class FragmentMenu extends Fragment {
 
 				int page = Integer.parseInt(params[0]);
 				JSONControl jsControl = new JSONControl();
-				JSONObject response = jsControl.getMenuPreOrder(page,applicationManager.getUserToken());
+				JSONObject response = jsControl.getMenuPreOrder(page, applicationManager.getUserToken());
 				JSONArray responseCategory = jsControl.getCategories(applicationManager.getUserToken());
+				try {
+					String responseDeviceToken = jsControl.postDeviceToken(ApplicationData.PARSE_DEVICE_TOKEN, ApplicationManager.getInstance(activity).getUserToken());
+					Log.d("device token", responseDeviceToken);
+				}catch (Exception e){
+					Log.d("device token", "fail");
+					e.printStackTrace();
+				}
 				Log.d("json response", response.toString());
 				Log.d("category", responseCategory.toString());
 				datacategory = new LinkedList<>();

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Fragment.FragmentAllMenus;
 import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentBantuan;
@@ -40,6 +41,7 @@ import twiscode.masakuuser.Fragment.FragmentWishlist;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
