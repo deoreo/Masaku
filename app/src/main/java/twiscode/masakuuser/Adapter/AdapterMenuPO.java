@@ -297,7 +297,7 @@ public class AdapterMenuPO extends BaseAdapter {
         if(date.equalsIgnoreCase("monday")){
             day = "Senin";
         }
-        else if(date.equalsIgnoreCase("tueday")){
+        else if(date.equalsIgnoreCase("tuesday")){
             day = "Selasa";
         }
         else if(date.equalsIgnoreCase("wednesday")){
