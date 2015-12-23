@@ -261,6 +261,7 @@ public class JSONControl {
                 e.printStackTrace();
             }
 
+            params.add(new BasicNameValuePair("payment", "transfer"));
             params.add(new BasicNameValuePair("tip", tip));
             params.add(new BasicNameValuePair("promoCode", kode));
             params.add(new BasicNameValuePair("address", address));
