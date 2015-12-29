@@ -18,8 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
@@ -40,6 +44,8 @@ public class ActivityRegister extends Activity {
     private ModelUser userLogin;
     private ImageView btnBack;
     private CheckBox showPass,showConfirm;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +185,17 @@ public class ActivityRegister extends Activity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onStart() {
+        super.onStart();
+        flurryParams.put("User_Status", "Unregistered");
+        FlurryAgent.logEvent("Register_Masaku_1", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("Register_Masaku_1");
     }
 
 

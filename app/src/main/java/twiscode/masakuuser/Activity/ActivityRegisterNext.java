@@ -14,12 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelUser;
@@ -39,6 +43,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
     NiceSpinner genderSpiner;
     EditText txtTahun;
     Button btnRegister,btnLogin;
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +190,17 @@ public class ActivityRegisterNext extends AppCompatActivity {
         }
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        flurryParams.put("User_Status", "Unregistered");
+        FlurryAgent.logEvent("Register_Masaku_2", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("Register_Masaku_2");
     }
 
 

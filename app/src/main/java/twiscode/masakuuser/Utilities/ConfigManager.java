@@ -2,6 +2,7 @@ package twiscode.masakuuser.Utilities;
 
 public class ConfigManager {
 
+    public static final String FLURRY_API_KEY = "8K654QP3VC8NJF6SH35G";
     public static final String version ="~1";
     //public static final String SERVER = "https://masaku.id:2083/user"; // prod
     public static final String SERVER = "https://masaku.id:2053/user"; // dev

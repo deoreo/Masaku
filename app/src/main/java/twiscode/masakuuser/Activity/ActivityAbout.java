@@ -15,6 +15,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.R;
 
 /**
@@ -24,6 +29,8 @@ public class ActivityAbout extends AppCompatActivity {
     private ImageView btnBack;
     private WebView webview;
     private ProgressBar mProgressBar;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +132,17 @@ public class ActivityAbout extends AppCompatActivity {
 
         }
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        flurryParams.put("User_Status", "Registered");
+        FlurryAgent.logEvent("Tentang_Masaku", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("Tentang_Masaku");
     }
 
 }

@@ -7,6 +7,8 @@ import android.support.multidex.MultiDex;
 import android.util.Base64;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +31,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MyApplication extends Application {
@@ -46,6 +49,11 @@ public class MyApplication extends Application {
                 .build());
         ParseManager.registerParse(this);
         ParseManager.getDeviceToken(this);
+        // configure Flurry
+        FlurryAgent.setLogEnabled(true);
+
+        // init Flurry
+        FlurryAgent.init(this, ConfigManager.FLURRY_API_KEY);
 
 
     }

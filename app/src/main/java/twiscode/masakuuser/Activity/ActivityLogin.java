@@ -20,8 +20,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
@@ -29,6 +33,7 @@ import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -46,10 +51,20 @@ public class ActivityLogin extends Activity{
     private DatabaseHandler db;
     private CheckBox showPass;
     int idShowPass;
+    Context ctx;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ctx = this;
+
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
+        flurryParams.put("User_Status", "Unregistered");
+        FlurryAgent.logEvent("Login_Masaku", flurryParams, true);
+
         setContentView(R.layout.activity_login);
 
         mActivity = this;
@@ -67,6 +82,9 @@ public class ActivityLogin extends Activity{
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                FlurryAgent.endTimedEvent("Login_Masaku");
+                FlurryAgent.onEndSession(ctx);
                 Intent i = new Intent(getBaseContext(), ActivityRegister.class);
                 startActivity(i);
                 finish();
@@ -76,6 +94,9 @@ public class ActivityLogin extends Activity{
         btnForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                FlurryAgent.endTimedEvent("Login_Masaku");
+                FlurryAgent.onEndSession(ctx);
                 Intent i = new Intent(getBaseContext(), ActivityForgetPassword_1.class);
                 startActivity(i);
                 finish();
@@ -267,12 +288,17 @@ public class ActivityLogin extends Activity{
                                     .callback(new MaterialDialog.ButtonCallback() {
                                         @Override
                                         public void onPositive(MaterialDialog dialog) {
+
+                                            FlurryAgent.endTimedEvent("Login_Masaku");
+                                            FlurryAgent.onEndSession(ctx);
                                             ApplicationData.phoneNumberLogin = txtPhone.getText().toString();
                                             Intent i = new Intent(getBaseContext(), ActivityRegister.class);
                                             startActivity(i);
                                             finish();
 
                                             dialog.dismiss();
+
+
                                         }
                                     })
                                     .cancelable(false)
@@ -284,12 +310,16 @@ public class ActivityLogin extends Activity{
 
                     break;
                 case "OK":
+                    FlurryAgent.endTimedEvent("Login_Masaku");
+                    FlurryAgent.onEndSession(ctx);
                     Intent i = new Intent(getBaseContext(), Main.class);
                     startActivity(i);
                     finish();
                     break;
                 case "VERIFY":
                     ApplicationData.isVerify = 1;
+                    FlurryAgent.endTimedEvent("Login_Masaku");
+                    FlurryAgent.onEndSession(ctx);
                     Intent j = new Intent(getBaseContext(), ActivityVerifyHp.class);
                     startActivity(j);
                     finish();
@@ -303,6 +333,8 @@ public class ActivityLogin extends Activity{
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+
 
 
 }
