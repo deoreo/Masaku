@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.Activity.ActivityAbout;
 import twiscode.masakuuser.Activity.ActivityContactUs;
 import twiscode.masakuuser.Activity.ActivityFAQ;
@@ -32,6 +37,8 @@ public class FragmentBantuan extends Fragment {
 	private LinearLayout btnAbout, btnContactUs, btnFAQ, btnTerms,btnTutor;
 	private RecyclerView recyclerView;
 	private DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
+
+	Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 	public static FragmentBantuan newInstance(int page) {
@@ -91,6 +98,16 @@ public class FragmentBantuan extends Fragment {
 
 
 		return rootView;
+	}
+
+	public void onStart() {
+		super.onStart();
+		FlurryAgent.logEvent("HELP", flurryParams, true);
+	}
+
+	public void onStop() {
+		super.onStop();
+		FlurryAgent.endTimedEvent("HELP");
 	}
 
 

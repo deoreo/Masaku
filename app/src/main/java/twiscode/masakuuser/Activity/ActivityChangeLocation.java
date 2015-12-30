@@ -32,6 +32,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
@@ -48,8 +49,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -85,6 +88,8 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
     public Boolean isSearchCurrent = false;
     private LinearLayout layoutfillForm;
     private ProgressBar progress;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -458,6 +463,16 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("CHECKOUT_LOCATION", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("CHECKOUT_LOCATION");
     }
 
 }

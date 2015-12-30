@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterAllMenus;
@@ -66,6 +68,8 @@ public class FragmentAllMenus extends Fragment {
 	private HashMap<String,ModelAllMenus> allMenus = new HashMap<>();
 
 	ApplicationManager appManager;
+
+	Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 	public static FragmentAllMenus newInstance(int page) {
@@ -470,6 +474,16 @@ public class FragmentAllMenus extends Fragment {
 				break;
 		}
 		return bln;
+	}
+
+	public void onStart() {
+		super.onStart();
+		FlurryAgent.logEvent("MENU_ALL", flurryParams, true);
+	}
+
+	public void onStop() {
+		super.onStop();
+		FlurryAgent.endTimedEvent("MENU_ALL");
 	}
 
 

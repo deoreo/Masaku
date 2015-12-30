@@ -189,13 +189,12 @@ public class ActivityRegister extends Activity {
 
     public void onStart() {
         super.onStart();
-        flurryParams.put("User_Status", "Unregistered");
-        FlurryAgent.logEvent("Register_Masaku_1", flurryParams, true);
+        FlurryAgent.logEvent("REGISTER", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
-        FlurryAgent.endTimedEvent("Register_Masaku_1");
+        FlurryAgent.endTimedEvent("REGISTER");
     }
 
 

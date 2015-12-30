@@ -8,6 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 
@@ -21,6 +26,9 @@ public class ActivityFAQ extends AppCompatActivity {
             btnFaq6, btnFaq7, btnFaq8, btnFaq9, btnFaq10, btnFaq11;
     private TextView txtFaq1, txtFaq2, txtFaq3, txtFaq4, txtFaq5,
             txtFaq6, txtFaq7, txtFaq8, txtFaq9, txtFaq10, txtFaq11;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,6 +180,16 @@ public class ActivityFAQ extends AppCompatActivity {
 
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("FAQ", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("FAQ");
     }
 
 }

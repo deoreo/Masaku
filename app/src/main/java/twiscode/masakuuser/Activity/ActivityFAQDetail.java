@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 
@@ -17,6 +22,9 @@ public class ActivityFAQDetail extends AppCompatActivity {
 
     private ImageView btnBack;
     private TextView txtQuestion, txtAnswer;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +42,16 @@ public class ActivityFAQDetail extends AppCompatActivity {
         txtQuestion.setText(Html.fromHtml(ApplicationData.question));
         txtAnswer.setText(Html.fromHtml(ApplicationData.answer));
 
+    }
 
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("FAQ_DETAIL", flurryParams, true);
+    }
 
-
-
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("FAQ_DETAIL");
     }
 
 }

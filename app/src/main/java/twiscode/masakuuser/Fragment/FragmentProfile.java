@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityAbout;
 import twiscode.masakuuser.Activity.ActivityCheckout;
@@ -62,6 +64,8 @@ public class FragmentProfile extends Fragment {
 	private ApplicationManager applicationManager;
 	private CharSequence[] listcities;
 	private TextView txtCity;
+
+	Map<String, String> flurryParams = new HashMap<String,String>();
 
 	public static FragmentProfile newInstance(int page) {
 		Bundle args = new Bundle();
@@ -313,6 +317,16 @@ public class FragmentProfile extends Fragment {
 		}
 
 
+	}
+
+	public void onStart() {
+		super.onStart();
+		FlurryAgent.logEvent("PROFILE", flurryParams, true);
+	}
+
+	public void onStop() {
+		super.onStop();
+		FlurryAgent.endTimedEvent("PROFILE");
 	}
 
 

@@ -12,6 +12,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.R;
 
 /**
@@ -23,6 +28,8 @@ public class ActivityContactUs extends AppCompatActivity {
     private RelativeLayout btnCallUs;
     private Button btnKirim;
     private EditText txtNama, txtFeedback;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,16 @@ public class ActivityContactUs extends AppCompatActivity {
 
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("CONTACT_US", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("CONTACT_US");
     }
 
 }

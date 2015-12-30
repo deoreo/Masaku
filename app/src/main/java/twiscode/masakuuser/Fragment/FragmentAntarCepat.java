@@ -26,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Activity.ActivitySpeedNext;
@@ -72,6 +74,8 @@ public class FragmentAntarCepat extends Fragment {
 	private BroadcastReceiver updateCart;
 
 	private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
+
+	Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 
@@ -388,6 +392,16 @@ public class FragmentAntarCepat extends Fragment {
 		// add data
 		intent.putExtra("message", type);
 		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+	}
+
+	public void onStart() {
+		super.onStart();
+		FlurryAgent.logEvent("MENU_SPEED", flurryParams, true);
+	}
+
+	public void onStop() {
+		super.onStop();
+		FlurryAgent.endTimedEvent("MENU_SPEED");
 	}
 
 

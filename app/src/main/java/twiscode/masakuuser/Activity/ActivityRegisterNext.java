@@ -194,13 +194,12 @@ public class ActivityRegisterNext extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        flurryParams.put("User_Status", "Unregistered");
-        FlurryAgent.logEvent("Register_Masaku_2", flurryParams, true);
+        FlurryAgent.logEvent("REGISTER", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
-        FlurryAgent.endTimedEvent("Register_Masaku_2");
+        FlurryAgent.endTimedEvent("REGISTER");
     }
 
 

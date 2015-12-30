@@ -14,6 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
@@ -34,6 +39,8 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
     Activity act;
 
     private String phone;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +165,16 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
         }
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("FORGET_PASSWORD", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("FORGET_PASSWORD");
     }
 
 }

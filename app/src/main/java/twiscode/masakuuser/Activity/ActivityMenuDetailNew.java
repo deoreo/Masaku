@@ -25,6 +25,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.flurry.android.FlurryAgent;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -50,8 +51,10 @@ import java.security.KeyStore;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import twiscode.masakuuser.Adapter.AdapterPagerMenuDetail;
 import twiscode.masakuuser.Adapter.AdapterVendorFeedback;
@@ -93,6 +96,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     int noImage = R.drawable.masaku_dummy_480x360;
     Button btnPesan;
     private RelativeLayout layoutTimePO;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
     @Override
@@ -211,11 +216,11 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ApplicationData.cart.size()>0) {
+                if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
                     startActivity(i);
-                }else{
-                    DialogManager.showDialog(ActivityMenuDetailNew.this,"Mohon Maaf", "Anda belum memiliki pesanan");
+                } else {
+                    DialogManager.showDialog(ActivityMenuDetailNew.this, "Mohon Maaf", "Anda belum memiliki pesanan");
                 }
             }
         });
@@ -256,7 +261,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
                 if(jml > 1){
                     int last = jml-1;
                     ApplicationData.cart.get(modelMenu.getId()).setJumlah(last);
-                    txtCount.setText(""+last);
+                    txtCount.setText("" + last);
                 }
                 else {
                     ApplicationData.cart.remove(modelMenu.getId());
@@ -324,15 +329,18 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ApplicationData.cart.size()>0) {
+                if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
                     startActivity(i);
-                }else{
+                } else {
                     DialogManager.showDialog(ActivityMenuDetailNew.this, "Mohon Maaf", "Anda belum memiliki pesanan");
                 }
 
             }
         });
+
+        flurryParams.put("ID_MENU",modelMenu.getId());
+        FlurryAgent.logEvent("MENU_DETAIL", flurryParams, true);
 
 
 
@@ -527,6 +535,11 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         String [] d = date.split(" ");
         dt = d[0]+" "+d[1];
         return  dt;
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("MENU_DETAIL");
     }
 
 }

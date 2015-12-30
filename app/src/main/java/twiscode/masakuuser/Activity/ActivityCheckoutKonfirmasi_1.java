@@ -16,10 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.flurry.android.FlurryAgent;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Timer;
 
 import twiscode.masakuuser.Adapter.AdapterPagerCheckout;
@@ -41,6 +44,8 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
     private DecimalFormat decimalFormat;
 
     CountDownTimer countDownTimer;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
     // Change by Lucifer
@@ -127,6 +132,16 @@ public class ActivityCheckoutKonfirmasi_1 extends AppCompatActivity {
 
         }.start();
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("PREORDER_PAYMENT", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("PREORDER_PAYMENT");
     }
 
 

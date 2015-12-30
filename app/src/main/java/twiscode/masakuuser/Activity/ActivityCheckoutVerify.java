@@ -9,6 +9,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 
@@ -21,6 +26,8 @@ public class ActivityCheckoutVerify extends AppCompatActivity {
     ApplicationManager applicationManager;
     private ImageView btnBack;
     private ProgressBar progress;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 
@@ -41,6 +48,16 @@ public class ActivityCheckoutVerify extends AppCompatActivity {
         });
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("PREORDER_VERIFIED", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("PREORDER_VERIFIED");
     }
 
 

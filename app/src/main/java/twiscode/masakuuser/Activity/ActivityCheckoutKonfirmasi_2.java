@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,8 +27,10 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import twiscode.masakuuser.Adapter.AdapterCheckout;
 import twiscode.masakuuser.Adapter.AdapterCheckoutKonfirmasi;
@@ -55,6 +58,8 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
 
     CountDownTimer countDownTimer;
     private DecimalFormat decimalFormat;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 
@@ -252,6 +257,16 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
         }
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("PREORDER_PAYMENT", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("PREORDER_PAYMENT");
     }
 
 

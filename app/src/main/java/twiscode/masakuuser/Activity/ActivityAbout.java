@@ -136,13 +136,12 @@ public class ActivityAbout extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        flurryParams.put("User_Status", "Registered");
-        FlurryAgent.logEvent("Tentang_Masaku", flurryParams, true);
+        FlurryAgent.logEvent("ABOUT", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
-        FlurryAgent.endTimedEvent("Tentang_Masaku");
+        FlurryAgent.endTimedEvent("ABOUT");
     }
 
 }

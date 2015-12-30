@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
@@ -41,6 +43,8 @@ public class ActivityProfileNama extends Activity {
     private ApplicationManager applicationManager;
     private Activity act;
     private ImageView btnBack;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
     @Override
@@ -180,5 +184,15 @@ public class ActivityProfileNama extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("EDIT_NAME", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("EDIT_NAME");
     }
 }

@@ -29,6 +29,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -43,6 +44,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Activity.ActivityChangeLocation;
@@ -90,6 +92,7 @@ public class FragmentCheckoutPO extends Fragment {
     int pembayaran = 1;
     ModelUser user;
     //boolean isClicked = false;
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     public static FragmentCheckoutPO newInstance() {
         FragmentCheckoutPO fragment = new FragmentCheckoutPO();
@@ -882,5 +885,15 @@ public class FragmentCheckoutPO extends Fragment {
         }
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("CHECKOUT_PREORDER", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("CHECKOUT_PREORDER");
     }
 }

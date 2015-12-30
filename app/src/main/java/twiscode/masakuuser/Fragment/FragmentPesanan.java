@@ -17,12 +17,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterPesanan;
@@ -48,6 +51,8 @@ public class FragmentPesanan extends Fragment {
     private PullRefreshLayout mSwipeRefreshLayout;
 
 	TextView noData;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 
@@ -304,6 +309,16 @@ public class FragmentPesanan extends Fragment {
                 break;
         }
         return bln;
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("MENU_HISTORY", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("MENU_HISTORY");
     }
 
 

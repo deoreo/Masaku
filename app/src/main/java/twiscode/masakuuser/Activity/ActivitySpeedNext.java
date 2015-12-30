@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Adapter.AdapterMenuNext;
@@ -51,6 +53,8 @@ public class ActivitySpeedNext extends AppCompatActivity {
     private HashMap<String,ModelMenuSpeed> speedmenu = new HashMap<>();
     private ProgressBar progress;
     ApplicationManager applicationManager;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -269,6 +273,16 @@ public class ActivitySpeedNext extends AppCompatActivity {
             //mSwipeRefreshLayoutNoData.setRefreshing(false);
 
         }
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("MENU_SPEED_NEXT", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("MENU_SPEED_NEXT");
     }
 
 }

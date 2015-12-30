@@ -27,6 +27,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -40,6 +41,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Activity.ActivityChangeLocation;
@@ -81,6 +83,8 @@ public class FragmentCheckoutSpeed extends Fragment {
     private DecimalFormat decimalFormat;
     private ProgressBar progress;
     private BroadcastReceiver updateCart;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     public static FragmentCheckoutSpeed newInstance() {
         FragmentCheckoutSpeed fragment = new FragmentCheckoutSpeed();
@@ -597,5 +601,15 @@ public class FragmentCheckoutSpeed extends Fragment {
                 new IntentFilter("updateCart"));
 
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("CHECKOUT_SPEED", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("CHECKOUT_SPEED");
     }
 }

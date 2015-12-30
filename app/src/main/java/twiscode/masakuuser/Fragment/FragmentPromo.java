@@ -13,13 +13,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
@@ -41,6 +44,8 @@ public class FragmentPromo extends Fragment {
 	private int mPage;
 
 	private RecyclerView recyclerView;
+
+	Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 
@@ -96,6 +101,16 @@ public class FragmentPromo extends Fragment {
 		LIST_MENU.add(promo);
 
 
+	}
+
+	public void onStart() {
+		super.onStart();
+		FlurryAgent.logEvent("PROMO", flurryParams, true);
+	}
+
+	public void onStop() {
+		super.onStop();
+		FlurryAgent.endTimedEvent("PROMO");
 	}
 
 

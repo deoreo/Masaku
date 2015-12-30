@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.flurry.android.FlurryAgent;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Adapter.AdapterCheckout;
@@ -67,6 +69,9 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     int total = 0;
     int diskon = 0;
     private DecimalFormat decimalFormat;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,6 +221,16 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("TRANSACTION_DETAIL", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("TRANSACTION_DETAIL");
     }
 
 }

@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -42,8 +44,10 @@ import java.security.KeyStore;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import twiscode.masakuuser.Adapter.AdapterVendorFeedback;
 import twiscode.masakuuser.Model.ModelCart;
@@ -79,6 +83,8 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
     @Override
@@ -145,6 +151,8 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
         });
 
 
+        flurryParams.put("ID_MENU", modelMenu.getId());
+        FlurryAgent.logEvent("MENU_DETAIL", flurryParams, true);
 
 
 
@@ -247,6 +255,11 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
     public void onResume() {
         super.onResume();
 
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("MENU_DETAIL");
     }
 
 }

@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 
@@ -17,6 +22,7 @@ public class ActivityTerms extends AppCompatActivity {
 
     private ImageView btnBack;
     private TextView txtCopyright,txtGuarantee,txtTerms,txtPrivacy,txtDisclaimer;
+    Map<String, String> flurryParams = new HashMap<String,String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +48,16 @@ public class ActivityTerms extends AppCompatActivity {
         txtPrivacy.setText(Html.fromHtml(getResources().getString(R.string.contentPrivacy)));
         txtDisclaimer.setText(Html.fromHtml(getResources().getString(R.string.contentDisclaimer)));
 
+    }
 
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("TERMS_CONDITIONS", flurryParams, true);
+    }
 
-
-
-
-
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("TERMS_CONDITIONS");
     }
 
 }

@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -41,6 +42,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
@@ -78,6 +80,8 @@ public class FragmentMenu extends Fragment {
 	ArrayList<ModelMenuSpeed> listNonEvent = new ArrayList<>();
 
 	View header;
+
+	Map<String, String> flurryParams = new HashMap<String,String>();
 
 
 	public static FragmentMenu newInstance(int page) {
@@ -428,6 +432,16 @@ public class FragmentMenu extends Fragment {
 
 
 
+	}
+
+	public void onStart() {
+		super.onStart();
+		FlurryAgent.logEvent("MENU_PREORDER", flurryParams, true);
+	}
+
+	public void onStop() {
+		super.onStop();
+		FlurryAgent.endTimedEvent("MENU_PREORDER");
 	}
 
 

@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.flurry.android.FlurryAgent;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterWishlist;
@@ -73,6 +75,8 @@ public class FragmentWishlist extends Fragment {
     private HashMap<String, ModelAllMenus> wishlistMenus = new HashMap<>();
 
     ApplicationManager appManager;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
     public static FragmentWishlist newInstance(int page) {
@@ -457,6 +461,16 @@ public class FragmentWishlist extends Fragment {
                 break;
         }
         return bln;
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("MENU_WISHLIST", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("MENU_WISHLIST");
     }
 
 

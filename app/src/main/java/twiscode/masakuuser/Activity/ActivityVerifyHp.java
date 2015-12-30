@@ -18,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelUser;
@@ -42,6 +47,7 @@ public class ActivityVerifyHp extends AppCompatActivity {
 
     private String code;
     private boolean isClick = false;
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
 
     @Override
@@ -276,6 +282,16 @@ public class ActivityVerifyHp extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("VERIFICATION_CODE", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("VERIFICATION_CODE");
     }
 
 

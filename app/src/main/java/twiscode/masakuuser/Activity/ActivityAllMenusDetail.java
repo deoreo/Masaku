@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -43,8 +45,10 @@ import java.security.KeyStore;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import twiscode.masakuuser.Adapter.AdapterVendorFeedback;
 import twiscode.masakuuser.Model.ModelAllMenus;
@@ -82,6 +86,8 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
     private RelativeLayout layoutTimePO;
+
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +181,8 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         wrapCount.setVisibility(View.GONE);
         timeLayout.setVisibility(View.GONE);
 
+        flurryParams.put("ID_MENU",modelMenu.getId());
+        FlurryAgent.logEvent("MENU_DETAIL", flurryParams, true);
 
 
 
@@ -274,6 +282,16 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
             }
 
         }
+    }
+
+    public void onStart() {
+        super.onStart();
+        //FlurryAgent.logEvent("LOGIN", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("MENU_DETAIL");
     }
 
 

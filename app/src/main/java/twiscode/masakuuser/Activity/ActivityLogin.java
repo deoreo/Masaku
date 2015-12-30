@@ -61,9 +61,9 @@ public class ActivityLogin extends Activity{
 
         ctx = this;
 
-        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
-        flurryParams.put("User_Status", "Unregistered");
-        FlurryAgent.logEvent("Login_Masaku", flurryParams, true);
+
+
+        FlurryAgent.logEvent("LOGIN", flurryParams, true);
 
         setContentView(R.layout.activity_login);
 
@@ -83,8 +83,6 @@ public class ActivityLogin extends Activity{
             @Override
             public void onClick(View v) {
 
-                FlurryAgent.endTimedEvent("Login_Masaku");
-                FlurryAgent.onEndSession(ctx);
                 Intent i = new Intent(getBaseContext(), ActivityRegister.class);
                 startActivity(i);
                 finish();
@@ -95,8 +93,6 @@ public class ActivityLogin extends Activity{
             @Override
             public void onClick(View v) {
 
-                FlurryAgent.endTimedEvent("Login_Masaku");
-                FlurryAgent.onEndSession(ctx);
                 Intent i = new Intent(getBaseContext(), ActivityForgetPassword_1.class);
                 startActivity(i);
                 finish();
@@ -289,8 +285,6 @@ public class ActivityLogin extends Activity{
                                         @Override
                                         public void onPositive(MaterialDialog dialog) {
 
-                                            FlurryAgent.endTimedEvent("Login_Masaku");
-                                            FlurryAgent.onEndSession(ctx);
                                             ApplicationData.phoneNumberLogin = txtPhone.getText().toString();
                                             Intent i = new Intent(getBaseContext(), ActivityRegister.class);
                                             startActivity(i);
@@ -310,16 +304,12 @@ public class ActivityLogin extends Activity{
 
                     break;
                 case "OK":
-                    FlurryAgent.endTimedEvent("Login_Masaku");
-                    FlurryAgent.onEndSession(ctx);
                     Intent i = new Intent(getBaseContext(), Main.class);
                     startActivity(i);
                     finish();
                     break;
                 case "VERIFY":
                     ApplicationData.isVerify = 1;
-                    FlurryAgent.endTimedEvent("Login_Masaku");
-                    FlurryAgent.onEndSession(ctx);
                     Intent j = new Intent(getBaseContext(), ActivityVerifyHp.class);
                     startActivity(j);
                     finish();
@@ -332,6 +322,16 @@ public class ActivityLogin extends Activity{
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("LOGIN", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("LOGIN");
     }
 
 

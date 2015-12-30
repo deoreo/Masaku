@@ -10,6 +10,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import me.relex.circleindicator.CircleIndicator;
 import twiscode.masakuuser.Adapter.TutorialBantuanSliderAdapter;
 import twiscode.masakuuser.Adapter.TutorialSliderAdapter;
@@ -26,6 +31,7 @@ public class ActivityTutorialBantuan extends FragmentActivity {
     RelativeLayout imageSlide;
     private final String TAG = "ActivityTutorial";
     TextView noPromo;
+    Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,16 @@ public class ActivityTutorialBantuan extends FragmentActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.logEvent("TUTORIAL", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("TUTORIAL");
     }
 
 
