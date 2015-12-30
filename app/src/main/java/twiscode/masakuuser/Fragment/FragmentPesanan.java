@@ -230,7 +230,7 @@ public class FragmentPesanan extends Fragment {
             super.onPostExecute(result);
             switch (result) {
                 case "FAIL":
-                    DialogManager.showDialog(activity, "Mohon maaf", "Anda Tidak Terhubung dengan Internet!");
+                    //DialogManager.showDialog(activity, "Mohon maaf", "Anda Tidak Terhubung dengan Internet!");
                     if(LIST_PESANAN.size() > 0){
                         mListView.setVisibility(View.VISIBLE);
                         noData.setVisibility(View.GONE);

@@ -70,6 +70,7 @@ public class ActivitySplash extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     int countUser = db.getuserCount();
+                    Log.d("db count",""+countUser);
                     if (countUser > 0) {
                         /*
                         Intent i = new Intent(getBaseContext(), ActivityHome.class);
@@ -133,6 +134,7 @@ public class ActivitySplash extends AppCompatActivity {
 
 
                 JSONControl jsControl = new JSONControl();
+                Log.d("last token", appManager.getUserToken());
                 JSONObject responseRegister = jsControl.postRefreshToken(appManager.getUserToken());
                 Log.d("json refreshtoken", responseRegister.toString());
                 String token = responseRegister.getString("token");

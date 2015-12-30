@@ -16,7 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     // Database Name
     private static final String DATABASE_NAME = "MasakuDB";
     // ModelUser table name
@@ -39,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_TABLE_user = "CREATE TABLE " + T_USER + "("
                 + KEY_USER_ID + " TEXT PRIMARY KEY,"
                 + KEY_USER_NAME + " TEXT,"
-                + KEY_USER_PHONE + " TEXT"
+                + KEY_USER_PHONE + " TEXT,"
                 + KEY_TRUSTED + " TEXT"
                 + ")";
 
