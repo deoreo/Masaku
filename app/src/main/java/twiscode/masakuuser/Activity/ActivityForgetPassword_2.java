@@ -23,6 +23,7 @@ import java.util.Map;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 
@@ -237,12 +238,14 @@ public class ActivityForgetPassword_2 extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("FORGET_PASSWORD", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("FORGET_PASSWORD");
+        FlurryAgent.onEndSession(this);
     }
 
 

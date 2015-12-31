@@ -65,6 +65,7 @@ import twiscode.masakuuser.Model.ModelVendorFeedback;
 import twiscode.masakuuser.Model.ModelVendorRating;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 import twiscode.masakuuser.Utilities.PicassoTrustAll;
@@ -537,9 +538,15 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         return  dt;
     }
 
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
+    }
+
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("MENU_DETAIL");
+        FlurryAgent.onEndSession(this);
     }
 
 }

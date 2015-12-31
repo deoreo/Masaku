@@ -30,6 +30,7 @@ import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 
@@ -194,12 +195,14 @@ public class ActivityRegisterNext extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("REGISTER", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("REGISTER");
+        FlurryAgent.onEndSession(this);
     }
 
 

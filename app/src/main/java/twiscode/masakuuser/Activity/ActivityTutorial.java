@@ -33,6 +33,7 @@ import java.util.Map;
 import me.relex.circleindicator.CircleIndicator;
 import twiscode.masakuuser.Adapter.TutorialSliderAdapter;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityTutorial extends FragmentActivity {
@@ -97,8 +98,9 @@ public class ActivityTutorial extends FragmentActivity {
     @Override
     public void onBackPressed()
     {
+        super.onBackPressed();
         finish();
-        super.onBackPressed();  // optional depending on your needs
+          // optional depending on your needs
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -107,12 +109,14 @@ public class ActivityTutorial extends FragmentActivity {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("TUTORIAL", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("TUTORIAL");
+        FlurryAgent.onEndSession(this);
     }
 
 

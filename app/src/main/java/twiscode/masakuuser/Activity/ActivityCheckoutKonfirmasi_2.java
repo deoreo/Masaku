@@ -40,6 +40,7 @@ import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 
@@ -261,12 +262,14 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("PREORDER_PAYMENT", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("PREORDER_PAYMENT");
+        FlurryAgent.onEndSession(this);
     }
 
 

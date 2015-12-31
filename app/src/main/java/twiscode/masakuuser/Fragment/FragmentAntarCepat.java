@@ -46,6 +46,7 @@ import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 
 public class FragmentAntarCepat extends Fragment {
@@ -396,12 +397,14 @@ public class FragmentAntarCepat extends Fragment {
 
 	public void onStart() {
 		super.onStart();
+		FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
 		FlurryAgent.logEvent("MENU_SPEED", flurryParams, true);
 	}
 
 	public void onStop() {
 		super.onStop();
 		FlurryAgent.endTimedEvent("MENU_SPEED");
+		FlurryAgent.onEndSession(getActivity());
 	}
 
 

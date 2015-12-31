@@ -55,6 +55,7 @@ import twiscode.masakuuser.Model.ModelMenuSpeed;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 
 public class FragmentMenu extends Fragment {
 
@@ -436,12 +437,14 @@ public class FragmentMenu extends Fragment {
 
 	public void onStart() {
 		super.onStart();
+		FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
 		FlurryAgent.logEvent("MENU_PREORDER", flurryParams, true);
 	}
 
 	public void onStop() {
 		super.onStop();
 		FlurryAgent.endTimedEvent("MENU_PREORDER");
+		FlurryAgent.onEndSession(getActivity());
 	}
 
 

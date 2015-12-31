@@ -478,12 +478,14 @@ public class FragmentAllMenus extends Fragment {
 
 	public void onStart() {
 		super.onStart();
+		FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
 		FlurryAgent.logEvent("MENU_ALL", flurryParams, true);
 	}
 
 	public void onStop() {
 		super.onStop();
 		FlurryAgent.endTimedEvent("MENU_ALL");
+		FlurryAgent.onEndSession(getActivity());
 	}
 
 

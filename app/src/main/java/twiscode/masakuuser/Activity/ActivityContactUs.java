@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ConfigManager;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -78,12 +79,14 @@ public class ActivityContactUs extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("CONTACT_US", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("CONTACT_US");
+        FlurryAgent.onEndSession(this);
     }
 
 }

@@ -465,12 +465,14 @@ public class FragmentWishlist extends Fragment {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("MENU_WISHLIST", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("MENU_WISHLIST");
+        FlurryAgent.onEndSession(getActivity());
     }
 
 

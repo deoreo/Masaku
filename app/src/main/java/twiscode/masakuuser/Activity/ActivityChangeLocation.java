@@ -56,6 +56,7 @@ import java.util.Map;
 
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -467,12 +468,14 @@ public class ActivityChangeLocation extends FragmentActivity implements GoogleMa
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("CHECKOUT_LOCATION", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("CHECKOUT_LOCATION");
+        FlurryAgent.onEndSession(this);
     }
 
 }
