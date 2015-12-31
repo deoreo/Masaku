@@ -9,7 +9,7 @@
             android:id="@+id/imgBg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/tutorial_masaku_bg_03"
+            android:src="@drawable/tut_3"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             />

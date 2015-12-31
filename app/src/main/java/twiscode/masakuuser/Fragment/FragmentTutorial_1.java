@@ -41,7 +41,12 @@ public class FragmentTutorial_1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tutorial_slider_fragment_1, container, false);
+        View v = null;
+        try {
+            v = inflater.inflate(R.layout.tutorial_slider_fragment_1, container, false);
+        } catch (Exception e) {
+
+        }
 
 
         return v;
