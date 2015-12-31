@@ -30,6 +30,7 @@ import twiscode.masakuuser.Adapter.AdapterPromo;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelPromo;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ConfigManager;
 
 public class FragmentPromo extends Fragment {
 
@@ -105,12 +106,14 @@ public class FragmentPromo extends Fragment {
 
 	public void onStart() {
 		super.onStart();
+		FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
 		FlurryAgent.logEvent("PROMO", flurryParams, true);
 	}
 
 	public void onStop() {
 		super.onStop();
 		FlurryAgent.endTimedEvent("PROMO");
+		FlurryAgent.onEndSession(getActivity());
 	}
 
 

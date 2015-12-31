@@ -58,6 +58,7 @@ import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 
@@ -889,11 +890,13 @@ public class FragmentCheckoutPO extends Fragment {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("CHECKOUT_PREORDER", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("CHECKOUT_PREORDER");
+        FlurryAgent.onEndSession(getActivity());
     }
 }

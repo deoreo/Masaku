@@ -25,6 +25,7 @@ import twiscode.masakuuser.Activity.ActivityTerms;
 import twiscode.masakuuser.Activity.ActivityTutorialBantuan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
@@ -102,12 +103,14 @@ public class FragmentBantuan extends Fragment {
 
 	public void onStart() {
 		super.onStart();
+		FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
 		FlurryAgent.logEvent("HELP", flurryParams, true);
 	}
 
 	public void onStop() {
 		super.onStop();
 		FlurryAgent.endTimedEvent("HELP");
+		FlurryAgent.onEndSession(getActivity());
 	}
 
 

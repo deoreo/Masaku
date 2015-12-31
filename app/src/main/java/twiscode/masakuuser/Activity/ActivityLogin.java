@@ -63,7 +63,7 @@ public class ActivityLogin extends Activity{
 
 
 
-        FlurryAgent.logEvent("LOGIN", flurryParams, true);
+
 
         setContentView(R.layout.activity_login);
 
@@ -326,12 +326,14 @@ public class ActivityLogin extends Activity{
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("LOGIN", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("LOGIN");
+        FlurryAgent.onEndSession(this);
     }
 
 

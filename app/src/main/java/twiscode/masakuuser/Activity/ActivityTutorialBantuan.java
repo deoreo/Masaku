@@ -19,6 +19,7 @@ import me.relex.circleindicator.CircleIndicator;
 import twiscode.masakuuser.Adapter.TutorialBantuanSliderAdapter;
 import twiscode.masakuuser.Adapter.TutorialSliderAdapter;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityTutorialBantuan extends FragmentActivity {
@@ -69,10 +70,6 @@ public class ActivityTutorialBantuan extends FragmentActivity {
         });
 
 
-
-
-
-
     }
 
 
@@ -83,8 +80,8 @@ public class ActivityTutorialBantuan extends FragmentActivity {
     @Override
     public void onBackPressed()
     {
-        finish();
-        super.onBackPressed();  // optional depending on your needs
+        super.onBackPressed();
+        finish();// optional depending on your needs
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -93,12 +90,14 @@ public class ActivityTutorialBantuan extends FragmentActivity {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("TUTORIAL", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("TUTORIAL");
+        FlurryAgent.onEndSession(this);
     }
 
 

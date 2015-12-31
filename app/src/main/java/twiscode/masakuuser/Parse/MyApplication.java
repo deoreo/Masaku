@@ -54,7 +54,7 @@ public class MyApplication extends Application {
 
         // init Flurry
         FlurryAgent.init(this, ConfigManager.FLURRY_API_KEY);
-        FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
+        //FlurryAgent.onStartSession(this, ConfigManager.FLURRY_API_KEY);
 
 
     }

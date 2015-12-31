@@ -36,6 +36,7 @@ import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 
 public class FragmentPesanan extends Fragment {
@@ -313,12 +314,14 @@ public class FragmentPesanan extends Fragment {
 
     public void onStart() {
         super.onStart();
+        FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
         FlurryAgent.logEvent("MENU_HISTORY", flurryParams, true);
     }
 
     public void onStop() {
         super.onStop();
         FlurryAgent.endTimedEvent("MENU_HISTORY");
+        FlurryAgent.onEndSession(getActivity());
     }
 
 
