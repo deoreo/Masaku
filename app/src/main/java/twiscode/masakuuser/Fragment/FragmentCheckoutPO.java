@@ -501,7 +501,7 @@ public class FragmentCheckoutPO extends Fragment {
                                 eventMessage = transaksi.getJSONObject(i).getString("eventMessage");
                             }
                             catch (Exception x){
-                                x.printStackTrace();
+                                eventMessage = "";
                             }
 
                             delivery = Integer.parseInt(shippingPrice);

@@ -79,6 +79,7 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
                         isClick = true;
                         phone = txtPhone.getText().toString();
                         if (phone == null || phone.trim().isEmpty() ) {
+                            isClick = false;
                             DialogManager.showDialog(act, "Mohon Maaf", "Isi Nomor Ponsel Anda!");
                         } else {
                             /*
@@ -134,7 +135,6 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
             try {
 
                 String phone = params[0];
-
                 JSONControl jsControl = new JSONControl();
                 String response = jsControl.postForgotPassword(phone);
                 Log.d("json response phone", response);
@@ -142,6 +142,7 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
                 if(response.contains("true") && !response.contains("error")){
                     return "OK";
                 }
+
 
 
             } catch (Exception e) {
@@ -159,7 +160,7 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
             isClick = false;
             switch (result) {
                 case "FAIL":
-                    DialogManager.showDialog(activity, "Warning", "Register Phone Number failed!");
+                    DialogManager.showDialog(activity, "Mohon Maaf", "User tidak ditemukan");
                     break;
                 case "OK":
                     ApplicationData.phoneNumber = phone;

@@ -107,7 +107,6 @@
                                     android:textStyle="bold"
                                     android:singleLine="true"
                                     android:maxLines="1"
-                                    android:inputType="number"
                                     android:textCursorDrawable="@drawable/cursor_black"/>
 
                             </LinearLayout>
