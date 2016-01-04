@@ -78,14 +78,21 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
                     if(NetworkManager.getInstance(act).isConnectedInternet()){
                         isClick = true;
                         phone = txtPhone.getText().toString();
-                        String num=phone.substring(0,1);
-                        Log.d("phone num", num);
-                        Log.d("phone",phone);
-                        if(num.contains("0")){
-                            phone = phone.substring(1);
-                            Log.d("phone 1",phone);
+                        if (phone == null || phone.trim().isEmpty() ) {
+                            DialogManager.showDialog(act, "Mohon Maaf", "Isi Nomor Ponsel Anda!");
+                        } else {
+                            /*
+                            String num=phone.substring(0,1);
+                            Log.d("phone num", num);
+                            Log.d("phone",phone);
+                            if(num.contains("0")){
+                                phone = phone.substring(1);
+                                Log.d("phone 1",phone);
+                            }
+                            */
+                            new ForgotPassword(act).execute(phone);
                         }
-                        new ForgotPassword(act).execute(phone);
+
                     }
                     else {
                         DialogManager.showDialog(act, "Peringatan", "Tidak ada koneksi internet!");
