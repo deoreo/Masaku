@@ -70,35 +70,6 @@ public class MyApplication extends Application {
         return mInstance;
     }
 
-    public PublicKey getPublicKey(){
-        PublicKey publicKey = null;
-        RSAPublicKey rsaKey = null;
-        try {
-            String filename = Environment.getExternalStorageDirectory() + "/" + "public_key.der";
-            File file = new File(filename);
-            FileInputStream fileInputStream = new FileInputStream(file);
-            DataInputStream dataInputStream = new DataInputStream(fileInputStream);
-            byte[] keyBytes = new byte[(int)file.length()];
-            dataInputStream.readFully(keyBytes);
-            dataInputStream.close();
-
-            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
-
-            Log.d("MyApplication", "filename" + filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-
-        return publicKey;
-    }
 
 
 

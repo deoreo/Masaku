@@ -37,6 +37,8 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentMainMenu extends Fragment {
 
@@ -67,6 +69,7 @@ public class FragmentMainMenu extends Fragment {
 		btnPesan = (Button) rootView.findViewById(R.id.btnPesanSkrg);
 		viewPager = (ViewPager) rootView.findViewById(R.id.pager);
 		viewPager.setAdapter(new AdapterPagerMain(getChildFragmentManager()));
+
 
 		// Give the PagerSlidingTabStrip the ViewPager
 		tabsStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
@@ -122,7 +125,7 @@ public class FragmentMainMenu extends Fragment {
 				}
 				else {
 					btnPesan.setVisibility(View.GONE);
-					SendBroadcast("spaceLayout","off");
+					SendBroadcast("spaceLayout", "off");
 				}
 
 
@@ -137,6 +140,10 @@ public class FragmentMainMenu extends Fragment {
 			}
 		});
 
+		CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+				.setDefaultFontPath("fonts/Gotham.ttf")
+				.setFontAttrId(R.attr.fontPath)
+				.build());
 
 		return rootView;
 	}

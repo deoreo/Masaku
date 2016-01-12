@@ -42,6 +42,7 @@ import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
+import twiscode.masakuuser.Utilities.TlsSniFactory;
 
 
 public class JSONResponse {
@@ -67,6 +68,7 @@ public class JSONResponse {
             SchemeRegistry registry = new SchemeRegistry();
             registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
             registry.register(new Scheme("https", sf, 443));
+            registry.register(new Scheme("https", new TlsSniFactory(),443));
 
             ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
 

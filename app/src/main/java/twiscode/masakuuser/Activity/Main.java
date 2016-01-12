@@ -45,6 +45,7 @@ import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -312,7 +313,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
 
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 
 
