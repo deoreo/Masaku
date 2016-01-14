@@ -15,6 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <RelativeLayout
+        android:id="@+id/wrapCart"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_centerVertical="true"
@@ -52,4 +53,20 @@
                 android:minWidth="12dp"/>
         </LinearLayout>
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/wrapSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_centerVertical="true"
+        android:paddingRight="20dp"
+        android:layout_toLeftOf="@id/wrapCart"
+        >
+        <ImageView
+            android:padding="2dp"
+            android:id="@+id/btnSearch"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/search_icon"/>
+    </RelativeLayout>
+
 </RelativeLayout>
