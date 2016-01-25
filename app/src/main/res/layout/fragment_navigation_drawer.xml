@@ -123,19 +123,19 @@
         <ImageView
             android:id="@+id/gotoProfile"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="180dp"
             android:src="@drawable/profile_background"
             android:scaleType="fitXY"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="180dp"
             android:background="@drawable/plan_gradient"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="120dp">
             <ImageView
                 android:layout_width="34dp"
                 android:layout_height="34dp"
@@ -153,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:text="Nama"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16dp"/>
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

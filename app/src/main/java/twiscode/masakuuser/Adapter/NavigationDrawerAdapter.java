@@ -49,7 +49,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         ModelNavDrawer current = data.get(position);
         holder.title.setText(current.getTitle());
         if(position==data.size()-1){
-            holder.line.setVisibility(View.GONE);
+            //holder.line.setVisibility(View.GONE);
         }
         //holder.icon.setImageDrawable(act.getResources().getDrawable(ic));
     }
@@ -65,7 +65,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
-            line = (View) itemView.findViewById(R.id.line);
+            //line = (View) itemView.findViewById(R.id.line);
         }
     }
 }

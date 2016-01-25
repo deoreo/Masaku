@@ -18,8 +18,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class AdapterPagerMain extends FragmentPagerAdapter {
     int PAGE_COUNT = 0;
-    private String titles[] = {"PRE ORDER","SPEED DELIVERY"};
-
+    //private String titles[] = {"PRE ORDER","SPEED DELIVERY"};
+    private String titles[] = {"PRE ORDER"};
     public AdapterPagerMain(FragmentManager fm) {
         super(fm);
         PAGE_COUNT = titles.length;

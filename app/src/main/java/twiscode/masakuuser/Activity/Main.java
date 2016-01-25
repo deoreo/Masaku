@@ -227,7 +227,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
             case MENU:
                 fragment = new FragmentMainMenu();
                 //title = getString(R.string.app_name);
-                title = "Masaku";
+                title = "delihome";
                 break;
             case HISTORI_PESANAN:
                 fragment = new FragmentPesanan();
