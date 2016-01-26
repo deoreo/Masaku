@@ -27,11 +27,11 @@ public class TouchableWrapper extends FrameLayout {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     ActivityChangeLocation.hideKeyboard();
-                    ActivityChangeLocation.layoutMarkerFrom.setVisibility(GONE);
-                    ActivityChangeLocation.mTouchMap = true;
-                    if (ActivityChangeLocation.markerTemp != null) {
-                        ActivityChangeLocation.markerTemp.remove();
-                    }
+                    //ActivityChangeLocation.layoutMarkerFrom.setVisibility(GONE);
+                    //ActivityChangeLocation.mTouchMap = true;
+                    //if (ActivityChangeLocation.markerTemp != null) {
+                    //    ActivityChangeLocation.markerTemp.remove();
+                    //}
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
