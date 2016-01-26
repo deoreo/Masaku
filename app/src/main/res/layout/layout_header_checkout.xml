@@ -28,7 +28,7 @@
     <TextView
         android:id="@+id/alamatCheckout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/colorWhite"
         android:maxLength="120"
         android:padding="10dp"
@@ -55,7 +55,7 @@
         android:background="@color/colorWhite"
         android:maxLength="120"
         android:padding="10dp"
-        android:hint="maksimal 120 karakter"
+        android:hint="catatan bila ada tambahan informasi alamat"
         android:textColor="@color/colorBlack"
         android:textSize="14dp"
         android:gravity="left"
@@ -113,6 +113,23 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorGrey"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/promoInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/plain_white_garis_red">
+        <TextView
+            android:id="@+id/promoInfoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorRed"
+            android:gravity="center"
+            android:textSize="13dp"/>
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
