@@ -73,8 +73,8 @@ public class FragmentCheckoutPO extends Fragment {
     private EditText txtKode, txtNote;
     private ImageView btnBack;
     private ListView mListView;
-    private LinearLayout laySpecial,layPembayaran;
-    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial;
+    private LinearLayout laySpecial,layPembayaran,laypromoInfo;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial,txtPromoInfo;
     private Button btnKonfirmasi;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
@@ -134,9 +134,11 @@ public class FragmentCheckoutPO extends Fragment {
         View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
         txtSpecial = (TextView) header.findViewById(R.id.specialText);
         laySpecial = (LinearLayout) header.findViewById(R.id.specialLayout);
+        laypromoInfo = (LinearLayout) header.findViewById(R.id.promoInfo);
         txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
         txtNote = (EditText) header.findViewById(R.id.noteCheckout);
         txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
+        txtPromoInfo = (TextView) header.findViewById(R.id.promoInfoText);
         mListView.addHeaderView(header);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.layout_footer_checkout_po, null);
         txtSubtotal = (TextView) footer.findViewById(R.id.subtotalCheckout);

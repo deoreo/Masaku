@@ -41,6 +41,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <com.astuetz.PagerSlidingTabStrip
+                android:visibility="gone"
                 android:id="@+id/tabs"
                 app:pstsShouldExpand="true"
                 app:pstsTextAllCaps="true"

@@ -16,8 +16,8 @@ import twiscode.masakuuser.Fragment.FragmentMenu;
  */
 public class AdapterPagerCheckout extends FragmentPagerAdapter {
     int PAGE_COUNT = 0;
-    private String titles[] = {"PRE ORDER","SPEED DELIVERY"};
-
+    //private String titles[] = {"PRE ORDER","SPEED DELIVERY"};
+    private String titles[] = {"PRE ORDER"};
     public AdapterPagerCheckout(FragmentManager fm) {
         super(fm);
         PAGE_COUNT = titles.length;
