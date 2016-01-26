@@ -162,7 +162,7 @@
                 android:textColor="@color/colorRed"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:text="+ BELI"
+                android:text="+ ADD"
                 />
             <LinearLayout
                 android:id="@+id/layCounter"

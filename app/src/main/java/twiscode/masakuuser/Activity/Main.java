@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -75,8 +78,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         actionBar = getSupportActionBar();
 
-        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
         LayoutInflater mInflater = LayoutInflater.from(this);
 
         View mCustomView = mInflater.inflate(R.layout.custom_actionbar, null);
@@ -86,6 +92,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         btnCart = (ImageView) mCustomView.findViewById(R.id.btnCart);
         actionBar.setCustomView(mCustomView);
         actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         ApplicationData.titleBar = titleBar;
 
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer); //getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
