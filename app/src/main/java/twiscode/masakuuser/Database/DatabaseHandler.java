@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import twiscode.masakuuser.Model.ModelMap;
 import twiscode.masakuuser.Model.ModelUser;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -21,11 +22,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MasakuDB";
     // ModelUser table name
     private static final String T_USER = "t_user";
+    private static final String T_MAP = "t_map";
 
     private static final String KEY_USER_ID = "id_user";
     private static final String KEY_USER_NAME = "name_user";
     private static final String KEY_TRUSTED = "trusted_user";
     private static final String KEY_USER_PHONE = "phone_user";
+
+    private static final String KEY_MAP_ID = "id_map";
+    private static final String KEY_MAP_NAME = "name_map";
 
 
     public DatabaseHandler(Context context) {
@@ -36,14 +41,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_TABLE_user = "CREATE TABLE " + T_USER + "("
+        String CREATE_TABLE_USER = "CREATE TABLE " + T_USER + "("
                 + KEY_USER_ID + " TEXT PRIMARY KEY,"
                 + KEY_USER_NAME + " TEXT,"
                 + KEY_USER_PHONE + " TEXT,"
                 + KEY_TRUSTED + " TEXT"
                 + ")";
 
-        db.execSQL(CREATE_TABLE_user);
+        String CREATE_TABLE_MAP = "CREATE TABLE " + T_MAP + "("
+                + KEY_MAP_ID + " TEXT PRIMARY KEY,"
+                + KEY_MAP_NAME + " TEXT"
+                + ")";
+
+        db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_MAP);
     }
 
     // Upgrading database
@@ -105,5 +116,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public void insertmap(ModelMap modelMap) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_MAP_ID, modelMap.getId());
+        values.put(KEY_MAP_NAME, modelMap.getNama());
+        // Inserting Row
+        db.insert(T_MAP, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public ModelMap getAllMap() {
+        String allData = "SELECT  * FROM " + T_MAP;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(allData, null);
+        cursor.close();
+
+        ModelMap modeluser = new ModelMap(cursor.getString(0), cursor.getString(1));
+        return modeluser;
+    }
 
 }

@@ -5,7 +5,6 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="ladyjek.twiscode.com.ladyjek.Fragment.FragmentHome"
     >
 
     <RelativeLayout
@@ -13,13 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/mapView"
-            class="twiscode.masakuuser.Utilities.MySupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
 
         <LinearLayout
             android:id="@+id/wrapperBottom"
@@ -28,6 +20,8 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             >
+
+
 
             <RelativeLayout
                 android:id="@+id/btnGunakan"
@@ -82,14 +76,10 @@
             >
 
 
-            <ImageView
-                android:id="@+id/btnCurrent"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/currentlocation"
-                />
+
 
         </RelativeLayout>
+
         <RelativeLayout
 
             android:layout_width="wrap_content"
@@ -213,18 +203,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/txtFrom"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:layout_alignParentStart="true"
                         android:layout_below="@+id/txtFrom"
                         android:layout_marginTop="5dp"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:lines="1"
-                        android:hint="pilih lokasi"
+                        android:hint="Masukkan alamat anda"
                         android:selectAllOnFocus="true"
                         android:background="@null"
                         android:textColor="#111111"
@@ -275,7 +264,7 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/layoutfillForm"
         android:background="#ffffff"
-        android:visibility="gone"
+        android:visibility="visible"
         >
         <ListView
             android:id="@+id/lvSuggestion"
@@ -283,7 +272,7 @@
             android:layout_height="fill_parent"
             android:dividerHeight="0dp"
             android:divider="#00000000"
-            android:visibility="gone"
+            android:visibility="visible"
             >
         </ListView>
         <FrameLayout
@@ -292,7 +281,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             >
 
             <LinearLayout
