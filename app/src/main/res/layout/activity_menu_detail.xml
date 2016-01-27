@@ -13,19 +13,21 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:background="@color/colorRed"
+            android:background="@color/colorWhite"
             >
             <ImageView
                 android:id="@+id/btnBack"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/back"
+                android:src="@drawable/back_icon"
                 android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"/>
-            <ImageView
-                android:layout_width="113dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:src="@drawable/masaku_logo_white"
+                android:text="delihome"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp"
                 android:layout_centerInParent="true"
                 />
             <LinearLayout
@@ -42,7 +44,7 @@
                         android:id="@+id/btnCart"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/cart_90"/>
+                        android:src="@drawable/cart_icon"/>
                     <LinearLayout
                         android:id="@+id/wrapCount"
                         android:layout_width="wrap_content"
@@ -148,7 +150,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/rounded_red"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             >
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -185,6 +187,39 @@
                                     android:layout_gravity="center_horizontal"
                                     />
 
+                            </LinearLayout>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_alignParentBottom="true">
+                            <LinearLayout
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="5dp"
+                                android:background="#77726e">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Dikirim "
+                                    />
+                                <TextView
+                                    android:id="@+id/deliveryMenu"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Selasa, 22 Desember 2015"
+                                    />
                             </LinearLayout>
                         </RelativeLayout>
                     </RelativeLayout>

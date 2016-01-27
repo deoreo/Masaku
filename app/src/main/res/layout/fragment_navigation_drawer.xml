@@ -124,7 +124,7 @@
             android:id="@+id/gotoProfile"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:src="@drawable/profile_background"
+            android:src="@drawable/menu"
             android:scaleType="fitXY"/>
         <View
             android:layout_width="match_parent"

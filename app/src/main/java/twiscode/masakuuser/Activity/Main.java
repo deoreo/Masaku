@@ -61,7 +61,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private TextView countCart;
     private LinearLayout wrapCount;
     private ImageView btnCart;
-    private final int MENU = 0, ALL_MENU = 1, WISHLIST = 2, HISTORI_PESANAN = 3, PROMO = 4, BANTUAN = 5;
+    private final int MENU = 0, WISHLIST = 1, HISTORI_PESANAN = 2, PROMO = 3, BANTUAN = 4;
 
     private BroadcastReceiver updateCart;
 
@@ -242,11 +242,13 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 //title = getString(R.string.app_name);
                 title = "Histori Pesanan";
                 break;
+            /*
             case ALL_MENU:
                 fragment = new FragmentAllMenus();
                 //title = getString(R.string.app_name);
                 title = "All Menu";
                 break;
+            */
             case WISHLIST:
                 fragment = new FragmentWishlist();
                 //title = getString(R.string.app_name);

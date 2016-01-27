@@ -9,9 +9,8 @@
         android:text="delihome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:textAllCaps="false"
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorWhite"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -28,7 +27,7 @@
             android:id="@+id/btnCart"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/cart_icon"/>
+            android:src="@drawable/cart_90"/>
         <LinearLayout
             android:id="@+id/wrapCount"
             android:layout_width="wrap_content"

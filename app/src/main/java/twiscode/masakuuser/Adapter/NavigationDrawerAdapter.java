@@ -24,6 +24,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     private LayoutInflater inflater;
     private Context context;
     private Activity act;
+    final int ic[] = {R.drawable.all_menu_icon,R.drawable.wishlist_icon,R.drawable.history_pesanan_icon,R.drawable.promo_icon,R.drawable.chat_with_cs};
 
     public NavigationDrawerAdapter(Context context, List<ModelNavDrawer> data) {
         this.context = context;
@@ -51,7 +52,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         if(position==data.size()-1){
             //holder.line.setVisibility(View.GONE);
         }
-        //holder.icon.setImageDrawable(act.getResources().getDrawable(ic));
+        holder.icon.setImageDrawable(act.getResources().getDrawable(ic[position]));
     }
 
     @Override
@@ -61,10 +62,12 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        ImageView icon;
         View line;
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
+            icon = (ImageView) itemView.findViewById(R.id.icon);
             //line = (View) itemView.findViewById(R.id.line);
         }
     }

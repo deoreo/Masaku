@@ -64,7 +64,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="120dp"
-                            android:src="@drawable/masaku_logo"/>
+                            android:src="@drawable/delihome_logo"/>
 
 
                         <LinearLayout

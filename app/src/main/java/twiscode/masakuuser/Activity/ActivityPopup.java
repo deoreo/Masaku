@@ -12,6 +12,7 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -27,7 +28,7 @@ import twiscode.masakuuser.Utilities.ConfigManager;
  * Created by TwisCode-02 on 10/26/2015.
  */
 public class ActivityPopup extends AppCompatActivity {
-    private ImageView btnClose;
+    private Button btnClose;
 
 
     Map<String, String> flurryParams = new HashMap<String,String>();
@@ -36,7 +37,7 @@ public class ActivityPopup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup);
-        btnClose = (ImageView) findViewById(R.id.btnClose);
+        btnClose = (Button) findViewById(R.id.btnClose);
 
 
 
