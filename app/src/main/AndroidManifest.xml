@@ -76,6 +76,7 @@
         <activity android:name=".Activity.ActivityCheckoutKonfirmasi_1" />
         <activity android:name=".Activity.ActivityCheckoutKonfirmasi_2" />
         <activity android:name=".Activity.ActivityCheckoutVerify" />
+        <activity android:name=".Activity.ActivityPopup" />
         <service android:name="com.parse.PushService" />
         <receiver
             android:name=".Parse.CustomPushReceiver"

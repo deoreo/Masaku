@@ -82,6 +82,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeAsUpIndicator(R.drawable.drawer_toggle);
 
         LayoutInflater mInflater = LayoutInflater.from(this);
 
@@ -92,12 +93,12 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         btnCart = (ImageView) mCustomView.findViewById(R.id.btnCart);
         actionBar.setCustomView(mCustomView);
         actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
         ApplicationData.titleBar = titleBar;
 
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer); //getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override

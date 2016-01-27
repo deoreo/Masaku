@@ -203,6 +203,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <RelativeLayout
+                        android:id="@+id/btnLokasi"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="20dp"
+                        android:layout_height="40dp"
+                        android:visibility="visible">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/map_point_icon" />
+                    </RelativeLayout>
                     <AutoCompleteTextView
                         android:id="@+id/txtFrom"
                         android:layout_width="0dp"
