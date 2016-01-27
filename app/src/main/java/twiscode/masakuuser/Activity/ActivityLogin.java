@@ -304,7 +304,8 @@ public class ActivityLogin extends Activity{
 
                     break;
                 case "OK":
-                    Intent i = new Intent(getBaseContext(), ActivityPopup.class);
+                    ApplicationData.isFirstLogin = true;
+                    Intent i = new Intent(getBaseContext(), Main.class);
                     startActivity(i);
                     finish();
                     break;

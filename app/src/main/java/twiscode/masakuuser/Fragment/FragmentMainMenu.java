@@ -1,6 +1,7 @@
 package twiscode.masakuuser.Fragment;
 
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -49,7 +51,7 @@ public class FragmentMainMenu extends Fragment {
 	private BroadcastReceiver gotoPO;
 	Button btnPesan;
 	private BroadcastReceiver updateCart;
-
+	private Dialog dialog;
 
 
 	public static FragmentMainMenu newInstance(int page) {
@@ -144,11 +146,35 @@ public class FragmentMainMenu extends Fragment {
 				.setDefaultFontPath("fonts/Gotham.ttf")
 				.setFontAttrId(R.attr.fontPath)
 				.build());
-
+		InitDialog();
+		if(ApplicationData.isFirstLogin){
+			dialog.show();
+			ApplicationData.isFirstLogin = false;
+		}
 		return rootView;
 	}
 
 	private void DummyData(){
+
+
+	}
+
+	void InitDialog(){
+		dialog = new Dialog(getActivity());
+		dialog.setContentView(R.layout.activity_popup);
+		dialog.setTitle(" Delihome ");
+
+		// set the custom dialog components - text, image and button
+
+		Button btnOk = (Button) dialog.findViewById(R.id.btnClose);
+
+		// if button is clicked, close the custom dialog
+		btnOk.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
 
 
 	}

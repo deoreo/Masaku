@@ -72,5 +72,6 @@ public class ApplicationData {
     public static List<ModelMenuSpeed> tempSpeed = null;
 
     public static boolean isNullCart = false;
+    public static boolean isFirstLogin = false;
 
 }

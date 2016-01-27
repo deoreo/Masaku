@@ -51,7 +51,7 @@ public class ActivityPopup extends AppCompatActivity {
 
     }
 
-    
+
 
     public void onStart() {
         super.onStart();
