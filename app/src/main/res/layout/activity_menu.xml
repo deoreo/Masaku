@@ -51,6 +51,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/layoutAlamat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -62,6 +63,7 @@
             android:src="@drawable/map_point_icon"
             android:layout_gravity="center_vertical"/>
         <TextView
+            android:id="@+id/txtAlamat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

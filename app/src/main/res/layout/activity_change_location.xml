@@ -7,143 +7,6 @@
     android:orientation="vertical"
     >
 
-    <RelativeLayout
-        android:id="@+id/mapWrapper"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <LinearLayout
-            android:id="@+id/wrapperBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            >
-
-
-
-            <RelativeLayout
-                android:id="@+id/btnGunakan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:background="@color/colorRed"
-                >
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true">
-                    <TextView
-                        android:id="@+id/btnRequestRide"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"
-                        android:text="GUNAKAN"
-                        android:textSize="18dp"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"
-                        android:layout_centerHorizontal="true"
-                        fontPath="@string/GothamRndBold"
-                        />
-                    <ImageView
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="-8dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone"
-                        android:src="@drawable/next_white" />
-                </RelativeLayout>
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <RelativeLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/wrapperBottom"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
-            android:weightSum="2"
-
-            >
-
-
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/wrapperBottom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="25dp"
-            android:gravity="right"
-            android:weightSum="2"
-            >
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutMarkerFrom"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:layout_marginBottom="125dp"
-            android:visibility="gone"
-            >
-            <Button
-                android:id="@+id/btnLocationFrom"
-                android:layout_width="230dp"
-                android:layout_height="40dp"
-                android:background="@color/colorRed"
-                android:text="Gunakan Lokasi Ini"
-                android:textSize="12sp"
-                android:textColor="@color/colorWhite"
-                />
-
-            <RelativeLayout
-                android:layout_width="230dp"
-                android:layout_height="35dp"
-                android:gravity="center"
-                >
-                <TextView
-                    android:id="@+id/txtLocationFrom"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@color/colorWhite"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:textSize="12sp"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    />
-                <ProgressBar
-                    android:id="@+id/progressMapFrom"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:padding="10dp"
-                    style="@android:style/Widget.ProgressBar.Small"
-                    />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-
-
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/layoutfillForm"
         android:orientation="vertical"
@@ -271,11 +134,58 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/wrapperBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/btnGunakan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@color/colorRed"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/btnRequestRide"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:text="GUNAKAN"
+                    android:textSize="18dp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    fontPath="@string/GothamRndBold"
+                    />
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="-8dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:src="@drawable/next_white" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/layoutSuggestion"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/layoutfillForm"
+        android:layout_above="@+id/wrapperBottom"
         android:background="#ffffff"
         android:visibility="visible"
         >
@@ -386,10 +296,7 @@
 
     </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+
+
+
 </RelativeLayout>

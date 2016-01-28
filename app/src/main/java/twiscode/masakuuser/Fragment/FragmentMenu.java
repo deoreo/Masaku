@@ -44,6 +44,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import twiscode.masakuuser.Activity.ActivityChangeLocation;
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
@@ -66,9 +67,9 @@ public class FragmentMenu extends Fragment {
 	private ListView mListView;
 	AdapterMenuPO mAdapter;
 	NiceSpinner sort,category;
-	LinearLayout noData;
+	LinearLayout noData, layoutAlamat;
 	RelativeLayout firstLay;
-
+private TextView txtAlamat;
 
 	private int mPage = 1;
 
@@ -100,6 +101,8 @@ public class FragmentMenu extends Fragment {
 		View rootView = inflater.inflate(R.layout.activity_menu, container, false);
 		mListView = (ListView) rootView.findViewById(R.id.list_delivery);
 		noData = (LinearLayout) rootView.findViewById(R.id.spaceLayout);
+		layoutAlamat = (LinearLayout) rootView.findViewById(R.id.layoutAlamat);
+		txtAlamat = (TextView) rootView.findViewById(R.id.txtAlamat);
 		btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
@@ -120,6 +123,17 @@ public class FragmentMenu extends Fragment {
 			public void onClick(View view) {
 				Intent i = new Intent(getActivity(), ActivityCheckout.class);
 				startActivity(i);
+			}
+		});
+
+		txtAlamat.setText(ApplicationData.location);
+
+		layoutAlamat.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getActivity(), ActivityChangeLocation.class);
+				startActivity(i);
+				ApplicationData.isFromMenu = true;
 			}
 		});
 

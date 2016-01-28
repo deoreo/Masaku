@@ -129,10 +129,8 @@ public class ActivityChangeLocation extends FragmentActivity
         btnBack = (ImageView) findViewById(R.id.btnBack);
         btnGunakan = (RelativeLayout) findViewById(R.id.btnGunakan);
         //layoutMarkerFrom = (LinearLayout) findViewById(R.id.layoutMarkerFrom);
-        btnLocationFrom = (Button) findViewById(R.id.btnLocationFrom);
-        txtLocationFrom = (TextView) findViewById(R.id.txtLocationFrom);
+
         upLocation = (TextView) findViewById(R.id.txtLocation);
-        progressMapFrom = (ProgressBar) findViewById(R.id.progressMapFrom);
         layoutfillForm = (LinearLayout) findViewById(R.id.layoutfillForm);
         layoutSuggestion = (RelativeLayout) findViewById(R.id.layoutSuggestion);
         itemCurrent = (FrameLayout) findViewById(R.id.itemCurrent);
@@ -219,10 +217,17 @@ public class ActivityChangeLocation extends FragmentActivity
         btnGunakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApplicationData.location = txtFrom.getText().toString();
-                Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
-                startActivity(j);
-                finish();
+                if(!ApplicationData.isFromMenu) {
+                    ApplicationData.location = txtFrom.getText().toString();
+                    Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+                    startActivity(j);
+                    finish();
+                }else{
+                    ApplicationData.location = txtFrom.getText().toString();
+                    Intent j = new Intent(getBaseContext(), Main.class);
+                    startActivity(j);
+                    finish();
+                }
             }
         });
         /*
