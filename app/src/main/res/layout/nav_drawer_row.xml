@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:background="@color/colorWhite"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
@@ -13,16 +14,15 @@
         android:src="@drawable/ic_drawer_toggle"
         android:background="@null"
         android:layout_gravity="center_vertical"
-        android:padding="10dp"/>
+        android:padding="5dp"/>
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="title"
-        android:typeface="sans"
-        android:textSize="14dip"
-        android:padding="15dp"
-        android:layout_marginLeft="10dp"/>
+        android:textSize="14sp"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"/>
 <!--
     <View
         android:id="@+id/line"

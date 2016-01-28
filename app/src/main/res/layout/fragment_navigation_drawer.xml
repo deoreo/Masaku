@@ -182,9 +182,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:background="@color/colorRed"
-        android:text="Logout"
-        android:textColor="@color/colorWhite"
-        android:gravity="center"/>
+        android:background="#d2d2d2"
+        android:text="LOGOUT"
+        android:textColor="@color/colorDarkGrey"
+        android:gravity="left"/>
 
 </LinearLayout>

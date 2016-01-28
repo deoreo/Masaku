@@ -3,6 +3,7 @@
     <string name="GothamBook">fonts/Gotham.ttf</string>
     <string name="GothamRndBold">fonts/GothamRnd-Bold.otf</string>
     <string name="GothamRndMedium">fonts/GothamRnd-Medium.otf</string>
+    <string name="GothamRndItalic">fonts/GothamRnd-MedIta.otf</string>
     <string name="title_activity_activity_splash">ActivitySplash</string>
     <string name="title_activity_activity_pemesan_detail">ActivityPemesanDetail</string>
     <string name="api_key">AIzaSyC4RetJFb8ux8wtEwRMqpP6aNKPexgbH2w</string>
@@ -15,7 +16,9 @@
         <item>Menu</item>
         <item>Wishlist</item>
         <item>Histori Pesanan</item>
+        <item>Food Database</item>
         <item>Promo</item>
+        <item>Bantuan</item>
         <item>Customer Service</item>
     </string-array>
 

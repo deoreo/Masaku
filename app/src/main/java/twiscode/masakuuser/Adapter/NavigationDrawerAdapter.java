@@ -24,7 +24,15 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     private LayoutInflater inflater;
     private Context context;
     private Activity act;
-    final int ic[] = {R.drawable.all_menu_icon,R.drawable.wishlist_icon,R.drawable.history_pesanan_icon,R.drawable.promo_icon,R.drawable.chat_with_cs};
+    final int ic[] = {
+            R.drawable.all_menu_icon,
+            R.drawable.wishlist_icon,
+            R.drawable.history_pesanan_icon,
+            R.drawable.all_menu_icon,
+            R.drawable.promo_icon,
+            R.drawable.all_menu_icon,
+            R.drawable.chat_with_cs
+    };
 
     public NavigationDrawerAdapter(Context context, List<ModelNavDrawer> data) {
         this.context = context;

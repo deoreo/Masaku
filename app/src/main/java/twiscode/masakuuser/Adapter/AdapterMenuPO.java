@@ -110,7 +110,7 @@ public class AdapterMenuPO extends BaseAdapter {
             holder.progress = (ProgressBar) convertView.findViewById(R.id.progress);
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
 
-            holder.deliveryMenu = (TextView) convertView.findViewById(R.id.deliveryMenu);
+            //holder.deliveryMenu = (TextView) convertView.findViewById(R.id.deliveryMenu);
             holder.hari = (TextView) convertView.findViewById(R.id.hariMenu);
             holder.tanggal = (TextView) convertView.findViewById(R.id.tanggalMenu);
             holder.priceMenu = (TextView) convertView.findViewById(R.id.priceMenu);
@@ -139,7 +139,7 @@ public class AdapterMenuPO extends BaseAdapter {
             final ViewHolder holder2 = holder;
 
 
-            holder.deliveryMenu.setText(VENDOR_DELIVERY );
+            //holder.deliveryMenu.setText(VENDOR_DELIVERY );
 
             String[] dev = VENDOR_DELIVERY.split(", ");
             Log.d("dev",dev.length+"");
@@ -234,7 +234,7 @@ public class AdapterMenuPO extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        public TextView nameMenu,deliveryMenu,hari,tanggal;
+        public TextView nameMenu,hari,tanggal;
         public TextView priceMenu;
         public ImageView imgMenu;
         public Button add;
@@ -321,7 +321,7 @@ public class AdapterMenuPO extends BaseAdapter {
     private String getDate(String date){
         String dt = "";
         String [] d = date.split(" ");
-        dt = d[0]+" "+d[1];
+        dt = d[0]+" "+d[1]+ " " +d[2];
         return  dt;
     }
 
