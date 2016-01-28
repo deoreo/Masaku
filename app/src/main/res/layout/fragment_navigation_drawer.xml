@@ -123,19 +123,19 @@
         <ImageView
             android:id="@+id/gotoProfile"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="150dp"
             android:src="@drawable/menu"
             android:scaleType="fitXY"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="150dp"
             android:background="@drawable/plan_gradient"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="120dp">
+            android:layout_marginTop="90dp">
             <ImageView
                 android:layout_width="34dp"
                 android:layout_height="34dp"
@@ -166,10 +166,10 @@
             android:id="@+id/drawer_toggle_inside"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/ic_drawer_toggle"
+            android:src="@drawable/drawer_toggle"
             android:background="@null"
             android:layout_alignParentRight="true"
-            android:padding="10dp"/>
+            android:padding="5dp"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listMenu"

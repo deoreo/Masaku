@@ -86,7 +86,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
-    private RelativeLayout layoutTimePO;
+    //private RelativeLayout layoutTimePO;
 
     Map<String, String> flurryParams = new HashMap<String,String>();
 
@@ -102,7 +102,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         decimalFormat.setDecimalFormatSymbols(otherSymbols);
 
         DummyFeedback();
-        layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
+        //layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
         progress = (ProgressBar) findViewById(R.id.progress);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
         deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
@@ -125,7 +125,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
         modelMenu = ApplicationData.modelAllMenus;
 
-        layoutTimePO.setVisibility(View.GONE);
+        //layoutTimePO.setVisibility(View.GONE);
 
         try{
             if(modelMenu.getDelivery()==""){

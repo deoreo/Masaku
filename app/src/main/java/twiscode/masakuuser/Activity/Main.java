@@ -73,7 +73,8 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        mToolbar.setNavigationIcon(R.drawable.drawer_toggle);
+        mToolbar.setLogo(R.drawable.drawer_toggle);
         setSupportActionBar(mToolbar);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         actionBar = getSupportActionBar();

@@ -57,6 +57,7 @@ import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentMenu extends Fragment {
 
@@ -126,7 +127,11 @@ private TextView txtAlamat;
 			}
 		});
 
-		txtAlamat.setText(ApplicationData.location);
+		if(!ApplicationData.location.isEmpty()) {
+			txtAlamat.setText(ApplicationData.location);
+		}else{
+			txtAlamat.setText("Masukkan alamat");
+		}
 
 		layoutAlamat.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -460,6 +465,7 @@ private TextView txtAlamat;
 		FlurryAgent.endTimedEvent("MENU_PREORDER");
 		FlurryAgent.onEndSession(getActivity());
 	}
+
 
 
 

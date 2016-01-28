@@ -96,7 +96,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private DecimalFormat decimalFormat;
     int noImage = R.drawable.masaku_dummy_480x360;
     Button btnPesan;
-    private RelativeLayout layoutTimePO;
+   // private RelativeLayout layoutTimePO;
 
     Map<String, String> flurryParams = new HashMap<String,String>();
 
@@ -136,7 +136,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         modelMenu = ApplicationData.modelMenuSpeed;
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
-        layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
+        //layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
         txtHari = (TextView) findViewById(R.id.hariMenu);
         txtTanggal = (TextView) findViewById(R.id.tanggalMenu);
 
@@ -145,7 +145,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         }
         else {
             if(modelMenu.getType() != "po"){
-                layoutTimePO.setVisibility(View.GONE);
+                //layoutTimePO.setVisibility(View.GONE);
                 deliveryLayout.setVisibility(View.VISIBLE);
                 deliveryMenu.setText(modelMenu.getDelivery());
             }
@@ -156,7 +156,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
                 txtTanggal.setText(tgl);
                 txtHari.setText(hr);
-                layoutTimePO.setVisibility(View.VISIBLE);
+                //layoutTimePO.setVisibility(View.VISIBLE);
             }
 
         }
@@ -547,6 +547,11 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         super.onStop();
         FlurryAgent.endTimedEvent("MENU_DETAIL");
         FlurryAgent.onEndSession(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }

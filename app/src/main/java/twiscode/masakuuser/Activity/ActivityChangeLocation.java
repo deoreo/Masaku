@@ -308,9 +308,19 @@ public class ActivityChangeLocation extends FragmentActivity
 
     @Override
     public void onBackPressed() {
-        Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
-        startActivity(j);
-        finish();
+        if(!ApplicationData.isFromMenu) {
+            ApplicationData.location = txtFrom.getText().toString();
+            Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+            startActivity(j);
+            finish();
+        }else{
+            ApplicationData.location = txtFrom.getText().toString();
+            Intent j = new Intent(getBaseContext(), Main.class);
+            startActivity(j);
+            finish();
+        }
+
+
         super.onBackPressed();  // optional depending on your needs
     }
 
