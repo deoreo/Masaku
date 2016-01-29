@@ -36,6 +36,7 @@ import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Fragment.FragmentAllMenus;
 import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentBantuan;
+import twiscode.masakuuser.Fragment.FragmentCustomerService;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
 import twiscode.masakuuser.Fragment.FragmentMainMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
@@ -332,7 +333,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 foodDatabase.setVisibility(GONE);
                 break;
             case CUSTOMER_SERVICE:
-                fragment = new FragmentBantuan();
+                fragment = new FragmentCustomerService();
                 //title = getString(R.string.app_name);
                 title = "Customer Service";
                 wrapCart.setVisibility(VISIBLE);
