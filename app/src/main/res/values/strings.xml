@@ -14,11 +14,10 @@
 
     <string-array name="nav_drawer_labels">
         <item>Menu</item>
-        <item>Wishlist</item>
-        <item>Histori Pesanan</item>
+        <item>History</item>
         <item>Food Database</item>
         <item>Promo</item>
-        <item>Bantuan</item>
+        <item>Help</item>
         <item>Customer Service</item>
     </string-array>
 

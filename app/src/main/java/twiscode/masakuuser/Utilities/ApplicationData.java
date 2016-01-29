@@ -74,5 +74,6 @@ public class ApplicationData {
     public static boolean isNullCart = false;
     public static boolean isFirstLogin = false;
     public static boolean isFromMenu = true;
+    public static int CountWishlist = 0;
 
 }

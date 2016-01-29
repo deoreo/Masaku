@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -50,6 +51,9 @@ import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 
 public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
@@ -61,7 +65,8 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private TextView countCart;
     private LinearLayout wrapCount;
     private ImageView btnCart;
-    private final int MENU = 0, WISHLIST = 1, HISTORI_PESANAN = 2, ALL_MENU = 3, PROMO = 4, BANTUAN = 5, CUSTOMER_SERVICE = 6;
+    private RelativeLayout wrapCart, wishlistEmpty, wishlistFull;
+    private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, PROMO = 3, BANTUAN = 4, CUSTOMER_SERVICE = 5;
 
     private BroadcastReceiver updateCart;
 
@@ -92,6 +97,9 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         wrapCount = (LinearLayout) mCustomView.findViewById(R.id.wrapCount);
         countCart = (TextView) mCustomView.findViewById(R.id.countCart);
         btnCart = (ImageView) mCustomView.findViewById(R.id.btnCart);
+        wrapCart = (RelativeLayout) mCustomView.findViewById(R.id.wrapCart);
+        wishlistEmpty = (RelativeLayout) mCustomView.findViewById(R.id.wishlistEmpty);
+        wishlistFull = (RelativeLayout) mCustomView.findViewById(R.id.wishlistFull);
         actionBar.setCustomView(mCustomView);
         actionBar.setDisplayShowCustomEnabled(true);
         ApplicationData.titleBar = titleBar;
@@ -119,10 +127,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 jml = jml + list.get(i).getJumlah();
             }
             countCart.setText(""+jml);
-            wrapCount.setVisibility(View.VISIBLE);
+            wrapCount.setVisibility(VISIBLE);
         }
         else {
-            wrapCount.setVisibility(View.GONE);
+            wrapCount.setVisibility(GONE);
         }
 
         updateCart = new BroadcastReceiver() {
@@ -139,10 +147,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                             jml = jml + list.get(i).getJumlah();
                         }
                         countCart.setText(""+jml);
-                        wrapCount.setVisibility(View.VISIBLE);
+                        wrapCount.setVisibility(VISIBLE);
                     }
                     else {
-                        wrapCount.setVisibility(View.GONE);
+                        wrapCount.setVisibility(GONE);
                     }
 
                 }
@@ -237,38 +245,62 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 fragment = new FragmentMainMenu();
                 //title = getString(R.string.app_name);
                 title = "delihome";
+                wrapCart.setVisibility(VISIBLE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
                 break;
             case HISTORI_PESANAN:
                 fragment = new FragmentPesanan();
                 //title = getString(R.string.app_name);
-                title = "Histori Pesanan";
+                title = "History";
+                wrapCart.setVisibility(VISIBLE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
                 break;
 
             case ALL_MENU:
                 fragment = new FragmentAllMenus();
                 //title = getString(R.string.app_name);
-                title = "All Menu";
+                title = "Food Database";
+                wrapCart.setVisibility(GONE);
+                if(ApplicationData.CountWishlist <= 0){
+                    wishlistEmpty.setVisibility(VISIBLE);
+                    wishlistFull.setVisibility(GONE);
+                }else{
+                    wishlistEmpty.setVisibility(GONE);
+                    wishlistFull.setVisibility(VISIBLE);
+                }
                 break;
-
+            /*
             case WISHLIST:
                 fragment = new FragmentWishlist();
                 //title = getString(R.string.app_name);
                 title = "Wishlist";
                 break;
+                */
             case PROMO:
                 fragment = new FragmentPromo();
                 //title = getString(R.string.app_name);
-                title = "Promo";
+                title = "Promotion";
+                wrapCart.setVisibility(VISIBLE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
                 break;
             case BANTUAN:
                 fragment = new FragmentBantuan();
                 //title = getString(R.string.app_name);
-                title = "Bantuan";
+                title = "Help";
+                wrapCart.setVisibility(VISIBLE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
                 break;
             case CUSTOMER_SERVICE:
                 fragment = new FragmentBantuan();
                 //title = getString(R.string.app_name);
-                title = "Bantuan";
+                title = "Customer Service";
+                wrapCart.setVisibility(VISIBLE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
                 break;
 
             default:

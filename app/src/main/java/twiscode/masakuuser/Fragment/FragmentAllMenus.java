@@ -360,6 +360,7 @@ public class FragmentAllMenus extends Fragment {
 				String tipe = params[1];
 				JSONControl jsControl = new JSONControl();
 				if(tipe=="like"){
+					ApplicationData.CountWishlist++;
 					Log.d("like", ConfigManager.LIKE+" - "+id);
 					String response = jsControl.LikeMenu(id, appManager.getUserToken());
 					Log.d("json response", response.toString());
@@ -371,6 +372,12 @@ public class FragmentAllMenus extends Fragment {
 					}
 				}
 				else {
+					if(ApplicationData.CountWishlist>0){
+						ApplicationData.CountWishlist--;
+					}
+					else if(ApplicationData.CountWishlist==0){
+						ApplicationData.CountWishlist=0;
+					}
 					Log.d("dislike", ConfigManager.DISLIKE+" - "+id);
 					String response = jsControl.DislikeMenu(id, appManager.getUserToken());
 					Log.d("json response", response.toString());

@@ -26,11 +26,10 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     private Activity act;
     final int ic[] = {
             R.drawable.all_menu_icon,
-            R.drawable.wishlist_icon,
             R.drawable.history_pesanan_icon,
-            R.drawable.all_menu_icon,
+            R.drawable.fooddatabase_icon,
             R.drawable.promo_icon,
-            R.drawable.all_menu_icon,
+            R.drawable.help_icon,
             R.drawable.chat_with_cs
     };
 
