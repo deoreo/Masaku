@@ -124,6 +124,13 @@ public class FragmentWishlist extends Fragment {
                 String message = intent.getStringExtra("message");
                 if (message.equals("true")) {
                     Log.d("removeWishlist", "true");
+                    if(ApplicationData.CountWishlist>0){
+                        ApplicationData.CountWishlist--;
+                    }
+                    else if(ApplicationData.CountWishlist==0){
+                        ApplicationData.CountWishlist=0;
+
+                    }
                     //if(ApplicationData.idLike!=ApplicationData.historyIdLike){
                        // ApplicationData.historyIdLike = ApplicationData.idLike;
                         new DoDislike().execute(
@@ -473,6 +480,13 @@ public class FragmentWishlist extends Fragment {
         super.onStop();
         FlurryAgent.endTimedEvent("MENU_WISHLIST");
         FlurryAgent.onEndSession(getActivity());
+    }
+
+    private void SendBroadcast(String typeBroadcast,String type){
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
     }
 
 

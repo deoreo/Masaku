@@ -297,7 +297,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 if (ApplicationData.CountWishlist <= 0) {
                     wishlistEmpty.setVisibility(VISIBLE);
                     wishlistFull.setVisibility(GONE);
-                } else {
+                } else if (ApplicationData.CountWishlist > 0){
                     wishlistEmpty.setVisibility(GONE);
                     wishlistFull.setVisibility(VISIBLE);
                 }

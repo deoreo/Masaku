@@ -156,6 +156,13 @@ public class AdapterWishlist extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ApplicationData.idLike = ID;
+                    if(ApplicationData.CountWishlist>0){
+                        ApplicationData.CountWishlist--;
+                    }
+                    else if(ApplicationData.CountWishlist==0){
+                        ApplicationData.CountWishlist=0;
+
+                    }
                     SendBroadcast("removeWishlist","true");
                 }
             });

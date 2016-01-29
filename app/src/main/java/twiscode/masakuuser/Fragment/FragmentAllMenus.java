@@ -141,11 +141,23 @@ public class FragmentAllMenus extends Fragment {
 				Log.d("", "broadcast doLike");
 				String message = intent.getStringExtra("message");
 				if (message.equals("like")) {
+					ApplicationData.CountWishlist++;
+					SendBroadcast("wishlistFull","true");
 					new DoLike().execute(
 							ApplicationData.idLike,"like"
 					);
 				}
 				else{
+					if(ApplicationData.CountWishlist>0){
+						ApplicationData.CountWishlist--;
+						if(ApplicationData.CountWishlist==0){
+							SendBroadcast("wishlistFull","false");
+						}
+					}
+					else if(ApplicationData.CountWishlist==0){
+						ApplicationData.CountWishlist=0;
+						SendBroadcast("wishlistFull","false");
+					}
 					new DoLike().execute(
 							ApplicationData.idLike,"dislike"
 					);
@@ -360,8 +372,7 @@ public class FragmentAllMenus extends Fragment {
 				String tipe = params[1];
 				JSONControl jsControl = new JSONControl();
 				if(tipe=="like"){
-					ApplicationData.CountWishlist++;
-					SendBroadcast("wishlistFull","true");
+
 					Log.d("like", ConfigManager.LIKE+" - "+id);
 					String response = jsControl.LikeMenu(id, appManager.getUserToken());
 					Log.d("json response", response.toString());
@@ -373,16 +384,7 @@ public class FragmentAllMenus extends Fragment {
 					}
 				}
 				else {
-					if(ApplicationData.CountWishlist>0){
-						ApplicationData.CountWishlist--;
-						if(ApplicationData.CountWishlist==0){
-							SendBroadcast("wishlistFull","false");
-						}
-					}
-					else if(ApplicationData.CountWishlist==0){
-						ApplicationData.CountWishlist=0;
-						SendBroadcast("wishlistFull","false");
-					}
+
 					Log.d("dislike", ConfigManager.DISLIKE+" - "+id);
 					String response = jsControl.DislikeMenu(id, appManager.getUserToken());
 					Log.d("json response", response.toString());
