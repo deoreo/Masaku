@@ -3,20 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:elevation="10dp"
+    android:layout_margin="10dp"
+    android:background="@color/colorWhite"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         >
 
         <ImageView
             android:id="@+id/imgMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:background="@color/colorDarkGrey"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/masaku_dummy_480x360"
             />
         <ProgressBar
             android:id="@+id/progress"
@@ -27,87 +30,162 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_alignParentBottom="true"
+            android:visibility="gone"
             android:background="@drawable/plan_gradient"/>
-        <LinearLayout
+        <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/layoutTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_accent"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp">
-            <TextView
-                android:id="@+id/timeMenu"
+            android:background="@drawable/rounded_red"
+            >
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15"
-                android:textColor="@color/colorWhite"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MINS WAIT"
-                android:textColor="@color/colorWhite"
-                android:textSize="11dp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="OR LONGER"
-                android:textColor="@color/colorWhite"
-                android:textSize="10dp"
-                android:layout_gravity="center_horizontal"
-                />
-        </LinearLayout>
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/hariMenu1"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="minggu"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    />
+                <View
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorWhite" />
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/tanggalMenu1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="22 Des"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:layout_gravity="center_horizontal"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginRight="100dp"
             android:layout_alignParentBottom="true">
-            <TextView
-                android:id="@+id/nameMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama menu"
-                android:textColor="@color/colorWhite"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="15dp"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="135dp"
+                android:visibility="gone"
+                android:background="#9c77726e">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="Delivery : "
+                    fontPath="@string/GothamRndItalic"
+                    />
+                <TextView
+                    android:id="@+id/hariMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:gravity="left"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    fontPath="@string/GothamRndItalic"
+                    android:text="Selasa"
+                    />
+                <TextView
+                    android:id="@+id/separateComma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    fontPath="@string/GothamRndItalic"
+                    android:text=","
+                    />
+                <TextView
+                    android:id="@+id/tanggalMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold"
+                    fontPath="@string/GothamRndItalic"
+                    android:text="22 Des 2015"
+                    />
+            </LinearLayout>
         </RelativeLayout>
 
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/nameMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama menu"
+        android:textColor="@color/colorBlackGrey"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        fontPath="@string/GothamBook"
+        />
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
         android:background="@color/colorWhite">
-        <TextView
-            android:id="@+id/priceMenu"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorRed"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp"
-            android:layout_gravity="center_vertical"
-            android:text="Rp 15.000"
-            />
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+            <TextView
+                android:id="@+id/priceMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlackGrey"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="5dp"
+                android:layout_gravity="center_vertical"
+                android:text="Rp 15.000"
+                />
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -116,18 +194,51 @@
             <Button
                 android:layout_alignParentRight="true"
                 android:id="@+id/btnRemove"
-                android:padding="5dp"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_red"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 android:text="REMOVE FROM WISHLIST"
                 />
-
+            <LinearLayout
+                android:id="@+id/layCounter"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/btnMinus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="-"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorRed"/>
+                <TextView
+                    android:id="@+id/txtCount"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:id="@+id/btnPlus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="+"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorRed"/>
+            </LinearLayout>
         </RelativeLayout>
-
     </LinearLayout>
+
 </LinearLayout>

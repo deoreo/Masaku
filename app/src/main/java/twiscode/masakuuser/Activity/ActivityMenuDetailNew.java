@@ -534,7 +534,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private String getDate(String date){
         String dt = "";
         String [] d = date.split(" ");
-        dt = d[0]+" "+d[1];
+        dt = d[0]+" "+d[1]+" "+d[2];
         return  dt;
     }
 
