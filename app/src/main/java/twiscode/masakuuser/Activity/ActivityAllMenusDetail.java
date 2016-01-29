@@ -108,7 +108,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         //deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayou);
         countCart = (TextView) findViewById(R.id.countCart);
         layCounter = (LinearLayout) findViewById(R.id.layCounter);
-        deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
+        //deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
         btnMinus = (TextView) findViewById(R.id.btnMinus);
         btnPlus = (TextView) findViewById(R.id.btnPlus);
         txtCount = (TextView) findViewById(R.id.txtCount);

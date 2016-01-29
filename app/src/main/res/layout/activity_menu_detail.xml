@@ -26,8 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:text="delihome"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="16dp"
+                android:textColor="#bdbdbd"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                fontPath="@string/GothamRndBold"
                 android:layout_centerInParent="true"
                 />
             <LinearLayout
@@ -193,13 +195,13 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
-                            android:layout_marginRight="120dp"
+                            android:layout_marginRight="100dp"
                             android:layout_alignParentBottom="true">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:orientation="horizontal"
-                                android:layout_marginTop="125dp"
+                                android:layout_marginTop="135dp"
                                 android:background="#9c77726e">
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -208,18 +210,43 @@
                                     android:textSize="14dp"
                                     android:layout_marginLeft="10dp"
                                     android:layout_gravity="center_vertical"
-                                    android:text="Dikirim "
+                                    android:text="Delivery : "
+                                    fontPath="@string/GothamRndItalic"
                                     />
                                 <TextView
-                                    android:id="@+id/deliveryMenu"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
+                                    android:id="@+id/hariMenu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="14dp"
+                                    android:gravity="left"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_vertical"
+                                    fontPath="@string/GothamRndItalic"
+                                    android:text="Selasa"
+                                    />
+                                <TextView
+                                    android:id="@+id/separateComma"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/colorWhite"
                                     android:textSize="14dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_gravity="center_vertical"
-                                    android:text="Selasa, 22 Desember 2015"
+                                    fontPath="@string/GothamRndItalic"
+                                    android:text=","
+                                    />
+                                <TextView
+                                    android:id="@+id/tanggalMenu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="14dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:textStyle="bold"
+                                    fontPath="@string/GothamRndItalic"
+                                    android:text="22 Des 2015"
                                     />
                             </LinearLayout>
                         </RelativeLayout>
@@ -271,7 +298,7 @@
                                     android:layout_alignParentRight="true"
                                     android:id="@+id/btnAdd"
                                     android:layout_width="80dp"
-                                    android:layout_height="40dp"
+                                    android:layout_height="35dp"
                                     android:background="@drawable/rounded_line_red"
                                     android:layout_gravity="center_vertical"
                                     android:textColor="@color/colorRed"

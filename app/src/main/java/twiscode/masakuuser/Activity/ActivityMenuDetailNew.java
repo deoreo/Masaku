@@ -120,7 +120,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         //deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
         countCart = (TextView) findViewById(R.id.countCart);
         layCounter = (LinearLayout) findViewById(R.id.layCounter);
-        deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
+        //deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
         btnMinus = (TextView) findViewById(R.id.btnMinus);
         btnPlus = (TextView) findViewById(R.id.btnPlus);
         txtCount = (TextView) findViewById(R.id.txtCount);
@@ -147,7 +147,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             if(modelMenu.getType() != "po"){
                 //layoutTimePO.setVisibility(View.GONE);
                 //deliveryLayout.setVisibility(View.VISIBLE);
-                deliveryMenu.setText(modelMenu.getDelivery());
+                //deliveryMenu.setText(modelMenu.getDelivery());
             }
             else {
                 String[] dev = modelMenu.getDelivery().split(", ");

@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MASAKU"
+            android:text="DELIHOME"
             android:textColor="@color/colorRed"
             android:textStyle="bold"
             android:textAllCaps="false"
@@ -71,7 +71,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
-                                android:text="Untuk recovery password"
+                                android:text="To recovery your password"
                                 android:textSize="22dp"
                                 />
                             <TextView
@@ -80,7 +80,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
-                                android:text="masukkan nomor hp-mu"
+                                android:text="input your phone number"
                                 android:textSize="22dp"
                                 />
 
@@ -99,7 +99,7 @@
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="50dp"
-                                    android:hint="nomor handphone"
+                                    android:hint="phone number"
                                     android:textColorHint="@drawable/hint_selector_black"
                                     android:padding="10dp"
                                     android:background="@null"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="kirim nomor"
+                    android:text="SEND"
                     android:textColor="@color/colorWhite"
                     android:textSize="18dp"
                     android:textAllCaps="true"

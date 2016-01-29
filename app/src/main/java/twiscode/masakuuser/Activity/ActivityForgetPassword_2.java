@@ -26,6 +26,7 @@ import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -246,6 +247,10 @@ public class ActivityForgetPassword_2 extends AppCompatActivity {
         super.onStop();
         FlurryAgent.endTimedEvent("FORGET_PASSWORD");
         FlurryAgent.onEndSession(this);
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 

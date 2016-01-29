@@ -65,10 +65,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private TextView countCart;
     private LinearLayout wrapCount;
     private ImageView btnCart;
-    private RelativeLayout wrapCart, wishlistEmpty, wishlistFull;
-    private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, PROMO = 3, BANTUAN = 4, CUSTOMER_SERVICE = 5;
+    private RelativeLayout wrapCart, wishlistEmpty, wishlistFull, foodDatabase;
+    private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, PROMO = 3, BANTUAN = 4, CUSTOMER_SERVICE = 5, WISHLIST = 6;
 
-    private BroadcastReceiver updateCart;
+    private BroadcastReceiver updateCart, doWishlistFull;
 
 
     @Override
@@ -100,6 +100,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         wrapCart = (RelativeLayout) mCustomView.findViewById(R.id.wrapCart);
         wishlistEmpty = (RelativeLayout) mCustomView.findViewById(R.id.wishlistEmpty);
         wishlistFull = (RelativeLayout) mCustomView.findViewById(R.id.wishlistFull);
+        foodDatabase = (RelativeLayout) mCustomView.findViewById(R.id.foodDatabase);
         actionBar.setCustomView(mCustomView);
         actionBar.setDisplayShowCustomEnabled(true);
         ApplicationData.titleBar = titleBar;
@@ -112,24 +113,29 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ApplicationData.cart.size()>0) {
+                if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(Main.this, ActivityCheckout.class);
                     startActivity(i);
-                }else{
-                    DialogManager.showDialog(Main.this,"Mohon Maaf", "Anda belum memiliki pesanan");
+                } else {
+                    DialogManager.showDialog(Main.this, "Mohon Maaf", "Anda belum memiliki pesanan");
                 }
             }
         });
-        if(ApplicationData.cart.size() > 0){
+        foodDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayView(ALL_MENU);
+            }
+        });
+        if (ApplicationData.cart.size() > 0) {
             List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
             int jml = 0;
-            for(int i = 0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
                 jml = jml + list.get(i).getJumlah();
             }
-            countCart.setText(""+jml);
+            countCart.setText("" + jml);
             wrapCount.setVisibility(VISIBLE);
-        }
-        else {
+        } else {
             wrapCount.setVisibility(GONE);
         }
 
@@ -141,29 +147,51 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 String message = intent.getStringExtra("message");
                 if (message.equals("true")) {
                     List<ModelCart> list = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                    if(list.size() > 0){
+                    if (list.size() > 0) {
                         int jml = 0;
-                        for(int i = 0;i<list.size();i++){
+                        for (int i = 0; i < list.size(); i++) {
                             jml = jml + list.get(i).getJumlah();
                         }
-                        countCart.setText(""+jml);
+                        countCart.setText("" + jml);
                         wrapCount.setVisibility(VISIBLE);
-                    }
-                    else {
+                    } else {
                         wrapCount.setVisibility(GONE);
                     }
 
                 }
 
-                SendBroadcast("cekOrderNow","true");
+                SendBroadcast("cekOrderNow", "true");
 
 
             }
         };
 
+        doWishlistFull = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast wishlistFull");
+                String message = intent.getStringExtra("message");
+                if (message.equals("true")) {
+                    wishlistEmpty.setVisibility(GONE);
+                    wishlistFull.setVisibility(VISIBLE);
+
+                } else {
+                    wishlistEmpty.setVisibility(VISIBLE);
+                    wishlistFull.setVisibility(GONE);
+
+                }
+
+            }
+        };
 
 
-
+        wishlistFull.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayView(WISHLIST);
+            }
+        });
 
         displayView(0);
 
@@ -182,19 +210,19 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         }
         */
 
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                    .setMessage("Are you sure?")
-                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            Intent intent = new Intent(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_HOME);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }).setNegativeButton("no", null).show();
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("no", null).show();
 
     }
 
@@ -248,6 +276,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 wrapCart.setVisibility(VISIBLE);
                 wishlistEmpty.setVisibility(GONE);
                 wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(GONE);
                 break;
             case HISTORI_PESANAN:
                 fragment = new FragmentPesanan();
@@ -256,6 +285,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 wrapCart.setVisibility(VISIBLE);
                 wishlistEmpty.setVisibility(GONE);
                 wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(GONE);
                 break;
 
             case ALL_MENU:
@@ -263,21 +293,26 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 //title = getString(R.string.app_name);
                 title = "Food Database";
                 wrapCart.setVisibility(GONE);
-                if(ApplicationData.CountWishlist <= 0){
+                foodDatabase.setVisibility(GONE);
+                if (ApplicationData.CountWishlist <= 0) {
                     wishlistEmpty.setVisibility(VISIBLE);
                     wishlistFull.setVisibility(GONE);
-                }else{
+                } else {
                     wishlistEmpty.setVisibility(GONE);
                     wishlistFull.setVisibility(VISIBLE);
                 }
                 break;
-            /*
+
             case WISHLIST:
                 fragment = new FragmentWishlist();
                 //title = getString(R.string.app_name);
                 title = "Wishlist";
+                wrapCart.setVisibility(GONE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(VISIBLE);
                 break;
-                */
+
             case PROMO:
                 fragment = new FragmentPromo();
                 //title = getString(R.string.app_name);
@@ -285,6 +320,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 wrapCart.setVisibility(VISIBLE);
                 wishlistEmpty.setVisibility(GONE);
                 wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(GONE);
                 break;
             case BANTUAN:
                 fragment = new FragmentBantuan();
@@ -293,6 +329,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 wrapCart.setVisibility(VISIBLE);
                 wishlistEmpty.setVisibility(GONE);
                 wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(GONE);
                 break;
             case CUSTOMER_SERVICE:
                 fragment = new FragmentBantuan();
@@ -301,6 +338,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 wrapCart.setVisibility(VISIBLE);
                 wishlistEmpty.setVisibility(GONE);
                 wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(GONE);
                 break;
 
             default:
@@ -308,7 +346,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         }
 
 
-        if (fragment != null ) {
+        if (fragment != null) {
             /*
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -334,15 +372,14 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     }
 
 
-
-
-
     @Override
     public void onResume() {
         super.onResume();
         // Register mMessageReceiver to receive messages.
         LocalBroadcastManager.getInstance(Main.this).registerReceiver(updateCart,
                 new IntentFilter("updateCart"));
+        LocalBroadcastManager.getInstance(Main.this).registerReceiver(doWishlistFull,
+                new IntentFilter("wishlistFull"));
 
     }
 
@@ -352,7 +389,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         super.onPause();
     }
 
-    private void SendBroadcast(String typeBroadcast,String type){
+    private void SendBroadcast(String typeBroadcast, String type) {
         Intent intent = new Intent(typeBroadcast);
         // add data
         intent.putExtra("message", type);
@@ -360,15 +397,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     }
 
 
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
-
-
 
 
 }

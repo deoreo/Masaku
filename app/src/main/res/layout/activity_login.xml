@@ -144,7 +144,7 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Masuk"
+                            android:text="SIGN IN"
                             android:textColor="#fff"
                             android:textStyle="bold"
                             android:textAllCaps="true"
@@ -159,7 +159,7 @@
                             android:textColor="@color/colorBlack"
                             android:textSize="16dp"
                             android:layout_gravity="center"
-                            android:text="lupa password ?"
+                            android:text="forget password ?"
                             android:padding="5dp"
                             />
 
@@ -170,7 +170,7 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Belum memiliki akun? daftar disini!"
+                            android:text="Don't have account? sign up, please!"
                             android:textColor="@color/colorRed"
                             android:textAllCaps="false"
                             android:textSize="16dp"

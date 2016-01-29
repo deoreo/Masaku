@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/colorBlack"
-                    android:text="Jam Customer Service"
+                    android:text="Customer Service Office Hour"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     />
@@ -154,13 +154,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="kontak kami melalui"
+                        android:text="contact us through"
                         android:layout_gravity="center"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="feedback form di bawah ini"
+                        android:text="feedback form below"
                         android:layout_gravity="center"/>
                 </LinearLayout>
                 <View
@@ -174,7 +174,7 @@
                     android:layout_height="50dp"
                     android:background="@null"
                     android:textColor="@color/colorBlack"
-                    android:hint="Nama"
+                    android:hint="Name"
                     android:padding="10dp"
                     android:textSize="14dp"
                     android:singleLine="true"
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:textColor="@color/colorBlack"
-                    android:hint="Ketik feedback anda disini"
+                    android:hint="Your Feedback"
                     android:padding="10dp"
                     android:textSize="14dp"
                     android:maxLines="5"

@@ -130,7 +130,7 @@ private TextView txtAlamat;
 		if(!ApplicationData.location.isEmpty()) {
 			txtAlamat.setText(ApplicationData.location);
 		}else{
-			txtAlamat.setText("alamat");
+			txtAlamat.setText("address");
 		}
 
 		layoutAlamat.setOnClickListener(new View.OnClickListener() {

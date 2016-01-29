@@ -361,6 +361,7 @@ public class FragmentAllMenus extends Fragment {
 				JSONControl jsControl = new JSONControl();
 				if(tipe=="like"){
 					ApplicationData.CountWishlist++;
+					SendBroadcast("wishlistFull","true");
 					Log.d("like", ConfigManager.LIKE+" - "+id);
 					String response = jsControl.LikeMenu(id, appManager.getUserToken());
 					Log.d("json response", response.toString());
@@ -374,9 +375,13 @@ public class FragmentAllMenus extends Fragment {
 				else {
 					if(ApplicationData.CountWishlist>0){
 						ApplicationData.CountWishlist--;
+						if(ApplicationData.CountWishlist==0){
+							SendBroadcast("wishlistFull","false");
+						}
 					}
 					else if(ApplicationData.CountWishlist==0){
 						ApplicationData.CountWishlist=0;
+						SendBroadcast("wishlistFull","false");
 					}
 					Log.d("dislike", ConfigManager.DISLIKE+" - "+id);
 					String response = jsControl.DislikeMenu(id, appManager.getUserToken());
@@ -495,6 +500,12 @@ public class FragmentAllMenus extends Fragment {
 		FlurryAgent.onEndSession(getActivity());
 	}
 
+	private void SendBroadcast(String typeBroadcast,String type){
+		Intent intent = new Intent(typeBroadcast);
+		// add data
+		intent.putExtra("message", type);
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+	}
 
 
 }

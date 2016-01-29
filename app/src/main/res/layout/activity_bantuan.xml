@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="30dp">
+            >
             <LinearLayout
                 android:id="@+id/btnAbout"
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:paddingRight="30dp"
-                    android:text="Tentang Masaku"
+                    android:text="About Delihome"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
                     android:background="@null"

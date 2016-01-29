@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MASAKU"
+            android:text="delihome"
             android:textColor="@color/colorRed"
             android:textStyle="bold"
             android:textAllCaps="false"
@@ -71,18 +71,10 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold"
-                                android:text="Masukkan password baru kamu"
+                                android:text="Input new password"
                                 android:textSize="22dp"
                                 />
-                            <TextView
-                                android:layout_marginTop="2dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:text="di bawah ini"
-                                android:textSize="22dp"
-                                android:textColor="@color/colorBlack"
-                                />
+
 
 
 
@@ -101,7 +93,7 @@
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="50dp"
-                                    android:hint="kata sandi baru"
+                                    android:hint="new password"
                                     android:padding="10dp"
                                     android:background="@null"
                                     android:textColor="@color/colorBlack"
@@ -134,7 +126,7 @@
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="50dp"
-                                    android:hint="konfirmasi kata sandi"
+                                    android:hint="confirm password"
                                     android:padding="10dp"
                                     android:background="@null"
                                     android:inputType="numberPassword"
@@ -166,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="Ubah Password"
+                    android:text="CONFIRM"
                     android:textColor="@color/colorWhite"
                     android:textSize="18dp"
                     android:textAllCaps="true"
