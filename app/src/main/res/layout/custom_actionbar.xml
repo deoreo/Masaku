@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:textColor="@color/colorDarkGrey"
-        android:layout_marginRight="80dp"
         android:textStyle="bold"
+        android:layout_marginRight="70dp"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 </RelativeLayout>

@@ -105,7 +105,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         //layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
         progress = (ProgressBar) findViewById(R.id.progress);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
-        deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
+        //deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayou);
         countCart = (TextView) findViewById(R.id.countCart);
         layCounter = (LinearLayout) findViewById(R.id.layCounter);
         deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
@@ -126,7 +126,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         modelMenu = ApplicationData.modelAllMenus;
 
         //layoutTimePO.setVisibility(View.GONE);
-
+        /*
         try{
             if(modelMenu.getDelivery()==""){
                 deliveryLayout.setVisibility(View.GONE);
@@ -139,7 +139,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         catch (Exception x){
             deliveryLayout.setVisibility(View.GONE);
         }
-
+        */
 
         nameMenu.setText(modelMenu.getNama());
         timeMenu.setText(modelMenu.getTime());

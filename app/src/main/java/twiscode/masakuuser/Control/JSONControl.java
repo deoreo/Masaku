@@ -67,7 +67,7 @@ public class JSONControl {
         }
         Log.d("url login", ConfigManager.LOGIN);
         Log.d("params login", phone + "-" + password);
-        Log.d("return login", jsonObj.toString());
+        //Log.d("return login", jsonObj.toString());
         return jsonObj;
 
     }

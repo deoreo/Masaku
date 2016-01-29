@@ -117,7 +117,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         progress = (ProgressBar) findViewById(R.id.progress);
         spaceLayout = (LinearLayout) findViewById(R.id.spaceLayout);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
-        deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
+        //deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayout);
         countCart = (TextView) findViewById(R.id.countCart);
         layCounter = (LinearLayout) findViewById(R.id.layCounter);
         deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
@@ -141,12 +141,12 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         txtTanggal = (TextView) findViewById(R.id.tanggalMenu);
 
         if(modelMenu.getDelivery()==""){
-            deliveryLayout.setVisibility(View.GONE);
+            //deliveryLayout.setVisibility(View.GONE);
         }
         else {
             if(modelMenu.getType() != "po"){
                 //layoutTimePO.setVisibility(View.GONE);
-                deliveryLayout.setVisibility(View.VISIBLE);
+                //deliveryLayout.setVisibility(View.VISIBLE);
                 deliveryMenu.setText(modelMenu.getDelivery());
             }
             else {

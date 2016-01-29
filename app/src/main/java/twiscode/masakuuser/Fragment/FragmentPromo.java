@@ -93,17 +93,14 @@ public class FragmentPromo extends Fragment {
 
 		LIST_MENU = new ArrayList<ModelPromo>();
 		String syarat =
-						"<p>1. Voucher ini hanya bisa digunakan oleh pengguna baru</p>" +
-						"<p>2. Voucher ini hanya bisa digunakan 1 kali</p>" +
-						"<p>3. Maksimum order Rp. 50.000</p>" +
-						"<p>4. Hanya berlaku untuk makanan saja. Tidak termasuk biaya kirim</p>";
+						"<p>1. Tidak dapat digabungkan dengan promo lain</p>" +
+						"<p>2. Tidak dapat digunakan setelah masa berlaku habis</p>";
 		int poto = R.drawable.banner_promo_masaku;;
-		ModelPromo promo = new ModelPromo("1", "23 November 2015", "5 Desember 2015", "Setiap kali anda melakukan pembelian di Masaku maka anda akan mendapatkan sms berisi kode voucher #TreataFriend. Berikan kode voucher ini kepada teman anda untuk mendapatkan meal gratis up to Rp. 50.000!!",syarat, poto);
+		ModelPromo promo = new ModelPromo("1", "1 Februari 2015", "29 Februari 2015", "Saat anda melakukan pembelian di Delihome dapat memasukan kode Happy 2016 dalam kolom promo code di halaman checkout. Dan dapatkan free ongkos kirim ke seluruh area Surabaya. ",syarat, poto);
 		LIST_MENU.add(promo);
 
 
 	}
-
 	public void onStart() {
 		super.onStart();
 		FlurryAgent.onStartSession(getActivity(), ConfigManager.FLURRY_API_KEY);
