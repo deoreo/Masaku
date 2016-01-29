@@ -17,8 +17,9 @@
         android:textAllCaps="false"
         android:textColor="@color/colorDarkGrey"
         android:textStyle="bold"
-        android:layout_marginRight="70dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textSize="18dp"
+        fontPath="@string/GothamRndMedium"
+        android:layout_marginRight="60dp"/>
 
 </RelativeLayout>
 
@@ -34,8 +35,8 @@
         <ImageView
             android:padding="2dp"
             android:id="@+id/btnCart"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/cart_icon"/>
         <LinearLayout
             android:id="@+id/wrapCount"

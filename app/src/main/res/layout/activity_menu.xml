@@ -58,10 +58,10 @@
         android:background="#f3f3f3"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:padding="10dp">
+        android:padding="8dp">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/map_point_icon"
             android:layout_gravity="center_vertical"/>
         <TextView
@@ -71,7 +71,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:text="alamat"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textColor="@color/colorDarkGrey"
             android:layout_gravity="center_vertical"
             />
