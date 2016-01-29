@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="15dp"
-        android:background="@color/colorRed"
+        android:background="@color/colorWhite"
         >
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/back"
+            android:src="@drawable/back_icon"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"/>
         <TextView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Contact Us"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"
             android:textAllCaps="false"
             android:textSize="16dp"

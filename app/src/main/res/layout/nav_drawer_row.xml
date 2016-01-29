@@ -5,7 +5,9 @@
     android:clickable="true"
     android:background="@color/colorWhite"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/icon"
