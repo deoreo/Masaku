@@ -3,22 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:elevation="3dp"
+    android:elevation="10dp"
+    android:layout_margin="10dp"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="3dp"
+        android:layout_height="250dp"
         >
 
         <ImageView
             android:id="@+id/imgMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:background="@color/colorDarkGrey"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:src="@drawable/masaku_dummy_480x360"
             />
         <ProgressBar
@@ -82,13 +81,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginRight="130dp"
+            android:layout_marginRight="100dp"
             android:layout_alignParentBottom="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="135dp"
                 android:background="#9c77726e">
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,7 +96,7 @@
                     android:textSize="14dp"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
-                    android:text="Dikirim :"
+                    android:text="Dikirim : "
                     fontPath="@string/GothamRndItalic"
                     />
                 <TextView
@@ -146,17 +145,22 @@
         android:layout_height="wrap_content"
         android:text="Nama menu"
         android:textColor="@color/colorBlackGrey"
-        android:textSize="18dp"
+        android:textSize="14dp"
         android:textStyle="bold"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         fontPath="@string/GothamBook"
         />
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDarkGrey2" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:elevation="1dp"
         android:background="@color/colorWhite">
         <LinearLayout
             android:layout_width="0dp"
@@ -169,10 +173,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlackGrey"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
-                android:paddingTop="10dp"
+                android:paddingTop="5dp"
                 android:layout_gravity="center_vertical"
                 android:text="Rp 15.000"
                 />
@@ -188,7 +192,7 @@
                 android:layout_alignParentRight="true"
                 android:id="@+id/btnAdd"
                 android:layout_width="80dp"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
                 android:background="@drawable/rounded_line_red"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorRed"
@@ -207,7 +211,7 @@
                     android:layout_height="30dp"
                     android:text="-"
                     android:textStyle="bold"
-                    android:textSize="20dp"
+                    android:textSize="14dp"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/colorRed"/>
@@ -217,7 +221,7 @@
                     android:layout_height="30dp"
                     android:text="1"
                     android:textStyle="bold"
-                    android:textSize="20dp"
+                    android:textSize="14dp"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"/>
                 <TextView
@@ -226,7 +230,7 @@
                     android:layout_height="30dp"
                     android:text="+"
                     android:textStyle="bold"
-                    android:textSize="20dp"
+                    android:textSize="14dp"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/colorRed"/>
