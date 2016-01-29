@@ -15,10 +15,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:textColor="@color/colorDarkGrey"
+        android:textColor="#bdbdbd"
         android:textStyle="bold"
         android:textSize="18dp"
-        fontPath="@string/GothamRndMedium"
+        fontPath="@string/GothamRndBold"
         android:layout_marginRight="60dp"/>
 
 </RelativeLayout>
