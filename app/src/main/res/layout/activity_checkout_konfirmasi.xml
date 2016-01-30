@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="10dp"
-                    android:text="Batas Pembayaran"
+                    android:text="Payment Threshold"
                     android:textColor="@color/colorDarkGrey"
                     android:textStyle="bold"            />
                 <TextView
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="10dp"
-                    android:text="Nomor Pesanan"
+                    android:text="ID Order"
                     android:textColor="@color/colorDarkGrey"
                     android:textStyle="bold"            />
                 <TextView

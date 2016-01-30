@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Diskon"
+            android:text="Discount"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"            />
         <TextView
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Ongkos Delivery"
+            android:text="Delivery"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"            />
         <TextView
@@ -206,7 +206,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="Metode Pembayaran"
+        android:text="Payment Method"
         android:textSize="14dp"
         android:textStyle="bold"
         android:textColor="@color/colorRed"
@@ -234,7 +234,7 @@
         android:textColor="@color/colorWhite"
         android:background="@drawable/rounded_red"
         android:textStyle="bold"
-        android:text="Konfirmasi Order"
+        android:text="Order Confirmation"
         android:padding="10dp"
         android:layout_gravity="center"/>
 </LinearLayout>

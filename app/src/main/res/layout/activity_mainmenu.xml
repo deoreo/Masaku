@@ -39,7 +39,7 @@
             android:padding="10dp"
             android:background="@color/colorRed"
             android:layout_alignParentBottom="true"
-            android:text="Pesan Sekarang"
+            android:text="Order Now"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:visibility="gone"/>

@@ -18,7 +18,7 @@
             android:paddingTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tidak Ada Pesanan"
+            android:text="No Data Available"
             android:textSize="30sp"
             android:gravity="center"
             />

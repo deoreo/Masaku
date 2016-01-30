@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Ongkos Delivery"
+            android:text="Delivery"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"            />
         <TextView
@@ -244,14 +244,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mohon selesaikan pembayaran melalui mesin ATM"
+            android:text="Please complete the payment via ATM machines"
             android:textColor="@color/colorRed"
             android:gravity="center"
             android:textSize="13dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pastikan anda melakukan pembayaran sesuai dengan total pembayaran termasuk 3 digit terakhir"
+            android:text="Make sure you make a payment according to the total payments, including the last 3 digits"
             android:textColor="@color/colorDarkGrey"
             android:gravity="center"
             android:textSize="13dp"/>
@@ -339,7 +339,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Nama Akun"
+            android:text="Account Name"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"
             android:textSize="16dp"/>
@@ -369,7 +369,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Nomor Akun"
+            android:text="Account Number"
             android:textColor="@color/colorDarkGrey"
             android:textStyle="bold"
             android:textSize="16dp"/>
@@ -397,7 +397,7 @@
         android:textColor="@color/colorWhite"
         android:background="@drawable/rounded_red"
         android:textStyle="bold"
-        android:text="Sudah Membayar"
+        android:text="Confirm"
         android:padding="10dp"
         android:layout_gravity="center"/>
 </LinearLayout>

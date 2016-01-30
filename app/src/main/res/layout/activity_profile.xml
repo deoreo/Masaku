@@ -49,8 +49,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/btnNamaProfile"
                 android:layout_width="match_parent"
@@ -75,7 +74,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="right"
                     android:paddingRight="30dp"
-                    android:text="Nama"
+                    android:text="Name"
                     android:textColor="@color/colorBlack"
                     android:background="@null"
                     android:singleLine="true"
@@ -92,7 +91,7 @@
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:id="@+id/btnTeleponProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +115,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="right"
                     android:paddingRight="30dp"
-                    android:text="Nomor Handphone"
+                    android:text="Phone Number"
                     android:textSize="15sp"
                     android:textColor="@color/colorBlack"
                     />
@@ -128,7 +127,7 @@
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:id="@+id/btnLokasiProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
