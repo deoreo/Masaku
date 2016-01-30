@@ -686,7 +686,8 @@ public class FragmentCheckoutPO extends Fragment {
                                         @Override
                                         public void onPositive(MaterialDialog dialog) {
                                             if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                                                //ApplicationData.cart = new HashMap<String, ModelCart>();
+                                                ApplicationData.cart = new HashMap<String, ModelCart>();
+
                                                 for(int i=0;i<LIST_MENU.size();i++){
                                                     if(LIST_MENU.get(i).getType()=="po"){
                                                         ApplicationData.cart.remove(LIST_MENU.get(i).getId());

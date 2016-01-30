@@ -247,7 +247,7 @@
                 android:textColor="@color/colorWhite"
                 android:background="@drawable/rounded_red"
                 android:textStyle="bold"
-                android:text="Bayar"
+                android:text="Confirm"
                 android:padding="10dp"
                 android:layout_gravity="center"/>
         </LinearLayout>

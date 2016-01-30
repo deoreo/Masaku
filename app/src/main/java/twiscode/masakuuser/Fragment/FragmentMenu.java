@@ -447,11 +447,20 @@ private TextView txtAlamat;
 
 		}
 
+		SendBroadcast("updateCart","true");
+
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(spaceLayout,
 				new IntentFilter("spaceLayout"));
 
 
 
+	}
+
+	private void SendBroadcast(String typeBroadcast,String type){
+		Intent intent = new Intent(typeBroadcast);
+		// add data
+		intent.putExtra("message", type);
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
 	}
 
 	public void onStart() {
