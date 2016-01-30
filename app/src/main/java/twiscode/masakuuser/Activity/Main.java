@@ -114,6 +114,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ApplicationData.isFromMenu = false;
                 if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(Main.this, ActivityCheckout.class);
                     startActivity(i);
