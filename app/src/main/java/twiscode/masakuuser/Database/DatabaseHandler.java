@@ -10,7 +10,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import twiscode.masakuuser.Model.ModelMap;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import twiscode.masakuuser.Model.ModelAlamat;
 import twiscode.masakuuser.Model.ModelUser;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -22,15 +25,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MasakuDB";
     // ModelUser table name
     private static final String T_USER = "t_user";
-    private static final String T_MAP = "t_map";
+    private static final String T_ALAMAT = "t_alamat";
 
     private static final String KEY_USER_ID = "id_user";
     private static final String KEY_USER_NAME = "name_user";
     private static final String KEY_TRUSTED = "trusted_user";
     private static final String KEY_USER_PHONE = "phone_user";
 
-    private static final String KEY_MAP_ID = "id_map";
-    private static final String KEY_MAP_NAME = "name_map";
+    private static final String KEY_ALAMAT_ID = "id_alamat";
+    private static final String KEY_ALAMAT_NAME = "name_alamat";
 
 
     public DatabaseHandler(Context context) {
@@ -48,13 +51,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_TRUSTED + " TEXT"
                 + ")";
 
-        String CREATE_TABLE_MAP = "CREATE TABLE " + T_MAP + "("
-                + KEY_MAP_ID + " TEXT PRIMARY KEY,"
-                + KEY_MAP_NAME + " TEXT"
+        String CREATE_TABLE_ALAMAT = "CREATE TABLE " + T_ALAMAT + "("
+                + KEY_ALAMAT_ID + " TEXT PRIMARY KEY,"
+                + KEY_ALAMAT_NAME + " TEXT"
                 + ")";
 
         db.execSQL(CREATE_TABLE_USER);
-        db.execSQL(CREATE_TABLE_MAP);
+        db.execSQL(CREATE_TABLE_ALAMAT);
     }
 
     // Upgrading database
@@ -112,29 +115,55 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void logout() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ T_USER);
+        db.execSQL("delete from " + T_USER);
 
     }
 
-    public void insertmap(ModelMap modelMap) {
+    public void insertAlamat(ModelAlamat modelAlamat) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_MAP_ID, modelMap.getId());
-        values.put(KEY_MAP_NAME, modelMap.getNama());
+        values.put(KEY_ALAMAT_ID, modelAlamat.getId());
+        values.put(KEY_ALAMAT_NAME, modelAlamat.getNama());
         // Inserting Row
-        db.insert(T_MAP, null, values);
+        db.insert(T_ALAMAT, null, values);
         db.close(); // Closing database connection
     }
 
-    public ModelMap getAllMap() {
-        String allData = "SELECT  * FROM " + T_MAP;
+    public ModelAlamat getAlamat(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(T_ALAMAT, new String[]{KEY_ALAMAT_ID,
+                        KEY_ALAMAT_NAME},
+                KEY_ALAMAT_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        ModelAlamat modelGroup = new ModelAlamat(cursor.getString(0),
+                cursor.getString(1)
+
+        );
+        return modelGroup;
+    }
+
+
+    public ArrayList<ModelAlamat> loadAlamat() {
+        String allData = "SELECT  * FROM " + T_ALAMAT;
+        ArrayList<ModelAlamat> alamatList = new ArrayList<ModelAlamat>();
+
+        // Loads the event list data summary
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(allData, null);
+        if(cursor.moveToFirst()){
+            do{
+                alamatList.add(this.getAlamat(cursor.getString(0)));
+            } while(cursor.moveToNext());
+        }
         cursor.close();
-
-        ModelMap modeluser = new ModelMap(cursor.getString(0), cursor.getString(1));
-        return modeluser;
+        db.close();
+        Collections.reverse(alamatList);
+        return alamatList;
     }
 
 }

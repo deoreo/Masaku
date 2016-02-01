@@ -4,29 +4,19 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,43 +26,31 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
+import twiscode.masakuuser.Adapter.AdapterAlamat;
 import twiscode.masakuuser.Adapter.AdapterSuggestion;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
+import twiscode.masakuuser.Model.ModelAlamat;
 import twiscode.masakuuser.Model.ModelGeocode;
 import twiscode.masakuuser.Model.ModelPlace;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ConfigManager;
-import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.GoogleAPIManager;
-import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.view.View.GONE;
@@ -88,17 +66,16 @@ public class ActivityChangeLocation extends FragmentActivity
     //private GoogleMap googleMap;
     private String strDetail;
     private final String TAG = "ActivityChangeLocation";
-    private DatabaseHandler db;
-    //private Circle mCircle;
+     //private Circle mCircle;
     //public static Marker markerTemp;
     //public static Boolean mTouchMap = false;
     //private Marker markerCurrent,markerFrom;
     private CameraUpdate cameraUpdate;
-    private AutoCompleteTextView txtFrom;
+    private TextView txtFrom;
     private ImageView btnCurrent, btnBack;
     private RelativeLayout btnGunakan;
     private static Activity mActivity;
-    private RelativeLayout layoutSuggestion;
+    private RelativeLayout layoutSuggestion, layoutRecent;
     //private LatLng posFrom, posTemp, mapCenter;
     //public static LinearLayout layoutMarkerFrom;
     private Button btnLocationFrom;
@@ -108,13 +85,19 @@ public class ActivityChangeLocation extends FragmentActivity
     private LinearLayout layoutfillForm;
     private ProgressBar progress;
     private FrameLayout itemCurrent;
-    private ListView mListView;
+    private ListView lvSuggestion, lvRecent;
     private List<ModelPlace> LIST_PLACE = null;
     private String description = "";
     private ModelPlace mPlace;
     Map<String, String> flurryParams = new HashMap<String, String>();
     private AdapterSuggestion mAdapter;
     private String strDetailFrom;
+    private DatabaseHandler db;
+    private ModelAlamat modelAlamat;
+    private ArrayList<ModelAlamat> listAlamat = null;
+    private AdapterAlamat adapterAlamat;
+    private BroadcastReceiver changeAlamat;
+    private boolean isRecent = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +106,9 @@ public class ActivityChangeLocation extends FragmentActivity
         mActivity = this;
         //String[] maps = {"Android ", "java", "IOS", "SQL", "JDBC", "Web services"};
         db = new DatabaseHandler(mActivity);
+        modelAlamat = new ModelAlamat();
         progress = (ProgressBar) findViewById(R.id.progress);
-        txtFrom = (AutoCompleteTextView) findViewById(R.id.txtFrom);
+        txtFrom = (TextView) findViewById(R.id.txtFrom);
         //btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         btnGunakan = (RelativeLayout) findViewById(R.id.btnGunakan);
@@ -133,8 +117,10 @@ public class ActivityChangeLocation extends FragmentActivity
         upLocation = (TextView) findViewById(R.id.txtLocation);
         layoutfillForm = (LinearLayout) findViewById(R.id.layoutfillForm);
         layoutSuggestion = (RelativeLayout) findViewById(R.id.layoutSuggestion);
+        layoutRecent = (RelativeLayout) findViewById(R.id.layoutRecent);
         itemCurrent = (FrameLayout) findViewById(R.id.itemCurrent);
-        mListView = (ListView) findViewById(R.id.lvSuggestion);
+        lvSuggestion = (ListView) findViewById(R.id.lvSuggestion);
+        lvRecent = (ListView) findViewById(R.id.lvRecent);
         //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, maps);
         //txtFrom.setAdapter(adapter);
         //txtFrom.setThreshold(1);
@@ -151,6 +137,21 @@ public class ActivityChangeLocation extends FragmentActivity
             DialogManager.showDialog(mActivity, "Mohon Maaf", "Anda tidak terhubung internet!");
         }
 */
+
+        changeAlamat = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast changeAlamat");
+                isRecent = true;
+                String message = intent.getStringExtra("message");
+                txtFrom.setText(message);
+            }
+        };
+
+        listAlamat = db.loadAlamat();
+        adapterAlamat = new AdapterAlamat(mActivity, listAlamat);
+        lvRecent.setAdapter(adapterAlamat);
         upLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +171,13 @@ public class ActivityChangeLocation extends FragmentActivity
 
             }
         });
+        txtFrom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                isRecent = false;
+                return false;
+            }
+        });
 
         txtFrom.addTextChangedListener(new TextWatcher() {
 
@@ -187,10 +195,11 @@ public class ActivityChangeLocation extends FragmentActivity
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
 
-                    if (s.length() >= 3) {
+                    if (s.length() >= 3 && !isRecent) {
                         new GetSuggestion(mActivity, s.toString()).execute();
                     } else if (s.length() == 0) {
                         layoutSuggestion.setVisibility(GONE);
+                        layoutRecent.setVisibility(VISIBLE);
                     }
 
 
@@ -217,16 +226,25 @@ public class ActivityChangeLocation extends FragmentActivity
         btnGunakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!ApplicationData.isFromMenu) {
-                    ApplicationData.location = txtFrom.getText().toString();
-                    Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
-                    startActivity(j);
-                    finish();
-                }else{
-                    ApplicationData.location = txtFrom.getText().toString();
-                    Intent j = new Intent(getBaseContext(), Main.class);
-                    startActivity(j);
-                    finish();
+                if(!txtFrom.getText().toString().isEmpty()) {
+                    modelAlamat.setId(txtFrom.getText().toString());
+                    modelAlamat.setNama(txtFrom.getText().toString());
+                    db.insertAlamat(modelAlamat);
+
+                    if (!ApplicationData.isFromMenu) {
+                        ApplicationData.location = txtFrom.getText().toString();
+                        Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+                        startActivity(j);
+                        finish();
+                    } else {
+                        ApplicationData.location = txtFrom.getText().toString();
+                        Intent j = new Intent(getBaseContext(), Main.class);
+                        startActivity(j);
+                        finish();
+                    }
+                }
+                else{
+
                 }
             }
         });
@@ -290,21 +308,6 @@ public class ActivityChangeLocation extends FragmentActivity
     }
 
 
-    public String getAddress(Activity activity, LatLng latlng) {
-        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
-        double lat = latlng.latitude;
-        double lng = latlng.longitude;
-        String addressLine = "";
-        try {
-            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-            Address obj = addresses.get(0);
-            addressLine = obj.getAddressLine(0);
-            strDetail = obj.getAddressLine(1) + " , " + obj.getAddressLine(2);
-        } catch (IOException e) {
-        } catch (Exception e) {
-        }
-        return addressLine;
-    }
 
     @Override
     public void onBackPressed() {
@@ -324,31 +327,7 @@ public class ActivityChangeLocation extends FragmentActivity
         super.onBackPressed();  // optional depending on your needs
     }
 
-    /*
-        @Override
-        public void onMapClick(LatLng latLng) {
-            float zoom = googleMap.getCameraPosition().zoom;
-            if (zoom <= 15) {
-                zoom = 15;
-            }
-                posTemp = latLng;
-                markerTemp = googleMap.addMarker(
-                        new MarkerOptions()
-                                .position(latLng)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_from)));
-                cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
-                googleMap.animateCamera(cameraUpdate, new GoogleMap.CancelableCallback() {
-                    @Override
-                    public void onFinish() {
-                        layoutMarkerFrom.setVisibility(VISIBLE);
-                    }
 
-                    @Override
-                    public void onCancel() {
-                    }
-                });
-        }
-    */
     public static void hideKeyboard() {
         View view = mActivity.getCurrentFocus();
 
@@ -376,9 +355,10 @@ public class ActivityChangeLocation extends FragmentActivity
         @Override
         protected void onPreExecute() {
             layoutSuggestion.setVisibility(VISIBLE);
+            layoutRecent.setVisibility(GONE);
             itemCurrent.setVisibility(GONE);
-            mListView.setVisibility(GONE);
-            mListView.setAdapter(null);
+            lvSuggestion.setVisibility(GONE);
+            lvSuggestion.setAdapter(null);
         }
 
         @Override
@@ -431,9 +411,9 @@ public class ActivityChangeLocation extends FragmentActivity
         protected void onPostExecute(final JSONArray json) {
             // TODO Auto-generated method stub
             super.onPostExecute(json);
-            mListView.setAdapter(mAdapter);
-            mListView.setVisibility(VISIBLE);
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            lvSuggestion.setAdapter(mAdapter);
+            lvSuggestion.setVisibility(VISIBLE);
+            lvSuggestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     try {
@@ -448,10 +428,12 @@ public class ActivityChangeLocation extends FragmentActivity
 
 
                         layoutSuggestion.setVisibility(GONE);
+                        layoutRecent.setVisibility(VISIBLE);
                         hideKeyboard();
                     } catch (Exception e) {
                         e.printStackTrace();
                         layoutSuggestion.setVisibility(GONE);
+                        layoutRecent.setVisibility(VISIBLE);
                         hideKeyboard();
                     }
                 }
@@ -461,188 +443,6 @@ public class ActivityChangeLocation extends FragmentActivity
     }
 
 
-    /*
-     private class GetMyLocation extends AsyncTask<String, Void, String> implements LocationListener {
-         private Activity activity;
-         private Context context;
-         private Resources resources;
-         private double latitude, longitude;
-         private GoogleMap googleMap;
-         private LocationManager locationManager;
-         private CircleOptions circleOptions;
-         private Location location;
-         private LatLng posFrom;
-
-
-         public GetMyLocation(Activity activity, GoogleMap googleMap) {
-             super();
-             this.activity = activity;
-             this.context = activity.getApplicationContext();
-             this.resources = activity.getResources();
-             this.googleMap = googleMap;
-         }
-
-         @Override
-         protected void onPreExecute() {
-             super.onPreExecute();
-             DialogManager.ShowLoading(activity, "Memuat lokasi anda. . .");
-
-         }
-
-         @Override
-         protected String doInBackground(String... params) {
-             Log.v(TAG, "GetMyLocation doInBackground");
-
-
-                 try {
-                     try {
-                         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
-                         if (status != ConnectionResult.SUCCESS) {
-                             int requestCode = 10;
-                         } else {
-                             locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-                             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                             boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                             Criteria criteria = new Criteria();
-                             String provider = locationManager.getBestProvider(criteria, true);
-                             location = locationManager.getLastKnownLocation(provider);
-                             if (!isGPSEnabled && !isNetworkEnabled) {
-                                 return "FAIL";
-                             } else {
-                                 if (isNetworkEnabled) {
-                                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this, Looper.getMainLooper());
-                                     Log.v("locationManager", "Network");
-                                     if (locationManager != null) {
-                                         location = locationManager
-                                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                                         if (location != null) {
-                                             latitude = location.getLatitude();
-                                             longitude = location.getLongitude();
-
-                                             if(ApplicationData.posFrom!=null && !isSearchCurrent){
-                                                 posFrom = ApplicationData.posFrom;
-                                             }
-                                             else {
-                                                 posFrom = new LatLng(latitude, longitude);
-                                                 ApplicationData.posFrom = posFrom;
-                                             }
-                                         }
-                                     }
-                                 }
-                                 if (isGPSEnabled) {
-                                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this, Looper.getMainLooper());
-                                     Log.v("locationManager", "Network");
-                                     if (locationManager != null) {
-                                         location = locationManager
-                                                 .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                                         if (location != null) {
-                                             latitude = location.getLatitude();
-                                             longitude = location.getLongitude();
-                                             if(ApplicationData.posFrom!=null && !isSearchCurrent){
-                                                 posFrom = ApplicationData.posFrom;
-                                             }
-                                             else {
-                                                 posFrom = new LatLng(latitude, longitude);
-                                                 ApplicationData.posFrom = posFrom;
-                                             }
-                                         }
-                                     }
-                                 }
-
-                             }
-                         }
-
-                     } catch (Exception e) {
-                     }
-                     return "OK";
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-
-             return "FAIL";
-
-         }
-
-         @Override
-         protected void onPostExecute(String result) {
-             super.onPostExecute(result);
-             Log.v("posisi gps", "onPost");
-
-             switch (result) {
-                 case "FAIL":
-                     DialogManager.showDialog(activity, "Mohon Maaf", "Tidak dapat menemukan lokasi Anda!");
-                     break;
-                 case "OK":
-                     try {
-                         LatLng pFrom = ApplicationData.posFrom;
-                         float zoom = googleMap.getCameraPosition().zoom;
-                         if (zoom <= 15) {
-                             zoom = 15;
-                         }
-                         double radiusInMeters = 5 * 100.0;
-                         int strokeColor = 0xffffffff;
-                         int shadeColor = 0x3366ffff;
-
-                         if (mCircle != null) {
-                             mCircle.remove();
-                         }
-
-                         if (markerCurrent != null) {
-                             markerCurrent.remove();
-                         }
-
-                         if (markerFrom != null) {
-                             markerFrom.remove();
-                         }
-
-                         circleOptions = new CircleOptions()
-                                 .center(pFrom)
-                                 .radius(radiusInMeters)
-                                 .fillColor(shadeColor)
-                                 .strokeColor(strokeColor)
-                                 .strokeWidth(10);
-                         mCircle = googleMap.addCircle(circleOptions);
-                         cameraUpdate = CameraUpdateFactory.newLatLngZoom(pFrom, zoom);
-                         //if (!isSearchCurrent) {
-                         markerFrom = googleMap.addMarker(
-                                 new MarkerOptions()
-                                         .position(pFrom)
-                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_from)));
-                         txtFrom.setText(getAddress(activity, posFrom));
-                         googleMap.animateCamera(cameraUpdate);
-
-
-                         Log.v("posisi gps", pFrom.toString());
-                     } catch (Exception e) {
-                         e.printStackTrace();
-                     }
-                     break;
-
-             }
-             DialogManager.DismissLoading(activity);
-         }
-
-         @Override
-         public void onLocationChanged(Location location) {
-
-         }
-
-         @Override
-         public void onStatusChanged(String s, int i, Bundle bundle) {
-
-         }
-
-         @Override
-         public void onProviderEnabled(String s) {
-
-         }
-
-         @Override
-         public void onProviderDisabled(String s) {
-
-         }
-     }
- */
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -658,6 +458,15 @@ public class ActivityChangeLocation extends FragmentActivity
         super.onStop();
         FlurryAgent.endTimedEvent("CHECKOUT_LOCATION");
         FlurryAgent.onEndSession(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Register mMessageReceiver to receive messages.
+        LocalBroadcastManager.getInstance(ActivityChangeLocation.this).registerReceiver(changeAlamat,
+                new IntentFilter("changeAlamat"));
+
     }
 
 }

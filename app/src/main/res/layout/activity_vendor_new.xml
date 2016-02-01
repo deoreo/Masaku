@@ -139,7 +139,6 @@
                 </LinearLayout>
                 <com.makeramen.roundedimageview.RoundedImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:src="@drawable/chef"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     app:riv_corner_radius="60dip"/>

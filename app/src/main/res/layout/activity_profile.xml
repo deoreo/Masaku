@@ -214,7 +214,6 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/masaku"
                     android:layout_marginRight="5dp"
                     android:layout_gravity="center_vertical"/>
                 <TextView

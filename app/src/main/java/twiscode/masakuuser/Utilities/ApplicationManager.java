@@ -34,7 +34,7 @@ public class ApplicationManager {
     private static final String KEY_USER = "user";
     private static final String KEY_POS_DRIVER = "trip";
     private static final String KEY_MESSAGE = "messageinbox";
-    private static final String KEY_MAP = "map";
+    private static final String KEY_ALAMAT = "alamat";
     private Context mContext;
 
 

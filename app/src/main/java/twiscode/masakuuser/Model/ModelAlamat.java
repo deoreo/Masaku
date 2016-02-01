@@ -3,15 +3,15 @@ package twiscode.masakuuser.Model;
 /**
  * Created by User on 10/21/2015.
  */
-public class ModelMap {
+public class ModelAlamat {
     private String id, nama;
 
-    public ModelMap(){
+    public ModelAlamat(){
 
     }
 
 
-    public ModelMap(String id, String nama){
+    public ModelAlamat(String id, String nama){
         this.id = id;
         this.nama = nama;
     }

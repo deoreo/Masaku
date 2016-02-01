@@ -42,7 +42,7 @@ public class NotificationManager {
 
         if (isAppIsInBackground(mContext)) {
             // notification icon
-            int icon = R.drawable.masaku_logo;
+            int icon = R.drawable.delihome_notif_logo;
 
             int mNotificationId = ApplicationData.NOTIFICATION_ID;
 
