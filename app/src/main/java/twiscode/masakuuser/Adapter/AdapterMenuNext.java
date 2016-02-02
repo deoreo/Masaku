@@ -60,7 +60,7 @@ public class AdapterMenuNext extends BaseAdapter {
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
     private DecimalFormat decimalFormat;
-    int noImage = R.drawable.masaku_dummy_480x360;
+    int noImage = R.drawable.delhome_dummy_image;
 
     public AdapterMenuNext(Activity activity, List<ModelMenuSpeed> d) {
         mAct = activity;

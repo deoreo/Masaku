@@ -61,7 +61,7 @@ public class AdapterWishlist extends BaseAdapter {
     private boolean mKeyIsEmpty = false;
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
-    int noImage = R.drawable.masaku_dummy_480x360;
+    int noImage = R.drawable.delhome_dummy_image;
 
     public AdapterWishlist(Activity activity, List<ModelAllMenus> d) {
         mAct = activity;
@@ -93,7 +93,16 @@ public class AdapterWishlist extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
-            convertView = mInflater.inflate(R.layout.row_wishlist_empty, null);
+            convertView = mInflater.inflate(R.layout.row_empty_wishlist, null);
+            final ViewHolder holder;
+            holder = new ViewHolder();
+            holder.btnDiscover = (Button) convertView.findViewById(R.id.btnDiscover);
+            holder.btnDiscover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SendBroadcast("gotoDiscover","true");
+                }
+            });
         }
         else {
             final ViewHolder holder;
@@ -176,7 +185,7 @@ public class AdapterWishlist extends BaseAdapter {
         public TextView priceMenu;
         public ImageView imgMenu;
         public ProgressBar progress;
-        public Button btnRemove;
+        public Button btnRemove,btnDiscover;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

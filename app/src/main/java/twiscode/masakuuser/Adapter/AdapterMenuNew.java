@@ -68,7 +68,7 @@ public class AdapterMenuNew extends BaseAdapter {
     private boolean mKeyIsEmpty = false;
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
-    int noImage = R.drawable.masaku_dummy_480x360;
+    int noImage = R.drawable.delhome_dummy_image;
 
     public AdapterMenuNew(Activity activity, List<ModelMenuSpeed> d) {
         mAct = activity;

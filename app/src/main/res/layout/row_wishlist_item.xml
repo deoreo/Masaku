@@ -201,7 +201,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:text="REMOVE FROM WISHLIST"
+                android:text="REMOVE"
                 />
             <LinearLayout
                 android:id="@+id/layCounter"

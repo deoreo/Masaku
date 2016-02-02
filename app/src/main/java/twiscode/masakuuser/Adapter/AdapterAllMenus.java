@@ -74,7 +74,7 @@ public class AdapterAllMenus extends BaseAdapter {
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
     private OkHttpClient okHttpClient;
-    int noImage = R.drawable.masaku_dummy_480x360;
+    int noImage = R.drawable.delhome_dummy_image;
 
     public AdapterAllMenus(Activity activity, List<ModelAllMenus> d) {
         mAct = activity;

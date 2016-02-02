@@ -83,7 +83,7 @@ public class ActivitySpeedNextDetail extends ActionBarActivity {
     private BroadcastReceiver updateCart;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
-    int noImage = R.drawable.masaku_dummy_480x360;
+    int noImage = R.drawable.delhome_dummy_image;
 
     Map<String, String> flurryParams = new HashMap<String,String>();
 

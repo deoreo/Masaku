@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
+    android:background="@color/colorWhite">
     <!-- Screen Design for Photos -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,81 +50,124 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <ImageView
+                android:id="@+id/gotoProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu"
+                android:scaleType="fitXY"/>
             <LinearLayout
                 android:id="@+id/btnNamaProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:background="@color/colorWhite"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="15dp"
-                android:paddingTop="15dp">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/namabtn"
-                    android:layout_marginRight="5dp"
-                    android:layout_gravity="center_vertical"/>
-                <EditText
-                    android:id="@+id/namaProfile"
-                    android:layout_width="0dp"
+                android:paddingTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:text="Name"
+                    android:textSize="14dp"/>
+                <EditText
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/namaProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="right"
-                    android:paddingRight="30dp"
                     android:text="Name"
                     android:textColor="@color/colorBlack"
                     android:background="@null"
                     android:singleLine="true"
                     android:maxLines="1"
                     android:editable="false"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:imeOptions="actionDone"
                     />
-                <ImageView
-                    android:padding="4dp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/next_grey"
-                    android:layout_gravity="center_vertical"/>
+                <View
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey" />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="0dp"
                 android:id="@+id/btnTeleponProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:background="@color/colorWhite"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/phone"
-                    android:layout_marginRight="5dp"
-                    android:layout_gravity="center_vertical"/>
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
                 <TextView
-                    android:id="@+id/telponProfile"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:text="Phone Number"
+                    android:textSize="14dp"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_marginTop="0dp"
+                    android:id="@+id/telponProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="right"
                     android:paddingRight="30dp"
                     android:text="Phone Number"
                     android:textSize="15sp"
                     android:textColor="@color/colorBlack"
                     />
-                <ImageView
-                    android:padding="4dp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/next_grey"
-                    android:layout_gravity="center_vertical"/>
+                <View
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnEmailProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="14dp"/>
+                <EditText
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/emailProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Email"
+                    android:textColor="@color/colorBlack"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:editable="false"
+                    android:textSize="16sp"
+                    android:imeOptions="actionDone"
+                    />
+                <View
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="2dp"
@@ -136,7 +179,8 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp"
+                android:visibility="gone">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"

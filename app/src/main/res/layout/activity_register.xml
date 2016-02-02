@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/colorWhite"
+    android:background="@drawable/pic"
     android:orientation="vertical"
     >
 
@@ -77,14 +77,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:orientation="horizontal"
-                                android:background="@color/colorWhite">
+                                >
                                 <ImageView
                                     android:layout_gravity="center"
                                     android:layout_width="20dp"
                                     android:layout_height="30dp"
                                     android:src="@drawable/profile"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"/>
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="gone"/>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -93,7 +94,7 @@
                                     <EditText
                                         android:layout_width="wrap_content"
                                         android:layout_height="50dp"
-                                        android:text="08"
+                                        android:text="+628"
                                         android:background="@null"
                                         android:textColor="@color/colorBlack"
                                         android:singleLine="true"
@@ -121,6 +122,11 @@
 
                             </LinearLayout>
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/colorBlack"
+                                />
 
                         </LinearLayout>
 
@@ -133,14 +139,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:orientation="horizontal"
-                                android:background="@color/colorWhite">
+                                >
                                 <ImageView
                                     android:layout_gravity="center"
                                     android:layout_width="20dp"
                                     android:layout_height="30dp"
                                     android:src="@drawable/profile"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"/>
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="gone"/>
                                 <EditText
                                     android:id="@+id/txtNama"
                                     android:layout_width="0dp"
@@ -156,6 +163,11 @@
                                     android:gravity="center_vertical"
                                     />
                             </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/colorBlack"
+                                />
 
                         </LinearLayout>
 
@@ -168,14 +180,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:orientation="horizontal"
-                                android:background="@color/colorWhite">
+                                >
                                 <ImageView
                                     android:layout_gravity="center"
                                     android:layout_width="20dp"
                                     android:layout_height="30dp"
                                     android:src="@drawable/password"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"/>
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="gone"/>
                                 <EditText
                                     android:id="@+id/txtPassword"
                                     android:layout_width="0dp"
@@ -195,9 +208,15 @@
                                     android:layout_gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="show"/>
+                                    android:text="show"
+                                    android:visibility="gone"/>
                             </LinearLayout>
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/colorBlack"
+                                />
                         </LinearLayout>
 
 
@@ -211,14 +230,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:orientation="horizontal"
-                                android:background="@color/colorWhite">
+                                >
                                 <ImageView
                                     android:layout_gravity="center"
                                     android:layout_width="20dp"
                                     android:layout_height="30dp"
                                     android:src="@drawable/password"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"/>
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="gone"/>
                                 <EditText
                                     android:id="@+id/txtConfirmPassword"
                                     android:layout_width="0dp"
@@ -238,9 +258,16 @@
                                     android:layout_gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="show"/>
+                                    android:text="show"
+                                    android:visibility="gone"/>
 
                             </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/colorBlack"
+                                />
 
                         </LinearLayout>
 

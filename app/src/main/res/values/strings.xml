@@ -15,7 +15,7 @@
     <string-array name="nav_drawer_labels">
         <item>Menu</item>
         <item>History</item>
-        <item>Food Database</item>
+        <item>Discover</item>
         <item>Promo</item>
         <item>Help</item>
         <item>Customer Service</item>
