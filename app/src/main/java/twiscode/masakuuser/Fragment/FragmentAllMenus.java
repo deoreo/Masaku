@@ -335,12 +335,25 @@ public class FragmentAllMenus extends Fragment {
 						mListView.setVisibility(View.VISIBLE);
 						//noData.setVisibility(View.GONE);
 						mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+						int countHeart = 0;
+						for(int x=0;x<LIST_MENU.size();x++){
+							if(LIST_MENU.get(x).isAdded()){
+								countHeart++;
+							}
+						}
+						if(countHeart > 0){
+							SendBroadcast("doWishlistFull", "true");
+						}
+						else {
+							SendBroadcast("doWishlistFull", "false");
+						}
 						Log.d("datalist","ada");
 					}
 					else {
 						mListView.setVisibility(View.GONE);
 						//noData.setVisibility(View.VISIBLE);
 						mSwipeRefreshLayout.setVisibility(View.GONE);
+						SendBroadcast("doWishlistFull", "false");
 					}
 					break;
 

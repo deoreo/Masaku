@@ -129,7 +129,7 @@ public class FragmentWishlist extends Fragment {
                     }
                     else if(ApplicationData.CountWishlist==0){
                         ApplicationData.CountWishlist=0;
-
+                        SendBroadcast("doWishlistFull","false");
                     }
                     //if(ApplicationData.idLike!=ApplicationData.historyIdLike){
                        // ApplicationData.historyIdLike = ApplicationData.idLike;
@@ -414,6 +414,7 @@ public class FragmentWishlist extends Fragment {
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(doDislike,
                 new IntentFilter("removeWishlist"));
+
 
     }
 
