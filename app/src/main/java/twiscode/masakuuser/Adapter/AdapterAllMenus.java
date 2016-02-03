@@ -162,6 +162,7 @@ public class AdapterAllMenus extends BaseAdapter {
                 holder.btnAdd.setVisibility(View.GONE);
                 holder.btnAdded.setVisibility(View.VISIBLE);
 
+
             }
             else {
                 holder.btnAdd.setVisibility(View.VISIBLE);

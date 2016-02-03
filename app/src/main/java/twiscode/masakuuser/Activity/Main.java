@@ -69,7 +69,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private RelativeLayout wrapCart, wishlistEmpty, wishlistFull, foodDatabase;
     private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, PROMO = 3, BANTUAN = 4, CUSTOMER_SERVICE = 5, WISHLIST = 6;
 
-    private BroadcastReceiver updateCart, doWishlistFull,gotoDiscover;
+    private BroadcastReceiver updateCart, doWishlistFull,gotoDiscover,emptyWishlist;
 
 
     @Override
@@ -406,6 +406,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 new IntentFilter("wishlistFull"));
         LocalBroadcastManager.getInstance(Main.this).registerReceiver(gotoDiscover,
                 new IntentFilter("gotoDiscover"));
+
 
     }
 

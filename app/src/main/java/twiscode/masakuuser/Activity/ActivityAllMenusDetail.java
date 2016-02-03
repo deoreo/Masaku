@@ -81,7 +81,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
     private ListView mListFeedback;
     private AdapterVendorFeedback adapterFeedback;
     private TextView countCart,deliveryMenu;
-    private LinearLayout wrapCount, timeLayout, deliveryLayout;
+    private LinearLayout wrapCount, timeLayout, layoutDeliveryDate;
     private BroadcastReceiver updateCart;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
@@ -105,7 +105,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         //layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
         progress = (ProgressBar) findViewById(R.id.progress);
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
-        //deliveryLayout = (LinearLayout) findViewById(R.id.deliveryLayou);
+        layoutDeliveryDate = (LinearLayout) findViewById(R.id.layoutDeliveryDate);
         countCart = (TextView) findViewById(R.id.countCart);
         layCounter = (LinearLayout) findViewById(R.id.layCounter);
         //deliveryMenu = (TextView) findViewById(R.id.deliveryMenu);
@@ -124,6 +124,7 @@ public class ActivityAllMenusDetail extends ActionBarActivity {
         wrapCount = (LinearLayout) findViewById(R.id.wrapCount);
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
         modelMenu = ApplicationData.modelAllMenus;
+        layoutDeliveryDate.setVisibility(View.GONE);
 
         //layoutTimePO.setVisibility(View.GONE);
         /*
