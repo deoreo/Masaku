@@ -95,35 +95,36 @@
                     android:background="@color/colorGrey" />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="0dp"
-                android:id="@+id/btnTeleponProfile"
+                android:id="@+id/btnPhoneProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/colorWhite"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phone Number"
-                    android:textSize="14dp"
-                    android:visibility="gone"/>
-                <TextView
-                    android:layout_marginTop="0dp"
+                    android:textSize="14dp"/>
+                <EditText
+                    android:layout_marginTop="15dp"
                     android:id="@+id/telponProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingRight="30dp"
                     android:text="Phone Number"
-                    android:textSize="15sp"
                     android:textColor="@color/colorBlack"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:editable="false"
+                    android:textSize="16sp"
+                    android:imeOptions="actionDone"
                     />
                 <View
                     android:layout_marginTop="15dp"
@@ -131,6 +132,7 @@
                     android:layout_height="2dp"
                     android:background="@color/colorGrey" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btnEmailProfile"
                 android:layout_width="match_parent"
