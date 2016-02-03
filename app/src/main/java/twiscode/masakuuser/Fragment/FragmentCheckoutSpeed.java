@@ -142,7 +142,7 @@ public class FragmentCheckoutSpeed extends Fragment {
 
         tips = "10";
 
-        String alamat = ApplicationData.location;
+        String alamat = applicationManager.getAlamat();
         if (alamat != "") {
             txtAlamat.setText(alamat);
         }

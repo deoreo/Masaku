@@ -99,4 +99,17 @@ public class ApplicationManager {
         mEditor.clear();
         mEditor.commit();
     }
+
+    public void setAlamat(String alamat) {
+        try {
+            mEditor.putString(KEY_ALAMAT, alamat);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NullPointerException();
+        }
+        mEditor.commit();
+    }
+    public String getAlamat() {
+        return mPref.getString(KEY_ALAMAT, null);
+    }
 }

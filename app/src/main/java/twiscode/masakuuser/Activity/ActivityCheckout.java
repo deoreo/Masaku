@@ -117,9 +117,16 @@ public class ActivityCheckout extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent j = new Intent(getBaseContext(), Main.class);
+                startActivity(j);
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 

@@ -61,6 +61,7 @@ import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 /**
@@ -156,7 +157,7 @@ public class FragmentCheckoutPO extends Fragment {
 
         tips = "10";
 
-        String alamat = ApplicationData.location;
+        String alamat = applicationManager.getAlamat();
         if (alamat != "") {
             txtAlamat.setText(alamat);
         }
@@ -226,6 +227,7 @@ public class FragmentCheckoutPO extends Fragment {
         txtAlamat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationData.isFromMenu = false;
                 Intent i = new Intent(getActivity(), ActivityChangeLocation.class);
                 startActivity(i);
                 getActivity().finish();
@@ -902,4 +904,6 @@ public class FragmentCheckoutPO extends Fragment {
         FlurryAgent.endTimedEvent("CHECKOUT_PREORDER");
         FlurryAgent.onEndSession(getActivity());
     }
+
+
 }

@@ -49,6 +49,7 @@ import twiscode.masakuuser.Model.ModelGeocode;
 import twiscode.masakuuser.Model.ModelPlace;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.GoogleAPIManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -93,8 +94,6 @@ public class ActivityChangeLocation extends FragmentActivity
     private AdapterSuggestion mAdapter;
     private String strDetailFrom;
     private DatabaseHandler db;
-    private ModelAlamat modelAlamat;
-    private ArrayList<ModelAlamat> listAlamat = null;
     private AdapterAlamat adapterAlamat;
     private BroadcastReceiver changeAlamat;
     private boolean isRecent = true;
@@ -106,7 +105,6 @@ public class ActivityChangeLocation extends FragmentActivity
         mActivity = this;
         //String[] maps = {"Android ", "java", "IOS", "SQL", "JDBC", "Web services"};
         db = new DatabaseHandler(mActivity);
-        modelAlamat = new ModelAlamat();
         progress = (ProgressBar) findViewById(R.id.progress);
         txtFrom = (TextView) findViewById(R.id.txtFrom);
         //btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
@@ -146,11 +144,22 @@ public class ActivityChangeLocation extends FragmentActivity
                 isRecent = true;
                 String message = intent.getStringExtra("message");
                 txtFrom.setText(message);
+                ApplicationManager.getInstance(mActivity).setAlamat(message);
+                if(!ApplicationData.isFromMenu) {
+                    Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+                    startActivity(j);
+                    finish();
+                }else{
+                    Intent j = new Intent(getBaseContext(), Main.class);
+                    startActivity(j);
+                    finish();
+                }
+
             }
         };
 
-        listAlamat = db.loadAlamat();
-        adapterAlamat = new AdapterAlamat(mActivity, listAlamat);
+        LIST_PLACE = db.loadPlace();
+        adapterAlamat = new AdapterAlamat(mActivity, LIST_PLACE);
         lvRecent.setAdapter(adapterAlamat);
         upLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,13 +204,12 @@ public class ActivityChangeLocation extends FragmentActivity
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
 
-                    if (s.length() >= 3 && !isRecent) {
-                        new GetSuggestion(mActivity, s.toString()).execute();
-                    } else if (s.length() == 0) {
-                        layoutSuggestion.setVisibility(GONE);
-                        layoutRecent.setVisibility(VISIBLE);
-                    }
-
+                if (s.length() >= 3 && !isRecent) {
+                    new GetSuggestion(mActivity, s.toString()).execute();
+                } else if (s.length() == 0) {
+                    layoutSuggestion.setVisibility(GONE);
+                    layoutRecent.setVisibility(VISIBLE);
+                }
 
 
             }
@@ -222,14 +230,12 @@ public class ActivityChangeLocation extends FragmentActivity
                 }
             }
         });
-        */
+
         btnGunakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!txtFrom.getText().toString().isEmpty()) {
-                    modelAlamat.setId(txtFrom.getText().toString());
-                    modelAlamat.setNama(txtFrom.getText().toString());
-                    db.insertAlamat(modelAlamat);
+
 
                     if (!ApplicationData.isFromMenu) {
                         ApplicationData.location = txtFrom.getText().toString();
@@ -248,6 +254,7 @@ public class ActivityChangeLocation extends FragmentActivity
                 }
             }
         });
+        */
         /*
         btnLocationFrom.setOnClickListener(new View.OnClickListener()
 
@@ -312,12 +319,10 @@ public class ActivityChangeLocation extends FragmentActivity
     @Override
     public void onBackPressed() {
         if(!ApplicationData.isFromMenu) {
-            ApplicationData.location = txtFrom.getText().toString();
             Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
             startActivity(j);
             finish();
         }else{
-            ApplicationData.location = txtFrom.getText().toString();
             Intent j = new Intent(getBaseContext(), Main.class);
             startActivity(j);
             finish();
@@ -423,18 +428,49 @@ public class ActivityChangeLocation extends FragmentActivity
                         strDetailFrom = selectedPlace.getAddressDetail();
                         String alamat = selectedPlace.getAddress() + "," + selectedPlace.getAddressDetail();
 
-                        ModelGeocode geocode = GoogleAPIManager.geocode(description);
-                        ApplicationData.posFrom = new LatLng(geocode.getLat(), geocode.getLon());
-
+                        //ModelGeocode geocode = GoogleAPIManager.geocode(description);
+                        //ApplicationData.posFrom = new LatLng(geocode.getLat(), geocode.getLon());
 
                         layoutSuggestion.setVisibility(GONE);
                         layoutRecent.setVisibility(VISIBLE);
+
+                        ApplicationManager.getInstance(activity).setAlamat(selectedPlace.getAddress());
+
+                        db.insertPlace(selectedPlace);
+
                         hideKeyboard();
+
+
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        ModelPlace selectedPlace = new ModelPlace(txtFrom.getText().toString(),
+                                txtFrom.getText().toString(),
+                                "Indonesia"
+                                );
+
+                        txtFrom.setText(selectedPlace.getAddress());
+                        strDetailFrom = selectedPlace.getAddressDetail();
+                        String alamat = selectedPlace.getAddress() + "," + selectedPlace.getAddressDetail();
+
+                        //ModelGeocode geocode = GoogleAPIManager.geocode(description);
+                        //ApplicationData.posFrom = new LatLng(geocode.getLat(), geocode.getLon());
+
                         layoutSuggestion.setVisibility(GONE);
                         layoutRecent.setVisibility(VISIBLE);
+
+                        ApplicationManager.getInstance(activity).setAlamat(selectedPlace.getAddress());
+
+                        db.insertPlace(selectedPlace);
+
                         hideKeyboard();
+                    }
+                    if(!ApplicationData.isFromMenu) {
+                        Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
+                        startActivity(j);
+                        finish();
+                    }else{
+                        Intent j = new Intent(getBaseContext(), Main.class);
+                        startActivity(j);
+                        finish();
                     }
                 }
             });

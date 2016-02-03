@@ -4,16 +4,17 @@ package twiscode.masakuuser.Model;
  * Created by User on 10/21/2015.
  */
 public class ModelAlamat {
-    private String id, nama;
+    private String id, nama, alamatDetail;
 
     public ModelAlamat(){
 
     }
 
 
-    public ModelAlamat(String id, String nama){
+    public ModelAlamat(String id, String nama, String alamatDetail){
         this.id = id;
         this.nama = nama;
+        this.alamatDetail = alamatDetail;
     }
 
 
@@ -33,4 +34,11 @@ public class ModelAlamat {
         this.nama = nama;
     }
 
+    public String getAlamatDetail() {
+        return alamatDetail;
+    }
+
+    public void setAlamatDetail(String alamatDetail) {
+        this.alamatDetail = alamatDetail;
+    }
 }

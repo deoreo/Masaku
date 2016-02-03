@@ -125,7 +125,7 @@ public class ActivityLogin extends Activity{
                         if (!NetworkManager.getInstance(mActivity).isConnectedInternet()) {
                             DialogManager.showDialog(mActivity, "Peringatan", "Tidak ada koneksi internet!");
                         } else {
-                            phone = "08"+phone;
+                            phone = "0"+phone;
                             new DoLogin(mActivity).execute(
                                     phone,
                                     password

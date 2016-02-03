@@ -127,8 +127,8 @@ private TextView txtAlamat;
 			}
 		});
 
-		if(!ApplicationData.location.isEmpty()) {
-			txtAlamat.setText(ApplicationData.location);
+		if(applicationManager.getAlamat() != null) {
+			txtAlamat.setText(applicationManager.getAlamat());
 		}else{
 			txtAlamat.setText("address");
 		}
@@ -139,6 +139,7 @@ private TextView txtAlamat;
 				Intent i = new Intent(getActivity(), ActivityChangeLocation.class);
 				startActivity(i);
 				ApplicationData.isFromMenu = true;
+				getActivity().finish();
 			}
 		});
 

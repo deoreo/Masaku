@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import twiscode.masakuuser.Model.ModelAlamat;
+import twiscode.masakuuser.Model.ModelPesanan;
+import twiscode.masakuuser.Model.ModelPlace;
 import twiscode.masakuuser.Model.ModelUser;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -34,6 +36,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_ALAMAT_ID = "id_alamat";
     private static final String KEY_ALAMAT_NAME = "name_alamat";
+    private static final String KEY_ALAMAT_DETAIL = "detail_alamat";
+
 
 
     public DatabaseHandler(Context context) {
@@ -53,7 +57,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_ALAMAT = "CREATE TABLE " + T_ALAMAT + "("
                 + KEY_ALAMAT_ID + " TEXT PRIMARY KEY,"
-                + KEY_ALAMAT_NAME + " TEXT"
+                + KEY_ALAMAT_NAME + " TEXT,"
+                + KEY_ALAMAT_DETAIL + " TEXT"
                 + ")";
 
         db.execSQL(CREATE_TABLE_USER);
@@ -65,6 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + T_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + T_ALAMAT);
         // Create tables again
         onCreate(db);
     }
@@ -119,6 +125,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    /*
     public void insertAlamat(ModelAlamat modelAlamat) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -141,12 +148,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         ModelAlamat modelGroup = new ModelAlamat(cursor.getString(0),
-                cursor.getString(1)
+                cursor.getString(1), cursor.getString(2)
 
         );
         return modelGroup;
     }
-
 
     public ArrayList<ModelAlamat> loadAlamat() {
         String allData = "SELECT  * FROM " + T_ALAMAT;
@@ -165,5 +171,54 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Collections.reverse(alamatList);
         return alamatList;
     }
+
+    */
+    public void insertPlace(ModelPlace modelAlamat) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ALAMAT_ID, modelAlamat.getPlaceId());
+        values.put(KEY_ALAMAT_NAME, modelAlamat.getAddress());
+        values.put(KEY_ALAMAT_DETAIL, modelAlamat.getAddressDetail());
+        // Inserting Row
+        db.insert(T_ALAMAT, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public ModelPlace getPlace(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(T_ALAMAT, new String[]{KEY_ALAMAT_ID,
+                        KEY_ALAMAT_NAME, KEY_ALAMAT_DETAIL},
+                KEY_ALAMAT_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        ModelPlace modelGroup = new ModelPlace(cursor.getString(0),
+                cursor.getString(1), cursor.getString(2)
+
+        );
+        return modelGroup;
+    }
+
+    public ArrayList<ModelPlace> loadPlace() {
+        String allData = "SELECT  * FROM " + T_ALAMAT;
+        ArrayList<ModelPlace> alamatList = new ArrayList<ModelPlace>();
+
+        // Loads the event list data summary
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(allData, null);
+        if(cursor.moveToFirst()){
+            do{
+                alamatList.add(this.getPlace(cursor.getString(0)));
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Collections.reverse(alamatList);
+        return alamatList;
+    }
+
 
 }

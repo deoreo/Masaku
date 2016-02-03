@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:background="@color/colorGrey"
+    android:background="@color/colorWhite"
     >
 
     <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:textColor="#000000"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginLeft="20dp"
                     android:singleLine="true"
                     android:maxLines="1"
@@ -59,13 +59,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/txtDetail"
                     android:text="-"
-                    android:textColor="#98abb2b5"
+                    android:textColor="@color/colorDarkGrey"
                     android:textStyle="bold"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:singleLine="true"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    fontPath="@string/GothamRndItalic"
                    />
 
 

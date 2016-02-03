@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorGrey"
+    android:background="@color/colorWhite"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -78,7 +78,7 @@
                         android:id="@+id/layoutAlamat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
+                        android:background="@color/colorGrey"
                         android:orientation="horizontal"
 
                         android:padding="8dp">
@@ -96,7 +96,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
-                            android:background="@color/colorWhite"
+                            android:background="@color/colorGrey"
                             android:hint="Input your address"
                             android:textColor="@color/colorDarkGrey"
                             android:textSize="14dp" />
@@ -334,7 +334,7 @@
                 fontPath="@string/GothamRndBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorGrey"
+                android:background="@color/colorWhite"
                 android:padding="10dp"
                 android:text="Recent Locations"
                 android:textColor="@color/colorBlack"
@@ -344,7 +344,7 @@
                 android:id="@+id/lvRecent"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/colorGrey"
+                android:background="@color/colorWhite"
                 android:divider="#00000000"
                 android:dividerHeight="0dp"
                 android:visibility="visible"></ListView>

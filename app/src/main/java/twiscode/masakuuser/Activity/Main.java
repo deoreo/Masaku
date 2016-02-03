@@ -118,6 +118,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(Main.this, ActivityCheckout.class);
                     startActivity(i);
+                    finish();
                 } else {
                     DialogManager.showDialog(Main.this, "Mohon Maaf", "Anda belum memiliki pesanan");
                 }
@@ -223,29 +224,29 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
     @Override
     public void onBackPressed() {
-        /*
+
         Log.d("counter stack", Integer.toString(getFragmentManager().getBackStackEntryCount()));
-        if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Contact Us")
-                || ApplicationData.titleBar.getText().toString().equalsIgnoreCase("FAQ")
-                || ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Terms and Conditions")
-                ){
+        if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("profile") )
+        {
             datafragmentHelper.ReturnLastFragment();
         }
-        */
+        else {
 
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                .setMessage("Are you sure?")
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-                }).setNegativeButton("no", null).show();
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                    .setMessage("Are you sure?")
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).setNegativeButton("no", null).show();
+        }
 
     }
 

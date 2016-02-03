@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.okhttp.OkHttpClient;
@@ -19,29 +20,34 @@ import com.squareup.okhttp.OkHttpClient;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelAlamat;
+import twiscode.masakuuser.Model.ModelPlace;
 import twiscode.masakuuser.R;
 
 
 public class AdapterAlamat extends BaseAdapter {
     private Activity mAct;
-    private ArrayList<ModelAlamat> mSourceData, mFilterData;
+    private List<ModelPlace> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
     private int height=0,width=0;
     private DecimalFormat decimalFormat;
     private OkHttpClient okHttpClient;
+    private DatabaseHandler db;
     int noImage = R.drawable.masaku_dummy_480x360;
 
-    public AdapterAlamat(Activity activity, ArrayList<ModelAlamat> d) {
+    public AdapterAlamat(Activity activity, List<ModelPlace> d) {
         mAct = activity;
         mSourceData = d;
         mInflater = (LayoutInflater) mAct.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(d==null || d.isEmpty()){
             mKeyIsEmpty = true;
         }
+        db = new DatabaseHandler(activity);
 
     }
 
@@ -72,18 +78,23 @@ public class AdapterAlamat extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.row_alamat, null);
             holder = new ViewHolder();
             holder.txtAlamat = (TextView) convertView.findViewById(R.id.txtAlamat);
+            holder.txtAlamatDetail = (TextView) convertView.findViewById(R.id.txtAlamatDetail);
+            holder.btnAlamat = (LinearLayout) convertView.findViewById(R.id.layoutAlamat);
             convertView.setTag(position);
 
-            final ModelAlamat modelMenu = mSourceData.get(position);
-            final String ID = modelMenu.getId();
-            final String ALAMAT = modelMenu.getNama();
+            final ModelPlace modelMenu = mSourceData.get(position);
+            final String ID = modelMenu.getPlaceId();
+            final String ALAMAT = modelMenu.getAddress();
+            final String ALAMAT_DETAIL = modelMenu.getAddressDetail();
 
             holder.txtAlamat.setText(ALAMAT);
+            holder.txtAlamatDetail.setText(ALAMAT_DETAIL);
 
-            holder.txtAlamat.setOnClickListener(new View.OnClickListener() {
+            holder.btnAlamat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     SendBroadcast("changeAlamat", ALAMAT);
+
                 }
             });
 
@@ -93,7 +104,9 @@ public class AdapterAlamat extends BaseAdapter {
     }
 
     private static class ViewHolder {
+        public LinearLayout btnAlamat;
         public TextView txtAlamat;
+        public TextView txtAlamatDetail;
     }
 
     private void SendBroadcast(String typeBroadcast,String type){
