@@ -43,6 +43,7 @@ import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -272,6 +273,10 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
         FlurryAgent.onEndSession(this);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 
 

@@ -69,7 +69,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private RelativeLayout wrapCart, wishlistEmpty, wishlistFull, foodDatabase;
     private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, PROMO = 3, BANTUAN = 4, CUSTOMER_SERVICE = 5, WISHLIST = 6;
 
-    private BroadcastReceiver updateCart, doWishlistFull,gotoDiscover,emptyWishlist;
+    private BroadcastReceiver updateCart, doWishlistFull, gotoDiscover, emptyWishlist;
 
 
     @Override
@@ -226,27 +226,22 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     public void onBackPressed() {
 
         Log.d("counter stack", Integer.toString(getFragmentManager().getBackStackEntryCount()));
-        if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("profile") )
-        {
-            datafragmentHelper.ReturnLastFragment();
-        }
-        else {
 
 
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                    .setMessage("Are you sure?")
-                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            Intent intent = new Intent(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_HOME);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }).setNegativeButton("no", null).show();
-        }
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("no", null).show();
+
 
     }
 
@@ -322,7 +317,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 if (ApplicationData.CountWishlist <= 0) {
                     wishlistEmpty.setVisibility(VISIBLE);
                     wishlistFull.setVisibility(GONE);
-                } else if (ApplicationData.CountWishlist > 0){
+                } else if (ApplicationData.CountWishlist > 0) {
                     wishlistEmpty.setVisibility(GONE);
                     wishlistFull.setVisibility(VISIBLE);
                 }

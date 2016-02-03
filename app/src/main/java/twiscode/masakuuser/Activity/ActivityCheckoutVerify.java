@@ -1,6 +1,7 @@
 package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.Map;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -63,6 +65,10 @@ public class ActivityCheckoutVerify extends AppCompatActivity {
         FlurryAgent.onEndSession(this);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 
 
