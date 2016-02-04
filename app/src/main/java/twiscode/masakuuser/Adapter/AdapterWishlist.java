@@ -50,12 +50,14 @@ import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelWishlist;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 
 public class AdapterWishlist extends BaseAdapter {
     private Activity mAct;
+    private ApplicationManager appManager;
     private List<ModelAllMenus> mSourceData, mFilterData;
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
@@ -70,6 +72,7 @@ public class AdapterWishlist extends BaseAdapter {
         if(d==null || d.isEmpty()){
             mKeyIsEmpty = true;
         }
+        appManager = new ApplicationManager(activity);
 
     }
 
@@ -165,12 +168,14 @@ public class AdapterWishlist extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ApplicationData.idLike = ID;
-                    if(ApplicationData.CountWishlist>0){
-                        ApplicationData.CountWishlist--;
+                    int wishlistCount = appManager.getWishlist();
+                    if(wishlistCount>0){
+                        wishlistCount--;
+                        appManager.setWishlist(wishlistCount);
                     }
-                    else if(ApplicationData.CountWishlist==0){
-                        ApplicationData.CountWishlist=0;
-
+                    else if(wishlistCount==0){
+                        wishlistCount=0;
+                        appManager.setWishlist(wishlistCount);
                     }
                     SendBroadcast("removeWishlist","true");
                 }

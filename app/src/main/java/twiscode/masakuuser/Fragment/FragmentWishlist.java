@@ -124,11 +124,14 @@ public class FragmentWishlist extends Fragment {
                 String message = intent.getStringExtra("message");
                 if (message.equals("true")) {
                     Log.d("removeWishlist", "true");
-                    if(ApplicationData.CountWishlist>0){
-                        ApplicationData.CountWishlist--;
+                    int wishlistCount = appManager.getWishlist();
+                    if(wishlistCount>0){
+                        wishlistCount--;
+                        appManager.setWishlist(wishlistCount);
                     }
-                    else if(ApplicationData.CountWishlist==0){
-                        ApplicationData.CountWishlist=0;
+                    else if(wishlistCount==0){
+                        wishlistCount=0;
+                        appManager.setWishlist(wishlistCount);
                         SendBroadcast("doWishlistFull","false");
                     }
                     //if(ApplicationData.idLike!=ApplicationData.historyIdLike){

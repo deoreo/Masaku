@@ -94,21 +94,42 @@
         android:textSize="16dp"
         android:textStyle="bold"
         android:textColor="@color/colorDarkGrey2"/>
-    <EditText
-        android:id="@+id/kodePromoCheckout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="match_parent"
         android:background="@color/colorWhite"
-        android:maxLength="120"
-        android:padding="10dp"
-        android:hint="input promotion code"
-        android:textColor="@color/colorBlack"
-        android:textSize="14dp"
-        android:gravity="left"
-        android:singleLine="true"
-        android:lines="1"
-        android:imeOptions="actionDone"
-        />
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/kodePromoCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:maxLength="120"
+            android:padding="10dp"
+            android:hint="input promotion code"
+            android:textColor="@color/colorBlack"
+            android:textSize="14dp"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:lines="1"
+            android:imeOptions="actionDone"
+            android:layout_gravity="left|center_vertical" />
+        <Button
+            android:id="@+id/btnApply"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="APPLY"
+            android:background="@drawable/rounded_line_red"
+            android:layout_gravity="right|center_vertical"
+            android:layout_margin="10dp"
+            />
+
+
+
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

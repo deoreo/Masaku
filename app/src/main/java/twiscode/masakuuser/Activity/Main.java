@@ -58,11 +58,12 @@ import static android.view.View.VISIBLE;
 
 public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
+    private ApplicationManager appManager;
     private ActionBar actionBar;
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-    DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
-    TextView titleBar;
+    private DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
+    private TextView titleBar;
     private TextView countCart;
     private LinearLayout wrapCount;
     private ImageView btnCart;
@@ -76,8 +77,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        appManager = new ApplicationManager(Main.this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setNavigationIcon(R.drawable.drawer_toggle);
         mToolbar.setLogo(R.drawable.drawer_toggle);
@@ -226,8 +226,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     public void onBackPressed() {
 
         Log.d("counter stack", Integer.toString(getFragmentManager().getBackStackEntryCount()));
-        if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Profile")){
-            displayView(MENU);
+        //if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Profile")){
+        //    displayView(MENU);
+        if(ApplicationData.isProfile){
+            datafragmentHelper.ReturnLastFragment();
         }else {
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                     .setMessage("Are you sure?")
@@ -315,10 +317,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 wrapCart.setVisibility(GONE);
                 foodDatabase.setVisibility(GONE);
 
-                if (ApplicationData.CountWishlist <= 0) {
+                if (appManager.getWishlist() <= 0) {
                     wishlistEmpty.setVisibility(VISIBLE);
                     wishlistFull.setVisibility(GONE);
-                } else if (ApplicationData.CountWishlist > 0) {
+                } else if (appManager.getWishlist() > 0) {
                     wishlistEmpty.setVisibility(GONE);
                     wishlistFull.setVisibility(VISIBLE);
                 }

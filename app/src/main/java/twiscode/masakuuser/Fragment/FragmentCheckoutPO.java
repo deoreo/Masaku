@@ -76,7 +76,7 @@ public class FragmentCheckoutPO extends Fragment {
     private ListView mListView;
     private LinearLayout laySpecial,layPembayaran,laypromoInfo;
     private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial,txtPromoInfo;
-    private Button btnKonfirmasi;
+    private Button btnKonfirmasi, btnApply;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     SegmentedGroup segmented;
@@ -137,6 +137,7 @@ public class FragmentCheckoutPO extends Fragment {
         laySpecial = (LinearLayout) header.findViewById(R.id.specialLayout);
         laypromoInfo = (LinearLayout) header.findViewById(R.id.promoInfo);
         txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
+        btnApply = (Button) header.findViewById(R.id.btnApply);
         txtNote = (EditText) header.findViewById(R.id.noteCheckout);
         txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
         txtPromoInfo = (TextView) header.findViewById(R.id.promoInfoText);
@@ -174,8 +175,8 @@ public class FragmentCheckoutPO extends Fragment {
         paySpiner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pembayaran = position+1;
-                Log.d("position",""+pembayaran);
+                pembayaran = position + 1;
+                Log.d("position", "" + pembayaran);
             }
         });
         segmented.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -191,28 +192,28 @@ public class FragmentCheckoutPO extends Fragment {
                         return;
                     case R.id.button22:
                         tips = "5";
-                        tip = (int) Math.floor(subtotal * 0.05 /100)*100;
+                        tip = (int) Math.floor(subtotal * 0.05 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button23:
                         tips = "10";
-                        tip = (int) Math.floor(subtotal * 0.1 /100)*100;
+                        tip = (int) Math.floor(subtotal * 0.1 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button24:
                         tips = "15";
-                        tip = (int) Math.floor(subtotal * 0.15 /100)*100;
+                        tip = (int) Math.floor(subtotal * 0.15 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button25:
                         tips = "20";
-                        tip = (int) Math.floor(subtotal * 0.2 / 100)*100;
+                        tip = (int) Math.floor(subtotal * 0.2 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
@@ -246,6 +247,14 @@ public class FragmentCheckoutPO extends Fragment {
                         return false;
                     }
                 });
+
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("kupon", txtKode.getText().toString());
+                new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+            }
+        });
 
         /*
         if(ApplicationData.cart.size() > 0){

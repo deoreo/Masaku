@@ -35,6 +35,7 @@ public class ApplicationManager {
     private static final String KEY_POS_DRIVER = "trip";
     private static final String KEY_MESSAGE = "messageinbox";
     private static final String KEY_ALAMAT = "alamat";
+    private static final String KEY_WISHLIST = "wishlist";
     private Context mContext;
 
 
@@ -111,5 +112,18 @@ public class ApplicationManager {
     }
     public String getAlamat() {
         return mPref.getString(KEY_ALAMAT, null);
+    }
+
+    public void setWishlist(int wishlist) {
+        try {
+            mEditor.putInt(KEY_WISHLIST,wishlist);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NullPointerException();
+        }
+        mEditor.commit();
+    }
+    public int getWishlist() {
+        return mPref.getInt(KEY_WISHLIST, 0);
     }
 }

@@ -38,6 +38,7 @@ import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterAllMenus;
+import twiscode.masakuuser.Adapter.AdapterWishlist;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelAllMenus;
 import twiscode.masakuuser.Model.ModelCart;
@@ -140,22 +141,27 @@ public class FragmentAllMenus extends Fragment {
 				// Extract data included in the Intent
 				Log.d("", "broadcast doLike");
 				String message = intent.getStringExtra("message");
+				int wishlistCount = appManager.getWishlist();
 				if (message.equals("like")) {
-					ApplicationData.CountWishlist++;
-					SendBroadcast("wishlistFull","true");
+					wishlistCount++;
+					appManager.setWishlist(wishlistCount);
+					SendBroadcast("wishlistFull", "true");
 					new DoLike().execute(
 							ApplicationData.idLike,"like"
 					);
 				}
 				else{
-					if(ApplicationData.CountWishlist>0){
-						ApplicationData.CountWishlist--;
-						if(ApplicationData.CountWishlist==0){
+					if(wishlistCount>0){
+						wishlistCount--;
+						appManager.setWishlist(wishlistCount);
+						if(wishlistCount==0){
+							appManager.setWishlist(wishlistCount);
 							SendBroadcast("wishlistFull","false");
 						}
 					}
-					else if(ApplicationData.CountWishlist==0){
-						ApplicationData.CountWishlist=0;
+					else if(wishlistCount==0){
+						wishlistCount=0;
+						appManager.setWishlist(wishlistCount);
 						SendBroadcast("wishlistFull","false");
 					}
 					new DoLike().execute(
@@ -174,6 +180,7 @@ public class FragmentAllMenus extends Fragment {
 			}
 		});
 
+		new GetWishlist().execute();
 		DummyData(isNodata);
 
 		return rootView;
@@ -435,7 +442,7 @@ public class FragmentAllMenus extends Fragment {
 					//Intent i = new Intent(getBaseContext(), ActivityHome.class);
 					//startActivity(i);
 					//finish();
-					Log.d("jumlah menu : ",""+LIST_MENU.size());
+					Log.d("jumlah menu : ", "" + LIST_MENU.size());
 
 
 					break;
@@ -447,6 +454,69 @@ public class FragmentAllMenus extends Fragment {
 		}
 	}
 
+	private class GetWishlist extends AsyncTask<String, Void, String> {
+
+
+
+		public GetWishlist() {
+			super();
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			if (isNodata) {
+			} else {
+				mSwipeRefreshLayout.setRefreshing(true);
+			}
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			try {
+
+				JSONControl jsControl = new JSONControl();
+				JSONArray response = jsControl.getWishlist(appManager.getUserToken());
+				Log.d("json response wishlist", response.toString());
+				Log.d("user token wishlist", appManager.getUserToken());
+				if (response.length() > 0) {
+					appManager.setWishlist(response.length());
+					SendBroadcast("wishlistFull", "true");
+					return "OK";
+				}
+				else if(response.length()<=0){
+					appManager.setWishlist(response.length());
+					SendBroadcast("wishlistFull", "false");
+					return "OK";
+				}
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Log.d("json response id 0", "FAIL");
+			return "FAIL";
+
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+
+
+			//progressDialog.dismiss();
+			progress.setVisibility(View.GONE);
+			switch (result) {
+				case "FAIL":
+
+					break;
+				case "OK":
+
+					break;
+
+			}
+		}
+	}
 
 
 	public void onResume() {
