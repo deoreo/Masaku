@@ -1,6 +1,7 @@
 package twiscode.masakuuser.Fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -71,11 +72,11 @@ public class FragmentCheckoutPO extends Fragment {
     private static final String ARG_COLOR = "color";
     Activity act;
     ApplicationManager applicationManager;
-    private EditText txtKode, txtNote;
+    private EditText txtNote,txtCodePromo;
     private ImageView btnBack;
     private ListView mListView;
     private LinearLayout laySpecial,layPembayaran,laypromoInfo;
-    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial,txtPromoInfo;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial,txtPromoInfo,txtKode;
     private Button btnKonfirmasi, btnApply;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
@@ -95,6 +96,9 @@ public class FragmentCheckoutPO extends Fragment {
     ModelUser user;
     //boolean isClicked = false;
     Map<String, String> flurryParams = new HashMap<String,String>();
+
+    private Dialog dialogPromoCode;
+    TextView error;
 
     public static FragmentCheckoutPO newInstance() {
         FragmentCheckoutPO fragment = new FragmentCheckoutPO();
@@ -136,7 +140,7 @@ public class FragmentCheckoutPO extends Fragment {
         txtSpecial = (TextView) header.findViewById(R.id.specialText);
         laySpecial = (LinearLayout) header.findViewById(R.id.specialLayout);
         laypromoInfo = (LinearLayout) header.findViewById(R.id.promoInfo);
-        txtKode = (EditText) header.findViewById(R.id.kodePromoCheckout);
+        txtKode = (TextView) header.findViewById(R.id.kodePromoCheckout);
         btnApply = (Button) header.findViewById(R.id.btnApply);
         txtNote = (EditText) header.findViewById(R.id.noteCheckout);
         txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
@@ -235,6 +239,7 @@ public class FragmentCheckoutPO extends Fragment {
             }
         });
 
+/*
         txtKode.setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
                     @Override
@@ -247,12 +252,22 @@ public class FragmentCheckoutPO extends Fragment {
                         return false;
                     }
                 });
-
+*/
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("kupon", txtKode.getText().toString());
                 new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+            }
+        });
+
+        txtKode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("kupon", txtKode.getText().toString());
+                //new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+                dialogPromoCode.show();
+                error.setText("");
             }
         });
 
@@ -434,8 +449,38 @@ public class FragmentCheckoutPO extends Fragment {
 
         }
 
+        InitDialogPromoCode();
+
 
         return v;
+    }
+
+    private void InitDialogPromoCode(){
+        dialogPromoCode = new Dialog(getActivity());
+        dialogPromoCode.setContentView(R.layout.popup_promo);
+        dialogPromoCode.setTitle("Promo Code");
+
+        // set the custom dialog components - text, image and button
+
+        error = (TextView) dialogPromoCode.findViewById(R.id.errorPromoCode);
+        txtCodePromo = (EditText) dialogPromoCode.findViewById(R.id.txtCodePromo);
+        Button cancel = (Button) dialogPromoCode.findViewById(R.id.btnCancel);
+        Button confirm = (Button) dialogPromoCode.findViewById(R.id.btnConfirm);
+
+        error.setText("");
+        // if button is clicked, close the custom dialog
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogPromoCode.dismiss();
+            }
+        });
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+            }
+        });
     }
 
     private void DummyData() {
@@ -548,18 +593,39 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    try {
+                        error.setText("Sorry, the promotion code entered is invalid");
+                    }
+                    catch (Exception c){
+                        c.printStackTrace();
+                    }
                     break;
                 case "OK":
                     total = subtotal + tip + delivery - diskon;
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    Log.d("diskon",""+diskon);
                     if(eventMessage != ""){
                         laySpecial.setVisibility(View.VISIBLE);
                         txtSpecial.setText(eventMessage);
                     }
                     else {
                         laySpecial.setVisibility(View.GONE);
+                    }
+                    try{
+                        if(diskon>0){
+                            txtKode.setText(txtCodePromo.getText().toString());
+                            dialogPromoCode.dismiss();
+                        }
+                        else {
+                            error.setText("Sorry, the promotion code entered is invalid");
+                        }
+
+
+                    }
+                    catch (Exception c){
+                        c.printStackTrace();
                     }
                     break;
             }
