@@ -1,356 +1,432 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:gravity="center"
+    android:orientation="vertical">
     <!-- Screen Design for Photos -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:orientation="horizontal"
-        android:padding="15dp"
-        android:background="@color/colorRed"
-        android:elevation="5dp"
-        android:visibility="gone"
-        >
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:src="@drawable/back_icon" />
 
         <TextView
-            android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Profile"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
+            android:textColor="@color/colorDarkGrey2"
             android:textSize="16dp"
-            />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true">
+            android:textStyle="bold" />
 
-            <ImageView
-                android:padding="5dp"
-                android:id="@+id/btnCart"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/cart_90"/>
-        </LinearLayout>
 
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/gotoProfile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/menu"
-                android:scaleType="fitXY"/>
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/menu" />
+
             <LinearLayout
                 android:id="@+id/btnNamaProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:paddingTop="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
+
                 <EditText
-                    android:layout_marginTop="15dp"
                     android:id="@+id/namaProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="@null"
+                    android:editable="true"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:text="Name"
                     android:textColor="@color/colorBlack"
-                    android:background="@null"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:editable="false"
-                    android:textSize="16sp"
-                    android:imeOptions="actionDone"
-                    />
+                    android:textSize="16sp" />
+
                 <View
-                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
                     android:background="@color/colorGrey" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btnPhoneProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:paddingTop="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phone Number"
-                    android:textSize="14dp"/>
-                <EditText
-                    android:layout_marginTop="15dp"
-                    android:id="@+id/telponProfile"
+                    android:textSize="14dp" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Phone Number"
-                    android:textColor="@color/colorBlack"
-                    android:background="@null"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:editable="true"
-                    android:textSize="16sp"
-                    android:imeOptions="actionDone"
-                    />
-                <View
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/colorGrey" />
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="+62"
+                            android:background="@null"
+                            android:textColor="@color/colorDarkGrey2"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:inputType="number"
+                            android:textSize="16dp"
+                            android:gravity="center_vertical"
+                            android:editable="false"
+                            android:layout_marginTop="5dp"
+                            />
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="2dp"
+                            android:background="@color/colorGrey"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/phoneprofile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="xxxxxx"
+                            android:background="@null"
+                            android:textColor="@color/colorDarkGrey2"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:inputType="number"
+                            android:textSize="16dp"
+                            android:gravity="center_vertical"
+                            android:editable="false"
+                            android:enabled="false"
+                            android:layout_marginTop="5dp"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/colorGrey"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnEmailProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:paddingTop="5dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
+
                 <EditText
-                    android:layout_marginTop="15dp"
                     android:id="@+id/emailProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="@null"
+                    android:editable="true"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:text="Email"
                     android:textColor="@color/colorBlack"
-                    android:background="@null"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:editable="true"
-                    android:textSize="16sp"
-                    android:imeOptions="actionDone"
-                    />
+                    android:textSize="16sp" />
+
                 <View
-                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
                     android:background="@color/colorGrey" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="2dp"
                 android:id="@+id/btnLokasiProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="2dp"
                 android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:visibility="gone">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/location"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@drawable/location" />
+
                 <TextView
                     android:id="@+id/lokasiProfile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="right"
                     android:paddingRight="30dp"
                     android:text="Surabaya"
-                    android:textSize="15sp"
                     android:textColor="@color/colorBlack"
-                    />
+                    android:textSize="15sp" />
+
                 <ImageView
-                    android:padding="4dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/next_grey"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:padding="4dp"
+                    android:src="@drawable/next_grey" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:id="@+id/btnFavoritProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:visibility="gone"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp"
+                android:visibility="gone">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/favourite"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:src="@drawable/favourite" />
+
                 <TextView
                     android:id="@+id/favoritProfile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="right"
                     android:paddingRight="30dp"
                     android:text="Toko Favorit"
-                    android:textSize="15sp"
                     android:textColor="@color/colorBlack"
-                    />
+                    android:textSize="15sp" />
+
                 <ImageView
-                    android:padding="4dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/next_grey"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:padding="4dp"
+                    android:src="@drawable/next_grey" />
             </LinearLayout>
+
             <LinearLayout
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
                 android:id="@+id/btnAboutProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp"
+                android:visibility="gone">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp" />
+
                 <TextView
                     android:id="@+id/aboutProfile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="right"
                     android:paddingRight="30dp"
                     android:text="Tentang Masaku"
-                    android:textColor="@color/colorBlack"
-                    />
+                    android:textColor="@color/colorBlack" />
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/next_grey"
-                    android:layout_gravity="center_vertical"/>
-            </LinearLayout>
-            <LinearLayout android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:id="@+id/btnHotline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/colorWhite"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/hotline"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:paddingRight="30dp"
-                    android:text="HOTLINE : 081234534488"
-                    android:textColor="@color/colorBlack"
-                    />
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:paddingRight="30dp"
-                    android:text="(09.00 - 22.00)"
-                    android:textColor="@color/colorBlack"
-                    />
+                    android:src="@drawable/next_grey" />
             </LinearLayout>
 
-        </LinearLayout>
             <LinearLayout
-                android:visibility="gone"
+                android:id="@+id/btnHotline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/hotline" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingRight="30dp"
+                        android:text="HOTLINE : 081234534488"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingRight="30dp"
+                        android:text="(09.00 - 22.00)"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp"
+                android:visibility="gone">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="LOGOUT"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
                     android:textColor="@color/colorDarkRed"
-                    />
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_red"
+                android:text="Confirm"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
         </LinearLayout>
+
     </ScrollView>
+
+
 
 </LinearLayout>

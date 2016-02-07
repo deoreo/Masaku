@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import twiscode.masakuuser.Activity.ActivityLogin;
+import twiscode.masakuuser.Activity.ActivityProfile;
+import twiscode.masakuuser.Activity.Main;
 import twiscode.masakuuser.Adapter.NavigationDrawerAdapter;
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
@@ -136,22 +138,26 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
         gotoProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mDrawerLayout.closeDrawer(containerView);
+                mDrawerLayout.closeDrawer(containerView);
+                Intent j = new Intent(getActivity(), ActivityProfile.class);
+                startActivity(j);
+                getActivity().finish();
+                /*
                 android.support.v4.app.Fragment fragment = null;
                 fragment = new FragmentProfile();
                 FragmentManager fragmentManager = getFragmentManager();
 
                 datafragmentHelper.SetDataFragmentHelper(fragment, fragmentManager);
                 datafragmentHelper.ChangeFragment(fragment);
-               /*
+
                 fragmentManager.beginTransaction()
                         .replace(R.id.container_body, fragment)
                         .commit();
-                */
+
 
                 // set the toolbar title
                 ApplicationData.titleBar.setText("Profile");
-                mDrawerLayout.closeDrawer(containerView);
+                mDrawerLayout.closeDrawer(containerView);*/
             }
         });
         SetupProfile();

@@ -3,8 +3,10 @@ package twiscode.masakuuser.Utilities;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
+import twiscode.masakuuser.Model.ModelGeocode;
 import twiscode.masakuuser.Model.ModelUser;
 
 /**
@@ -116,7 +118,7 @@ public class ApplicationManager {
 
     public void setWishlist(int wishlist) {
         try {
-            mEditor.putInt(KEY_WISHLIST,wishlist);
+            mEditor.putInt(KEY_WISHLIST, wishlist);
         } catch (Exception e) {
             e.printStackTrace();
             throw new NullPointerException();
@@ -126,4 +128,22 @@ public class ApplicationManager {
     public int getWishlist() {
         return mPref.getInt(KEY_WISHLIST, 0);
     }
+
+    public void setGeocode(LatLng geocode){
+        Gson gson = new Gson();
+        String dataJson = gson.toJson(geocode);
+        mEditor.putString("geocode", dataJson);
+        mEditor.commit();
+
+    }
+
+    public LatLng getGeocode(){
+        Gson gson = new Gson();
+        String json = mPref.getString("geocode", null);
+        LatLng obj = gson.fromJson(json, LatLng.class);
+        return obj;
+    }
+
+
+
 }

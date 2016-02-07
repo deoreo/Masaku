@@ -2,6 +2,7 @@ package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,8 +17,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
+import twiscode.masakuuser.Utilities.DialogManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -46,6 +49,8 @@ public class ActivityCheckoutVerify extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent j = new Intent(act, Main.class);
+                startActivity(j);
                 finish();
             }
         });
@@ -68,6 +73,13 @@ public class ActivityCheckoutVerify extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent j = new Intent(act, Main.class);
+        startActivity(j);
+        finish();
     }
 
 

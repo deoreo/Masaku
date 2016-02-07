@@ -40,7 +40,6 @@ import twiscode.masakuuser.Fragment.FragmentCustomerService;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
 import twiscode.masakuuser.Fragment.FragmentMainMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
-import twiscode.masakuuser.Fragment.FragmentProfile;
 import twiscode.masakuuser.Fragment.FragmentPromo;
 import twiscode.masakuuser.Fragment.FragmentWishlist;
 import twiscode.masakuuser.Model.ModelCart;
@@ -230,6 +229,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         //    displayView(MENU);
         if(ApplicationData.isProfile){
             datafragmentHelper.ReturnLastFragment();
+            ApplicationData.isProfile = false;
         }else {
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                     .setMessage("Are you sure?")

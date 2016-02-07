@@ -96,7 +96,7 @@ public class FragmentPromo extends Fragment {
 						"<p>1. Tidak dapat digabungkan dengan promo lain</p>" +
 						"<p>2. Tidak dapat digunakan setelah masa berlaku habis</p>";
 		int poto = R.drawable.banner_promo_masaku;;
-		ModelPromo promo = new ModelPromo("1", "1 Februari 2015", "29 Februari 2015", "Saat anda melakukan pembelian di Delihome dapat memasukan kode Happy 2016 dalam kolom promo code di halaman checkout. Dan dapatkan free ongkos kirim ke seluruh area Surabaya. ",syarat, poto);
+		ModelPromo promo = new ModelPromo("1", "1 Februari 2016", "29 Februari 2016", "Saat anda melakukan pembelian di Delihome dapat memasukan kode happy2016 dalam kolom promo code di halaman checkout. Dan dapatkan free ongkos kirim ke seluruh area Surabaya. ",syarat, poto);
 		LIST_MENU.add(promo);
 
 

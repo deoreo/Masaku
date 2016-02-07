@@ -7,7 +7,6 @@ import android.util.Log;
 
 import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentCheckoutPO;
-import twiscode.masakuuser.Fragment.FragmentCheckoutSpeed;
 import twiscode.masakuuser.Fragment.FragmentMenu;
 
 
@@ -31,14 +30,14 @@ public class AdapterPagerCheckout extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         //Fragment fragment = null;
-        if(position == 0) // if the position is 0 we are returning the First tab
-        {
+        //if(position == 0) // if the position is 0 we are returning the First tab
+        //{
             return FragmentCheckoutPO.newInstance();
-        }
-        else        // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            return FragmentCheckoutSpeed.newInstance();
-        }
+        //}
+        //else        // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        //{
+            //return FragmentCheckoutSpeed.newInstance();
+       // }
 
 
 

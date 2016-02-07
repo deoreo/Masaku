@@ -125,6 +125,13 @@ public class ActivityCheckout extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent j = new Intent(act, Main.class);
+        startActivity(j);
+        finish();
+    }
+
+    @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }

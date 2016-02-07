@@ -266,6 +266,7 @@ public class JSONResponse {
             jsonArray = new JSONArray(_json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
+            jsonArray = new JSONArray();
         }
         return jsonArray;
     }

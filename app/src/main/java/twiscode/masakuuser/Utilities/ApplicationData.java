@@ -32,6 +32,7 @@ public class ApplicationData {
     public static ModelVendorMenu modelVendorMenu = null;
     public static String phoneNumber = "";
     public static String phoneNumberLogin = "";
+    public static String email = "";
     public static String tokenPass = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static ModelAllMenus modelAllMenus = null;
@@ -52,7 +53,7 @@ public class ApplicationData {
     public static final int NOTIFICATION_ID = 100;
     public static String PARSE_DEVICE_TOKEN = "";
     //public static String location = "";
-    public static LatLng posFrom;
+    //public static LatLng posFrom;
     public static Stack<Fragment> fragments = new Stack<>();
     public static HashMap<String,Bitmap> temp_img = new HashMap<>();
     public static String smsCode;
@@ -74,7 +75,8 @@ public class ApplicationData {
     public static boolean isNullCart = false;
     public static boolean isFirstLogin = false;
     public static boolean isFromMenu = true;
-    public static boolean isProfile = true;
+    public static boolean isProfile = false;
+    public static String address="";
     //public static int CountWishlist = 0;
 
 }

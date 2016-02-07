@@ -168,7 +168,7 @@
             android:id="@+id/drawer_toggle_inside"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/drawer_toggle"
+            android:src="@drawable/notes_icon"
             android:background="@null"
             android:layout_alignParentRight="true"
             android:padding="5dp"/>

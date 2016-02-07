@@ -33,6 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_USER_NAME = "name_user";
     private static final String KEY_TRUSTED = "trusted_user";
     private static final String KEY_USER_PHONE = "phone_user";
+    private static final String KEY_USER_EMAIL = "email_user";
 
     private static final String KEY_ALAMAT_ID = "id_alamat";
     private static final String KEY_ALAMAT_NAME = "name_alamat";
@@ -52,6 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_USER_ID + " TEXT PRIMARY KEY,"
                 + KEY_USER_NAME + " TEXT,"
                 + KEY_USER_PHONE + " TEXT,"
+                + KEY_USER_EMAIL + " TEXT,"
                 + KEY_TRUSTED + " TEXT"
                 + ")";
 
@@ -113,7 +115,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
 
         ModelUser modeluser = new ModelUser(cursor.getString(0),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4)
         );
         return modeluser;
     }

@@ -22,7 +22,6 @@ import java.util.Map;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Database.DatabaseHandler;
-import twiscode.masakuuser.Fragment.FragmentProfile;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
@@ -159,7 +158,7 @@ public class ActivityProfileNama extends Activity {
                                     @Override
                                     public void onPositive(MaterialDialog dialog) {
                                         if (NetworkManager.getInstance(ActivityProfileNama.this).isConnectedInternet()) {
-                                            FragmentProfile.namaprofile.setText(ApplicationData.name);
+                                            ActivityProfile.namaprofile.setText(ApplicationData.name);
                                             onBackPressed();
                                         } else {
                                             DialogManager.showDialog(ActivityProfileNama.this, "Mohon Maaf", "Tidak ada koneksi internet!");
@@ -198,4 +197,10 @@ public class ActivityProfileNama extends Activity {
         FlurryAgent.endTimedEvent("EDIT_NAME");
         FlurryAgent.onEndSession(this);
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 }

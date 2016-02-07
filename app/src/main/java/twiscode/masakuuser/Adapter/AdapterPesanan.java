@@ -124,7 +124,7 @@ public class AdapterPesanan extends BaseAdapter {
                 public void onClick(View view) {
                     ApplicationData.detailTransaksi = modelPesanan;
                     if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
-                        Intent i = new Intent(mAct, ActivityCheckoutKonfirmasi_1.class);
+                        Intent i = new Intent(mAct, ActivityCheckoutKonfirmasi_2.class);
                         mAct.startActivity(i);
                        // mAct.finish();
                     }

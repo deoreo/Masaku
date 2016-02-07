@@ -9,7 +9,6 @@ import android.util.Log;
 import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
-import twiscode.masakuuser.Fragment.FragmentProfile;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 

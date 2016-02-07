@@ -27,6 +27,7 @@ import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelAlamat;
 import twiscode.masakuuser.Model.ModelPlace;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 
 
 public class AdapterAlamat extends BaseAdapter {
@@ -93,6 +94,7 @@ public class AdapterAlamat extends BaseAdapter {
             holder.btnAlamat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ApplicationData.address = ALAMAT+","+ALAMAT_DETAIL;
                     SendBroadcast("changeAlamat", ALAMAT);
 
                 }

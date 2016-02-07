@@ -20,7 +20,7 @@ public class TutorialSliderAdapter extends FragmentPagerAdapter {
 
     public TutorialSliderAdapter(FragmentManager fm) {
         super(fm);
-        pagerCount = 4;
+        pagerCount = 3;
     }
 
     @Override
@@ -32,11 +32,8 @@ public class TutorialSliderAdapter extends FragmentPagerAdapter {
         else if(i==1){
             return FragmentTutorial_2.newInstance(url);
         }
-        else if(i==2){
+        else{
             return FragmentTutorial_3.newInstance(url);
-        }
-        else {
-            return FragmentTutorial_4.newInstance(url);
         }
 
 

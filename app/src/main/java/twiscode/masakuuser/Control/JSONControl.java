@@ -273,8 +273,8 @@ public class JSONControl {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             JSONArray loc = new JSONArray();
             try {
-                loc.put(0, 0.0);
-                loc.put(1, 0.0);
+                loc.put(0, pos.latitude);
+                loc.put(1, pos.longitude);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -284,8 +284,8 @@ public class JSONControl {
             params.add(new BasicNameValuePair("promoCode", kode));
             params.add(new BasicNameValuePair("address", address));
             params.add(new BasicNameValuePair("note", note));
-            params.add(new BasicNameValuePair("addressGeo[]", ""+0.0));
-            params.add(new BasicNameValuePair("addressGeo[]", ""+0.0));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.longitude));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.latitude));
             for(int i=0;i<cart.size();i++){
                 params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
             }
@@ -308,8 +308,8 @@ public class JSONControl {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             JSONArray loc = new JSONArray();
             try {
-                loc.put(0, 0.0);
-                loc.put(1, 0.0);
+                loc.put(0, pos.latitude);
+                loc.put(1, pos.longitude);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -318,8 +318,8 @@ public class JSONControl {
             params.add(new BasicNameValuePair("promoCode", kode));
             params.add(new BasicNameValuePair("address", address));
             params.add(new BasicNameValuePair("note", note));
-            params.add(new BasicNameValuePair("addressGeo[]", ""+0.0));
-            params.add(new BasicNameValuePair("addressGeo[]", ""+0.0));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.longitude));
+            params.add(new BasicNameValuePair("addressGeo[]", ""+pos.latitude));
             for(int i=0;i<cart.size();i++){
                 params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
             }
@@ -371,6 +371,24 @@ public class JSONControl {
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(param, data));
+            jsonObj = _JSONResponse.PutResponseTokenString(ConfigManager.UPDATE_PROFILE, token, ConfigManager.DUKUHKUPANG, params);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+    }
+
+
+    public String updateAllProfile(String name, String phone, String email, String token) {
+
+        String jsonObj = null;
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("name", name));
+            params.add(new BasicNameValuePair("phoneNumber", phone));
+            params.add(new BasicNameValuePair("email", email));
             jsonObj = _JSONResponse.PutResponseTokenString(ConfigManager.UPDATE_PROFILE, token, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {

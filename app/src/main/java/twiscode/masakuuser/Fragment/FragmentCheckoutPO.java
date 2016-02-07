@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -50,6 +51,7 @@ import java.util.Map;
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Activity.ActivityChangeLocation;
 import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_1;
+import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_2;
 import twiscode.masakuuser.Activity.Main;
 import twiscode.masakuuser.Adapter.AdapterCheckout;
 import twiscode.masakuuser.Control.JSONControl;
@@ -478,7 +480,7 @@ public class FragmentCheckoutPO extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
+                new CalculatePrice(getActivity()).execute(txtCodePromo.getText().toString());
             }
         });
     }
@@ -605,7 +607,7 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
-                    Log.d("diskon",""+diskon);
+                    Log.d("diskon", "" + diskon);
                     if(eventMessage != ""){
                         laySpecial.setVisibility(View.VISIBLE);
                         txtSpecial.setText(eventMessage);
@@ -614,7 +616,7 @@ public class FragmentCheckoutPO extends Fragment {
                         laySpecial.setVisibility(View.GONE);
                     }
                     try{
-                        if(diskon>0){
+                        if(diskon>0 || delivery<ApplicationData.def_delivery){
                             txtKode.setText(txtCodePromo.getText().toString());
                             dialogPromoCode.dismiss();
                         }
@@ -649,6 +651,7 @@ public class FragmentCheckoutPO extends Fragment {
         private Context context;
         private Resources resources;
         private ProgressDialog progressDialog;
+        private String msg;
 
         public CheckOut(Activity activity) {
             super();
@@ -681,12 +684,15 @@ public class FragmentCheckoutPO extends Fragment {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.checkOut(kode, address, note, tips, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
+                LatLng posFrom = applicationManager.getGeocode();
+                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
-                    if(transaction.length() > 0){
-                        for(int t=0;t<transaction.length();t++){
+
+
+                    if (transaction.length() > 0) {
+                        for (int t = 0; t < transaction.length(); t++) {
                             String _id = transaction.getJSONObject(t).getString("id");
                             String _status = transaction.getJSONObject(t).getString("status");
                             String _waktu = transaction.getJSONObject(t).getString("timeLapse");
@@ -703,17 +709,17 @@ public class FragmentCheckoutPO extends Fragment {
                             String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
                             //String _convience = "0";
                             String _tip = "0";
-                            try{
-                             _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");
-                            }catch (Exception e){
+                            try {
+                                _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");
+                            } catch (Exception e) {
                                 _tip = "0";
                             }
 
-                            String _detailID=transaction.getJSONObject(t).getString("prettyId");
+                            String _detailID = transaction.getJSONObject(t).getString("prettyId");
                             JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                             List<ModelCart> _carts = new ArrayList<>();
-                            if(_order.length() > 0){
-                                for(int i=0;i<_order.length();i++){
+                            if (_order.length() > 0) {
+                                for (int i = 0; i < _order.length(); i++) {
                                     ModelCart c = new ModelCart();
                                     c.setId(_order.getJSONObject(i).getString("_id"));
                                     c.setNama(_order.getJSONObject(i).getJSONObject("menu").getString("name"));
@@ -723,18 +729,22 @@ public class FragmentCheckoutPO extends Fragment {
                                     _carts.add(c);
                                 }
                             }
-                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convenience,_total,_waktu,_diskon,_tip,_delivery,_status,_detailID,_carts);
+                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id, _type, _uid, _nama, _alamat, _phone, _note, _subtotal, _convenience, _total, _waktu, _diskon, _tip, _delivery, _status, _detailID, _carts);
                             ApplicationData.idLastTransaction = _id;
                             return "OK";
                         }
                     }
 
+
                 } catch (Exception e) {
                     e.printStackTrace();
+                    msg = response.getString("message");
+
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
+                return "FAIL";
             }
 
             return "FAIL";
@@ -749,7 +759,7 @@ public class FragmentCheckoutPO extends Fragment {
             switch (result) {
                 case "FAIL":
                     //isClicked = false;
-                    DialogManager.showDialog(activity, "Mohon maaf", "Anda Tidak Terhubung dengan Internet!");
+                    DialogManager.showDialog(activity, "Informasi", msg);
                     break;
                 case "OK":
                     if (NetworkManager.getInstance(act).isConnectedInternet()) {
@@ -770,7 +780,7 @@ public class FragmentCheckoutPO extends Fragment {
                                                         ApplicationData.cart.remove(LIST_MENU.get(i).getId());
                                                     }
                                                 }
-                                                Intent j = new Intent(act, ActivityCheckoutKonfirmasi_1.class);
+                                                Intent j = new Intent(act, ActivityCheckoutKonfirmasi_2.class);
                                                 startActivity(j);
                                                 act.finish();
                                             } else {
@@ -821,6 +831,7 @@ public class FragmentCheckoutPO extends Fragment {
         private Context context;
         private Resources resources;
         private ProgressDialog progressDialog;
+        private String msg = "";
 
         public CheckOutCOD(Activity activity) {
             super();
@@ -853,7 +864,8 @@ public class FragmentCheckoutPO extends Fragment {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.checkOutCOD(kode, address, note, tips, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
+                LatLng posFrom = applicationManager.getGeocode();
+                JSONObject response = jsControl.checkOutCOD(kode, address, note, tips, posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
@@ -903,6 +915,7 @@ public class FragmentCheckoutPO extends Fragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    msg = response.getString("message");
                 }
 
             } catch (Exception e) {
@@ -921,7 +934,7 @@ public class FragmentCheckoutPO extends Fragment {
             switch (result) {
                 case "FAIL":
                     //isClicked = false;
-                    DialogManager.showDialog(activity, "Mohon maaf", "Anda Tidak Terhubung dengan Internet!");
+                    DialogManager.showDialog(activity, "Mohon maaf", msg);
                     break;
                 case "OK":
                     if (NetworkManager.getInstance(act).isConnectedInternet()) {
@@ -941,6 +954,8 @@ public class FragmentCheckoutPO extends Fragment {
                                                         ApplicationData.cart.remove(LIST_MENU.get(i).getId());
                                                     }
                                                 }
+                                                Intent j = new Intent(act, Main.class);
+                                                startActivity(j);
                                                 act.finish();
                                             } else {
                                                 //isClicked = false;

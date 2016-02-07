@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -523,7 +524,8 @@ public class FragmentCheckoutSpeed extends Fragment {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.checkOut(kode, address, note, tips, ApplicationData.posFrom, applicationManager.getUserToken(), cart);
+                LatLng posFrom = applicationManager.getGeocode();
+                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, applicationManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
                     return "OK";

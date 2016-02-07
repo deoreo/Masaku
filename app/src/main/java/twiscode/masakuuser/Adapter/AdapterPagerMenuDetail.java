@@ -7,7 +7,6 @@ import android.util.Log;
 
 import twiscode.masakuuser.Fragment.FragmentMenu;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
-import twiscode.masakuuser.Fragment.FragmentProfile;
 import twiscode.masakuuser.Fragment.FragmentVendorMenu;
 import twiscode.masakuuser.Fragment.FragmentVendorRating;
 

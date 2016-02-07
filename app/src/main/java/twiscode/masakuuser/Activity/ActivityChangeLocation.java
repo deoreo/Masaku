@@ -143,8 +143,10 @@ public class ActivityChangeLocation extends FragmentActivity
                 Log.d("", "broadcast changeAlamat");
                 isRecent = true;
                 String message = intent.getStringExtra("message");
+                String address = ApplicationData.address;
                 txtFrom.setText(message);
                 ApplicationManager.getInstance(mActivity).setAlamat(message);
+                new GetGeocode(mActivity, address).execute();
                 if(!ApplicationData.isFromMenu) {
                     Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
                     startActivity(j);
@@ -428,8 +430,7 @@ public class ActivityChangeLocation extends FragmentActivity
                         strDetailFrom = selectedPlace.getAddressDetail();
                         String alamat = selectedPlace.getAddress() + "," + selectedPlace.getAddressDetail();
 
-                        //ModelGeocode geocode = GoogleAPIManager.geocode(description);
-                        //ApplicationData.posFrom = new LatLng(geocode.getLat(), geocode.getLon());
+                        new GetGeocode(activity,description).execute();
 
                         layoutSuggestion.setVisibility(GONE);
                         layoutRecent.setVisibility(VISIBLE);
@@ -442,24 +443,8 @@ public class ActivityChangeLocation extends FragmentActivity
 
 
                     } catch (Exception e) {
-                        ModelPlace selectedPlace = new ModelPlace(txtFrom.getText().toString(),
-                                txtFrom.getText().toString(),
-                                "Indonesia"
-                                );
-
-                        txtFrom.setText(selectedPlace.getAddress());
-                        strDetailFrom = selectedPlace.getAddressDetail();
-                        String alamat = selectedPlace.getAddress() + "," + selectedPlace.getAddressDetail();
-
-                        //ModelGeocode geocode = GoogleAPIManager.geocode(description);
-                        //ApplicationData.posFrom = new LatLng(geocode.getLat(), geocode.getLon());
-
                         layoutSuggestion.setVisibility(GONE);
                         layoutRecent.setVisibility(VISIBLE);
-
-                        ApplicationManager.getInstance(activity).setAlamat(selectedPlace.getAddress());
-
-                        db.insertPlace(selectedPlace);
 
                         hideKeyboard();
                     }
@@ -478,6 +463,35 @@ public class ActivityChangeLocation extends FragmentActivity
         }
     }
 
+    public class GetGeocode extends AsyncTask<String, Void, ModelGeocode> {
+
+        String address, tag;
+        Activity activity;
+        public GetGeocode(Activity activity, String address) {
+            this.address = address;
+            this.activity = activity;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected ModelGeocode doInBackground(String... arg) {
+            ModelGeocode modelGeocode = GoogleAPIManager.geocode(address);
+
+            return modelGeocode;
+        }
+
+        @Override
+        protected void onPostExecute(final ModelGeocode modelGeocode) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(modelGeocode);
+            ApplicationManager.getInstance(activity).setGeocode(new LatLng(modelGeocode.getLat(), modelGeocode.getLon()));
+            //ApplicationData.posFrom = new LatLng(modelGeocode.getLat(), modelGeocode.getLon());
+        }
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

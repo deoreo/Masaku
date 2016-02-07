@@ -64,7 +64,6 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
     Map<String, String> flurryParams = new HashMap<String,String>();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +99,8 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ApplicationData.isNullCart = true;
-                finish();
+                DialogManager.showDialog(act, "Informasi", "Silahkan konfirmasi pembayaran Anda terlebih dahulu!");
+                //finish();
             }
         });
         btnBayar.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +137,7 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
     }
 
     private void startTimer() {
-        countDownTimer = new CountDownTimer(ApplicationData.timer*1000, 1000) {
+        countDownTimer = new CountDownTimer(Integer.parseInt(ApplicationData.detailTransaksi.getWaktu())*60*1000, 1000) {
             // 500 means, onTick function will be called at every 500
             // milliseconds
 
@@ -278,6 +278,11 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public void onBackPressed() {
+        ApplicationData.isNullCart = true;
+        DialogManager.showDialog(act, "Informasi", "Silahkan konfirmasi pembayaran Anda terlebih dahulu!");
+    }
 
 
 }

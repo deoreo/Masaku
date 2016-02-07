@@ -221,6 +221,7 @@ public class ActivityLogin extends Activity{
                     JSONObject responseUser = response.getJSONObject("user");
                     String _id = responseUser.getString("_id");
                     String name = responseUser.getString("name");
+                    String email = responseUser.getString("email");
                     String phoneNumber = responseUser.getString("phoneNumber");
 
                     Log.d("json response id",_id.toString());
@@ -228,6 +229,7 @@ public class ActivityLogin extends Activity{
                         userLogin = new ModelUser();
                         userLogin.setPonsel(phone);
                         userLogin.setNama(name);
+                        userLogin.setEmail(email);
                         String verify = responseUser.getString("verified");
                         String trusted = responseUser.getString("trusted");
                         JSONObject objRefreshToken = jsControl.postRefreshToken(token);
@@ -238,7 +240,8 @@ public class ActivityLogin extends Activity{
                             db.insertuser(userLogin);
                             ApplicationData.login_id = _id.toString();
                             ApplicationData.name = name;
-                            ApplicationData.phoneNumber = phone;
+                            ApplicationData.email = email;
+                            ApplicationData.phoneNumber = phoneNumber.substring(3);
                             ApplicationManager.getInstance(activity).setUserToken(token_refresh);
                             ApplicationManager.getInstance(activity).setUser(userLogin);
                             Log.d("json response id", "OK " + token_refresh);
