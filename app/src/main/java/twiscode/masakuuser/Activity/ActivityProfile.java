@@ -41,57 +41,56 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityProfile extends Activity {
 
-	public static final String ARG_PAGE = "ARG_PAGE";
-	private Button btnConfirm;
-	public static EditText namaprofile, phoneprofile, emailprofile;
-	private ApplicationManager applicationManager;
-	private Activity act;
-	private ImageView btnBack;
-	Map<String, String> flurryParams = new HashMap<String,String>();
+    public static final String ARG_PAGE = "ARG_PAGE";
+    private Button btnConfirm;
+    public static EditText namaprofile, phoneprofile, emailprofile;
+    private ApplicationManager applicationManager;
+    private Activity act;
+    private ImageView btnBack;
+    Map<String, String> flurryParams = new HashMap<String, String>();
 
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_profile);
-		act = this;
-		// drawer labels
-		applicationManager = new ApplicationManager(act);
-		namaprofile = (EditText) findViewById(R.id.namaProfile);
-		phoneprofile = (EditText) findViewById(R.id.phoneprofile);
-		emailprofile = (EditText) findViewById(R.id.emailProfile);
-		btnBack = (ImageView) findViewById(R.id.btnBack);
-		btnConfirm = (Button) findViewById(R.id.btnConfirm);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+        act = this;
+        // drawer labels
+        applicationManager = new ApplicationManager(act);
+        namaprofile = (EditText) findViewById(R.id.namaProfile);
+        phoneprofile = (EditText) findViewById(R.id.phoneprofile);
+        emailprofile = (EditText) findViewById(R.id.emailProfile);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnConfirm = (Button) findViewById(R.id.btnConfirm);
 
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent j = new Intent(getBaseContext(), Main.class);
+                startActivity(j);
+                finish();
+            }
+        });
 
-		btnBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent j = new Intent(getBaseContext(), Main.class);
-				startActivity(j);
-				finish();
-			}
-		});
-
-		btnConfirm.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				String name = namaprofile.getText().toString();
-				String phone = phoneprofile.getText().toString();
-				String email = emailprofile.getText().toString();
-				if(name.isEmpty() || phone.isEmpty() || email.isEmpty()){
-					DialogManager.showDialog(act, "Mohon Maaf", "Silahkan melengkapi profil Anda!");
-				}else if (!email.trim().contains("@") || !email.trim().contains(".")) {
-					DialogManager.showDialog(act, "Mohon Maaf", "Format email Anda salah!");
-				}else {
-					new UpdateAllProfile(act).execute(name, phone, email);
-				}
-			}
-		});
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = namaprofile.getText().toString();
+                String phone = phoneprofile.getText().toString();
+                String email = emailprofile.getText().toString();
+                if (name.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+                    DialogManager.showDialog(act, "Mohon Maaf", "Silahkan melengkapi profil Anda!");
+                } else if (!email.trim().contains("@") || !email.trim().contains(".")) {
+                    DialogManager.showDialog(act, "Mohon Maaf", "Format email Anda salah!");
+                } else {
+                    new UpdateAllProfile(act).execute(name, phone, email);
+                }
+            }
+        });
 
 		/*
-		namaprofile.setOnEditorActionListener(
+        namaprofile.setOnEditorActionListener(
 				new EditText.OnEditorActionListener() {
 					@Override
 					public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -107,211 +106,217 @@ public class ActivityProfile extends Activity {
 					}
 				});
 				*/
-		phoneprofile.setKeyListener(null);
+        phoneprofile.setKeyListener(null);
+        try {
+            if (ApplicationData.phoneNumber != "") {
+                String substr62=ApplicationData.phoneNumber.substring(0, 3);
+                String substr0=ApplicationData.phoneNumber.substring(0, 1);
+                if (substr62.equalsIgnoreCase("+62")) {
+                    phoneprofile.setText(ApplicationData.phoneNumber.substring(3));
+                } else if (substr0.equalsIgnoreCase("0")) {
+                    phoneprofile.setText(ApplicationData.phoneNumber.substring(1));
+                } else {
+                    phoneprofile.setText(ApplicationData.phoneNumber);
+                }
+            }
+            if (ApplicationData.name != "") {
+                namaprofile.setText(ApplicationData.name);
+            }
+            if (ApplicationData.email != "") {
+                emailprofile.setText(ApplicationData.email);
+            }
+        } catch (Exception e) {
 
-		if(!ApplicationData.phoneNumber.isEmpty()){
-			phoneprofile.setText(ApplicationData.phoneNumber);
-		}
-		if(!ApplicationData.name.isEmpty()){
-			namaprofile.setText(ApplicationData.name);
-		}
-		if(!ApplicationData.email.isEmpty()){
-			emailprofile.setText(ApplicationData.email);
-		}
+        }
 
-	}
+    }
 
-	@Override
-	public void onBackPressed() {
-		Intent j = new Intent(act, Main.class);
-		startActivity(j);
-		finish();
-	}
+    @Override
+    public void onBackPressed() {
+        Intent j = new Intent(act, Main.class);
+        startActivity(j);
+        finish();
+    }
 
-	private class Updateprofile extends AsyncTask<String, Void, String> {
-		private Activity activity;
-		private Context context;
-		private Resources resources;
-		private ProgressDialog progressDialog;
-		private String messageError,messageSuccess;
+    private class Updateprofile extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+        private String messageError, messageSuccess;
 
-		public Updateprofile(Activity activity) {
-			super();
-			this.activity = activity;
-			this.context = activity.getApplicationContext();
-			this.resources = activity.getResources();
-		}
+        public Updateprofile(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
 
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			progressDialog = new ProgressDialog(activity);
-			progressDialog.setMessage("Save your profile. . .");
-			progressDialog.setIndeterminate(false);
-			progressDialog.setCancelable(false);
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progressDialog.show();
-		}
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Save your profile. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+        }
 
-		@Override
-		protected String doInBackground(String... params) {
-			try {
+        @Override
+        protected String doInBackground(String... params) {
+            try {
 
-				String nama = params[0];
-				String param = params[1];
-				messageError = params[2];
-				messageSuccess = params[3];
-				JSONControl jsControl = new JSONControl();
-				String response = jsControl.updateProfile(nama, param, applicationManager.getUserToken());
-				Log.d("json response", response.toString());
-				if(response.contains("true")){
-					ModelUser modelUser = applicationManager.getUser();
-					if(param=="name"){
-						modelUser.setNama(nama);
-						ApplicationData.name = nama;
-					}
-					else if(param=="phoneNumber"){
-						modelUser.setPonsel(nama);
-						ApplicationData.phoneNumber = nama;
-					}
-					else if(param=="email"){
-						modelUser.setEmail(nama);
-						ApplicationData.email = nama;
-					}
-					applicationManager.setUser(modelUser);
+                String nama = params[0];
+                String param = params[1];
+                messageError = params[2];
+                messageSuccess = params[3];
+                JSONControl jsControl = new JSONControl();
+                String response = jsControl.updateProfile(nama, param, applicationManager.getUserToken());
+                Log.d("json response", response.toString());
+                if (response.contains("true")) {
+                    ModelUser modelUser = applicationManager.getUser();
+                    if (param == "name") {
+                        modelUser.setNama(nama);
+                        ApplicationData.name = nama;
+                    } else if (param == "phoneNumber") {
+                        modelUser.setPonsel(nama);
+                        ApplicationData.phoneNumber = nama;
+                    } else if (param == "email") {
+                        modelUser.setEmail(nama);
+                        ApplicationData.email = nama;
+                    }
+                    applicationManager.setUser(modelUser);
 
-					return "OK";
-				}
+                    return "OK";
+                }
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-			return "FAIL";
+            return "FAIL";
 
-		}
+        }
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-
-
-			switch (result) {
-				case "FAIL":
-					DialogManager.showDialog(act,"Mohon Maaf",messageError);
-					break;
-				case "OK":
-					DialogManager.showDialog(act,"Info",messageSuccess);
-					break;
-			}
-			progressDialog.dismiss();
-
-		}
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
 
-	}
+            switch (result) {
+                case "FAIL":
+                    DialogManager.showDialog(act, "Mohon Maaf", messageError);
+                    break;
+                case "OK":
+                    DialogManager.showDialog(act, "Info", messageSuccess);
+                    break;
+            }
+            progressDialog.dismiss();
 
-	private class UpdateAllProfile extends AsyncTask<String, Void, String> {
-		private Activity activity;
-		private Context context;
-		private Resources resources;
-		private ProgressDialog progressDialog;
-		//private String messageError,messageSuccess;
-
-		public UpdateAllProfile(Activity activity) {
-			super();
-			this.activity = activity;
-			this.context = activity.getApplicationContext();
-			this.resources = activity.getResources();
-		}
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			progressDialog = new ProgressDialog(activity);
-			progressDialog.setMessage("Save your profile. . .");
-			progressDialog.setIndeterminate(false);
-			progressDialog.setCancelable(false);
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progressDialog.show();
-		}
-
-		@Override
-		protected String doInBackground(String... params) {
-			try {
-
-				String nama = params[0];
-				String phone = params[1];
-				String email = params[2];
-				//String param = params[3];
-				JSONControl jsControl = new JSONControl();
-				String response = jsControl.updateAllProfile(nama, "+62"+phone, email, applicationManager.getUserToken());
-				Log.d("json response", response.toString());
-				if(response.contains("true")){
-					ModelUser modelUser = applicationManager.getUser();
-
-						modelUser.setNama(nama);
-						ApplicationData.name = nama;
-
-						modelUser.setPonsel(phone);
-						ApplicationData.phoneNumber = phone;
+        }
 
 
-						modelUser.setEmail(email);
-						ApplicationData.email = email;
+    }
 
-					applicationManager.setUser(modelUser);
+    private class UpdateAllProfile extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+        //private String messageError,messageSuccess;
 
-					return "OK";
-				}
+        public UpdateAllProfile(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Save your profile. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+        }
 
-			return "FAIL";
+        @Override
+        protected String doInBackground(String... params) {
+            try {
 
-		}
+                String nama = params[0];
+                String phone = params[1];
+                String email = params[2];
+                //String param = params[3];
+                JSONControl jsControl = new JSONControl();
+                String response = jsControl.updateAllProfile(nama, "+62" + phone, email, applicationManager.getUserToken());
+                Log.d("json response", response.toString());
+                if (response.contains("true")) {
+                    ModelUser modelUser = applicationManager.getUser();
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
+                    modelUser.setNama(nama);
+                    ApplicationData.name = nama;
 
-
-			switch (result) {
-				case "FAIL":
-					DialogManager.showDialog(act,"Mohon Maaf","Update profil gagal");
-					break;
-				case "OK":
-					DialogManager.showDialog(act,"Info","Berhasil update profil");
-					break;
-			}
-			progressDialog.dismiss();
-
-		}
-
-
-	}
-
-	public void onStart() {
-		super.onStart();
-		FlurryAgent.onStartSession(act, ConfigManager.FLURRY_API_KEY);
-		FlurryAgent.logEvent("PROFILE", flurryParams, true);
-	}
-
-	public void onStop() {
-		super.onStop();
-		FlurryAgent.endTimedEvent("PROFILE");
-		FlurryAgent.onEndSession(act);
-	}
-
-	@Override
-	protected void attachBaseContext(Context newBase) {
-		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-	}
+                    modelUser.setPonsel(phone);
+                    ApplicationData.phoneNumber = phone;
 
 
+                    modelUser.setEmail(email);
+                    ApplicationData.email = email;
 
+                    applicationManager.setUser(modelUser);
+
+                    return "OK";
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+
+            switch (result) {
+                case "FAIL":
+                    DialogManager.showDialog(act, "Mohon Maaf", "Update profil gagal");
+                    break;
+                case "OK":
+                    DialogManager.showDialog(act, "Info", "Berhasil update profil");
+                    break;
+            }
+            progressDialog.dismiss();
+
+        }
+
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(act, ConfigManager.FLURRY_API_KEY);
+        FlurryAgent.logEvent("PROFILE", flurryParams, true);
+    }
+
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.endTimedEvent("PROFILE");
+        FlurryAgent.onEndSession(act);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 
 }

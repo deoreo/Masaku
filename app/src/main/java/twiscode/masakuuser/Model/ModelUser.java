@@ -10,13 +10,13 @@ public class ModelUser {
 
     }
 
-
+/*
     public ModelUser(String id, String ponsel, String nama){
         this.id = id;
         this.ponsel = ponsel;
         this.nama = nama;
         this.trusted = "false";
-    }
+    }*/
 
     public ModelUser(String id, String ponsel, String nama, String email, String trusted){
         this.id = id;

@@ -40,7 +40,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActivityRegister extends Activity {
 
     private Activity mActivity;
-    private EditText txtPhone,txtName,txtPassword,txtConfirm;
+    private EditText txtPhone,txtName,txtEmail,txtPassword,txtConfirm;
     private Button btnRegister,btnLogin;
     private ModelUser userLogin;
     private ImageView btnBack;
@@ -59,6 +59,7 @@ public class ActivityRegister extends Activity {
         txtPhone = (EditText) findViewById(R.id.txtPhone);
         txtName = (EditText) findViewById(R.id.txtNama);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
+        txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtConfirm = (EditText) findViewById(R.id.txtConfirmPassword);
         showPass = (CheckBox) findViewById(R.id.showPassword);
         showConfirm = (CheckBox) findViewById(R.id.showConfirmPassword);
@@ -92,12 +93,16 @@ public class ActivityRegister extends Activity {
             public void onClick(View v) {
                 String name = txtName.getText().toString();
                 String phoneNumber = txtPhone.getText().toString();
+                String email = txtEmail.getText().toString();
                 String password = txtPassword.getText().toString();
                 String confirm = txtConfirm.getText().toString();
-                if (phoneNumber == null || password == null || phoneNumber.trim().isEmpty() || password.trim().isEmpty() || confirm == null || confirm.trim().isEmpty() || name == null || name.trim().isEmpty()) {
-                    DialogManager.showDialog(mActivity, "Warning", "Masukkan semua data Anda!");
-                } else if (!confirm.equals(password)) {
-                    DialogManager.showDialog(mActivity, "Warning", "Password tidak sesuai!");
+                if (phoneNumber == null || password == null || phoneNumber.trim().isEmpty() || password.trim().isEmpty()
+                        || name == null || name.trim().isEmpty()
+                        || email == null || email.trim().isEmpty()
+                        ) {
+                    DialogManager.showDialog(mActivity, "Mohon Maaf", "Masukkan semua data Anda!");
+                } else if (!email.trim().contains("@") || !email.trim().contains(".")) {
+                        DialogManager.showDialog(mActivity, "Mohon Maaf", "Format email Anda tidak sesuai!");
                 } else {
                     String num = phoneNumber.substring(0, 1);
                     Log.d("phone num", num);
@@ -108,7 +113,7 @@ public class ActivityRegister extends Activity {
 
                     }
                     else {
-                        phoneNumber = "8"+phoneNumber;
+                        //phoneNumber = "8"+phoneNumber;
                         /*
                         new DoRegister(mActivity).execute(
                                 name,
@@ -117,6 +122,7 @@ public class ActivityRegister extends Activity {
                         );
                         */
                         ApplicationData.temp_hp = phoneNumber;
+                        ApplicationData.email = email;
                         ApplicationData.temp_nama = name;
                         ApplicationData.temp_password = password;
                         Intent i = new Intent(getBaseContext(), ActivityRegisterNext.class);

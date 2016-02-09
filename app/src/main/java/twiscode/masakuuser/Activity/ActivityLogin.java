@@ -186,6 +186,7 @@ public class ActivityLogin extends Activity{
         private Context context;
         private Resources resources;
         private ProgressDialog progressDialog;
+        private String msg = "";
 
         public DoLogin(Activity activity) {
             super();
@@ -216,12 +217,21 @@ public class ActivityLogin extends Activity{
                 JSONObject response = jsControl.postLogin(phone, password);
                 Log.d("json response", response.toString());
                 try {
+
+                }catch (Exception w){
+                    msg = "";
+
+                }
+                try {
                     String token = response.getString("token");
                     Log.d("json response id",token);
                     JSONObject responseUser = response.getJSONObject("user");
                     String _id = responseUser.getString("_id");
                     String name = responseUser.getString("name");
-                    String email = responseUser.getString("email");
+                    String email = "";
+
+
+
                     String phoneNumber = responseUser.getString("phoneNumber");
 
                     Log.d("json response id",_id.toString());
@@ -261,6 +271,8 @@ public class ActivityLogin extends Activity{
                 }
                 catch (Exception e) {
                     e.printStackTrace();
+                    msg = response.getString("message");
+                    return "FAIL PASSWORD";
                 }
 
             } catch (Exception e) {
@@ -305,6 +317,9 @@ public class ActivityLogin extends Activity{
 
                         }
 
+                    break;
+                case "FAIL PASSWORD":
+                    DialogManager.showDialog(activity, "Mohon Maaf", msg);
                     break;
                 case "OK":
                     ApplicationData.isFirstLogin = true;

@@ -207,7 +207,7 @@
                     android:imeOptions="actionDone"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="Email"
+                    android:text="-"
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
 

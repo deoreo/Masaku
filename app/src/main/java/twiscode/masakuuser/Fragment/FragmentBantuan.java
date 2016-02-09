@@ -92,6 +92,7 @@ public class FragmentBantuan extends Fragment {
 		btnTutor.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				ApplicationData.isHelp = true;
 				Intent i = new Intent(getActivity(), ActivityTutorialBantuan.class);
 				startActivity(i);
 			}

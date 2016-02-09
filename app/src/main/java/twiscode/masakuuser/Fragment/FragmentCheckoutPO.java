@@ -441,6 +441,9 @@ public class FragmentCheckoutPO extends Fragment {
 
 
         if(LIST_MENU.size() > 0){
+
+                txtKode.setText(ApplicationData.promocode);
+
             new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
         }
         else {
@@ -480,6 +483,7 @@ public class FragmentCheckoutPO extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationData.promocode = txtCodePromo.getText().toString();
                 new CalculatePrice(getActivity()).execute(txtCodePromo.getText().toString());
             }
         });
@@ -607,6 +611,8 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    txtKode.setText(ApplicationData.promocode);
+
                     Log.d("diskon", "" + diskon);
                     if(eventMessage != ""){
                         laySpecial.setVisibility(View.VISIBLE);
@@ -617,7 +623,7 @@ public class FragmentCheckoutPO extends Fragment {
                     }
                     try{
                         if(diskon>0 || delivery<ApplicationData.def_delivery){
-                            txtKode.setText(txtCodePromo.getText().toString());
+                            txtKode.setText(ApplicationData.promocode);
                             dialogPromoCode.dismiss();
                         }
                         else {
@@ -782,6 +788,7 @@ public class FragmentCheckoutPO extends Fragment {
                                                 }
                                                 Intent j = new Intent(act, ActivityCheckoutKonfirmasi_2.class);
                                                 startActivity(j);
+                                                ApplicationData.promocode = "";
                                                 act.finish();
                                             } else {
                                                 //isClicked = false;
@@ -956,6 +963,7 @@ public class FragmentCheckoutPO extends Fragment {
                                                 }
                                                 Intent j = new Intent(act, Main.class);
                                                 startActivity(j);
+                                                ApplicationData.promocode = "";
                                                 act.finish();
                                             } else {
                                                 //isClicked = false;

@@ -72,14 +72,15 @@ public class JSONControl {
 
     }
 
-    public JSONObject postRegister(String name, String email, String password, String gender, String tahun) {
+    public JSONObject postRegister(String name, String phoneNumber, String email, String password, String gender, String tahun) {
 
         JSONObject jsonObj = null;
 
         try {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("name", name));
-            params.add(new BasicNameValuePair("phoneNumber", email));
+            params.add(new BasicNameValuePair("phoneNumber", phoneNumber));
+            params.add(new BasicNameValuePair("email", email));
             params.add(new BasicNameValuePair("password", password));
             params.add(new BasicNameValuePair("gender", gender));
             jsonObj = _JSONResponse.POSTResponse(ConfigManager.REGISTER, ConfigManager.DUKUHKUPANG, params);

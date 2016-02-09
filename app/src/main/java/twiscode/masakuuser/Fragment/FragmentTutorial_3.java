@@ -1,5 +1,6 @@
 package twiscode.masakuuser.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import twiscode.masakuuser.Activity.Main;
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 
 
 /**
@@ -48,7 +51,15 @@ public class FragmentTutorial_3 extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                if(ApplicationData.isHelp) {
+                    getActivity().finish();
+                }else if(!ApplicationData.isHelp){
+                    Intent i = new Intent(getActivity(), Main.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    getActivity().finish();
+                }
+                ApplicationData.isHelp = false;
             }
         });
 

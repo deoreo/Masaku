@@ -165,7 +165,7 @@ public class ActivitySplash extends AppCompatActivity {
                         ApplicationData.login_id = user.getId();
                         ApplicationData.name = user.getNama();
                         ApplicationData.email = user.getEmail();
-                        ApplicationData.phoneNumber = user.getPonsel().substring(1);
+                        ApplicationData.phoneNumber = user.getPonsel();
                     }
                     catch (Exception ex){
                         ex.printStackTrace();

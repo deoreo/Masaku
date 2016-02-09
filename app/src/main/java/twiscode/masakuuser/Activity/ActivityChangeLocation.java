@@ -105,7 +105,7 @@ public class ActivityChangeLocation extends FragmentActivity
         mActivity = this;
         //String[] maps = {"Android ", "java", "IOS", "SQL", "JDBC", "Web services"};
         db = new DatabaseHandler(mActivity);
-        progress = (ProgressBar) findViewById(R.id.progress);
+        progress = (ProgressBar) findViewById(R.id.progressSuggestion);
         txtFrom = (TextView) findViewById(R.id.txtFrom);
         //btnCurrent = (ImageView) findViewById(R.id.btnCurrent);
         btnBack = (ImageView) findViewById(R.id.btnBack);
@@ -361,6 +361,7 @@ public class ActivityChangeLocation extends FragmentActivity
 
         @Override
         protected void onPreExecute() {
+            progress.setVisibility(VISIBLE);
             layoutSuggestion.setVisibility(VISIBLE);
             layoutRecent.setVisibility(GONE);
             itemCurrent.setVisibility(GONE);
@@ -418,6 +419,7 @@ public class ActivityChangeLocation extends FragmentActivity
         protected void onPostExecute(final JSONArray json) {
             // TODO Auto-generated method stub
             super.onPostExecute(json);
+            progress.setVisibility(GONE);
             lvSuggestion.setAdapter(mAdapter);
             lvSuggestion.setVisibility(VISIBLE);
             lvSuggestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {

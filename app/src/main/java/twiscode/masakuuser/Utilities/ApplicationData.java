@@ -76,7 +76,9 @@ public class ApplicationData {
     public static boolean isFirstLogin = false;
     public static boolean isFromMenu = true;
     public static boolean isProfile = false;
+    public static boolean isHelp = false;
     public static String address="";
+    public static String promocode="";
     //public static int CountWishlist = 0;
 
 }

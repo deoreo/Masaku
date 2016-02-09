@@ -33,6 +33,7 @@ import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -85,7 +86,9 @@ public class ActivityRegisterNext extends AppCompatActivity {
                 if(NetworkManager.getInstance(mActivity).isConnectedInternet()){
                     new DoRegister(mActivity).execute(
                             ApplicationData.temp_nama,
+
                             ApplicationData.temp_hp,
+                            ApplicationData.email,
                             ApplicationData.temp_password,
                             gender,
                             tahun
@@ -133,12 +136,13 @@ public class ActivityRegisterNext extends AppCompatActivity {
 
                 String name = params[0];
                 String phoneNumber = params[1];
-                String password = params[2];
-                String gender = params[3];
-                String tahun = params [4];
+                String email = params [2];
+                String password = params[3];
+                String gender = params[4];
+                String tahun = params [5];
 
                 JSONControl jsControl = new JSONControl();
-                JSONObject responseRegister = jsControl.postRegister(name,phoneNumber, password, gender, tahun);
+                JSONObject responseRegister = jsControl.postRegister(name,phoneNumber, email, password, gender, tahun);
                 Log.d("json responseRegister", responseRegister.toString());
                 if(! responseRegister.toString().contains("errors")){
                     ApplicationData.temp_token = responseRegister.getString("token");
@@ -146,10 +150,13 @@ public class ActivityRegisterNext extends AppCompatActivity {
                     String _id = responseRegister.getJSONObject("user").getString("_id");
                     String _name = responseRegister.getJSONObject("user").getString("name");
                     String _phone = responseRegister.getJSONObject("user").getString("phoneNumber");
+                    String _email = responseRegister.getJSONObject("user").getString("email");
                     user.setId(_id);
                     user.setNama(_name);
                     user.setPonsel(_phone);
+                    user.setEmail(_email);
                     user.setTrusted("false");
+                    ApplicationManager.getInstance(activity).setUser(user);
                     ApplicationData.temp_user = user;
 
                     return "OK";
@@ -206,6 +213,9 @@ public class ActivityRegisterNext extends AppCompatActivity {
     }
 
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }
