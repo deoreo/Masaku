@@ -70,7 +70,7 @@
                 android:id="@+id/noData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History is empty"
+                android:text="Notification is empty"
                 android:textSize="30sp"
                 android:layout_centerInParent="true"
                 android:visibility="gone"

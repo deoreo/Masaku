@@ -29,26 +29,33 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
 
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MyApplication extends Application {
 
     private static MyApplication mInstance;
+    private ApplicationManager appManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-
+        appManager = new ApplicationManager(MyApplication.this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Gotham.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
         ParseManager.registerParse(this);
         ParseManager.getDeviceToken(this);
+        ZopimChat.init("3dvEYIZwhwRTjaVuqAgFGn4D168l7EMV").build();
+
         // configure Flurry
         FlurryAgent.setLogEnabled(true);
 

@@ -28,6 +28,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             R.drawable.all_menu_icon,
             R.drawable.history_pesanan_icon,
             R.drawable.fooddatabase_icon,
+            R.drawable.delihome_notif_logo,
             R.drawable.promo_icon,
             R.drawable.help_icon,
             R.drawable.chat_with_cs

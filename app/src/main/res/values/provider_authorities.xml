@@ -1,0 +1,4 @@
+<resources>
+    <!--Specify your application's package name followed by .fileprovider to guarantee unique file provider authority-->
+    <string name="file_provider_authority">twiscode.masakuuser.fileprovider</string>
+</resources>

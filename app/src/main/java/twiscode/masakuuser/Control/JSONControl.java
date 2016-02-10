@@ -227,6 +227,21 @@ public class JSONControl {
         return jsonObj;
     }
 
+    public JSONObject getNotif(String token,int page) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            jsonObj = _JSONResponse.GETResponse(ConfigManager.NOTIFICATION + page, ConfigManager.DUKUHKUPANG, token);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("token",jsonObj.toString());
+        return jsonObj;
+    }
+
 
 
 

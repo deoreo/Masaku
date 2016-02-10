@@ -14,6 +14,8 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
 
 import org.json.JSONObject;
 
@@ -166,6 +168,17 @@ public class ActivitySplash extends AppCompatActivity {
                         ApplicationData.name = user.getNama();
                         ApplicationData.email = user.getEmail();
                         ApplicationData.phoneNumber = user.getPonsel();
+                        VisitorInfo visitorData = new VisitorInfo.Builder()
+                                .name(appManager.getUser().getNama())
+                                .email(appManager.getUser().getEmail())
+                                .phoneNumber(appManager.getUser().getPonsel())
+                                .build();
+                        ZopimChat.setVisitorInfo(visitorData);
+                        if(user.getEmail()=="" || user.getEmail().isEmpty()){
+                            ApplicationData.hasEmail = false;
+                        }else{
+                            ApplicationData.hasEmail = true;
+                        }
                     }
                     catch (Exception ex){
                         ex.printStackTrace();

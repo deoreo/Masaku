@@ -16,6 +16,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.Model.ModelMenuSpeed;
+import twiscode.masakuuser.Model.ModelNotif;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.Model.ModelVendor;
@@ -67,6 +68,7 @@ public class ApplicationData {
     public static String type="";
     public static String idLastTransaction="";
     public static ModelDetailTransaksi detailTransaksi;
+    public static ModelNotif modelNotif;
     public static long timer = 0;
 
     public static List<ModelMenuSpeed> tempPO = null;
@@ -77,6 +79,7 @@ public class ApplicationData {
     public static boolean isFromMenu = true;
     public static boolean isProfile = false;
     public static boolean isHelp = false;
+    public static boolean hasEmail = false;
     public static String address="";
     public static String promocode="";
     //public static int CountWishlist = 0;

@@ -28,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ import twiscode.masakuuser.Fragment.FragmentBantuan;
 import twiscode.masakuuser.Fragment.FragmentCustomerService;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
 import twiscode.masakuuser.Fragment.FragmentMainMenu;
+import twiscode.masakuuser.Fragment.FragmentNotif;
 import twiscode.masakuuser.Fragment.FragmentPesanan;
 import twiscode.masakuuser.Fragment.FragmentPromo;
 import twiscode.masakuuser.Fragment.FragmentWishlist;
@@ -67,7 +70,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private LinearLayout wrapCount;
     private ImageView btnCart;
     private RelativeLayout wrapCart, wishlistEmpty, wishlistFull, foodDatabase;
-    private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, PROMO = 3, BANTUAN = 4, CUSTOMER_SERVICE = 5, WISHLIST = 6;
+    private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, NOTIFICATION = 3, PROMO = 4, BANTUAN = 5, CUSTOMER_SERVICE = 6, WISHLIST = 7;
 
     private BroadcastReceiver updateCart, doWishlistFull, gotoDiscover, emptyWishlist;
 
@@ -218,6 +221,36 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
         displayView(0);
 
+        if (!ApplicationData.hasEmail) {
+            try {
+                final Context ctx = Main.this;
+                new MaterialDialog.Builder(ctx)
+                        .title("Hi Guys!")
+                        .content("Silahkan mendaftarkan email Anda terlebih dahulu!")
+                        .positiveText("OK")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+
+                                Intent i = new Intent(getBaseContext(), ActivityProfile.class);
+                                startActivity(i);
+                                finish();
+
+                                dialog.dismiss();
+
+
+                            }
+                        })
+                        .negativeText("Not now")
+                        .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                        .cancelable(false)
+                        .show();
+                //isClicked = false;
+            } catch (Exception e) {
+
+            }
+        }
+
 
     }
 
@@ -227,10 +260,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         Log.d("counter stack", Integer.toString(getFragmentManager().getBackStackEntryCount()));
         //if(ApplicationData.titleBar.getText().toString().equalsIgnoreCase("Profile")){
         //    displayView(MENU);
-        if(ApplicationData.isProfile){
+        if (ApplicationData.isProfile) {
             datafragmentHelper.ReturnLastFragment();
             ApplicationData.isProfile = false;
-        }else {
+        } else {
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                     .setMessage("Are you sure?")
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -336,6 +369,16 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 foodDatabase.setVisibility(VISIBLE);
                 break;
 
+            case NOTIFICATION:
+                fragment = new FragmentNotif();
+                //title = getString(R.string.app_name);
+                title = "Notification";
+                wrapCart.setVisibility(VISIBLE);
+                wishlistEmpty.setVisibility(GONE);
+                wishlistFull.setVisibility(GONE);
+                foodDatabase.setVisibility(GONE);
+                break;
+
             case PROMO:
                 fragment = new FragmentPromo();
                 //title = getString(R.string.app_name);
@@ -355,13 +398,41 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 foodDatabase.setVisibility(GONE);
                 break;
             case CUSTOMER_SERVICE:
-                fragment = new FragmentCustomerService();
-                //title = getString(R.string.app_name);
-                title = "Customer Service";
-                wrapCart.setVisibility(VISIBLE);
-                wishlistEmpty.setVisibility(GONE);
-                wishlistFull.setVisibility(GONE);
-                foodDatabase.setVisibility(GONE);
+                if (!ApplicationData.hasEmail) {
+                    try {
+                        final Context ctx = Main.this;
+                        new MaterialDialog.Builder(ctx)
+                                .title("Hi Guys")
+                                .content("Silahkan mendaftarkan email Anda terlebih dahulu!")
+                                .positiveText("OK")
+                                .callback(new MaterialDialog.ButtonCallback() {
+                                    @Override
+                                    public void onPositive(MaterialDialog dialog) {
+
+                                        Intent i = new Intent(getBaseContext(), ActivityProfile.class);
+                                        startActivity(i);
+                                        finish();
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .negativeText("Not now")
+                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                .cancelable(false)
+                                .show();
+                        //isClicked = false;
+                    } catch (Exception e) {
+
+                    }
+                } else {
+                    startActivity(new Intent(Main.this, ZopimChatActivity.class));
+                    //fragment = new FragmentCustomerService();
+                    //title = getString(R.string.app_name);
+                    title = "Customer Service";
+                    wrapCart.setVisibility(VISIBLE);
+                    wishlistEmpty.setVisibility(GONE);
+                    wishlistFull.setVisibility(GONE);
+                    foodDatabase.setVisibility(GONE);
+                }
                 break;
 
             default:

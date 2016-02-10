@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
 
 import java.util.HashMap;
@@ -128,6 +129,8 @@ public class ActivityProfile extends Activity {
         } catch (Exception e) {
 
         }
+
+
 
     }
 
@@ -292,6 +295,7 @@ public class ActivityProfile extends Activity {
                     break;
                 case "OK":
                     DialogManager.showDialog(act, "Info", "Berhasil update profil");
+                    ApplicationData.hasEmail = true;
                     break;
             }
             progressDialog.dismiss();

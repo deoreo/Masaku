@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/layoutNotif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="1dp"
+        android:background="@drawable/rounded_white"
+
+        >
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:paddingLeft="10dp"
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 oktober 2015 13.45"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGrey"/>
+        <LinearLayout
+            android:id="@+id/rowPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="100dp">
+            <ImageView
+                android:id="@+id/imgVendor"
+                android:layout_marginRight="5dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorGrey"
+                android:visibility="gone"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:id="@+id/txtMessage"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Message"
+                    android:textSize="14dp"
+                    android:maxLines="5"
+                    android:lines="5"
+                    android:textColor="@color/colorBlack"
+                    />
+
+
+            </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/next_grey"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/btnPesan"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorGreen"
+            android:text="LIHAT DETAIL"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+
+            />
+
+    </LinearLayout>
+</LinearLayout>

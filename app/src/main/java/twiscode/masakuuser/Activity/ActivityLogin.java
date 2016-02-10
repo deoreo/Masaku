@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
 
 import org.json.JSONObject;
 
@@ -229,9 +231,11 @@ public class ActivityLogin extends Activity{
                     String _id = responseUser.getString("_id");
                     String name = responseUser.getString("name");
                     String email = "";
-
-
-
+                    try{
+                        email = responseUser.getString("email");
+                    }catch(Exception e){
+                        email = "";
+                    }
                     String phoneNumber = responseUser.getString("phoneNumber");
 
                     Log.d("json response id",_id.toString());
@@ -254,6 +258,17 @@ public class ActivityLogin extends Activity{
                             ApplicationData.phoneNumber = phoneNumber.substring(3);
                             ApplicationManager.getInstance(activity).setUserToken(token_refresh);
                             ApplicationManager.getInstance(activity).setUser(userLogin);
+                            VisitorInfo visitorData = new VisitorInfo.Builder()
+                                    .name(ApplicationManager.getInstance(activity).getUser().getNama())
+                                    .email(ApplicationManager.getInstance(activity).getUser().getEmail())
+                                    .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
+                                    .build();
+                            ZopimChat.setVisitorInfo(visitorData);
+                            if(userLogin.getEmail()=="" || userLogin.getEmail().isEmpty()){
+                                ApplicationData.hasEmail = false;
+                            }else{
+                                ApplicationData.hasEmail = true;
+                            }
                             Log.d("json response id", "OK " + token_refresh);
                             return "OK";
                         }
@@ -310,6 +325,7 @@ public class ActivityLogin extends Activity{
 
                                         }
                                     })
+                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
                                     .cancelable(false)
                                     .show();
                             //isClicked = false;

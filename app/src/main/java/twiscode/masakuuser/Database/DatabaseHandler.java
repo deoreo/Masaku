@@ -22,9 +22,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     // Database Name
-    private static final String DATABASE_NAME = "MasakuDB";
+    private static final String DATABASE_NAME = "DelihomeDB";
     // ModelUser table name
     private static final String T_USER = "t_user";
     private static final String T_ALAMAT = "t_alamat";
@@ -62,6 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ALAMAT_NAME + " TEXT,"
                 + KEY_ALAMAT_DETAIL + " TEXT"
                 + ")";
+
 
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_ALAMAT);
@@ -205,11 +206,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<ModelPlace> loadPlace() {
-        String allData = "SELECT  * FROM " + T_ALAMAT;
+        String allData= "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            allData = "SELECT  * FROM " + T_ALAMAT;
+        }catch (Exception e){
+            String CREATE_TABLE_ALAMAT = "CREATE TABLE " + T_ALAMAT + "("
+                    + KEY_ALAMAT_ID + " TEXT PRIMARY KEY,"
+                    + KEY_ALAMAT_NAME + " TEXT,"
+                    + KEY_ALAMAT_DETAIL + " TEXT"
+                    + ")";
+            db.execSQL(CREATE_TABLE_ALAMAT);
+            allData = "SELECT  * FROM " + T_ALAMAT;
+        }
         ArrayList<ModelPlace> alamatList = new ArrayList<ModelPlace>();
 
         // Loads the event list data summary
-        SQLiteDatabase db = this.getReadableDatabase();
+
         Cursor cursor = db.rawQuery(allData, null);
         if(cursor.moveToFirst()){
             do{

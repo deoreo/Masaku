@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.flurry.android.FlurryAgent;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONObject;
@@ -158,7 +160,12 @@ public class ActivityRegisterNext extends AppCompatActivity {
                     user.setTrusted("false");
                     ApplicationManager.getInstance(activity).setUser(user);
                     ApplicationData.temp_user = user;
-
+                    VisitorInfo visitorData = new VisitorInfo.Builder()
+                            .name(ApplicationManager.getInstance(activity).getUser().getNama())
+                            .email(ApplicationManager.getInstance(activity).getUser().getEmail())
+                            .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
+                            .build();
+                    ZopimChat.setVisitorInfo(visitorData);
                     return "OK";
                 }
                 else {

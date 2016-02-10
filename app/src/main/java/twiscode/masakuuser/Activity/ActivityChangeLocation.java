@@ -160,7 +160,11 @@ public class ActivityChangeLocation extends FragmentActivity
             }
         };
 
-        LIST_PLACE = db.loadPlace();
+        try {
+            LIST_PLACE = db.loadPlace();
+        }catch (Exception e){
+            LIST_PLACE = new ArrayList<>();
+        }
         adapterAlamat = new AdapterAlamat(mActivity, LIST_PLACE);
         lvRecent.setAdapter(adapterAlamat);
         upLocation.setOnClickListener(new View.OnClickListener() {
