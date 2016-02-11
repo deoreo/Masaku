@@ -53,6 +53,9 @@ public class ApplicationData {
     public static final String PARSE_CLIENT_KEY = "Dqad1vSUuLyf1gnfOTj929Nmb1LlC9zupQyrxUQz";
     public static final int NOTIFICATION_ID = 100;
     public static String PARSE_DEVICE_TOKEN = "";
+    public static final String ZOPIM_KEY = "3gUyhELEL6tPo7Zo862pupn4yYgNgqy9";
+
+
     //public static String location = "";
     //public static LatLng posFrom;
     public static Stack<Fragment> fragments = new Stack<>();

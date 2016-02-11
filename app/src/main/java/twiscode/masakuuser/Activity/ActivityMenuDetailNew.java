@@ -4,9 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -28,6 +31,8 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.flurry.android.FlurryAgent;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
+import com.sromku.simple.fb.entities.Photo;
+import com.sromku.simple.fb.listeners.OnPublishListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -71,6 +76,7 @@ import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
 import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+
 public class ActivityMenuDetailNew extends ActionBarActivity {
 
     public LinearLayout layCounter,timeLayout;
@@ -94,9 +100,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private BroadcastReceiver updateCart;
     private ProgressBar progress;
     private DecimalFormat decimalFormat;
-    int noImage = R.drawable.delhome_dummy_image;
-    Button btnPesan;
-   // private RelativeLayout layoutTimePO;
+    private int noImage = R.drawable.delhome_dummy_image;
+    private Button btnPesan;
 
     Map<String, String> flurryParams = new HashMap<String,String>();
 
@@ -136,9 +141,10 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         mListFeedback = (ListView) findViewById(R.id.feedbackList);
         modelMenu = ApplicationData.modelMenuSpeed;
         timeLayout = (LinearLayout) findViewById(R.id.timeLayout);
-        //layoutTimePO = (RelativeLayout) findViewById(R.id.layoutTimePO);
         txtHari = (TextView) findViewById(R.id.hariMenu);
         txtTanggal = (TextView) findViewById(R.id.tanggalMenu);
+
+
 
         if(modelMenu.getDelivery()==""){
             //deliveryLayout.setVisibility(View.GONE);
@@ -339,6 +345,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
             }
         });
+        
 
         flurryParams.put("ID_MENU",modelMenu.getId());
         FlurryAgent.logEvent("MENU_DETAIL", flurryParams, true);
@@ -347,6 +354,18 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
 
     }
+
+    OnPublishListener onPublishListener = new OnPublishListener() {
+        @Override
+        public void onComplete(String id) {
+            Log.i("Delihome Facebook", "Published successfully. id = " + id);
+        }
+
+    /*
+     * You can override other methods here:
+     * onThinking(), onFail(String reason), onException(Throwable throwable)
+     */
+    };
 
     @Override
     public void onBackPressed() {

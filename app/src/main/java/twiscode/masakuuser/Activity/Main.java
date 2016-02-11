@@ -1,20 +1,21 @@
 package twiscode.masakuuser.Activity;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,12 +24,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import java.util.ArrayList;
@@ -36,9 +41,7 @@ import java.util.List;
 
 import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Fragment.FragmentAllMenus;
-import twiscode.masakuuser.Fragment.FragmentAntarCepat;
 import twiscode.masakuuser.Fragment.FragmentBantuan;
-import twiscode.masakuuser.Fragment.FragmentCustomerService;
 import twiscode.masakuuser.Fragment.FragmentDrawer;
 import twiscode.masakuuser.Fragment.FragmentMainMenu;
 import twiscode.masakuuser.Fragment.FragmentNotif;
@@ -46,6 +49,7 @@ import twiscode.masakuuser.Fragment.FragmentPesanan;
 import twiscode.masakuuser.Fragment.FragmentPromo;
 import twiscode.masakuuser.Fragment.FragmentWishlist;
 import twiscode.masakuuser.Model.ModelCart;
+import twiscode.masakuuser.Model.ModelUser;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
@@ -67,13 +71,14 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private DataFragmentHelper datafragmentHelper = PersistenceDataHelper.GetInstance().FragmentHelper;
     private TextView titleBar;
     private TextView countCart;
+    private EditText txtEmail;
     private LinearLayout wrapCount;
     private ImageView btnCart;
     private RelativeLayout wrapCart, wishlistEmpty, wishlistFull, foodDatabase;
     private final int MENU = 0, HISTORI_PESANAN = 1, ALL_MENU = 2, NOTIFICATION = 3, PROMO = 4, BANTUAN = 5, CUSTOMER_SERVICE = 6, WISHLIST = 7;
 
     private BroadcastReceiver updateCart, doWishlistFull, gotoDiscover, emptyWishlist;
-
+    private Dialog dialogEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,37 +223,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 displayView(WISHLIST);
             }
         });
-
+        InitDialogEmail();
         displayView(0);
 
         if (!ApplicationData.hasEmail) {
-            try {
-                final Context ctx = Main.this;
-                new MaterialDialog.Builder(ctx)
-                        .title("Hi Guys!")
-                        .content("Silahkan mendaftarkan email Anda terlebih dahulu!")
-                        .positiveText("OK")
-                        .callback(new MaterialDialog.ButtonCallback() {
-                            @Override
-                            public void onPositive(MaterialDialog dialog) {
-
-                                Intent i = new Intent(getBaseContext(), ActivityProfile.class);
-                                startActivity(i);
-                                finish();
-
-                                dialog.dismiss();
-
-
-                            }
-                        })
-                        .negativeText("Not now")
-                        .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                        .cancelable(false)
-                        .show();
-                //isClicked = false;
-            } catch (Exception e) {
-
-            }
+            dialogEmail.show();
         }
 
 
@@ -399,30 +378,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 break;
             case CUSTOMER_SERVICE:
                 if (!ApplicationData.hasEmail) {
-                    try {
-                        final Context ctx = Main.this;
-                        new MaterialDialog.Builder(ctx)
-                                .title("Hi Guys")
-                                .content("Silahkan mendaftarkan email Anda terlebih dahulu!")
-                                .positiveText("OK")
-                                .callback(new MaterialDialog.ButtonCallback() {
-                                    @Override
-                                    public void onPositive(MaterialDialog dialog) {
-
-                                        Intent i = new Intent(getBaseContext(), ActivityProfile.class);
-                                        startActivity(i);
-                                        finish();
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .negativeText("Not now")
-                                .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                                .cancelable(false)
-                                .show();
-                        //isClicked = false;
-                    } catch (Exception e) {
-
-                    }
+                    dialogEmail.show();
                 } else {
                     startActivity(new Intent(Main.this, ZopimChatActivity.class));
                     //fragment = new FragmentCustomerService();
@@ -465,6 +421,26 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
     }
 
+    private void InitDialogEmail(){
+        dialogEmail = new Dialog(Main.this);
+        dialogEmail.setContentView(R.layout.popup_email);
+        dialogEmail.setTitle("Update Email");
+
+        // set the custom dialog components - text, image and button
+
+        txtEmail = (EditText) dialogEmail.findViewById(R.id.txtEmail);
+        Button btnDone = (Button) dialogEmail.findViewById(R.id.btnDone);
+
+        // if button is clicked, close the custom dialog
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationData.email = txtEmail.getText().toString();
+                new UpdateEmail(Main.this).execute(txtEmail.getText().toString());
+            }
+        });
+    }
+
 
     @Override
     public void onResume() {
@@ -491,6 +467,87 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         // add data
         intent.putExtra("message", type);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+
+    private class UpdateEmail extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+        //private String messageError,messageSuccess;
+
+        public UpdateEmail(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Save your email. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                String email = params[2];
+                //String param = params[3];
+                JSONControl jsControl = new JSONControl();
+                String response = jsControl.updateProfile("email", email, appManager.getUserToken());
+                Log.d("json response", response.toString());
+                if (response.contains("true")) {
+                    ModelUser modelUser = appManager.getUser();
+
+                    modelUser.setEmail(email);
+                    ApplicationData.email = email;
+
+                    appManager.setUser(modelUser);
+
+                    return "OK";
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+
+            switch (result) {
+                case "FAIL":
+                    DialogManager.showDialog(activity, "Mohon Maaf", "Update email gagal");
+                    break;
+                case "OK":
+                    DialogManager.showDialog(activity, "Info", "Berhasil update email");
+                    ApplicationData.hasEmail = true;
+                    VisitorInfo visitorData = new VisitorInfo.Builder()
+                            .name(ApplicationManager.getInstance(activity).getUser().getNama())
+                            .email(ApplicationManager.getInstance(activity).getUser().getEmail())
+                            .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
+                            .build();
+                    ZopimChat.setVisitorInfo(visitorData);
+                    break;
+            }
+            progressDialog.dismiss();
+
+        }
+
+
     }
 
 

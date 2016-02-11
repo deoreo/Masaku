@@ -140,6 +140,15 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent j = new Intent(getBaseContext(), Main.class);
+        startActivity(j);
+        finish();
+    }
+
     private void DummyData(){
 
         LIST_MENU = new ArrayList<ModelCart>();

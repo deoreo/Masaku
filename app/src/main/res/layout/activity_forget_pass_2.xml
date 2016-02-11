@@ -5,14 +5,15 @@
     android:layout_height="match_parent"
     android:focusable="true" android:focusableInTouchMode="true"
     tools:context="ladyjek.twiscode.com.ladyjek.Activity.ActivityLogin"
-    android:background="@drawable/white_radius"
     android:orientation="vertical"
+    android:background="@drawable/pic"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:visibility="gone"
         >
         <ImageView
             android:id="@+id/btnBack"
@@ -49,14 +50,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/delihome_logo"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:gravity="center"
+                android:text="Input sms verification \ncode here"
+                android:textSize="18dp"
+                android:layout_marginTop="20dp"
+                />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,14 +82,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/colorBlack"
-                                android:textStyle="bold"
-                                android:text="Input verification code"
-                                android:textSize="22dp"
-                                />
                             <TextView
                                 android:layout_marginTop="2dp"
                                 android:layout_width="wrap_content"
@@ -90,46 +98,89 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="50dp"
+
+                            >
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:orientation="horizontal">
                                 <EditText
-                                    android:id="@+id/txtPhone"
+                                    android:id="@+id/txtPhone1"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
-                                    android:layout_height="50dp"
-                                    android:hint="verification code"
+                                    android:layout_height="match_parent"
                                     android:textColorHint="@drawable/hint_selector_black"
                                     android:padding="10dp"
-                                    android:background="@null"
+                                    android:background="@drawable/rounded_line_black"
                                     android:textColor="@color/colorBlack"
                                     android:textStyle="bold"
                                     android:singleLine="true"
+                                    android:text=""
+                                    android:textSize="25sp"
+                                    android:gravity="center"
+                                    android:layout_marginRight="15dp"
                                     android:maxLines="1"
                                     android:textCursorDrawable="@drawable/cursor_black"/>
 
+                                <EditText
+                                    android:id="@+id/txtPhone2"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="match_parent"
+                                    android:textColorHint="@drawable/hint_selector_black"
+                                    android:padding="10dp"
+                                    android:background="@drawable/rounded_line_black"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textSize="25sp"
+                                    android:gravity="center"
+                                    android:layout_marginRight="15dp"
+                                    android:maxLines="1"
+                                    android:textCursorDrawable="@drawable/cursor_black"/>
+
+                                <EditText
+                                    android:id="@+id/txtPhone3"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="match_parent"
+                                    android:textColorHint="@drawable/hint_selector_black"
+                                    android:padding="10dp"
+                                    android:background="@drawable/rounded_line_black"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold"
+                                    android:singleLine="true"
+                                    android:layout_marginRight="15dp"
+                                    android:text=""
+                                    android:textSize="25sp"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:textCursorDrawable="@drawable/cursor_black"/>
+
+                                <EditText
+                                    android:id="@+id/txtPhone4"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="match_parent"
+                                    android:textColorHint="@drawable/hint_selector_black"
+                                    android:padding="10dp"
+                                    android:background="@drawable/rounded_line_black"
+                                    android:textColor="@color/colorBlack"
+                                    android:textStyle="bold"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textSize="25sp"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:textCursorDrawable="@drawable/cursor_black"/>
+
+
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:background="@color/colorBlack"
-                                />
                         </LinearLayout>
-                        <TextView
-                            android:layout_marginTop="20dp"
-                            android:id="@+id/resendCode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold"
-                            android:textSize="16dp"
-                            android:padding="10dp"
-                            android:layout_gravity="center"
-                            android:text="re-send code?"
-                            />
+
 
 
                     </LinearLayout>
@@ -139,21 +190,36 @@
                 android:id="@+id/wrapperSend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:background="@color/colorRed">
+                android:padding="15dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_red">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="SEND VERIFICATION CODE"
+                    android:text="CONFIRM VERIFICATION CODE"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18dp"
+                    android:textSize="14dp"
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     />
 
             </RelativeLayout>
+            <TextView
+                android:id="@+id/resendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textColor="@color/colorRed"
+                android:textSize="14dp"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="100dp"
+                android:layout_marginTop="30dp"
+                android:text="Resend verification code?"
+                />
 
         </LinearLayout>
 

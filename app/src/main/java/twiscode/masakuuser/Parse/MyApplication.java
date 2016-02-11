@@ -34,6 +34,7 @@ import com.zopim.android.sdk.api.ZopimChat;
 import com.zopim.android.sdk.model.VisitorInfo;
 
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -54,7 +55,7 @@ public class MyApplication extends Application {
                 .build());
         ParseManager.registerParse(this);
         ParseManager.getDeviceToken(this);
-        ZopimChat.init("3dvEYIZwhwRTjaVuqAgFGn4D168l7EMV").build();
+        ZopimChat.init(ApplicationData.ZOPIM_KEY).build();
 
         // configure Flurry
         FlurryAgent.setLogEnabled(true);

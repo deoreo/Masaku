@@ -126,17 +126,17 @@ public class AdapterPesanan extends BaseAdapter {
                     if(VENDOR_STATUS.equalsIgnoreCase("waitingPayment")){
                         Intent i = new Intent(mAct, ActivityCheckoutKonfirmasi_2.class);
                         mAct.startActivity(i);
-                       // mAct.finish();
+                        mAct.finish();
                     }
                     else if(VENDOR_STATUS.equalsIgnoreCase("verifyingPayment")){
                         Intent i = new Intent(mAct, ActivityCheckoutVerify.class);
                         mAct.startActivity(i);
-                        //mAct.finish();
+                        mAct.finish();
                     }
                     else{
                         Intent i = new Intent(mAct, ActivityDetailTransaksi.class);
                         mAct.startActivity(i);
-                        //mAct.finish();
+                        mAct.finish();
                     }
 
                 }
