@@ -31,7 +31,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="true"
                     />
-                <org.angmarch.views.NiceSpinner
+                <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/categorySpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="true"
                     />
-                <org.angmarch.views.NiceSpinner
+                <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/sortSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

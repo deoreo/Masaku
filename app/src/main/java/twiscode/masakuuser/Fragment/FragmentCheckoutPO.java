@@ -14,12 +14,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,25 +29,25 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.maps.model.LatLng;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.zopim.android.sdk.api.ZopimChat;
+import com.zopim.android.sdk.model.VisitorInfo;
 
-import org.angmarch.views.NiceSpinner;
+//import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import twiscode.masakuuser.Activity.ActivityChangeLocation;
-import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_1;
 import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_2;
 import twiscode.masakuuser.Activity.Main;
 import twiscode.masakuuser.Adapter.AdapterCheckout;
@@ -64,7 +61,6 @@ import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 /**
@@ -73,7 +69,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class FragmentCheckoutPO extends Fragment {
     private static final String ARG_COLOR = "color";
     Activity act;
-    ApplicationManager applicationManager;
+    ApplicationManager appManager;
     private EditText txtNote,txtCodePromo;
     private ImageView btnBack;
     private ListView mListView;
@@ -83,7 +79,7 @@ public class FragmentCheckoutPO extends Fragment {
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     SegmentedGroup segmented;
-    NiceSpinner paySpiner;
+    MaterialSpinner paySpiner;
     int delivery = 0;
     int subtotal = 0;
     int tip = 0;
@@ -99,7 +95,7 @@ public class FragmentCheckoutPO extends Fragment {
     //boolean isClicked = false;
     Map<String, String> flurryParams = new HashMap<String,String>();
 
-    private Dialog dialogPromoCode;
+    private Dialog dialogPromoCode, dialogEmail;
     TextView error;
 
     public static FragmentCheckoutPO newInstance() {
@@ -124,8 +120,8 @@ public class FragmentCheckoutPO extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_checkout_po, container, false);
         act = getActivity();
-        applicationManager = new ApplicationManager(act);
-        user = applicationManager.getUser();
+        appManager = new ApplicationManager(act);
+        user = appManager.getUser();
         progress = (ProgressBar) v.findViewById(R.id.progress);
         mListView = (ListView) v.findViewById(R.id.listCheckout);
         noData = (TextView) v.findViewById(R.id.noData);
@@ -164,13 +160,14 @@ public class FragmentCheckoutPO extends Fragment {
 
         tips = "10";
 
-        String alamat = applicationManager.getAlamat();
+        String alamat = appManager.getAlamat();
         if (alamat != "") {
             txtAlamat.setText(alamat);
         }
-        paySpiner = (NiceSpinner) footer.findViewById(R.id.paySpinner);
-        List<String> dataPay = new LinkedList<>(Arrays.asList("Transfer","COD"));
-        paySpiner.attachDataSource(dataPay);
+        paySpiner = (MaterialSpinner) footer.findViewById(R.id.paySpinner);
+        paySpiner.setItems("Transfer", "COD");
+        //List<String> dataPay = new LinkedList<>(Arrays.asList("Transfer","COD"));
+        //paySpiner.attachDataSource(dataPay);
         segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
         segmented.setTintColor(Color.parseColor("#D02D2E"));
         segmented.check(R.id.button23);
@@ -178,6 +175,7 @@ public class FragmentCheckoutPO extends Fragment {
         mAdapter = new AdapterCheckout(getActivity(), LIST_MENU);
         mListView.setAdapter(mAdapter);
         mListView.setScrollingCacheEnabled(false);
+        /*
         paySpiner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -185,6 +183,17 @@ public class FragmentCheckoutPO extends Fragment {
                 Log.d("position", "" + pembayaran);
             }
         });
+        */
+        paySpiner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                //Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+                pembayaran = position + 1;
+                Log.d("position", "" + pembayaran);
+            }
+        });
+
         segmented.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -193,6 +202,8 @@ public class FragmentCheckoutPO extends Fragment {
                         tips = "0";
                         tip = 0;
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
@@ -200,6 +211,8 @@ public class FragmentCheckoutPO extends Fragment {
                         tips = "5";
                         tip = (int) Math.floor(subtotal * 0.05 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
@@ -207,6 +220,8 @@ public class FragmentCheckoutPO extends Fragment {
                         tips = "10";
                         tip = (int) Math.floor(subtotal * 0.1 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
@@ -214,6 +229,8 @@ public class FragmentCheckoutPO extends Fragment {
                         tips = "15";
                         tip = (int) Math.floor(subtotal * 0.15 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
@@ -221,6 +238,8 @@ public class FragmentCheckoutPO extends Fragment {
                         tips = "20";
                         tip = (int) Math.floor(subtotal * 0.2 / 100) * 100;
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
@@ -268,8 +287,13 @@ public class FragmentCheckoutPO extends Fragment {
             public void onClick(View view) {
                 Log.d("kupon", txtKode.getText().toString());
                 //new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
-                dialogPromoCode.show();
-                error.setText("");
+                if(ApplicationData.hasEmail) {
+                    dialogPromoCode.show();
+                    error.setText("");
+                }else{
+                    dialogEmail.show();
+                }
+
             }
         });
 
@@ -356,6 +380,8 @@ public class FragmentCheckoutPO extends Fragment {
                             tip = (int) Math.floor(subtotal / 10 / 100)*100;
                         }
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                         txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
                         txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
@@ -384,6 +410,8 @@ public class FragmentCheckoutPO extends Fragment {
 
                         }
                         total = subtotal + tip + delivery - diskon;
+                        if(total<0)
+                            total = 0;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                         txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
                         txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
@@ -435,10 +463,6 @@ public class FragmentCheckoutPO extends Fragment {
             }
         };
 
-        if(user.getTrusted().contains("false")){
-            layPembayaran.setVisibility(View.GONE);
-        }
-
 
         if(LIST_MENU.size() > 0){
 
@@ -455,10 +479,50 @@ public class FragmentCheckoutPO extends Fragment {
         }
 
         InitDialogPromoCode();
+        InitDialogEmail();
 
 
         return v;
     }
+
+
+    private void InitDialogEmail(){
+        dialogEmail = new Dialog(getActivity());
+        dialogEmail.setContentView(R.layout.popup_email);
+        dialogEmail.setTitle("Update Email");
+
+        // set the custom dialog components - text, image and button
+
+        final EditText txtEmail = (EditText) dialogEmail.findViewById(R.id.txtEmail);
+        Button btnDone = (Button) dialogEmail.findViewById(R.id.btnDone);
+        Button btnNotNow = (Button) dialogEmail.findViewById(R.id.btnNotNow);
+
+        // if button is clicked, close the custom dialog
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationData.email = txtEmail.getText().toString();
+                String email = txtEmail.getText().toString();
+                if (email.isEmpty()) {
+                    DialogManager.showDialog(getActivity(), "Mohon Maaf", "Silahkan mengisi email Anda!");
+                }
+                else if (!email.trim().contains("@") || !email.trim().contains(".")) {
+                    DialogManager.showDialog(getActivity(), "Mohon Maaf", "Format email Anda salah!");
+                }else {
+                    new UpdateEmail(getActivity()).execute(txtEmail.getText().toString());
+                }
+            }
+        });
+
+        btnNotNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogEmail.dismiss();
+            }
+        });
+
+    }
+
 
     private void InitDialogPromoCode(){
         dialogPromoCode = new Dialog(getActivity());
@@ -515,7 +579,105 @@ public class FragmentCheckoutPO extends Fragment {
         }
 
         total = subtotal + tip + delivery - diskon;
+        if(total<0)
+            total = 0;
     }
+
+    private class UpdateEmail extends AsyncTask<String, Void, String> {
+        private Activity activity;
+        private Context context;
+        private Resources resources;
+        private ProgressDialog progressDialog;
+        private String msg = "Email sudah digunakan";
+        private String response;
+        private JSONObject jsonObj;
+        //private String messageError,messageSuccess;
+
+        public UpdateEmail(Activity activity) {
+            super();
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+            this.resources = activity.getResources();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(activity);
+            progressDialog.setMessage("Save your email. . .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                String email = params[0];
+                //String param = params[3];
+                JSONControl jsControl = new JSONControl();
+                response = jsControl.updateProfile(email,"email", appManager.getUserToken());
+                Log.d("json response", response.toString());
+                if (response.contains("true")) {
+                    ModelUser modelUser = appManager.getUser();
+
+                    modelUser.setEmail(email);
+                    ApplicationData.email = email;
+
+                    appManager.setUser(modelUser);
+
+                    return "OK";
+                }else{
+                    try {
+                        response.replace("\n", "");
+                        response.replaceAll(".*\".*", "\\\"");
+                        jsonObj = new JSONObject(response);
+                        msg = jsonObj.getString("message");
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+            return "FAIL";
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+
+            switch (result) {
+                case "FAIL":
+                    DialogManager.showDialog(activity, "Mohon Maaf", msg);
+                    break;
+                case "OK":
+                    DialogManager.showDialog(activity, "Info", "Berhasil update email");
+                    ApplicationData.hasEmail = true;
+                    VisitorInfo visitorData = new VisitorInfo.Builder()
+                            .name(ApplicationManager.getInstance(activity).getUser().getNama())
+                            .email(ApplicationManager.getInstance(activity).getUser().getEmail())
+                            .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
+                            .build();
+                    ZopimChat.setVisitorInfo(visitorData);
+                    dialogEmail.dismiss();
+                    break;
+            }
+            progressDialog.dismiss();
+
+        }
+
+
+    }
+
 
     private class CalculatePrice extends AsyncTask<String, Void, String> {
         private Activity activity;
@@ -551,7 +713,7 @@ public class FragmentCheckoutPO extends Fragment {
                 String kode = params[0];
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                JSONObject response = jsControl.calculatePrice(kode, applicationManager.getUserToken(), cart);
+                JSONObject response = jsControl.calculatePrice(kode, appManager.getUserToken(), cart);
                 Log.d("json response", response.toString());
                 try {
                     JSONArray transaksi = response.getJSONArray("transactions");
@@ -596,6 +758,8 @@ public class FragmentCheckoutPO extends Fragment {
                     }
                     diskon = 0;
                     total = subtotal + tip + delivery - diskon;
+                    if(total<0)
+                        total = 0;
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
@@ -608,6 +772,8 @@ public class FragmentCheckoutPO extends Fragment {
                     break;
                 case "OK":
                     total = subtotal + tip + delivery - diskon;
+                    if(total<0)
+                        total = 0;
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
@@ -690,8 +856,8 @@ public class FragmentCheckoutPO extends Fragment {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                LatLng posFrom = applicationManager.getGeocode();
-                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, applicationManager.getUserToken(), cart);
+                LatLng posFrom = appManager.getGeocode();
+                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, appManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
@@ -871,8 +1037,8 @@ public class FragmentCheckoutPO extends Fragment {
 
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                LatLng posFrom = applicationManager.getGeocode();
-                JSONObject response = jsControl.checkOutCOD(kode, address, note, tips, posFrom, applicationManager.getUserToken(), cart);
+                LatLng posFrom = appManager.getGeocode();
+                JSONObject response = jsControl.checkOutCOD(kode, address, note, tips, posFrom, appManager.getUserToken(), cart);
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
@@ -941,7 +1107,11 @@ public class FragmentCheckoutPO extends Fragment {
             switch (result) {
                 case "FAIL":
                     //isClicked = false;
-                    DialogManager.showDialog(activity, "Mohon maaf", msg);
+                    if(msg.isEmpty() || msg == ""){
+                        DialogManager.showDialog(activity, "Mohon maaf", "Tidak dapat terhubung dengan server");
+                    }else {
+                        DialogManager.showDialog(activity, "Mohon maaf", msg);
+                    }
                     break;
                 case "OK":
                     if (NetworkManager.getInstance(act).isConnectedInternet()) {

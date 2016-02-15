@@ -179,6 +179,9 @@ public class ActivityRegister extends Activity {
         if(ApplicationData.temp_nama != ""){
             txtName.setText(ApplicationData.temp_nama);
         }
+        if(ApplicationData.email != ""){
+            txtEmail.setText(ApplicationData.email);
+        }
         if(ApplicationData.temp_password != ""){
             txtPassword.setText(ApplicationData.temp_password);
             txtConfirm.setText(ApplicationData.temp_password);

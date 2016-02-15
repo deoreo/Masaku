@@ -80,7 +80,7 @@ public class ActivityProfile extends Activity {
                 String name = namaprofile.getText().toString();
                 String phone = phoneprofile.getText().toString();
                 String email = emailprofile.getText().toString();
-                if (name.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+                if (name.isEmpty() ||  email.isEmpty()) {
                     DialogManager.showDialog(act, "Mohon Maaf", "Silahkan melengkapi profil Anda!");
                 } else if (!email.trim().contains("@") || !email.trim().contains(".")) {
                     DialogManager.showDialog(act, "Mohon Maaf", "Format email Anda salah!");

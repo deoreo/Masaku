@@ -7,6 +7,7 @@ package twiscode.masakuuser.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,7 @@ public class AdapterNotif extends BaseAdapter {
         }
         else {
             ViewHolder holder;
-            convertView = mInflater.inflate(R.layout.row_pesanan_item, null);
+            convertView = mInflater.inflate(R.layout.row_notification_item, null);
             holder = new ViewHolder();
             holder.txtMessage = (TextView) convertView.findViewById(R.id.txtMessage);
             holder.txtDate = (TextView) convertView.findViewById(R.id.txtDate);
@@ -80,7 +81,8 @@ public class AdapterNotif extends BaseAdapter {
             final String NOTIF_MENU_ID = modelNotif.getMenuId();
             String status = "";
 
-            holder.txtMessage.setText(NOTIF_MESSAGE );
+
+            holder.txtMessage.setText(Html.fromHtml(NOTIF_MESSAGE) );
             holder.txtDate.setText(NOTIF_DATE);
 
             holder.btnDetailNotif.setOnClickListener(new View.OnClickListener() {

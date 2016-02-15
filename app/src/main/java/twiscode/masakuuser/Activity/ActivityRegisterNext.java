@@ -15,12 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.flurry.android.FlurryAgent;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.zopim.android.sdk.api.ZopimChat;
 import com.zopim.android.sdk.model.VisitorInfo;
 
-import org.angmarch.views.NiceSpinner;
+//import org.angmarch.views.NiceSpinner;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.spec.ECField;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -44,7 +47,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
 
     ImageView btnBack;
     Activity mActivity;
-    NiceSpinner genderSpiner;
+    MaterialSpinner genderSpiner;
     EditText txtTahun;
     Button btnRegister,btnLogin;
     Map<String, String> flurryParams = new HashMap<String,String>();
@@ -55,12 +58,13 @@ public class ActivityRegisterNext extends AppCompatActivity {
         setContentView(R.layout.activity_register_next);
         mActivity = this;
         btnBack = (ImageView) findViewById(R.id.btnBack);
-        genderSpiner = (NiceSpinner) findViewById(R.id.genderSpinner);
+        genderSpiner = (MaterialSpinner ) findViewById(R.id.genderSpinner);
         txtTahun = (EditText) findViewById(R.id.txtTahun);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnRegister = (Button) findViewById(R.id.btnRegister);
-        List<String> dataPay = new LinkedList<>(Arrays.asList("male", "female"));
-        genderSpiner.attachDataSource(dataPay);
+        //List<String> dataPay = new LinkedList<>(Arrays.asList("male", "female"));
+        //genderSpiner.attachDataSource(dataPay);
+        genderSpiner.setItems("male", "female");
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,19 +89,23 @@ public class ActivityRegisterNext extends AppCompatActivity {
             public void onClick(View v) {
                 String tahun = txtTahun.getText().toString();
                 String gender = genderSpiner.getText().toString();
-                if(NetworkManager.getInstance(mActivity).isConnectedInternet()){
-                    new DoRegister(mActivity).execute(
-                            ApplicationData.temp_nama,
+                if(tahun.isEmpty()){
+                    DialogManager.showDialog(mActivity, "Mohon Maaf", "Isi tahun lahir Anda");
+                }else {
 
-                            ApplicationData.temp_hp,
-                            ApplicationData.email,
-                            ApplicationData.temp_password,
-                            gender,
-                            tahun
-                    );
-                }
-                else {
-                    DialogManager.showDialog(mActivity,"Mohon Maaf","Tidak ada koneksi internet !");
+                    if (NetworkManager.getInstance(mActivity).isConnectedInternet()) {
+                        new DoRegister(mActivity).execute(
+                                ApplicationData.temp_nama,
+
+                                ApplicationData.temp_hp,
+                                ApplicationData.email,
+                                ApplicationData.temp_password,
+                                gender,
+                                tahun
+                        );
+                    } else {
+                        DialogManager.showDialog(mActivity, "Mohon Maaf", "Tidak ada koneksi internet !");
+                    }
                 }
 
             }
@@ -107,7 +115,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
     }
 
     private class DoRegister extends AsyncTask<String, Void, String> {
-        String message="";
+        String message="Anda tidak terhubung dengan server";
         private Activity activity;
         private Context context;
         private Resources resources;
@@ -145,36 +153,35 @@ public class ActivityRegisterNext extends AppCompatActivity {
 
                 JSONControl jsControl = new JSONControl();
                 JSONObject responseRegister = jsControl.postRegister(name,phoneNumber, email, password, gender, tahun);
-                Log.d("json responseRegister", responseRegister.toString());
-                if(! responseRegister.toString().contains("errors")){
-                    ApplicationData.temp_token = responseRegister.getString("token");
-                    ModelUser user = new ModelUser();
-                    String _id = responseRegister.getJSONObject("user").getString("_id");
-                    String _name = responseRegister.getJSONObject("user").getString("name");
-                    String _phone = responseRegister.getJSONObject("user").getString("phoneNumber");
-                    String _email = responseRegister.getJSONObject("user").getString("email");
-                    user.setId(_id);
-                    user.setNama(_name);
-                    user.setPonsel(_phone);
-                    user.setEmail(_email);
-                    user.setTrusted("false");
-                    ApplicationManager.getInstance(activity).setUser(user);
-                    ApplicationData.temp_user = user;
-                    VisitorInfo visitorData = new VisitorInfo.Builder()
-                            .name(ApplicationManager.getInstance(activity).getUser().getNama())
-                            .email(ApplicationManager.getInstance(activity).getUser().getEmail())
-                            .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
-                            .build();
-                    ZopimChat.setVisitorInfo(visitorData);
-                    return "OK";
-                }
-                else {
-                    message = responseRegister.getString("message");
-                    if(message.equalsIgnoreCase("User validation failed")){
-                        message = "Nomor ponsel Anda telah terdaftar";
+                    Log.d("json responseRegister", responseRegister.toString());
+                    if (!responseRegister.toString().contains("errors")) {
+                        ApplicationData.temp_token = responseRegister.getString("token");
+                        ModelUser user = new ModelUser();
+                        String _id = responseRegister.getJSONObject("user").getString("_id");
+                        String _name = responseRegister.getJSONObject("user").getString("name");
+                        String _phone = responseRegister.getJSONObject("user").getString("phoneNumber");
+                        String _email = responseRegister.getJSONObject("user").getString("email");
+                        user.setId(_id);
+                        user.setNama(_name);
+                        user.setPonsel(_phone);
+                        user.setEmail(_email);
+                        user.setTrusted("false");
+                        ApplicationManager.getInstance(activity).setUser(user);
+                        ApplicationData.temp_user = user;
+                        VisitorInfo visitorData = new VisitorInfo.Builder()
+                                .name(ApplicationManager.getInstance(activity).getUser().getNama())
+                                .email(ApplicationManager.getInstance(activity).getUser().getEmail())
+                                .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
+                                .build();
+                        ZopimChat.setVisitorInfo(visitorData);
+                        return "OK";
+                    } else {
+                        //message = responseRegister.getString("message");
+                        JSONArray errors = responseRegister.getJSONArray("errors");
+                        message = errors.getJSONObject(0).getString("message");
+                        return "FAIL";
                     }
-                    return "FAIL";
-                }
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -192,11 +199,17 @@ public class ActivityRegisterNext extends AppCompatActivity {
                 case "FAIL":
                     DialogManager.showDialog(mActivity, "Mohon Maaf", message);
                     break;
+
                 case "OK":
+                    ApplicationData.hasEmail = true;
                     ApplicationData.isVerify = 0;
                     ApplicationData.temp_nama = "";
                     ApplicationData.temp_password = "";
                     ApplicationData.temp_password = "";
+                    ApplicationData.email = "";
+
+
+
                     Intent i = new Intent(getBaseContext(), ActivityVerifyHp.class);
                     startActivity(i);
                     finish();

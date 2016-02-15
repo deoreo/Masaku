@@ -92,7 +92,7 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
                                 Log.d("phone 1",phone);
                             }
                             */
-                            new ForgotPassword(act).execute(phone);
+                            new ForgotPassword(act).execute("0"+phone);
                         }
 
                     }
@@ -182,6 +182,12 @@ public class ActivityForgetPassword_1 extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent j = new Intent(act, ActivityLogin.class);
+        startActivity(j);
+        finish();
+    }
 
     public void onStart() {
         super.onStart();

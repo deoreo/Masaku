@@ -17,12 +17,12 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/errorPromoCode"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:layout_marginBottom="20dp"
-                android:text="Hai guys!\nMasukkan emailmu untuk mendapatkan\npromo free delivery:"
+                android:text="Hai guys!\nMasukkan emailmu untuk mendapatkan promo free delivery:"
                 android:gravity="center"
                 android:textColor="@color/colorDarkGrey"/>
 
@@ -50,12 +50,20 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btnNotNow"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/rounded_red"
+                    android:text="not now"
+                    android:textColor="@color/colorWhite"/>
+
+                <Button
                     android:id="@+id/btnDone"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
                     android:background="@drawable/rounded_red"
                     android:text="done"
                     android:textColor="@color/colorWhite"/>

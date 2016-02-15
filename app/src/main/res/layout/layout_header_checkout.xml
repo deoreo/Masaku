@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingTop="3dp"
-                        android:text="Note"
+                        android:text="Location Detail"
                         android:textSize="12dp"
                         android:textColor="@color/colorDarkGrey"
                         android:background="@color/colorWhite"/>
@@ -124,7 +124,7 @@
                         android:maxLength="120"
                         android:paddingLeft="5dp"
                         android:paddingBottom="3dp"
-                        android:hint="note for address detail"
+                        android:hint="input your location detail"
                         android:textColor="@color/colorBlack"
                         android:textSize="14dp"
                         android:maxLines="10"
@@ -141,7 +141,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:background="@drawable/plan_gradient"/>
 
         </LinearLayout>

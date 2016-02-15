@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.baoyz.widget.PullRefreshLayout;
 import com.flurry.android.FlurryAgent;
 
-import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
 
-import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

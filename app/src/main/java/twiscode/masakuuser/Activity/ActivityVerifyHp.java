@@ -86,8 +86,11 @@ public class ActivityVerifyHp extends AppCompatActivity {
                             txt3.getText().toString() +
                             txt4.getText().toString()
                     ;
+                    try {
+                        new CheckCode(act).execute(code);
+                    }catch(Exception e){
 
-                    new CheckCode(act).execute(code);
+                    }
                 } else {
                     DialogManager.showDialog(act, "Peringatan", "Tidak ada koneksi internet!");
                 }
@@ -123,7 +126,11 @@ public class ActivityVerifyHp extends AppCompatActivity {
                                 txt4.getText().toString()
                         ;
 
-                        new CheckCode(act).execute(code);
+                        try {
+                            new CheckCode(act).execute(code);
+                        }catch(Exception e){
+
+                        }
                     } else {
                         DialogManager.showDialog(act, "Peringatan", "Tidak ada koneksi internet!");
                     }

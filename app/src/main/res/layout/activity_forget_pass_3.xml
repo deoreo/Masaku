@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="delihome"
+            android:text="DELIHOME"
             android:textColor="@color/colorRed"
             android:textStyle="bold"
             android:textAllCaps="false"
@@ -100,14 +100,14 @@
                                     android:textColorHint="@drawable/hint_selector_black"
                                     android:textCursorDrawable="@drawable/cursor_black"
                                     android:inputType="numberPassword"
-                                    android:textStyle="bold" />
+                                    />
 
                             </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
-                                android:background="@color/colorBlack"
+                                android:background="@color/colorDarkGrey"
                                 />
                         </LinearLayout>
 
@@ -130,7 +130,6 @@
                                     android:padding="10dp"
                                     android:background="@null"
                                     android:inputType="numberPassword"
-                                    android:textStyle="bold"
                                     android:textColor="@color/colorBlack"
                                     android:textColorHint="@drawable/hint_selector_black"
                                     android:textCursorDrawable="@drawable/cursor_black"/>
@@ -140,7 +139,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
-                                android:background="@color/colorBlack"
+                                android:background="@color/colorDarkGrey"
                                 />
                         </LinearLayout>
 

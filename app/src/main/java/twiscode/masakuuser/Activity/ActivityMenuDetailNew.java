@@ -345,7 +345,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
             }
         });
-        
+
 
         flurryParams.put("ID_MENU",modelMenu.getId());
         FlurryAgent.logEvent("MENU_DETAIL", flurryParams, true);

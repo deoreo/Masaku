@@ -63,6 +63,7 @@ public class ApplicationData {
     public static String smsCode;
     public static TextView titleBar;
     public static boolean isFirstSpeed = true;
+    public static boolean isNotif = false;
     public static String question, answer;
     public static HashMap<String,ModelAllMenus> allmenus = new HashMap<>();
     public static HashMap<String,ModelWishlist> wishlist = new HashMap<>();

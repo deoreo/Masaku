@@ -37,7 +37,8 @@ public class IncomingSms extends BroadcastReceiver {
                     String phoneNumber = currentMessage.getDisplayOriginatingAddress();
                     String senderNum = phoneNumber;
                     String message = currentMessage.getDisplayMessageBody();
-                    if(message.contains("Selamat datang di Masaku.")) {
+                    String messageForget = "Hai! Masukkan kode berikut untuk mengganti password akun Masaku anda:";
+                    if(message.contains("Your delihome")) {
                         ApplicationData.smsCode = message.replaceAll("[^\\d]", "");
                         Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + ApplicationData.smsCode);
                         Intent broadcastIntent = new Intent("smsCode");

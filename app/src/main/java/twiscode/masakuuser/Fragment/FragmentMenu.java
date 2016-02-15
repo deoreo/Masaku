@@ -27,7 +27,6 @@ import android.widget.TextView;
 import com.baoyz.widget.PullRefreshLayout;
 import com.flurry.android.FlurryAgent;
 
-import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -67,7 +66,7 @@ public class FragmentMenu extends Fragment {
 	private PullRefreshLayout mSwipeRefreshLayout,mSwipeRefreshLayoutNoData;
 	private ListView mListView;
 	AdapterMenuPO mAdapter;
-	NiceSpinner sort,category;
+	//NiceSpinner sort,category;
 	LinearLayout noData, layoutAlamat;
 	RelativeLayout firstLay;
 private TextView txtAlamat;
@@ -108,13 +107,13 @@ private TextView txtAlamat;
 		mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
 		mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
 		header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
-		sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
-		category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
+		//sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
+		//category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
 
 		List<String> dataCategory = new LinkedList<>(Arrays.asList("All", "Gorengan", "Kuah", "Masakan Korea", "Masakan Barat","Masakan Chinese","Masakan Padang","Masakan Jepang","Indonesia"));
 		List<String> dataSort = new LinkedList<>(Arrays.asList("Popular", "Lowest Price", "Highest Price", "Nearest"));
-		sort.attachDataSource(dataSort);
-		category.attachDataSource(dataCategory);
+		//sort.attachDataSource(dataSort);
+		//category.attachDataSource(dataCategory);
 		LIST_MENU = new ArrayList<ModelMenuSpeed>();
 		mListView.setScrollingCacheEnabled(false);
 		mSwipeRefreshLayout.setRefreshing(false);
@@ -359,7 +358,7 @@ private TextView txtAlamat;
 					//finish();
 					Log.d("jumlah menu : ",""+LIST_MENU.size());
 					//mListView.addHeaderView(header);
-					category.attachDataSource(datacategory);
+					//category.attachDataSource(datacategory);
 					mAdapter = new AdapterMenuPO(activity, LIST_MENU);
 					mListView.setAdapter(mAdapter);
 					mSwipeRefreshLayout.setRefreshing(false);

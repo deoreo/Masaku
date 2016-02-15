@@ -31,7 +31,6 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

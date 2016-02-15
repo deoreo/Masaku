@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.sql.Time;
 
 import twiscode.masakuuser.Activity.Main;
+import twiscode.masakuuser.Utilities.ApplicationData;
 
 
 public class CustomPushReceiver extends ParsePushBroadcastReceiver {
@@ -52,6 +53,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     protected void onPushOpen(Context context, Intent intent) {
         super.onPushOpen(context, intent);
         Log.e("Push", "Clicked");
+        ApplicationData.isNotif = true;
         Intent i = new Intent(context, Main.class);
         i.putExtras(intent.getExtras());
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -100,8 +102,9 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     private void parsePushJsonCustom(Context context, JSONObject json) {
         try {
             String message = json.getString("alert");
+            ApplicationData.isNotif = true;
             Intent resultIntent = new Intent(context, Main.class);
-            showNotificationMessage(context, "Notifikasi Masaku", message, resultIntent);
+            showNotificationMessage(context, "Notifikasi Delihome", message, resultIntent);
             Message msg = new Message();
             msg.setMessage(message);
             msg.setTimestamp(new Time(System.currentTimeMillis()).getHours());

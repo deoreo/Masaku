@@ -73,6 +73,7 @@ public class ActivitySplash extends AppCompatActivity {
                 } finally {
                     int countUser = db.getuserCount();
                     Log.d("db count",""+countUser);
+                    ApplicationData.isFirstLogin = true;
                     if (countUser > 0) {
                         /*
                         Intent i = new Intent(getBaseContext(), ActivityHome.class);
@@ -179,6 +180,8 @@ public class ActivitySplash extends AppCompatActivity {
                         }else{
                             ApplicationData.hasEmail = true;
                         }
+                        ApplicationData.isFirstLogin = true;
+
                     }
                     catch (Exception ex){
                         ex.printStackTrace();

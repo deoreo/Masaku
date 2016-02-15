@@ -202,6 +202,7 @@
         android:id="@+id/layPembayaran"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
@@ -220,7 +221,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/colorWhite">
-            <org.angmarch.views.NiceSpinner
+            <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/paySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

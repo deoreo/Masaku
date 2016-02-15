@@ -60,9 +60,7 @@ public class ActivityForgetPassword_3 extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), ActivityForgetPassword_2.class);
-                startActivity(i);
-                finish();
+                onBackPressed();
             }
         });
 
@@ -152,6 +150,8 @@ public class ActivityForgetPassword_3 extends AppCompatActivity {
                     ApplicationData.tokenPass="";
                     //DialogManager.showDialog(activity, "Warning", "Reset password sukses!");
                     Intent i = new Intent(getBaseContext(), ActivityLogin.class);
+                    i.addCategory(Intent.CATEGORY_HOME);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                     finish();
                     break;
@@ -161,6 +161,11 @@ public class ActivityForgetPassword_3 extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        DialogManager.showDialog(ActivityForgetPassword_3.this, "Informasi", "Silahkan mengganti password Anda!");
     }
 
     public void onStart() {

@@ -138,18 +138,18 @@ public class FragmentNotif extends Fragment {
                 JSONArray notification = response.getJSONArray("notification");
                 if(notification.length() > 0){
                     for(int t=0;t<notification.length();t++){
-                        String _id = notification.getJSONObject(t).getString("id");
-                        String _menuId = notification.getJSONObject(t).getString("menuId");
-                        String _userId = notification.getJSONObject(t).getString("userId");
+                        String _id = notification.getJSONObject(t).getString("_id");
+                        //String _menuId = notification.getJSONObject(t).getString("menuId");
+                        String _userId = notification.getJSONObject(t).getString("user");
                         String _message = notification.getJSONObject(t).getString("message");
                         String _createdAt = notification.getJSONObject(t).getString("createdAt");
                         String dt = _createdAt.split("T")[0];
                         String[] dd = dt.split("-");
                         String _date = dd[2]+" "+getMonth(dd[1])+" "+dd[0];
 
-                        ModelNotif menu = new ModelNotif(_id,_userId,_menuId,_message,_date);
+                        ModelNotif menu = new ModelNotif(_id,_userId,"",_message,_date);
                         //ApplicationData.idLastTransaction = _id;
-                        LIST_NOTIF.add(0, menu);
+                        LIST_NOTIF.add(t, menu);
 
                     }
 

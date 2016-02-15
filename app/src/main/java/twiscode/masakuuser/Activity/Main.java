@@ -1,6 +1,7 @@
 package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -32,9 +33,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.JsonParser;
 import com.zopim.android.sdk.api.ZopimChat;
 import com.zopim.android.sdk.model.VisitorInfo;
 import com.zopim.android.sdk.prechat.ZopimChatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,8 +220,6 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 displayView(WISHLIST);
             }
         });
-
-
         wishlistFull.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,7 +227,13 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
             }
         });
         InitDialogEmail();
-        displayView(0);
+        if(!ApplicationData.isNotif) {
+            displayView(0);
+        }else{
+            displayView(NOTIFICATION);
+            ApplicationData.hasEmail = false;
+        }
+
 
         if (!ApplicationData.hasEmail) {
             dialogEmail.show();
@@ -323,6 +332,9 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 break;
 
             case ALL_MENU:
+                if (!ApplicationData.hasEmail) {
+                    dialogEmail.show();
+                }
                 fragment = new FragmentAllMenus();
                 //title = getString(R.string.app_name);
                 title = "Discover";
@@ -430,15 +442,32 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
         txtEmail = (EditText) dialogEmail.findViewById(R.id.txtEmail);
         Button btnDone = (Button) dialogEmail.findViewById(R.id.btnDone);
+        Button btnNotNow = (Button) dialogEmail.findViewById(R.id.btnNotNow);
 
         // if button is clicked, close the custom dialog
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ApplicationData.email = txtEmail.getText().toString();
-                new UpdateEmail(Main.this).execute(txtEmail.getText().toString());
+                String email = txtEmail.getText().toString();
+                if (email.isEmpty()) {
+                    DialogManager.showDialog(Main.this, "Mohon Maaf", "Silahkan mengisi email Anda!");
+                }
+                else if (!email.trim().contains("@") || !email.trim().contains(".")) {
+                    DialogManager.showDialog(Main.this, "Mohon Maaf", "Format email Anda salah!");
+                }else {
+                    new UpdateEmail(Main.this).execute(txtEmail.getText().toString());
+                }
             }
         });
+
+        btnNotNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogEmail.dismiss();
+            }
+        });
+
     }
 
 
@@ -475,6 +504,9 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         private Context context;
         private Resources resources;
         private ProgressDialog progressDialog;
+        private String msg = "Email sudah digunakan";
+        private String response;
+        private JSONObject jsonObj;
         //private String messageError,messageSuccess;
 
         public UpdateEmail(Activity activity) {
@@ -499,10 +531,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         protected String doInBackground(String... params) {
             try {
 
-                String email = params[2];
+                String email = params[0];
                 //String param = params[3];
                 JSONControl jsControl = new JSONControl();
-                String response = jsControl.updateProfile("email", email, appManager.getUserToken());
+                response = jsControl.updateProfile(email,"email", appManager.getUserToken());
                 Log.d("json response", response.toString());
                 if (response.contains("true")) {
                     ModelUser modelUser = appManager.getUser();
@@ -513,10 +545,21 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                     appManager.setUser(modelUser);
 
                     return "OK";
+                }else{
+                    try {
+                        response.replace("\n", "");
+                        response.replaceAll(".*\".*", "\\\"");
+                        jsonObj = new JSONObject(response);
+                        msg = jsonObj.getString("message");
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
                 }
+
 
             } catch (Exception e) {
                 e.printStackTrace();
+
             }
 
             return "FAIL";
@@ -530,7 +573,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
             switch (result) {
                 case "FAIL":
-                    DialogManager.showDialog(activity, "Mohon Maaf", "Update email gagal");
+                    DialogManager.showDialog(activity, "Mohon Maaf", msg);
                     break;
                 case "OK":
                     DialogManager.showDialog(activity, "Info", "Berhasil update email");
@@ -541,6 +584,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                             .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
                             .build();
                     ZopimChat.setVisitorInfo(visitorData);
+                    dialogEmail.dismiss();
                     break;
             }
             progressDialog.dismiss();

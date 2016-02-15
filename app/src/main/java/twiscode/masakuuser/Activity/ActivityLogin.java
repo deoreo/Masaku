@@ -309,7 +309,39 @@ public class ActivityLogin extends Activity{
                             final Context ctx = activity;
                             new MaterialDialog.Builder(ctx)
                                     .title("Mohon Maaf")
-                                    .content("Nomor ponsel Anda belum terdaftar")
+                                    .content("Anda tidak terhubung dengan server")
+                                    .positiveText("OK")
+                                    .callback(new MaterialDialog.ButtonCallback() {
+                                        @Override
+                                        public void onPositive(MaterialDialog dialog) {
+                                            /*
+                                            ApplicationData.phoneNumberLogin = txtPhone.getText().toString();
+                                            Intent i = new Intent(getBaseContext(), ActivityRegister.class);
+                                            startActivity(i);
+                                            finish();*/
+                                            dialog.dismiss();
+
+
+                                        }
+                                    })
+                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                    .cancelable(false)
+                                    .show();
+                            //isClicked = false;
+                        } catch (Exception e) {
+
+                        }
+
+                    break;
+                case "FAIL PASSWORD":
+                    if(!msg.contains("Anda belum terdaftar")){
+                    DialogManager.showDialog(activity, "Mohon Maaf", msg);}
+                    else {
+                        try {
+                            final Context ctx = activity;
+                            new MaterialDialog.Builder(ctx)
+                                    .title("Mohon Maaf")
+                                    .content(msg)
                                     .positiveText("OK")
                                     .callback(new MaterialDialog.ButtonCallback() {
                                         @Override
@@ -332,10 +364,7 @@ public class ActivityLogin extends Activity{
                         } catch (Exception e) {
 
                         }
-
-                    break;
-                case "FAIL PASSWORD":
-                    DialogManager.showDialog(activity, "Mohon Maaf", msg);
+                    }
                     break;
                 case "OK":
                     ApplicationData.isFirstLogin = true;

@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.astuetz.PagerSlidingTabStrip;
 import com.baoyz.widget.PullRefreshLayout;
 
-import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
