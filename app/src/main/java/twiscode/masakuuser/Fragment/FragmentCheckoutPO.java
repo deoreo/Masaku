@@ -70,11 +70,11 @@ public class FragmentCheckoutPO extends Fragment {
     private static final String ARG_COLOR = "color";
     Activity act;
     ApplicationManager appManager;
-    private EditText txtNote,txtCodePromo;
+    private EditText txtNote, txtCodePromo;
     private ImageView btnBack;
     private ListView mListView;
-    private LinearLayout laySpecial,layPembayaran,laypromoInfo;
-    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat,txtSpecial,txtPromoInfo,txtKode;
+    private LinearLayout laySpecial, layPembayaran, laypromoInfo;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat, txtSpecial, txtPromoInfo, txtKode, txtCouponHint;
     private Button btnKonfirmasi, btnApply;
     AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
@@ -93,7 +93,7 @@ public class FragmentCheckoutPO extends Fragment {
     int pembayaran = 1;
     ModelUser user;
     //boolean isClicked = false;
-    Map<String, String> flurryParams = new HashMap<String,String>();
+    Map<String, String> flurryParams = new HashMap<String, String>();
 
     private Dialog dialogPromoCode, dialogEmail;
     TextView error;
@@ -142,7 +142,7 @@ public class FragmentCheckoutPO extends Fragment {
         btnApply = (Button) header.findViewById(R.id.btnApply);
         txtNote = (EditText) header.findViewById(R.id.noteCheckout);
         txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
-        txtPromoInfo = (TextView) header.findViewById(R.id.promoInfoText);
+        txtCouponHint = (TextView) header.findViewById(R.id.txtCouponHint);
         mListView.addHeaderView(header);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.layout_footer_checkout_po, null);
         txtSubtotal = (TextView) footer.findViewById(R.id.subtotalCheckout);
@@ -163,6 +163,12 @@ public class FragmentCheckoutPO extends Fragment {
         String alamat = appManager.getAlamat();
         if (alamat != "") {
             txtAlamat.setText(alamat);
+        }
+        if (ApplicationData.couponHint == "") {
+            txtCouponHint.setVisibility(View.GONE);
+        } else {
+            txtCouponHint.setVisibility(View.VISIBLE);
+            txtCouponHint.setText(ApplicationData.couponHint);
         }
         paySpiner = (MaterialSpinner) footer.findViewById(R.id.paySpinner);
         paySpiner.setItems("Transfer", "COD");
@@ -201,44 +207,52 @@ public class FragmentCheckoutPO extends Fragment {
                     case R.id.button21:
                         tips = "0";
                         tip = 0;
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button22:
                         tips = "5";
-                        tip = (int) Math.floor(subtotal * 0.05 / 100) * 100;
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        tip = (int) Math.floor((subtotal - diskon) * 0.05 / 100) * 100;
+                        if (tip < 0)
+                            tip = 0;
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button23:
                         tips = "10";
-                        tip = (int) Math.floor(subtotal * 0.1 / 100) * 100;
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        tip = (int) Math.floor((subtotal - diskon) * 0.1 / 100) * 100;
+                        if (tip < 0)
+                            tip = 0;
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button24:
                         tips = "15";
-                        tip = (int) Math.floor(subtotal * 0.15 / 100) * 100;
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        tip = (int) Math.floor((subtotal - diskon) * 0.15 / 100) * 100;
+                        if (tip < 0)
+                            tip = 0;
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button25:
                         tips = "20";
-                        tip = (int) Math.floor(subtotal * 0.2 / 100) * 100;
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        tip = (int) Math.floor((subtotal - diskon) * 0.2 / 100) * 100;
+                        if (tip < 0)
+                            tip = 0;
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
@@ -287,10 +301,10 @@ public class FragmentCheckoutPO extends Fragment {
             public void onClick(View view) {
                 Log.d("kupon", txtKode.getText().toString());
                 //new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
-                if(ApplicationData.hasEmail) {
+                if (ApplicationData.hasEmail) {
                     dialogPromoCode.show();
                     error.setText("");
-                }else{
+                } else {
                     dialogEmail.show();
                 }
 
@@ -313,53 +327,52 @@ public class FragmentCheckoutPO extends Fragment {
             @Override
             public void onClick(View view) {
                 //if (isClicked == false) {
-                   // isClicked = true;
-                    if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                        if (txtAlamat.getText().toString().isEmpty()) {
-                            DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
-                       ////     isClicked = false;
-                        } else {
-                            try {
-                                final Context ctx = getActivity();
-                                new MaterialDialog.Builder(ctx)
-                                        .title("Anda yakin untuk order?")
-                                        .positiveText("OK")
-                                        .callback(new MaterialDialog.ButtonCallback() {
-                                            @Override
-                                            public void onPositive(MaterialDialog dialog) {
-                                                if(pembayaran==1){
-                                                    new CheckOut(act).execute(
-                                                            txtKode.getText().toString(),
-                                                            txtAlamat.getText().toString(),
-                                                            txtNote.getText().toString()
-                                                    );
-                                                    dialog.dismiss();
-                                                }
-                                                else {
-                                                    new CheckOutCOD(act).execute(
-                                                            txtKode.getText().toString(),
-                                                            txtAlamat.getText().toString(),
-                                                            txtNote.getText().toString()
-                                                    );
-                                                    dialog.dismiss();
-                                                }
-
+                // isClicked = true;
+                if (NetworkManager.getInstance(act).isConnectedInternet()) {
+                    if (txtAlamat.getText().toString().isEmpty()) {
+                        DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
+                        ////     isClicked = false;
+                    } else {
+                        try {
+                            final Context ctx = getActivity();
+                            new MaterialDialog.Builder(ctx)
+                                    .title("Anda yakin untuk order?")
+                                    .positiveText("OK")
+                                    .callback(new MaterialDialog.ButtonCallback() {
+                                        @Override
+                                        public void onPositive(MaterialDialog dialog) {
+                                            if (pembayaran == 1) {
+                                                new CheckOut(act).execute(
+                                                        txtKode.getText().toString(),
+                                                        txtAlamat.getText().toString(),
+                                                        txtNote.getText().toString()
+                                                );
+                                                dialog.dismiss();
+                                            } else {
+                                                new CheckOutCOD(act).execute(
+                                                        txtKode.getText().toString(),
+                                                        txtAlamat.getText().toString(),
+                                                        txtNote.getText().toString()
+                                                );
+                                                dialog.dismiss();
                                             }
-                                        })
-                                        .negativeText("Tidak")
-                                        .cancelable(false)
-                                        .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                                        .show();
-                            } catch (Exception e) {
 
-                            }
+                                        }
+                                    })
+                                    .negativeText("Tidak")
+                                    .cancelable(false)
+                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
+                                    .show();
+                        } catch (Exception e) {
+
                         }
-
-                    }else{
-                       // isClicked = false;
-                        DialogManager.showDialog(act,"Mohon Maaf", "Anda tidak terhubung dengan internet, Silahkan coba lagi!");
                     }
+
+                } else {
+                    // isClicked = false;
+                    DialogManager.showDialog(act, "Mohon Maaf", "Anda tidak terhubung dengan internet, Silahkan coba lagi!");
                 }
+            }
             //}
         });
 
@@ -370,17 +383,31 @@ public class FragmentCheckoutPO extends Fragment {
                 Log.d("", "broadcast updateCart");
                 String message = intent.getStringExtra("message");
                 if (message.equals("true")) {
-                    if(ApplicationData.cart.size() > 0){
+                    if (ApplicationData.cart.size() > 0) {
                         LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
                         if (LIST_MENU.size() > 0) {
                             subtotal = 0;
                             for (int i = 0; i < LIST_MENU.size(); i++) {
                                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
                             }
-                            tip = (int) Math.floor(subtotal / 10 / 100)*100;
+                            if (tips == "0") {
+                                tip = 0;
+                            } else if (tips == "5") {
+                                tip = (int) Math.floor((subtotal - diskon) * 0.05 / 100) * 100;
+                            } else if (tips == "10") {
+                                tip = (int) Math.floor((subtotal - diskon) * 0.1 / 100) * 100;
+                            } else if (tips == "15") {
+                                tip = (int) Math.floor((subtotal - diskon) * 0.15 / 100) * 100;
+                            } else if (tips == "20") {
+                                tip = (int) Math.floor((subtotal - diskon) * 0.2 / 100) * 100;
+                            }
+
+
                         }
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        if (tip < 0)
+                            tip = 0;
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                         txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
@@ -390,11 +417,8 @@ public class FragmentCheckoutPO extends Fragment {
                     }
 
 
-
-
-                }
-                else if(message.equals("delete")){
-                    if(ApplicationData.cart.size() > 0){
+                } else if (message.equals("delete")) {
+                    if (ApplicationData.cart.size() > 0) {
                         LIST_MENU = new ArrayList<ModelCart>(ApplicationData.cart.values());
                         boolean isEvent = false;
                         if (LIST_MENU.size() > 0) {
@@ -402,15 +426,15 @@ public class FragmentCheckoutPO extends Fragment {
 
                             for (int i = 0; i < LIST_MENU.size(); i++) {
                                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
-                                if(LIST_MENU.get(i).getIsEvent()=="true"){
+                                if (LIST_MENU.get(i).getIsEvent() == "true") {
                                     isEvent = true;
                                 }
                             }
-                            tip = (int) Math.floor(subtotal / 10 / 100)*100;
+                            tip = (int) Math.floor(subtotal / 10 / 100) * 100;
 
                         }
-                        total = subtotal + tip + delivery - diskon;
-                        if(total<0)
+                        total = (subtotal - diskon) + tip + delivery;
+                        if (total < 0)
                             total = 0;
                         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                         txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
@@ -419,41 +443,37 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         mAdapter = new AdapterCheckout(act, LIST_MENU);
                         mListView.setAdapter(mAdapter);
-                        if(isEvent){
+                        if (isEvent) {
                             laySpecial.setVisibility(View.VISIBLE);
-                        }
-                        else {
+                        } else {
                             laySpecial.setVisibility(View.GONE);
                         }
-                    }
-                    else{
+                    } else {
                         //act.finish();
-                        if(ApplicationData.cart.size() > 0){
+                        if (ApplicationData.cart.size() > 0) {
                             LIST_MENU = new ArrayList<ModelCart>();
                             ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
                             boolean isEvent = false;
-                            for(int i=0;i<newlist.size();i++){
+                            for (int i = 0; i < newlist.size(); i++) {
                                 ModelCart c = newlist.get(i);
-                                if(c.getType()=="po"){
+                                if (c.getType() == "po") {
                                     LIST_MENU.add(c);
                                 }
-                                if(c.getIsEvent()=="true"){
+                                if (c.getIsEvent() == "true") {
                                     isEvent = true;
                                 }
                             }
-                            if(LIST_MENU.size() < 1){
+                            if (LIST_MENU.size() < 1) {
                                 mListView.setVisibility(View.GONE);
                                 noData.setVisibility(View.VISIBLE);
                             }
-                            if(isEvent){
+                            if (isEvent) {
                                 laySpecial.setVisibility(View.VISIBLE);
-                            }
-                            else {
+                            } else {
                                 laySpecial.setVisibility(View.GONE);
                             }
 
-                        }
-                        else {
+                        } else {
                             act.finish();
                         }
                     }
@@ -464,29 +484,27 @@ public class FragmentCheckoutPO extends Fragment {
         };
 
 
-        if(LIST_MENU.size() > 0){
+        if (LIST_MENU.size() > 0) {
 
-                txtKode.setText(ApplicationData.promocode);
+            txtKode.setText(ApplicationData.promocode);
 
             new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
-        }
-        else {
+        } else {
 
-                noData.setVisibility(View.VISIBLE);
-                mListView.setVisibility(View.GONE);
-                progress.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+            mListView.setVisibility(View.GONE);
+            progress.setVisibility(View.GONE);
 
         }
 
         InitDialogPromoCode();
         InitDialogEmail();
 
-
         return v;
     }
 
 
-    private void InitDialogEmail(){
+    private void InitDialogEmail() {
         dialogEmail = new Dialog(getActivity());
         dialogEmail.setContentView(R.layout.popup_email);
         dialogEmail.setTitle("Update Email");
@@ -505,10 +523,9 @@ public class FragmentCheckoutPO extends Fragment {
                 String email = txtEmail.getText().toString();
                 if (email.isEmpty()) {
                     DialogManager.showDialog(getActivity(), "Mohon Maaf", "Silahkan mengisi email Anda!");
-                }
-                else if (!email.trim().contains("@") || !email.trim().contains(".")) {
+                } else if (!email.trim().contains("@") || !email.trim().contains(".")) {
                     DialogManager.showDialog(getActivity(), "Mohon Maaf", "Format email Anda salah!");
-                }else {
+                } else {
                     new UpdateEmail(getActivity()).execute(txtEmail.getText().toString());
                 }
             }
@@ -524,7 +541,7 @@ public class FragmentCheckoutPO extends Fragment {
     }
 
 
-    private void InitDialogPromoCode(){
+    private void InitDialogPromoCode() {
         dialogPromoCode = new Dialog(getActivity());
         dialogPromoCode.setContentView(R.layout.popup_promo);
         dialogPromoCode.setTitle("Promo Code");
@@ -557,9 +574,9 @@ public class FragmentCheckoutPO extends Fragment {
 
         LIST_MENU = new ArrayList<ModelCart>();
         ArrayList<ModelCart> newlist = new ArrayList<ModelCart>(ApplicationData.cart.values());
-        for(int i=0;i<newlist.size();i++){
+        for (int i = 0; i < newlist.size(); i++) {
             ModelCart c = newlist.get(i);
-            if(c.getType()=="po"){
+            if (c.getType() == "po") {
                 LIST_MENU.add(c);
             }
         }
@@ -574,12 +591,12 @@ public class FragmentCheckoutPO extends Fragment {
             for (int i = 0; i < LIST_MENU.size(); i++) {
                 subtotal = subtotal + (LIST_MENU.get(i).getJumlah() * LIST_MENU.get(i).getHarga());
             }
-            tip = (int)Math.floor(subtotal / 10 /100)*100;
+            tip = (int) Math.floor((subtotal - diskon) / 10 / 100) * 100;
             //
         }
 
-        total = subtotal + tip + delivery - diskon;
-        if(total<0)
+        total = (subtotal - diskon) + tip + delivery;
+        if (total < 0)
             total = 0;
     }
 
@@ -618,7 +635,7 @@ public class FragmentCheckoutPO extends Fragment {
                 String email = params[0];
                 //String param = params[3];
                 JSONControl jsControl = new JSONControl();
-                response = jsControl.updateProfile(email,"email", appManager.getUserToken());
+                response = jsControl.updateProfile(email, "email", appManager.getUserToken());
                 Log.d("json response", response.toString());
                 if (response.contains("true")) {
                     ModelUser modelUser = appManager.getUser();
@@ -629,7 +646,7 @@ public class FragmentCheckoutPO extends Fragment {
                     appManager.setUser(modelUser);
 
                     return "OK";
-                }else{
+                } else {
                     try {
                         response.replace("\n", "");
                         response.replaceAll(".*\".*", "\\\"");
@@ -723,10 +740,9 @@ public class FragmentCheckoutPO extends Fragment {
                             diskon = Integer.parseInt(discountPrice);
                             String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
                             eventMessage = "";
-                            try{
+                            try {
                                 eventMessage = transaksi.getJSONObject(i).getString("eventMessage");
-                            }
-                            catch (Exception x){
+                            } catch (Exception x) {
                                 eventMessage = "";
                             }
 
@@ -757,48 +773,80 @@ public class FragmentCheckoutPO extends Fragment {
                         delivery = ApplicationData.def_delivery;
                     }
                     diskon = 0;
-                    total = subtotal + tip + delivery - diskon;
-                    if(total<0)
+                    //subtotal -= diskon;
+                    if (tips == "0") {
+                        tip = 0;
+                    } else if (tips == "5") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.05 / 100) * 100;
+                    } else if (tips == "10") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.1 / 100) * 100;
+                    } else if (tips == "15") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.15 / 100) * 100;
+                    } else if (tips == "20") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.2 / 100) * 100;
+                    }
+
+
+                    if (tip < 0)
+                        tip = 0;
+                    total = (subtotal - diskon) + tip + delivery;
+                    //total = subtotal + tip + delivery - diskon;
+                    if (total < 0)
                         total = 0;
+                    txtTip.setText("Rp. " + decimalFormat.format(tip));
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
                     try {
                         error.setText("Sorry, the promotion code entered is invalid");
-                    }
-                    catch (Exception c){
+                    } catch (Exception c) {
                         c.printStackTrace();
                     }
                     break;
                 case "OK":
-                    total = subtotal + tip + delivery - diskon;
-                    if(total<0)
+                    //subtotal -= diskon;
+                    if (tips == "0") {
+                        tip = 0;
+                    } else if (tips == "5") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.05 / 100) * 100;
+                    } else if (tips == "10") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.1 / 100) * 100;
+                    } else if (tips == "15") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.15 / 100) * 100;
+                    } else if (tips == "20") {
+                        tip = (int) Math.floor((subtotal - diskon) * 0.2 / 100) * 100;
+                    }
+
+
+                    if (tip < 0)
+                        tip = 0;
+                    total = (subtotal - diskon) + tip + delivery;
+                    //total = subtotal + tip + delivery - diskon;
+                    if (total < 0)
                         total = 0;
+                    txtTip.setText("Rp. " + decimalFormat.format(tip));
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
                     txtKode.setText(ApplicationData.promocode);
 
                     Log.d("diskon", "" + diskon);
-                    if(eventMessage != ""){
+                    if (eventMessage != "") {
                         laySpecial.setVisibility(View.VISIBLE);
                         txtSpecial.setText(eventMessage);
-                    }
-                    else {
+                    } else {
                         laySpecial.setVisibility(View.GONE);
                     }
-                    try{
-                        if(diskon>0 || delivery<ApplicationData.def_delivery){
+                    try {
+                        if (diskon > 0 || delivery < ApplicationData.def_delivery) {
                             txtKode.setText(ApplicationData.promocode);
                             dialogPromoCode.dismiss();
-                        }
-                        else {
+                        } else {
                             error.setText("Sorry, the promotion code entered is invalid");
                         }
 
 
-                    }
-                    catch (Exception c){
+                    } catch (Exception c) {
                         c.printStackTrace();
                     }
                     break;
@@ -947,8 +995,8 @@ public class FragmentCheckoutPO extends Fragment {
                                             if (NetworkManager.getInstance(act).isConnectedInternet()) {
                                                 ApplicationData.cart = new HashMap<String, ModelCart>();
 
-                                                for(int i=0;i<LIST_MENU.size();i++){
-                                                    if(LIST_MENU.get(i).getType()=="po"){
+                                                for (int i = 0; i < LIST_MENU.size(); i++) {
+                                                    if (LIST_MENU.get(i).getType() == "po") {
                                                         ApplicationData.cart.remove(LIST_MENU.get(i).getId());
                                                     }
                                                 }
@@ -981,6 +1029,7 @@ public class FragmentCheckoutPO extends Fragment {
 
 
     }
+
 
     private void SendBroadcast(String typeBroadcast, String type) {
         Intent intent = new Intent(typeBroadcast);
@@ -1042,8 +1091,8 @@ public class FragmentCheckoutPO extends Fragment {
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
-                    if(transaction.length() > 0){
-                        for(int t=0;t<transaction.length();t++){
+                    if (transaction.length() > 0) {
+                        for (int t = 0; t < transaction.length(); t++) {
                             String _id = transaction.getJSONObject(t).getString("id");
                             String _status = transaction.getJSONObject(t).getString("status");
                             String _waktu = transaction.getJSONObject(t).getString("timeLapse");
@@ -1060,17 +1109,17 @@ public class FragmentCheckoutPO extends Fragment {
                             String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
                             //String _convience = "0";
                             String _tip = "0";
-                            try{
+                            try {
                                 _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 _tip = "0";
                             }
 
-                            String _detailID=transaction.getJSONObject(t).getString("prettyId");
+                            String _detailID = transaction.getJSONObject(t).getString("prettyId");
                             JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
                             List<ModelCart> _carts = new ArrayList<>();
-                            if(_order.length() > 0){
-                                for(int i=0;i<_order.length();i++){
+                            if (_order.length() > 0) {
+                                for (int i = 0; i < _order.length(); i++) {
                                     ModelCart c = new ModelCart();
                                     c.setId(_order.getJSONObject(i).getString("_id"));
                                     c.setNama(_order.getJSONObject(i).getJSONObject("menu").getString("name"));
@@ -1080,7 +1129,7 @@ public class FragmentCheckoutPO extends Fragment {
                                     _carts.add(c);
                                 }
                             }
-                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id,_type,_uid,_nama,_alamat,_phone,_note,_subtotal,_convenience,_total,_waktu,_diskon,_tip,_delivery,_status,_detailID,_carts);
+                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id, _type, _uid, _nama, _alamat, _phone, _note, _subtotal, _convenience, _total, _waktu, _diskon, _tip, _delivery, _status, _detailID, _carts);
                             ApplicationData.idLastTransaction = _id;
                             return "OK";
                         }
@@ -1107,9 +1156,9 @@ public class FragmentCheckoutPO extends Fragment {
             switch (result) {
                 case "FAIL":
                     //isClicked = false;
-                    if(msg.isEmpty() || msg == ""){
+                    if (msg.isEmpty() || msg == "") {
                         DialogManager.showDialog(activity, "Mohon maaf", "Tidak dapat terhubung dengan server");
-                    }else {
+                    } else {
                         DialogManager.showDialog(activity, "Mohon maaf", msg);
                     }
                     break;
@@ -1126,8 +1175,8 @@ public class FragmentCheckoutPO extends Fragment {
                                         public void onPositive(MaterialDialog dialog) {
                                             if (NetworkManager.getInstance(act).isConnectedInternet()) {
                                                 //ApplicationData.cart = new HashMap<String, ModelCart>();
-                                                for(int i=0;i<LIST_MENU.size();i++){
-                                                    if(LIST_MENU.get(i).getType()=="po"){
+                                                for (int i = 0; i < LIST_MENU.size(); i++) {
+                                                    if (LIST_MENU.get(i).getType() == "po") {
                                                         ApplicationData.cart.remove(LIST_MENU.get(i).getId());
                                                     }
                                                 }
@@ -1160,6 +1209,7 @@ public class FragmentCheckoutPO extends Fragment {
 
 
     }
+
 
     public void onStart() {
         super.onStart();

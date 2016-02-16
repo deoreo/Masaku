@@ -99,7 +99,8 @@ public class ActivityCheckoutKonfirmasi_2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ApplicationData.isNullCart = true;
-                DialogManager.showDialog(act, "Informasi", "Silahkan konfirmasi pembayaran Anda terlebih dahulu!");
+
+                //DialogManager.showDialog(act, "Informasi", "Silahkan konfirmasi pembayaran Anda terlebih dahulu!");
                 //finish();
             }
         });

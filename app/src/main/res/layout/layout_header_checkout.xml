@@ -187,7 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
         <TextView
             android:id="@+id/kodePromoCheckout"
@@ -203,6 +203,21 @@
             android:gravity="left|center_vertical"
             android:singleLine="true"
             android:lines="1"
+            android:layout_gravity="left|center_vertical" />
+        <TextView
+            android:id="@+id/txtCouponHint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#edbd72"
+            android:padding="10dp"
+            android:hint="Gunakan promo code untuk mendapatkan harga promo delihome"
+            android:textColor="@color/colorWhite"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:lines="3"
+            android:visibility="gone"
+            fontPath="@string/GothamRndItalic"
             android:layout_gravity="left|center_vertical" />
         <Button
             android:id="@+id/btnApply"

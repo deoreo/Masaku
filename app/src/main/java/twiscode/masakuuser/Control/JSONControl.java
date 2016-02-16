@@ -83,6 +83,7 @@ public class JSONControl {
             params.add(new BasicNameValuePair("email", email));
             params.add(new BasicNameValuePair("password", password));
             params.add(new BasicNameValuePair("gender", gender));
+            params.add(new BasicNameValuePair("yob", tahun));
             jsonObj = _JSONResponse.POSTResponse(ConfigManager.REGISTER, ConfigManager.DUKUHKUPANG, params);
 
         } catch (Exception e) {
@@ -535,7 +536,7 @@ public class JSONControl {
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.TRANSACTION+kode+"/confirm", ConfigManager.DUKUHKUPANG, accessToken, params);
+            jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.TRANSACTION + kode + "/confirm", ConfigManager.DUKUHKUPANG, accessToken, params);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -543,6 +544,20 @@ public class JSONControl {
         return jsonObj;
     }
 
+
+    public JSONObject getInit() {
+        JSONObject jsonObj = null;
+
+        try {
+            jsonObj = _JSONResponse.GETResponseObject(ConfigManager.INIT, ConfigManager.DUKUHKUPANG);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObj;
+
+    }
 
 
 

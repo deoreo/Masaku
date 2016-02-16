@@ -25,6 +25,9 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,9 +126,9 @@ public class ActivityProfile extends Activity {
             if (ApplicationData.name != "") {
                 namaprofile.setText(ApplicationData.name);
             }
-            if (ApplicationData.email != "") {
-                emailprofile.setText(ApplicationData.email);
-            }
+
+            emailprofile.setText(applicationManager.getUser().getEmail());
+
         } catch (Exception e) {
 
         }
@@ -228,6 +231,9 @@ public class ActivityProfile extends Activity {
         private Resources resources;
         private ProgressDialog progressDialog;
         //private String messageError,messageSuccess;
+        private String msg = "Email sudah digunakan";
+        private String response;
+        private JSONObject jsonObj;
 
         public UpdateAllProfile(Activity activity) {
             super();
@@ -274,6 +280,15 @@ public class ActivityProfile extends Activity {
                     applicationManager.setUser(modelUser);
 
                     return "OK";
+                }else{
+                    try {
+                        response.replace("\n", "");
+                        response.replaceAll(".*\".*", "\\\"");
+                        jsonObj = new JSONObject(response);
+                        msg = jsonObj.getString("message");
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
                 }
 
             } catch (Exception e) {
@@ -291,7 +306,7 @@ public class ActivityProfile extends Activity {
 
             switch (result) {
                 case "FAIL":
-                    DialogManager.showDialog(act, "Mohon Maaf", "Update profil gagal");
+                    DialogManager.showDialog(act, "Mohon Maaf", msg);
                     break;
                 case "OK":
                     DialogManager.showDialog(act, "Info", "Berhasil update profil");

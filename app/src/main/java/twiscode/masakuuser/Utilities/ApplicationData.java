@@ -87,5 +87,7 @@ public class ApplicationData {
     public static String address="";
     public static String promocode="";
     //public static int CountWishlist = 0;
+    public static String notice = "";
+    public static String couponHint = "";
 
 }

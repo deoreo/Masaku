@@ -9,6 +9,7 @@ public class ConfigManager {
     //public static final String SERVER = "https://umkkf6ee2ac1.masaku.koding.io:2053/user"; // temp
     public static final String LOGIN = SERVER+"/authenticate";
     public static final String REGISTER = SERVER+"/register";
+    public static final String INIT = SERVER+"/init";
     public static final String FORGOT_PASSWORD = SERVER+"/forgot";
     public static final String RESEND_RESET_PASSWORD = SERVER+"/forgot/resend-token";
     public static final String CHECK_RESET_PASSWORD = SERVER+"/forgot/check";
