@@ -558,6 +558,8 @@ public class FragmentCheckoutPO extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txtKode.setText("");
+                txtCodePromo.setText("");
                 dialogPromoCode.dismiss();
             }
         });
@@ -701,6 +703,7 @@ public class FragmentCheckoutPO extends Fragment {
         private Context context;
         private Resources resources;
         private ProgressDialog progressDialog;
+        private String menuExceptionMessage;
 
         public CalculatePrice(Activity activity) {
             super();
@@ -734,8 +737,16 @@ public class FragmentCheckoutPO extends Fragment {
                 Log.d("json response", response.toString());
                 try {
                     JSONArray transaksi = response.getJSONArray("transactions");
+                    JSONObject promoCode = response.getJSONObject("promoCode");
+                    try {
+                        menuExceptionMessage = response.getString("menuExceptionMessage");
+                    }catch (Exception e){
+                        menuExceptionMessage = "";
+                    }
+
                     if (transaksi.length() > 0) {
                         for (int i = 0; i < transaksi.length(); i++) {
+                            Boolean usePromoCode = transaksi.getJSONObject(i).getBoolean("usePromoCode");
                             String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
                             diskon = Integer.parseInt(discountPrice);
                             String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
@@ -750,6 +761,7 @@ public class FragmentCheckoutPO extends Fragment {
                         }
                         return "OK";
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -798,7 +810,11 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
                     try {
-                        error.setText("Sorry, the promotion code entered is invalid");
+                        if(menuExceptionMessage!=""){
+                            error.setText(menuExceptionMessage);
+                        }else {
+                            error.setText("Sorry, the promotion code entered is invalid");
+                        }
                     } catch (Exception c) {
                         c.printStackTrace();
                     }
@@ -842,7 +858,11 @@ public class FragmentCheckoutPO extends Fragment {
                             txtKode.setText(ApplicationData.promocode);
                             dialogPromoCode.dismiss();
                         } else {
-                            error.setText("Sorry, the promotion code entered is invalid");
+                            if(menuExceptionMessage!=""){
+                                error.setText(menuExceptionMessage);
+                            }else {
+                                error.setText("Sorry, the promotion code entered is invalid");
+                            }
                         }
 
 

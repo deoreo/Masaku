@@ -31,8 +31,6 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.flurry.android.FlurryAgent;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
-import com.sromku.simple.fb.entities.Photo;
-import com.sromku.simple.fb.listeners.OnPublishListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -355,17 +353,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 
     }
 
-    OnPublishListener onPublishListener = new OnPublishListener() {
-        @Override
-        public void onComplete(String id) {
-            Log.i("Delihome Facebook", "Published successfully. id = " + id);
-        }
 
-    /*
-     * You can override other methods here:
-     * onThinking(), onFail(String reason), onException(Throwable throwable)
-     */
-    };
 
     @Override
     public void onBackPressed() {
