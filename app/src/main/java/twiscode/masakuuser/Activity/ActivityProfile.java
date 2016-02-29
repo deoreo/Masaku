@@ -310,7 +310,7 @@ public class ActivityProfile extends Activity {
                     break;
                 case "OK":
                     DialogManager.showDialog(act, "Info", "Berhasil update profil");
-                    ApplicationData.hasEmail = true;
+                    //ApplicationData.hasEmail = true;
                     break;
             }
             progressDialog.dismiss();

@@ -233,11 +233,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
             displayView(0);
         }else{
             displayView(NOTIFICATION);
-            ApplicationData.hasEmail = false;
+            //ApplicationData.hasEmail = false;
         }
 
 
-        if (!ApplicationData.hasEmail) {
+        if (appManager.getUser().getEmail()=="" || appManager.getUser().getEmail().isEmpty()) {
             dialogEmail.show();
         }
 
@@ -334,7 +334,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 break;
 
             case ALL_MENU:
-                if (!ApplicationData.hasEmail) {
+                if (appManager.getUser().getEmail()=="" || appManager.getUser().getEmail().isEmpty()) {
                     dialogEmail.show();
                 }
                 fragment = new FragmentAllMenus();
@@ -391,7 +391,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 foodDatabase.setVisibility(GONE);
                 break;
             case CUSTOMER_SERVICE:
-                if (!ApplicationData.hasEmail) {
+                if (appManager.getUser().getEmail()=="" || appManager.getUser().getEmail().isEmpty()) {
                     dialogEmail.show();
                 } else {
                     startActivity(new Intent(Main.this, ZopimChatActivity.class));
@@ -579,7 +579,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                     break;
                 case "OK":
                     DialogManager.showDialog(activity, "Info", "Berhasil update email");
-                    ApplicationData.hasEmail = true;
+                    //ApplicationData.hasEmail = true;
                     VisitorInfo visitorData = new VisitorInfo.Builder()
                             .name(ApplicationManager.getInstance(activity).getUser().getNama())
                             .email(ApplicationManager.getInstance(activity).getUser().getEmail())

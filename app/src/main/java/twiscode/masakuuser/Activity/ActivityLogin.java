@@ -264,11 +264,12 @@ public class ActivityLogin extends Activity{
                                     .phoneNumber(ApplicationManager.getInstance(activity).getUser().getPonsel())
                                     .build();
                             ZopimChat.setVisitorInfo(visitorData);
+                            /*
                             if(userLogin.getEmail()=="" || userLogin.getEmail().isEmpty()){
                                 ApplicationData.hasEmail = false;
                             }else{
                                 ApplicationData.hasEmail = true;
-                            }
+                            }*/
                             Log.d("json response id", "OK " + token_refresh);
                             return "OK";
                         }

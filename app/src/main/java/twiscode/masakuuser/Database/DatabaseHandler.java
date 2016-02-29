@@ -17,17 +17,19 @@ import twiscode.masakuuser.Model.ModelAlamat;
 import twiscode.masakuuser.Model.ModelPesanan;
 import twiscode.masakuuser.Model.ModelPlace;
 import twiscode.masakuuser.Model.ModelUser;
+import twiscode.masakuuser.Parse.Message;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     // Database Name
-    private static final String DATABASE_NAME = "DelihomeDB";
+    private static final String DATABASE_NAME = "DelihomeDB_6";
     // ModelUser table name
     private static final String T_USER = "t_user";
     private static final String T_ALAMAT = "t_alamat";
+    private static final String T_MESSAGE = "t_message";
 
     private static final String KEY_USER_ID = "id_user";
     private static final String KEY_USER_NAME = "name_user";
@@ -38,6 +40,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ALAMAT_ID = "id_alamat";
     private static final String KEY_ALAMAT_NAME = "name_alamat";
     private static final String KEY_ALAMAT_DETAIL = "detail_alamat";
+
+    private static final String KEY_MESSAGE_ID = "id_message";
+    private static final String KEY_MESSAGE_NAME = "name_message";
+    private static final String KEY_MESSAGE_DATE = "date_message";
 
 
 
@@ -63,9 +69,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ALAMAT_DETAIL + " TEXT"
                 + ")";
 
+        String CREATE_TABLE_MESSAGE = "CREATE TABLE " + T_MESSAGE + "("
+                + KEY_MESSAGE_ID + " TEXT PRIMARY KEY,"
+                + KEY_MESSAGE_NAME + " TEXT,"
+                + KEY_MESSAGE_DATE + " TEXT"
+                + ")";
+
 
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_ALAMAT);
+        db.execSQL(CREATE_TABLE_MESSAGE);
     }
 
     // Upgrading database
@@ -74,6 +87,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + T_USER);
         db.execSQL("DROP TABLE IF EXISTS " + T_ALAMAT);
+        db.execSQL("DROP TABLE IF EXISTS " + T_MESSAGE);
         // Create tables again
         onCreate(db);
     }
@@ -233,6 +247,67 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         Collections.reverse(alamatList);
         return alamatList;
+    }
+
+
+
+    public void insertMessage(Message msg) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_MESSAGE_ID, msg.getId());
+        values.put(KEY_MESSAGE_NAME, msg.getMessage());
+        values.put(KEY_MESSAGE_DATE, msg.getTimestamp());
+        // Inserting Row
+        db.insert(T_MESSAGE, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public Message getMessage(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(T_MESSAGE, new String[]{KEY_MESSAGE_ID,
+                        KEY_MESSAGE_NAME, KEY_MESSAGE_DATE},
+                KEY_MESSAGE_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Message modelGroup = new Message(cursor.getString(0),
+                cursor.getString(1), cursor.getString(2)
+
+        );
+        return modelGroup;
+    }
+
+    public ArrayList<Message> loadAllMessage() {
+        String allData= "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            allData = "SELECT  * FROM " + T_MESSAGE;
+        }catch (Exception e){
+            String CREATE_TABLE_MESSAGE = "CREATE TABLE " + T_MESSAGE + "("
+                    + KEY_MESSAGE_ID + " TEXT PRIMARY KEY,"
+                    + KEY_MESSAGE_NAME + " TEXT,"
+                    + KEY_MESSAGE_DATE + " TEXT"
+                    + ")";
+            db.execSQL(CREATE_TABLE_MESSAGE);
+            allData = "SELECT  * FROM " + T_MESSAGE;
+        }
+        ArrayList<Message> messageList = new ArrayList<Message>();
+
+        // Loads the event list data summary
+
+        Cursor cursor = db.rawQuery(allData, null);
+        if(cursor.moveToFirst()){
+            do{
+                messageList.add(this.getMessage(cursor.getString(0)));
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Collections.reverse(messageList);
+        return messageList;
     }
 
 

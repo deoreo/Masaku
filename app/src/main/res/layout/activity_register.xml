@@ -116,7 +116,7 @@
                             android:paddingBottom="5dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:paddingTop="15dp">
+                            android:paddingTop="5dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -346,7 +346,7 @@
                             android:textStyle="bold"
                             android:textAllCaps="true"
                             android:textSize="18dp"
-                            android:background="@color/colorRed"/>
+                            android:background="@drawable/rounded_red"/>
 
                         <Button
                             android:id="@+id/btnLogin"
@@ -355,7 +355,7 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Have an account? sign-in, please!"
+                            android:text="Have an account? Login here!"
                             android:textColor="@color/colorRed"
                             android:textAllCaps="false"
                             android:textSize="16dp"

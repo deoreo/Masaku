@@ -201,7 +201,7 @@ public class ActivityRegisterNext extends AppCompatActivity {
                     break;
 
                 case "OK":
-                    ApplicationData.hasEmail = true;
+                    //ApplicationData.hasEmail = true;
                     ApplicationData.isVerify = 0;
                     ApplicationData.temp_nama = "";
                     ApplicationData.temp_password = "";

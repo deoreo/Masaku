@@ -31,8 +31,10 @@ import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterNotif;
 import twiscode.masakuuser.Adapter.AdapterPesanan;
 import twiscode.masakuuser.Control.JSONControl;
+import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Model.ModelDetailTransaksi;
 import twiscode.masakuuser.Model.ModelNotif;
+import twiscode.masakuuser.Parse.Message;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
@@ -48,6 +50,7 @@ public class FragmentNotif extends Fragment {
 	private ImageView btnCart;
     private final int PAGE = 1;
     private PullRefreshLayout mSwipeRefreshLayout;
+    private DatabaseHandler db;
 
 	TextView noData;
 
@@ -126,6 +129,7 @@ public class FragmentNotif extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mSwipeRefreshLayout.setRefreshing(true);
+            db = new DatabaseHandler(context);
         }
 
         @Override
@@ -136,7 +140,7 @@ public class FragmentNotif extends Fragment {
                 JSONObject response = jsControl.getNotif(ApplicationManager.getInstance(context).getUserToken(), PAGE);
                 Log.d("json response", response.toString());
                 JSONArray notification = response.getJSONArray("notification");
-                if(notification.length() > 0){
+                if(notification.length() > 0 || db.loadAllMessage().size() > 0){
                     for(int t=0;t<notification.length();t++){
                         String _id = notification.getJSONObject(t).getString("_id");
                         //String _menuId = notification.getJSONObject(t).getString("menuId");
@@ -147,11 +151,25 @@ public class FragmentNotif extends Fragment {
                         String[] dd = dt.split("-");
                         String _date = dd[2]+" "+getMonth(dd[1])+" "+dd[0];
 
-                        ModelNotif menu = new ModelNotif(_id,_userId,"",_message,_date);
+                        ModelNotif modelNotif = new ModelNotif(_id,_userId,"",_message,_date);
                         //ApplicationData.idLastTransaction = _id;
-                        LIST_NOTIF.add(t, menu);
+                        LIST_NOTIF.add(t, modelNotif);
 
                     }
+                    int tt = 0;
+                    if(notification.length()>0) {
+                        tt = notification.length()+1;
+                    }
+                    for(;tt<db.loadAllMessage().size();tt++) {
+                        String _id = db.loadAllMessage().get(tt).getId();
+                        String _message = db.loadAllMessage().get(tt).getMessage();
+                        String _date = db.loadAllMessage().get(tt).getTimestamp();
+
+                        ModelNotif modelNotif = new ModelNotif(_id," ","",_message,_date);
+                        //ApplicationData.idLastTransaction = _id;
+                        LIST_NOTIF.add(tt, modelNotif);
+                    }
+
 
                     return "OK";
                 }

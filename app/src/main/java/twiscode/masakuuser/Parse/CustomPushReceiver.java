@@ -10,17 +10,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import twiscode.masakuuser.Activity.Main;
+import twiscode.masakuuser.Database.DatabaseHandler;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 
 
 public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     private final String TAG = CustomPushReceiver.class.getSimpleName();
-
     private NotificationManager notificationManager;
-
     private Intent parseIntent;
+    private DatabaseHandler db;
 
     public CustomPushReceiver() {
         super();
@@ -61,26 +65,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
 
     }
 
-    /**
-     * Parses the push notification json
-     *
-     * @param context
-     * @param json
-     */
-    private void parsePushJson(Context context, JSONObject json) {
-        try {
 
-            JSONObject data = json.getJSONObject("data");
-            String title = data.getString("title");
-            String message = data.getString("message");
-
-            Intent resultIntent = new Intent(context, Main.class);
-            showNotificationMessage(context, title, message, resultIntent);
-
-        } catch (JSONException e) {
-            Log.e(TAG, "Push message json exception: " + e.getMessage());
-        }
-    }
 
     /**
      * Shows the notification message in the notification bar
@@ -92,6 +77,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
      * @param intent
      */
     private void showNotificationMessage(Context context, String title, String message, Intent intent) {
+        Log.e("Push", "showNotificationMessage");
         notificationManager = new NotificationManager(context);
         intent.putExtras(parseIntent.getExtras());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -101,14 +87,19 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
 
     private void parsePushJsonCustom(Context context, JSONObject json) {
         try {
+            db = new DatabaseHandler(context);
             String message = json.getString("alert");
             ApplicationData.isNotif = true;
             Intent resultIntent = new Intent(context, Main.class);
             showNotificationMessage(context, "Notifikasi Delihome", message, resultIntent);
+            DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+            String date = df.format(Calendar.getInstance().getTime());
             Message msg = new Message();
+            msg.setId(message);
             msg.setMessage(message);
-            msg.setTimestamp(new Time(System.currentTimeMillis()).getHours());
-            //ApplicationManager.getInstance(context).setMessage(msg);
+            msg.setTimestamp(date);
+            db.insertMessage(msg);
+            ApplicationManager.getInstance(context).setMessage(msg);
 
         } catch (JSONException e) {
             Log.e(TAG, "Push message json exception: " + e.getMessage());

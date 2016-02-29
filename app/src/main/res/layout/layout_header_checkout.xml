@@ -61,6 +61,7 @@
                         android:text="Address"
                         android:textColor="@color/colorDarkGrey"
                         android:background="@color/colorWhite"
+                        fontPath="@string/GothamRndBold"
                         android:textSize="12dp"/>
                     <TextView
                         android:id="@+id/alamatCheckout"
@@ -71,7 +72,7 @@
                         android:maxLength="120"
                         android:paddingLeft="5dp"
                         android:paddingBottom="3dp"
-                        android:hint="input your address"
+                        android:hint="Street/Building name"
                         android:textColor="@color/colorBlack"
                         android:textSize="14dp"
                         android:gravity="left"
@@ -112,9 +113,10 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingTop="3dp"
-                        android:text="Location Detail"
+                        android:text="Location detail"
                         android:textSize="12dp"
                         android:textColor="@color/colorDarkGrey"
+                        fontPath="@string/GothamRndBold"
                         android:background="@color/colorWhite"/>
                     <EditText
                         android:id="@+id/noteCheckout"
@@ -124,7 +126,7 @@
                         android:maxLength="120"
                         android:paddingLeft="5dp"
                         android:paddingBottom="3dp"
-                        android:hint="input your location detail"
+                        android:hint="House no./ Floor / Landmark"
                         android:textColor="@color/colorBlack"
                         android:textSize="14dp"
                         android:maxLines="10"
@@ -132,6 +134,7 @@
                         android:scrollbars="vertical"
                         android:singleLine="false"
                         />
+
                 </LinearLayout>
             </LinearLayout>
 

@@ -72,6 +72,13 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_marginTop="50dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Gender"
+                                android:visibility="visible"
+                                android:layout_marginBottom="10dp"
+                                android:textSize="16dp" />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -91,6 +98,8 @@
                                     android:layout_height="50dp"
                                     android:orientation="horizontal"
                                     android:background="@color/colorWhite">
+
+
 
                                     <com.jaredrummler.materialspinner.MaterialSpinner
                                         android:id="@+id/genderSpinner"
@@ -116,9 +125,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Birthday Year"
-                                android:visibility="gone"
-                                android:textSize="14dp" />
+                                android:text="Year of Birthday"
+                                android:visibility="visible"
+                                android:layout_marginBottom="10dp"
+                                android:textSize="16dp" />
 
                             <EditText
                                 android:id="@+id/txtTahun"
@@ -131,7 +141,7 @@
                                 android:imeOptions="actionDone"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:hint="Bithday Year"
+                                android:hint="Year of Birthday"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="16sp" />
 
@@ -156,7 +166,7 @@
                             android:textStyle="bold"
                             android:textAllCaps="true"
                             android:textSize="18dp"
-                            android:background="@color/colorRed"/>
+                            android:background="@drawable/rounded_red"/>
 
                         <Button
                             android:id="@+id/btnLogin"
@@ -165,7 +175,7 @@
                             android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Have an account? sign-in, please!"
+                            android:text="Have an account? Login here!"
                             android:textColor="@color/colorRed"
                             android:textAllCaps="false"
                             android:textSize="16dp"

@@ -175,11 +175,11 @@ public class ActivitySplash extends AppCompatActivity {
                                 .phoneNumber(appManager.getUser().getPonsel())
                                 .build();
                         ZopimChat.setVisitorInfo(visitorData);
-                        if(user.getEmail()=="" || user.getEmail().isEmpty()){
+                        /*if(user.getEmail()=="" || user.getEmail().isEmpty()){
                             ApplicationData.hasEmail = false;
                         }else{
                             ApplicationData.hasEmail = true;
-                        }
+                        }*/
                         ApplicationData.isFirstLogin = true;
 
                     }

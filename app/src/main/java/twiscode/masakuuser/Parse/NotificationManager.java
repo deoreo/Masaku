@@ -55,7 +55,7 @@ public class NotificationManager {
                     );
 
             //NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-            NotificationCompat.BigTextStyle inboxStyle = new NotificationCompat.BigTextStyle();
+            //NotificationCompat.BigTextStyle inboxStyle = new NotificationCompat.BigTextStyle();
 
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
@@ -64,9 +64,9 @@ public class NotificationManager {
                     .setAutoCancel(true)
                     .setContentTitle(title)
                     //.setStyle(inboxStyle)
-                    .setContentIntent(resultPendingIntent)
+                    //.setContentIntent(resultPendingIntent)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    //.setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                     .setContentText(message)
                     .setPriority(Notification.PRIORITY_HIGH)
                     .setVibrate(new long[0])

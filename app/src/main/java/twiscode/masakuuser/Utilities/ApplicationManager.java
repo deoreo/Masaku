@@ -7,7 +7,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
 import twiscode.masakuuser.Model.ModelGeocode;
+import twiscode.masakuuser.Model.ModelNotif;
 import twiscode.masakuuser.Model.ModelUser;
+import twiscode.masakuuser.Parse.Message;
 
 /**
  * Created by User on 10/21/2015.
@@ -142,6 +144,24 @@ public class ApplicationManager {
         String json = mPref.getString("geocode", null);
         LatLng obj = gson.fromJson(json, LatLng.class);
         return obj;
+    }
+
+    public void setMessage(Message user) {
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(user);
+            mEditor.putString(KEY_MESSAGE, json);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NullPointerException();
+        }
+        mEditor.commit();
+    }
+    public Message getMessage() {
+        Gson gson = new Gson();
+        String json = mPref.getString(KEY_MESSAGE, null);
+        Message user = gson.fromJson(json,Message.class);
+        return user;
     }
 
 

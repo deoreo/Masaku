@@ -1,15 +1,25 @@
 package twiscode.masakuuser.Parse;
 
 public class Message {
+    private String id;
     private String message;
-    private long timestamp;
+    private String timestamp;
 
     public Message() {
     }
 
-    public Message(String message, long timestamp) {
+    public Message(String id, String message, String timestamp) {
+        this.id = id;
         this.message = message;
         this.timestamp = timestamp;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMessage() {
@@ -20,11 +30,11 @@ public class Message {
         this.message = message;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

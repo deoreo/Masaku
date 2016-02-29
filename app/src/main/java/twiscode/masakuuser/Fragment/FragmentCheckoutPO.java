@@ -301,7 +301,7 @@ public class FragmentCheckoutPO extends Fragment {
             public void onClick(View view) {
                 Log.d("kupon", txtKode.getText().toString());
                 //new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
-                if (ApplicationData.hasEmail) {
+                if (appManager.getUser().getEmail()!="" || !appManager.getUser().getEmail().isEmpty()) {
                     dialogPromoCode.show();
                     error.setText("");
                 } else {
@@ -680,7 +680,7 @@ public class FragmentCheckoutPO extends Fragment {
                     break;
                 case "OK":
                     DialogManager.showDialog(activity, "Info", "Berhasil update email");
-                    ApplicationData.hasEmail = true;
+                    //ApplicationData.hasEmail = true;
                     VisitorInfo visitorData = new VisitorInfo.Builder()
                             .name(ApplicationManager.getInstance(activity).getUser().getNama())
                             .email(ApplicationManager.getInstance(activity).getUser().getEmail())
