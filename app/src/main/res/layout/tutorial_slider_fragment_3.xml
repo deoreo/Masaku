@@ -5,27 +5,82 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/imgBg"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/tut_3"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            />
-        <Button
-            android:layout_marginBottom="20dp"
-            android:id="@+id/btnMenu"
-            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:id="@+id/imgBg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tut_3"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_weight="1"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Delivered right to you"
+                        android:gravity="center_horizontal"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack"
+                        fontPath="@string/GothamRndBold"
+                        />
 
-            android:text="Close"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/rounded_blackgrey"
-            />
+                    <View
+                        android:layout_marginTop="33dp"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:gravity="center"
+                        android:background="@color/colorBlack"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Your meals will be delivered between \n11-2pm everyday. Lunch is more fun \nand exciting now!"
+                        android:gravity="center_horizontal"
+                        android:textSize="14sp"
+                        fontPath="@string/GothamBook"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="53dp" />
+
+                    <Button
+                        android:layout_marginBottom="20dp"
+                        android:id="@+id/btnMenu"
+                        android:layout_alignParentBottom="true"
+
+                        android:text="Close"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/rounded_blackgrey"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
     </RelativeLayout>
 
 

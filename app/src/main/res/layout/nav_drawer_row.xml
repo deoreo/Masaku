@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:background="@color/colorWhite"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="5dp">
+    android:layout_height="match_parent"
+    ripple:rv_type="rectangle"
+    ripple:rv_color="#9c77726e"
+    ripple:rv_zoomDuration="120"
+    android:paddingBottom="10dp"
+    android:paddingTop="5dp">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/ic_drawer_toggle"
-        android:background="@null"
-        android:layout_gravity="center_vertical"
-        android:padding="5dp"/>
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="title"
-        android:textSize="14sp"
-        android:padding="5dp"
-        android:layout_marginLeft="5dp"/>
-<!--
-    <View
-        android:id="@+id/line"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGrey"
-        android:layout_below="@id/title"/>
--->
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:padding="5dp"
+            android:src="@drawable/ic_drawer_toggle" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:text="title"
+            android:textSize="14sp" />
+        <!--
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey"
+                android:layout_below="@id/title"/>
+        -->
+
+    </LinearLayout>
+</com.andexert.library.RippleView>
