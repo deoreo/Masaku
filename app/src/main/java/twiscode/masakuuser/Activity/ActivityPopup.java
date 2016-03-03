@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -22,15 +23,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import twiscode.masakuuser.R;
+import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ConfigManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
  */
 public class ActivityPopup extends AppCompatActivity {
     private Button btnClose;
-
-
+    private ImageView imgNotice;
+    private ProgressBar progress;
+    private int noImage = R.drawable.delhome_dummy_image;
     Map<String, String> flurryParams = new HashMap<String,String>();
 
     @Override
@@ -38,8 +42,6 @@ public class ActivityPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup);
         btnClose = (Button) findViewById(R.id.btnClose);
-
-
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +51,12 @@ public class ActivityPopup extends AppCompatActivity {
                 finish();
             }
         });
+        Log.d("popup : ", ApplicationData.notice.replace("/", ""));
 
+        PicassoTrustAll.getInstance(ActivityPopup.this)
+                .load(ApplicationData.notice.replace("/", ""))
+                .placeholder(noImage)
+                .into(imgNotice);
     }
 
 
@@ -65,5 +72,7 @@ public class ActivityPopup extends AppCompatActivity {
         FlurryAgent.endTimedEvent("POPUP");
         FlurryAgent.onEndSession(this);
     }
+
+
 
 }

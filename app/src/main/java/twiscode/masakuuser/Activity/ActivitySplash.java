@@ -142,6 +142,14 @@ public class ActivitySplash extends AppCompatActivity {
                 Log.d("json refreshtoken", responseRegister.toString());
                 String token = responseRegister.getString("token");
                 appManager.setUserToken(token);
+
+                JSONObject response = jsControl.getInit();
+                Log.d("json response init", response.toString());
+                String notice =  response.getString("notice");
+                String couponHint = response.getString("couponHint");
+                ApplicationData.notice = notice;
+                ApplicationData.couponHint = couponHint;
+
                 return "OK";
 
             } catch (Exception e) {

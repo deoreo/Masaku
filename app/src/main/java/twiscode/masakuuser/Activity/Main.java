@@ -227,7 +227,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
             }
         });
 
-        new GetPromoHint(Main.this).execute();
+
         InitDialogEmail();
         if(!ApplicationData.isNotif) {
             displayView(0);
@@ -596,57 +596,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
     }
 
-    private class GetPromoHint extends AsyncTask<String, Void, String> {
-        private Activity activity;
-        private Context context;
-        private Resources resources;
-        private String msg;
 
-        public GetPromoHint(Activity activity) {
-            super();
-            this.activity = activity;
-            this.context = activity.getApplicationContext();
-            this.resources = activity.getResources();
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                JSONControl jsControl = new JSONControl();
-                JSONObject response = jsControl.getInit();
-                Log.d("json response init", response.toString());
-                String notice =  response.getString("notice");
-                String couponHint = response.getString("couponHint");
-                ApplicationData.notice = notice;
-                ApplicationData.couponHint = couponHint;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "FAIL";
-            }
-            return "FAIL";
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            switch (result) {
-                case "FAIL":
-                    break;
-                case "OK":
-
-                    break;
-            }
-            //progressDialog.dismiss();
-
-        }
-
-
-    }
 
 
     @Override

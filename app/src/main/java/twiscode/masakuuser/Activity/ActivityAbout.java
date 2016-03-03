@@ -110,11 +110,12 @@ public class ActivityAbout extends AppCompatActivity {
             return false;
         }
 
+        /*
         @Override
         public void onReceivedSslError(WebView view, SslErrorHandler handler,
                                        SslError error) {
             handler.proceed();
-        }
+        }*/
 
 
         @Override

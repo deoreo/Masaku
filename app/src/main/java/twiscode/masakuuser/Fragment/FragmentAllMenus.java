@@ -247,6 +247,7 @@ public class FragmentAllMenus extends Fragment {
 							Date dt1=format1.parse(input_date);
 							DateFormat format2=new SimpleDateFormat("EEEE");
 							String finalDay=format2.format(dt1);
+							Log.d("delivery 2 - open ", ""+open);
 							Log.d("delivery 2", ""+finalDay);
 							openAt = finalDay+", "+dd[2]+" "+getMonth(dd[1])+" "+dd[0];
 						}

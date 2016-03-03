@@ -1,12 +1,15 @@
 package twiscode.masakuuser.Fragment;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -19,11 +22,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.baoyz.widget.PullRefreshLayout;
 
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +39,13 @@ import java.util.List;
 import twiscode.masakuuser.Activity.ActivityCheckout;
 import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterPagerMain;
+import twiscode.masakuuser.Control.JSONControl;
 import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -145,8 +153,9 @@ public class FragmentMainMenu extends Fragment {
 				.setDefaultFontPath("fonts/Gotham.ttf")
 				.setFontAttrId(R.attr.fontPath)
 				.build());
+
 		InitDialog();
-		if(ApplicationData.isFirstLogin){
+		if(ApplicationData.isFirstLogin && !ApplicationData.notice.isEmpty()){
 			dialog.show();
 			ApplicationData.isFirstLogin = false;
 		}
@@ -164,7 +173,9 @@ public class FragmentMainMenu extends Fragment {
 		dialog.setTitle(" Delihome ");
 
 		// set the custom dialog components - text, image and button
-
+		ImageView imgNotice = (ImageView) dialog.findViewById(R.id.imgNotice);
+		ProgressBar progress = (ProgressBar) dialog.findViewById(R.id.progress);
+		int noImage = R.drawable.delhome_dummy_image;
 		Button btnOk = (Button) dialog.findViewById(R.id.btnClose);
 
 		// if button is clicked, close the custom dialog
@@ -174,6 +185,16 @@ public class FragmentMainMenu extends Fragment {
 				dialog.dismiss();
 			}
 		});
+
+		Log.d("popup : ", ApplicationData.notice);
+
+		if(!ApplicationData.notice.isEmpty()){
+			PicassoTrustAll.getInstance(getActivity())
+					.load(ApplicationData.notice)
+					.placeholder(noImage)
+					.into(imgNotice);
+		}
+
 
 
 	}
