@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:elevation="10dp"
-    android:layout_margin="10dp"
-    >
 
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        card_view:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -53,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="minggu"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:layout_gravity="center_horizontal"
                     android:textAllCaps="true"
                     android:textStyle="bold"
@@ -70,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="22 Des"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"
                     android:layout_gravity="center_horizontal"
@@ -93,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
                     android:text="Delivery : "
@@ -104,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:gravity="left"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
@@ -116,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical"
                     fontPath="@string/GothamRndItalic"
@@ -127,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical"
                     android:textStyle="bold"
@@ -145,15 +155,15 @@
         android:layout_height="wrap_content"
         android:text="Nama menu"
         android:textColor="@color/colorBlackGrey"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
         fontPath="@string/GothamBook"
         />
     <View
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorGrey" />
@@ -173,10 +183,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlackGrey"
-                android:textSize="14dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"
                 android:text="Rp 15.000"
                 />
@@ -184,8 +193,9 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
             android:layout_width="120dp"
             android:layout_height="40dp">
             <Button
@@ -196,7 +206,7 @@
                 android:background="@drawable/rounded_line_red"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorRed"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:text="+ ADD"
                 />
@@ -211,7 +221,7 @@
                     android:layout_height="30dp"
                     android:text="-"
                     android:textStyle="bold"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/colorRed"/>
@@ -221,7 +231,7 @@
                     android:layout_height="30dp"
                     android:text="1"
                     android:textStyle="bold"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"/>
                 <TextView
@@ -230,12 +240,13 @@
                     android:layout_height="30dp"
                     android:text="+"
                     android:textStyle="bold"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/colorRed"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
