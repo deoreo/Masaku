@@ -130,26 +130,24 @@
                                 android:layout_marginBottom="10dp"
                                 android:textSize="16dp" />
 
-                            <EditText
+                            <com.rengwuxian.materialedittext.MaterialEditText
                                 android:id="@+id/txtTahun"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp"
-                                android:background="@null"
                                 android:editable="true"
                                 android:imeOptions="actionDone"
                                 android:maxLines="1"
                                 android:singleLine="true"
                                 android:hint="Year of Birthday"
                                 android:textColor="@color/colorBlack"
+                                app:met_primaryColor="@color/colorGreen"
+                                app:met_baseColor="@color/colorBlack"
+                                app:met_textColorHint="@color/colorDarkGrey"
+                                app:met_clearButton="true"
                                 android:textSize="16sp" />
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@color/colorDarkGrey2" />
                         </LinearLayout>
 
 
