@@ -253,32 +253,6 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
         public void onDrawerItemSelected(View view, int position);
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        RoundedImageView bmImage;
-        String url;
-
-        public DownloadImageTask(RoundedImageView bmImage, String url) {
-            this.bmImage = bmImage;
-            this.url = url;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = url;
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 
     void SetupProfile(){
         if(ApplicationData.name != ""){
