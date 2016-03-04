@@ -3,50 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:background="@color/colorWhite"
+            android:elevation="2dp"
             >
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/back_icon"
-                android:layout_marginRight="5dp"
-                android:layout_centerVertical="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:text="delihome"
-                android:textColor="#bdbdbd"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                fontPath="@string/GothamRndBold"
-                android:layout_centerInParent="true"
-                />
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_button_circle_bg"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginRight="8dp"
                 android:layout_alignParentRight="true">
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="34dp"
+                    android:layout_height="38dp"
                     android:layout_alignParentRight="true">
                     <ImageView
                         android:padding="2dp"
                         android:id="@+id/btnCart"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/cart_icon"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/cart_icon_circle_bg"/>
 
                     <LinearLayout
                         android:id="@+id/wrapCount"
@@ -57,7 +46,7 @@
                         android:orientation="horizontal"
                         android:minHeight="12dp"
                         android:minWidth="12dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="30dp"
                         >
                         <TextView
                             android:id="@+id/countCart"
@@ -73,8 +62,28 @@
                             android:minWidth="12dp"/>
                     </LinearLayout>
                 </RelativeLayout>
-
             </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:background="@color/colorWhite"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="delihome"
+                android:textColor="#bdbdbd"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                fontPath="@string/GothamRndBold"
+                android:layout_centerInParent="true"
+                />
+
         </RelativeLayout>
         <ScrollView
             android:layout_width="match_parent"
@@ -360,7 +369,7 @@
 
             </RelativeLayout>
         </ScrollView>
-    </LinearLayout>
+
     <Button
         android:id="@+id/btnPesanSkrg"
         android:layout_width="match_parent"
