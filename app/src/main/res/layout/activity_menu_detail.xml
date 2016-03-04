@@ -35,7 +35,7 @@
                         android:id="@+id/btnCart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/cart_icon_circle_bg"/>
+                        android:src="@drawable/cart_button_circle_bg"/>
 
                     <LinearLayout
                         android:id="@+id/wrapCount"
