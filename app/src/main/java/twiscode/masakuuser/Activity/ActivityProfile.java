@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.flurry.android.FlurryAgent;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +50,8 @@ public class ActivityProfile extends Activity {
 
     public static final String ARG_PAGE = "ARG_PAGE";
     private Button btnConfirm;
-    public static EditText namaprofile, phoneprofile, emailprofile;
+    public static MaterialEditText namaprofile, emailprofile;
+    public static EditText phoneprofile;
     private ApplicationManager applicationManager;
     private Activity act;
     private ImageView btnBack;
@@ -61,13 +65,12 @@ public class ActivityProfile extends Activity {
         act = this;
         // drawer labels
         applicationManager = new ApplicationManager(act);
-        namaprofile = (EditText) findViewById(R.id.namaProfile);
+        namaprofile = (MaterialEditText) findViewById(R.id.namaProfile);
         phoneprofile = (EditText) findViewById(R.id.phoneprofile);
-        emailprofile = (EditText) findViewById(R.id.emailProfile);
+        emailprofile = (MaterialEditText) findViewById(R.id.emailProfile);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
-
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
