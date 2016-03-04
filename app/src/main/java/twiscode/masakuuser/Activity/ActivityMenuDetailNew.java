@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -68,6 +69,7 @@ import twiscode.masakuuser.Model.ModelVendorFeedback;
 import twiscode.masakuuser.Model.ModelVendorRating;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.MySSLSocketFactoryManager;
@@ -100,7 +102,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
     private DecimalFormat decimalFormat;
     private int noImage = R.drawable.delhome_dummy_image;
     private Button btnPesan;
-
+    private ApplicationManager applicationManager;
+    private CollapsingToolbarLayout collapsingToolbar;
     Map<String, String> flurryParams = new HashMap<String,String>();
 
 
@@ -142,7 +145,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         txtHari = (TextView) findViewById(R.id.hariMenu);
         txtTanggal = (TextView) findViewById(R.id.tanggalMenu);
 
-
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
         if(modelMenu.getDelivery()==""){
             //deliveryLayout.setVisibility(View.GONE);
@@ -340,27 +344,19 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
                 } else {
                     DialogManager.showDialog(ActivityMenuDetailNew.this, "Mohon Maaf", "Anda belum memiliki pesanan");
                 }
-
             }
         });
-
-
         flurryParams.put("ID_MENU",modelMenu.getId());
         FlurryAgent.logEvent("MENU_DETAIL", flurryParams, true);
-
-
-
-
     }
-
-
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(getBaseContext(), Main.class);
-        startActivity(i);
+//        Intent i = new Intent(getBaseContext(), Main.class);
+//        startActivity(i);
+//        finish(); = new Intent(getBaseContext(), Main.class);
+//        startActivity(i);
         finish();
-
     }
 
     private void DummyFeedback(){
@@ -371,8 +367,6 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         ModelVendorFeedback modelVendorMenu1 = new ModelVendorFeedback("1","Ji***", "4", "23-10-2015", "Enak tapi porsinya kurang banyak :D");
         LIST_FEEDBACK.add(modelVendorMenu1);
         */
-
-
     }
 
     private HttpClient createDevelopmentHttpClientInstance() {
