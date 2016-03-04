@@ -218,86 +218,89 @@ public class FragmentAllMenus extends Fragment {
 
                 //int page = Integer.parseInt(params[0]);
                 JSONControl jsControl = new JSONControl();
-                for (int page = 1; page < 1000; page++) {
-                    JSONObject response = jsControl.getAllMenus(page, appManager.getUserToken());
-                    Log.d("json response", response.toString());
-                    JSONArray menus = response.getJSONArray("menus");
-                    if (menus.length() > 0) {
-                        for (int i = 0; i < menus.length(); i++) {
-                            String id = menus.getJSONObject(i).getString("_id");
-                            String nama = menus.getJSONObject(i).getString("name");
-                            String foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
-                            String price = menus.getJSONObject(i).getString("price");
-                            String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
-                            String desc = menus.getJSONObject(i).getString("description");
-                            boolean added = Boolean.parseBoolean(menus.getJSONObject(i).getString("isLiked"));
-                            String openAt = "";
-                            try {
-                                String open = menus.getJSONObject(i).getString("openAt");
-                                String dt = open.split("T")[0];
-                                String[] dd = dt.split("-");
-                                String input_date = dd[2] + "-" + dd[1] + "-" + dd[0];
-                                SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
-                                Date dt1 = format1.parse(input_date);
-                                DateFormat format2 = new SimpleDateFormat("EEEE");
-                                String finalDay = format2.format(dt1);
-                                Log.d("delivery 2 - open ", "" + open);
-                                Log.d("delivery 2", "" + finalDay);
-                                openAt = finalDay + ", " + dd[2] + " " + getMonth(dd[1]) + " " + dd[0];
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
+                for (int page = 1; page < 100; page++) {
+                Log.d("json response page", "" + page);
+                JSONObject response = jsControl.getAllMenus(page, appManager.getUserToken());
+                Log.d("json response", response.toString());
+                JSONArray menus = response.getJSONArray("menus");
+                if (menus.length() > 0) {
+                    for (int i = 0; i < menus.length(); i++) {
+                        String id = menus.getJSONObject(i).getString("_id");
+                        String nama = menus.getJSONObject(i).getString("name");
+                        String foto = "";
+                        try {
+                            foto = menus.getJSONObject(i).getJSONArray("imageUrls").getString(0);
+                        }catch (Exception e){
+                            foto = "";
+                        }
+                        String price = menus.getJSONObject(i).getString("price");
+                        String time = "";//menus.getJSONObject(i).getJSONObject("speed").getString("waitingTime");
+                        String desc = menus.getJSONObject(i).getString("description");
+                        boolean added = Boolean.parseBoolean(menus.getJSONObject(i).getString("isLiked"));
+                        String openAt = "";
+                        try {
+                            String open = menus.getJSONObject(i).getString("openAt");
+                            String dt = open.split("T")[0];
+                            String[] dd = dt.split("-");
+                            String input_date = dd[2] + "-" + dd[1] + "-" + dd[0];
+                            SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+                            Date dt1 = format1.parse(input_date);
+                            DateFormat format2 = new SimpleDateFormat("EEEE");
+                            String finalDay = format2.format(dt1);
+                            Log.d("delivery 2 - open ", "" + open);
+                            Log.d("delivery 2", "" + finalDay);
+                            openAt = finalDay + ", " + dd[2] + " " + getMonth(dd[1]) + " " + dd[0];
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
 
-                            JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
-                            try {
-                                feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
-                            } catch (Exception ex) {
-                                feedback = new JSONArray();
-                            }
-                            JSONArray category = new JSONArray();
-                            try {
-                                category = menus.getJSONObject(i).getJSONArray("category");
-                            } catch (Exception ex) {
-                                category = new JSONArray();
-                            }
-                            String hashtag = "";
-                            if (category.length() > 0) {
-                                for (int j = 0; j < category.length(); j++) {
-                                    if (j == 0) {
-                                        hashtag = "#" + category.getString(j);
-                                    } else {
-                                        hashtag = hashtag + " #" + category.getString(j);
-                                    }
+                        JSONArray feedback = new JSONArray();//menus.getJSONObject(i).getJSONArray("feedbacks");
+                        try {
+                            feedback = menus.getJSONObject(i).getJSONArray("feedbacks");
+                        } catch (Exception ex) {
+                            feedback = new JSONArray();
+                        }
+                        JSONArray category = new JSONArray();
+                        try {
+                            category = menus.getJSONObject(i).getJSONArray("category");
+                        } catch (Exception ex) {
+                            category = new JSONArray();
+                        }
+                        String hashtag = "";
+                        if (category.length() > 0) {
+                            for (int j = 0; j < category.length(); j++) {
+                                if (j == 0) {
+                                    hashtag = "#" + category.getString(j);
+                                } else {
+                                    hashtag = hashtag + " #" + category.getString(j);
                                 }
-                            }
-                            ModelAllMenus menu = new ModelAllMenus(id, nama, price, foto, time, desc, feedback, added, hashtag, openAt);
-                            //LIST_MENU.add(menu);
-                            if (allMenus.size() > 0) {
-                                if (!allMenus.containsKey(id)) {
-                                    allMenus.put(id, menu);
-                                }
-                            } else {
-                                allMenus.put(id, menu);
                             }
                         }
-                    }else{
-                        break;
+                        ModelAllMenus menu = new ModelAllMenus(id, nama, price, foto, time, desc, feedback, added, hashtag, openAt);
+                        //LIST_MENU.add(menu);
+                        if (allMenus.size() > 0) {
+                            if (!allMenus.containsKey(id)) {
+                                allMenus.put(id, menu);
+                            }
+                        } else {
+                            allMenus.put(id, menu);
+                        }
                     }
-                        LIST_MENU = new ArrayList<>(allMenus.values());
-                        ApplicationData.allmenus = allMenus;
-
-
-
-                    return "OK";
+                }
                 }
 
+                LIST_MENU = new ArrayList<>(allMenus.values());
+                ApplicationData.allmenus = allMenus;
+                return "OK";
 
-            } catch (
-                    Exception e
-                    )
 
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
+                if(allMenus.size()>0){
+                    LIST_MENU = new ArrayList<>(allMenus.values());
+                    ApplicationData.allmenus = allMenus;
+                    return "OK";
+                }
             }
 
             Log.d("json response id 0", "FAIL");
