@@ -229,9 +229,14 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
 
 
         InitDialogEmail();
-        if(!ApplicationData.isNotif) {
+        if(!ApplicationData.isNotif && !ApplicationData.isHistory) {
             displayView(0);
-        }else{
+        }
+        else if(ApplicationData.isHistory){
+            displayView(HISTORI_PESANAN);
+            ApplicationData.isHistory = false;
+        }
+        else{
             displayView(NOTIFICATION);
             //ApplicationData.hasEmail = false;
         }

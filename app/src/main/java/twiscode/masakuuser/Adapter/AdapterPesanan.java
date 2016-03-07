@@ -134,6 +134,7 @@ public class AdapterPesanan extends BaseAdapter {
                         mAct.finish();
                     }
                     else{
+                        ApplicationData.isHistory = true;
                         Intent i = new Intent(mAct, ActivityDetailTransaksi.class);
                         mAct.startActivity(i);
                         mAct.finish();
