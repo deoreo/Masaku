@@ -292,13 +292,13 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             }
             countCart.setText(""+jml);
             wrapCount.setVisibility(View.VISIBLE);
-            spaceLayout.setVisibility(View.VISIBLE);
+//            spaceLayout.setVisibility(View.VISIBLE);
             btnPesan.setVisibility(View.VISIBLE);
         }
         else {
             wrapCount.setVisibility(View.GONE);
             btnPesan.setVisibility(View.GONE);
-            spaceLayout.setVisibility(View.GONE);
+//            spaceLayout.setVisibility(View.GONE);
         }
 
         updateCart = new BroadcastReceiver() {
@@ -316,11 +316,11 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
                         }
                         countCart.setText(""+jml);
                         wrapCount.setVisibility(View.VISIBLE);
-                        spaceLayout.setVisibility(View.VISIBLE);
+//                        spaceLayout.setVisibility(View.VISIBLE);
                     }
                     else {
                         wrapCount.setVisibility(View.GONE);
-                        spaceLayout.setVisibility(View.GONE);
+//                        spaceLayout.setVisibility(View.GONE);
                     }
 
                 }

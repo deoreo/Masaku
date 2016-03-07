@@ -424,20 +424,23 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 />
-            <Button
-                android:id="@+id/btnPesanSkrg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="@color/colorRed"
-                android:layout_alignParentBottom="true"
-                android:text="Order Now"
-                android:textColor="@color/colorWhite"
-                android:visibility="gone"/>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnPesanSkrg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/colorRed"
+            android:layout_alignParentBottom="true"
+            android:text="Order Now"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
