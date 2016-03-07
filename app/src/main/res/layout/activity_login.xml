@@ -79,11 +79,10 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:orientation="vertical">
-                                            <TextView
+                                            <com.rengwuxian.materialedittext.MaterialEditText
                                                 android:layout_width="40dp"
                                                 android:layout_height="wrap_content"
                                                 android:text="+62"
-                                                android:background="@null"
                                                 android:textColor="@color/colorBlack"
                                                 android:singleLine="true"
                                                 android:maxLines="1"
@@ -91,13 +90,13 @@
                                                 android:textSize="16dp"
                                                 android:gravity="center_vertical"
                                                 android:editable="false"
-                                                android:layout_marginTop="5dp"
+                                                android:clickable="false"
+                                                android:cursorVisible="false"
+                                                android:focusable="false"
+                                                android:focusableInTouchMode="false"
+                                                app:met_baseColor="@color/colorDarkGrey"
                                                 />
-                                            <View
-                                                android:layout_width="40dp"
-                                                android:layout_height="2dp"
-                                                android:background="@color/colorDarkGrey2"
-                                                />
+
                                         </LinearLayout>
                                         <LinearLayout
                                             android:layout_marginLeft="5dp"
@@ -105,25 +104,23 @@
                                             android:layout_weight="1"
                                             android:layout_height="wrap_content"
                                             android:orientation="vertical">
-                                            <EditText
+                                            <com.rengwuxian.materialedittext.MaterialEditText
                                                 android:id="@+id/txtPhone"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:hint="xxxxxx"
-                                                android:background="@null"
                                                 android:textColor="@color/colorBlack"
                                                 android:singleLine="true"
                                                 android:maxLines="1"
                                                 android:inputType="number"
                                                 android:textSize="16dp"
                                                 android:gravity="center_vertical"
-                                                android:layout_marginTop="5dp"
+                                                app:met_primaryColor="@color/colorGreen"
+                                                app:met_baseColor="@color/colorBlack"
+                                                app:met_textColorHint="@color/colorDarkGrey"
+                                                app:met_clearButton="true"
                                                 />
-                                            <View
-                                                android:layout_width="match_parent"
-                                                android:layout_height="2dp"
-                                                android:background="@color/colorDarkGrey2"
-                                                />
+
                                         </LinearLayout>
 
                                     </LinearLayout>
@@ -167,19 +164,22 @@
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="gone"/>
-                                <EditText
+                                <com.rengwuxian.materialedittext.MaterialEditText
                                     android:id="@+id/txtPassword"
                                     android:layout_width="match_parent"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:hint="password"
-                                    android:background="@null"
                                     android:textColor="@color/colorBlack"
                                     android:singleLine="true"
                                     android:maxLines="1"
                                     android:inputType="numberPassword"
                                     android:textSize="16dp"
                                     android:gravity="center_vertical"
+                                    app:met_primaryColor="@color/colorGreen"
+                                    app:met_baseColor="@color/colorBlack"
+                                    app:met_textColorHint="@color/colorDarkGrey"
+                                    app:met_clearButton="true"
                                     />
                                 <CheckBox
                                     android:id="@+id/showPassword"
@@ -191,12 +191,6 @@
                             </LinearLayout>
 
 
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@color/colorDarkGrey2" />
                         </LinearLayout>
 
                         <Button

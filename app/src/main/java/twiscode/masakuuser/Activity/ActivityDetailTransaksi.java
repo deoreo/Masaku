@@ -143,6 +143,7 @@ public class ActivityDetailTransaksi extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
+        ApplicationData.isHistory = true;
         Intent j = new Intent(getBaseContext(), Main.class);
         startActivity(j);
         finish();

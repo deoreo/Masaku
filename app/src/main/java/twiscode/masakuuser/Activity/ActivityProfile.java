@@ -55,6 +55,9 @@ public class ActivityProfile extends Activity {
     private ApplicationManager applicationManager;
     private Activity act;
     private ImageView btnBack;
+    private TextView btnLogout;
+    private Dialog dialog;
+    private DatabaseHandler db;
     Map<String, String> flurryParams = new HashMap<String, String>();
 
 
@@ -63,6 +66,7 @@ public class ActivityProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         act = this;
+        db = new DatabaseHandler(act);
         // drawer labels
         applicationManager = new ApplicationManager(act);
         namaprofile = (MaterialEditText) findViewById(R.id.namaProfile);
@@ -70,6 +74,8 @@ public class ActivityProfile extends Activity {
         emailprofile = (MaterialEditText) findViewById(R.id.emailProfile);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
+        btnLogout = (TextView) findViewById(R.id.btnLogout);
+        InitDialog();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +83,13 @@ public class ActivityProfile extends Activity {
                 Intent j = new Intent(getBaseContext(), Main.class);
                 startActivity(j);
                 finish();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
             }
         });
 
@@ -137,6 +150,54 @@ public class ActivityProfile extends Activity {
         }
 
 
+
+    }
+
+    void InitDialog(){
+        dialog = new Dialog(ActivityProfile.this);
+        dialog.setContentView(R.layout.popup_logout);
+        dialog.setTitle("Logout");
+
+        // set the custom dialog components - text, image and button
+
+        TextView logout = (TextView) dialog.findViewById(R.id.btnLogoutPop);
+        TextView device = (TextView) dialog.findViewById(R.id.btnLogoutAllPop);
+        TextView cancel = (TextView) dialog.findViewById(R.id.btnCancelPop);
+        // if button is clicked, close the custom dialog
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationData.cart = new HashMap<String, ModelCart>();
+                db.logout();
+                Intent i = new Intent(ActivityProfile.this, ActivityLogin.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NetworkManager.getInstance(ActivityProfile.this).isConnectedInternet()) {
+                    //InitProgress();
+                    //new DoLogoutAll(getActivity()).execute();
+                    ApplicationData.cart = new HashMap<String, ModelCart>();
+                    db.logout();
+                    Intent i = new Intent(ActivityProfile.this, ActivityLogin.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        });
 
     }
 

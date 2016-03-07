@@ -79,7 +79,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             icon = (ImageView) itemView.findViewById(R.id.icon);
-            rippleView =  (RippleView) itemView.findViewById(R.id.rippleBtn);
+            //rippleView =  (RippleView) itemView.findViewById(R.id.rippleBtn);
             //line = (View) itemView.findViewById(R.id.line);
         }
     }

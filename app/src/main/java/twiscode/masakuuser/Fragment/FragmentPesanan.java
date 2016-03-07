@@ -197,10 +197,26 @@ public class FragmentPesanan extends Fragment {
                             for(int i=0;i<_order.length();i++){
                                 ModelCart c = new ModelCart();
                                 c.setId(_order.getJSONObject(i).getString("_id"));
-                                c.setJumlah(Integer.parseInt(_order.getJSONObject(i).getString("quantity")));
-                                c.setNama(_order.getJSONObject(i).getJSONObject("menu").getString("name"));
-                                c.setHarga(Integer.parseInt(_order.getJSONObject(i).getJSONObject("menu").getString("price")));
-                                c.setType(_type);
+                                try {
+                                    c.setJumlah(Integer.parseInt(_order.getJSONObject(i).getString("quantity")));
+                                }catch(Exception e){
+                                    c.setJumlah(0);
+                                }
+                                try {
+                                    c.setNama(_order.getJSONObject(i).getJSONObject("menu").getString("name"));
+                                }catch (Exception e){
+                                    c.setNama("Delihome Menu");
+                                }
+                                try {
+                                    c.setHarga(Integer.parseInt(_order.getJSONObject(i).getJSONObject("menu").getString("price")));
+                                }catch (Exception e){
+                                    c.setHarga(0);
+                                }
+                                try {
+                                    c.setType(_type);
+                                }catch (Exception e){
+                                    c.setType("");
+                                }
                                 _carts.add(c);
                             }
                         }

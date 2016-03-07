@@ -30,8 +30,20 @@
             android:text="Profile"
             android:textAllCaps="false"
             android:textColor="@color/colorDarkGrey2"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Logout"
+            android:textAllCaps="false"
+            android:textColor="@color/colorDarkGrey2"
+            android:layout_centerVertical="true"
+            android:textSize="12sp" />
+
 
 
     </RelativeLayout>
@@ -85,7 +97,8 @@
                     android:singleLine="true"
                     android:text="Name"
                     android:textColor="@color/colorBlack"
-                    app:met_primaryColor="#34ff18"
+                    app:met_primaryColor="@color/colorGreen"
+                    app:met_clearButton="true"
                     android:textSize="16sp" />
 
                 <View
@@ -210,7 +223,8 @@
                     android:singleLine="true"
                     android:text="-"
                     android:textColor="@color/colorBlack"
-                    app:met_primaryColor="#34ff18"
+                    app:met_primaryColor="@color/colorGreen"
+                    app:met_clearButton="true"
                     android:textSize="16sp" />
 
                 <View
@@ -387,31 +401,6 @@
                         android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="15dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="LOGOUT"
-                    android:textColor="@color/colorDarkRed"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <Button

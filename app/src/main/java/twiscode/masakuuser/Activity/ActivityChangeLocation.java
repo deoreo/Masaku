@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -83,7 +84,7 @@ public class ActivityChangeLocation extends FragmentActivity
     private TextView txtLocationFrom, upLocation;
     private ProgressBar progressMapFrom;
     public Boolean isSearchCurrent = false;
-    private LinearLayout layoutfillForm;
+    private CardView layoutfillForm;
     private ProgressBar progress;
     private FrameLayout itemCurrent;
     private ListView lvSuggestion, lvRecent;
@@ -113,7 +114,7 @@ public class ActivityChangeLocation extends FragmentActivity
         //layoutMarkerFrom = (LinearLayout) findViewById(R.id.layoutMarkerFrom);
 
         upLocation = (TextView) findViewById(R.id.txtLocation);
-        layoutfillForm = (LinearLayout) findViewById(R.id.layoutfillForm);
+        layoutfillForm = (CardView) findViewById(R.id.layoutfillForm);
         layoutSuggestion = (RelativeLayout) findViewById(R.id.layoutSuggestion);
         layoutRecent = (RelativeLayout) findViewById(R.id.layoutRecent);
         itemCurrent = (FrameLayout) findViewById(R.id.itemCurrent);
