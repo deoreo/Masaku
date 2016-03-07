@@ -44,6 +44,7 @@ import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import twiscode.masakuuser.Utilities.DataFragmentHelper;
+import twiscode.masakuuser.Utilities.DialogManager;
 import twiscode.masakuuser.Utilities.NetworkManager;
 import twiscode.masakuuser.Utilities.PersistenceDataHelper;
 
@@ -132,7 +133,8 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                //dialog.show();
+                DialogManager.showDialog(getActivity(),"Info", "Fitur akan segera tersedia");
             }
         });
         gotoProfile.setOnClickListener(new View.OnClickListener() {

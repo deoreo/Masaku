@@ -186,7 +186,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:background="#d2d2d2"
-        android:text="LOGOUT"
+        android:text="JUAL MASAKAN ANDA"
         android:textColor="@color/colorDarkGrey"
         android:gravity="left"/>
 

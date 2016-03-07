@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.andexert.library.RippleView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rippleBtn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    ripple:rv_type="simpleRipple"
-    ripple:rv_color="#9c77726e"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@drawable/rippleeffect"
     android:paddingBottom="10dp"
     android:paddingTop="5dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/icon"
@@ -35,14 +28,5 @@
             android:padding="5dp"
             android:text="title"
             android:textSize="14sp" />
-        <!--
-            <View
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGrey"
-                android:layout_below="@id/title"/>
-        -->
 
-    </LinearLayout>
-</com.andexert.library.RippleView>
+</LinearLayout>
