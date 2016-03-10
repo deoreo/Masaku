@@ -27,6 +27,7 @@ import twiscode.masakuuser.Model.ModelCart;
 import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
+import twiscode.masakuuser.Utilities.PicassoTrustAll;
 
 
 public class AdapterCheckout extends BaseAdapter {
@@ -35,7 +36,7 @@ public class AdapterCheckout extends BaseAdapter {
     private LayoutInflater mInflater =null;
     private boolean mKeyIsEmpty = false;
     private DecimalFormat decimalFormat;
-
+    int noImage = R.drawable.icon;
     public AdapterCheckout(Activity activity, List<ModelCart> d) {
         mAct = activity;
         mSourceData = d;
@@ -77,6 +78,7 @@ public class AdapterCheckout extends BaseAdapter {
             holder.btnPlus = (TextView) convertView.findViewById(R.id.btnPlus);
             holder.txtCount = (TextView)convertView.findViewById(R.id.txtCount);
             holder.hargaItem = (TextView) convertView.findViewById(R.id.hargaCheckout);
+            holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
             convertView.setTag(position);
 
             final ViewHolder holder2 = holder;
@@ -92,11 +94,17 @@ public class AdapterCheckout extends BaseAdapter {
             final String VENDOR_NAMA = modelMenu.getNama();
             final int VENDOR_ORDER = modelMenu.getJumlah();
             final int VENDOR_HARGA = VENDOR_ORDER*modelMenu.getHarga();
+            final String VENDOR_IMAGE = modelMenu.getImage();
 
 
             holder.namaItem.setText(VENDOR_NAMA);
             holder.txtCount.setText(""+VENDOR_ORDER);
             holder.hargaItem.setText("Rp " + decimalFormat.format(VENDOR_HARGA));
+
+            PicassoTrustAll.getInstance(mAct)
+                    .load(VENDOR_IMAGE)
+                    .placeholder(noImage)
+                    .into(holder.imgMenu);
 
             holder.btnPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,6 +150,7 @@ public class AdapterCheckout extends BaseAdapter {
         public TextView btnMinus;
         public TextView btnPlus;
         public TextView txtCount;
+        public ImageView imgMenu;
     }
 
     private void AddCount(ViewHolder holder,String ID,ModelCart c){

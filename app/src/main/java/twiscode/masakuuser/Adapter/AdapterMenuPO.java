@@ -146,8 +146,8 @@ public class AdapterMenuPO extends BaseAdapter {
             for(int k=0;k<dev.length;k++){
                 Log.d("dev "+k,dev[k]);
             }
-            String tgl = getDate(dev[1]);
-            String hr = getDay(dev[0]);
+            final String tgl = getDate(dev[1]);
+            final String hr = getDay(dev[0]);
 
             holder.tanggal.setText(tgl);
             holder.hari.setText(hr);
@@ -190,6 +190,10 @@ public class AdapterMenuPO extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA),"po",modelMenu.getIsEvent());
+                    //ApplicationData.jadwalKirim = hr+","+tgl;
+                    String jadwalKirim = hr+","+tgl;
+                    ApplicationData.jadwal.add(jadwalKirim);
+                    cart.setImage(VENDOR_IMAGE);
                     AddCount(holder2, ID, cart);
                     SendBroadcast("updateCart","true");
                 }
@@ -200,6 +204,7 @@ public class AdapterMenuPO extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA),"po",modelMenu.getIsEvent());
+                    cart.setImage(VENDOR_IMAGE);
                     AddCount(holder2,ID,cart);
                     int jml = ApplicationData.cart.get(ID).getJumlah();
                     holder.txtCount.setText("" + jml);

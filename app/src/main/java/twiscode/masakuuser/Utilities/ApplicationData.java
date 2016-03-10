@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -35,6 +36,8 @@ public class ApplicationData {
     public static String phoneNumberLogin = "";
     public static String email = "";
     public static String tokenPass = "";
+    public static String tips = "";
+    public static String note = "";
     public static ModelMenuSpeed modelMenuSpeed = null;
     public static ModelAllMenus modelAllMenus = null;
     public static ModelWishlist modelWishlist = null;
@@ -90,5 +93,8 @@ public class ApplicationData {
     //public static int CountWishlist = 0;
     public static String notice = "";
     public static String couponHint = "";
+    public static String total = "";
+    public static ArrayList<String> jadwal = new ArrayList<>();
+    public static  Boolean isFromCheckoutDelivery = false;
 
 }

@@ -12,7 +12,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,19 +70,18 @@ import twiscode.masakuuser.Utilities.NetworkManager;
  * Created by Unity on 01/09/2015.
  */
 public class FragmentCheckoutPO extends Fragment {
-    private static final String ARG_COLOR = "color";
-    Activity act;
-    ApplicationManager appManager;
+    private Activity act;
+    private ApplicationManager appManager;
     private EditText txtNote, txtCodePromo;
     private ImageView btnBack;
     private ListView mListView;
     private LinearLayout laySpecial, layPembayaran, laypromoInfo;
-    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, noData, txtAlamat, txtSpecial, txtPromoInfo, txtKode, txtCouponHint;
+    private TextView txtSubtotal, txtTip, txtDelivery, txtTotal, txtDiskon, /*noData, txtAlamat,*/ txtSpecial, txtPromoInfo, txtKode, txtCouponHint;
     private Button btnKonfirmasi, btnApply;
-    AdapterCheckout mAdapter;
+    private AdapterCheckout mAdapter;
     private List<ModelCart> LIST_MENU = new ArrayList<>();
     SegmentedGroup segmented;
-    MaterialSpinner paySpiner;
+    //MaterialSpinner paySpiner;
     int delivery = 0;
     int subtotal = 0;
     int tip = 0;
@@ -118,13 +120,13 @@ public class FragmentCheckoutPO extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_checkout_po, container, false);
+       View v = inflater.inflate(R.layout.activity_checkout_po, container, false);
         act = getActivity();
         appManager = new ApplicationManager(act);
         user = appManager.getUser();
         progress = (ProgressBar) v.findViewById(R.id.progress);
         mListView = (ListView) v.findViewById(R.id.listCheckout);
-        noData = (TextView) v.findViewById(R.id.noData);
+        //noData = (TextView) v.findViewById(R.id.noData);
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
         otherSymbols.setDecimalSeparator(',');
         otherSymbols.setGroupingSeparator('.');
@@ -134,44 +136,34 @@ public class FragmentCheckoutPO extends Fragment {
         DummyData();
 
 
-        View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
-        txtSpecial = (TextView) header.findViewById(R.id.specialText);
-        laySpecial = (LinearLayout) header.findViewById(R.id.specialLayout);
-        laypromoInfo = (LinearLayout) header.findViewById(R.id.promoInfo);
-        txtKode = (TextView) header.findViewById(R.id.kodePromoCheckout);
-        btnApply = (Button) header.findViewById(R.id.btnApply);
-        txtNote = (EditText) header.findViewById(R.id.noteCheckout);
-        txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
-        txtCouponHint = (TextView) header.findViewById(R.id.txtCouponHint);
-        mListView.addHeaderView(header);
+
+
         View footer = getActivity().getLayoutInflater().inflate(R.layout.layout_footer_checkout_po, null);
+        //View footer = getActivity().getLayoutInflater().inflate(R.layout.layout_footer_checkout_po, container, false);
         txtSubtotal = (TextView) footer.findViewById(R.id.subtotalCheckout);
         txtDelivery = (TextView) footer.findViewById(R.id.deliveryCheckout);
         txtTip = (TextView) footer.findViewById(R.id.tipCheckout);
         txtDiskon = (TextView) footer.findViewById(R.id.diskonCheckout);
         txtTotal = (TextView) footer.findViewById(R.id.totalCheckout);
         btnKonfirmasi = (Button) footer.findViewById(R.id.btnKonfirmasi);
-        layPembayaran = (LinearLayout) footer.findViewById(R.id.layPembayaran);
+        //layPembayaran = (LinearLayout) footer.findViewById(R.id.layPembayaran);
+        laypromoInfo = (LinearLayout) footer.findViewById(R.id.promoInfo);
+        txtKode = (TextView) footer.findViewById(R.id.kodePromoCheckout);
+        //btnApply = (Button) footer.findViewById(R.id.btnApply);
+        txtCouponHint = (TextView) footer.findViewById(R.id.txtCouponHint);
+        //noData = (TextView) footer.findViewById(R.id.noData);
         txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
         txtSubtotal.setText("Rp. " + decimalFormat.format(subtotal));
         txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
         txtTip.setText("Rp. " + decimalFormat.format(tip));
         txtTotal.setText("Rp. " + decimalFormat.format(total));
-
+        SendBroadcast("updateTotal","Rp. " + decimalFormat.format(total));
         tips = "10";
+        ApplicationData.tips = tips;
 
-        String alamat = appManager.getAlamat();
-        if (alamat != "") {
-            txtAlamat.setText(alamat);
-        }
-        if (ApplicationData.couponHint == "") {
-            txtCouponHint.setVisibility(View.GONE);
-        } else {
-            txtCouponHint.setVisibility(View.VISIBLE);
-            txtCouponHint.setText(ApplicationData.couponHint);
-        }
-        paySpiner = (MaterialSpinner) footer.findViewById(R.id.paySpinner);
-        paySpiner.setItems("Transfer", "COD");
+
+//        paySpiner = (MaterialSpinner) footer.findViewById(R.id.paySpinner);
+//        paySpiner.setItems("Transfer", "COD");
         //List<String> dataPay = new LinkedList<>(Arrays.asList("Transfer","COD"));
         //paySpiner.attachDataSource(dataPay);
         segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
@@ -181,6 +173,32 @@ public class FragmentCheckoutPO extends Fragment {
         mAdapter = new AdapterCheckout(getActivity(), LIST_MENU);
         mListView.setAdapter(mAdapter);
         mListView.setScrollingCacheEnabled(false);
+
+
+        //View header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_checkout, null);
+        //txtSpecial = (TextView) header.findViewById(R.id.specialText);
+        //laySpecial = (LinearLayout) header.findViewById(R.id.specialLayout);
+        //laypromoInfo = (LinearLayout) header.findViewById(R.id.promoInfo);
+        //txtKode = (TextView) header.findViewById(R.id.kodePromoCheckout);
+        //btnApply = (Button) header.findViewById(R.id.btnApply);
+        //txtNote = (EditText) header.findViewById(R.id.noteCheckout);
+        //txtAlamat = (TextView) header.findViewById(R.id.alamatCheckout);
+        //txtCouponHint = (TextView) header.findViewById(R.id.txtCouponHint);
+        //mListView.addHeaderView(header);
+
+        String alamat = appManager.getAlamat();
+        /*
+        if (alamat != "") {
+            txtAlamat.setText(alamat);
+        }*/
+
+        if (ApplicationData.couponHint == "") {
+            txtCouponHint.setVisibility(View.GONE);
+        } else {
+            txtCouponHint.setVisibility(View.VISIBLE);
+            txtCouponHint.setText(ApplicationData.couponHint);
+        }
+
         /*
         paySpiner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -189,7 +207,7 @@ public class FragmentCheckoutPO extends Fragment {
                 Log.d("position", "" + pembayaran);
             }
         });
-        */
+
         paySpiner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
@@ -198,7 +216,7 @@ public class FragmentCheckoutPO extends Fragment {
                 pembayaran = position + 1;
                 Log.d("position", "" + pembayaran);
             }
-        });
+        });*/
 
         segmented.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -212,6 +230,7 @@ public class FragmentCheckoutPO extends Fragment {
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button22:
                         tips = "5";
@@ -223,6 +242,7 @@ public class FragmentCheckoutPO extends Fragment {
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button23:
                         tips = "10";
@@ -234,6 +254,7 @@ public class FragmentCheckoutPO extends Fragment {
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button24:
                         tips = "15";
@@ -245,6 +266,7 @@ public class FragmentCheckoutPO extends Fragment {
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
                         return;
                     case R.id.button25:
                         tips = "20";
@@ -256,14 +278,18 @@ public class FragmentCheckoutPO extends Fragment {
                             total = 0;
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal","Rp. " + decimalFormat.format(total));
                         return;
                     default:
                         // Nothing to do
                 }
 
+                ApplicationData.tips = tips;
+
             }
         });
 
+        /*
         txtAlamat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -273,6 +299,7 @@ public class FragmentCheckoutPO extends Fragment {
                 getActivity().finish();
             }
         });
+        */
 
 /*
         txtKode.setOnEditorActionListener(
@@ -287,7 +314,7 @@ public class FragmentCheckoutPO extends Fragment {
                         return false;
                     }
                 });
-*/
+
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -295,6 +322,7 @@ public class FragmentCheckoutPO extends Fragment {
                 new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
             }
         });
+        */
 
         txtKode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,7 +348,7 @@ public class FragmentCheckoutPO extends Fragment {
             mListView.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
-        */
+
 
 
         btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
@@ -329,10 +357,7 @@ public class FragmentCheckoutPO extends Fragment {
                 //if (isClicked == false) {
                 // isClicked = true;
                 if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                    if (txtAlamat.getText().toString().isEmpty()) {
-                        DialogManager.showDialog(act, "Mohon Maaf", "Isi alamat anda");
-                        ////     isClicked = false;
-                    } else {
+
                         try {
                             final Context ctx = getActivity();
                             new MaterialDialog.Builder(ctx)
@@ -366,7 +391,7 @@ public class FragmentCheckoutPO extends Fragment {
                         } catch (Exception e) {
 
                         }
-                    }
+
 
                 } else {
                     // isClicked = false;
@@ -374,6 +399,15 @@ public class FragmentCheckoutPO extends Fragment {
                 }
             }
             //}
+        });
+        */
+
+        btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendBroadcast("gotoDelivery","true");
+                ApplicationData.total = txtTotal.getText().toString();
+            }
         });
 
         updateCart = new BroadcastReceiver() {
@@ -414,6 +448,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
                     }
 
 
@@ -441,13 +476,15 @@ public class FragmentCheckoutPO extends Fragment {
                         txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
+                        SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
                         mAdapter = new AdapterCheckout(act, LIST_MENU);
                         mListView.setAdapter(mAdapter);
+                        /*
                         if (isEvent) {
                             laySpecial.setVisibility(View.VISIBLE);
                         } else {
                             laySpecial.setVisibility(View.GONE);
-                        }
+                        }*/
                     } else {
                         //act.finish();
                         if (ApplicationData.cart.size() > 0) {
@@ -465,7 +502,7 @@ public class FragmentCheckoutPO extends Fragment {
                             }
                             if (LIST_MENU.size() < 1) {
                                 mListView.setVisibility(View.GONE);
-                                noData.setVisibility(View.VISIBLE);
+                                //noData.setVisibility(View.VISIBLE);
                             }
                             if (isEvent) {
                                 laySpecial.setVisibility(View.VISIBLE);
@@ -491,7 +528,7 @@ public class FragmentCheckoutPO extends Fragment {
             new CalculatePrice(getActivity()).execute(txtKode.getText().toString());
         } else {
 
-            noData.setVisibility(View.VISIBLE);
+            //noData.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
             progress.setVisibility(View.GONE);
 
@@ -737,7 +774,7 @@ public class FragmentCheckoutPO extends Fragment {
                 Log.d("json response", response.toString());
                 try {
                     JSONArray transaksi = response.getJSONArray("transactions");
-                    JSONObject promoCode = response.getJSONObject("promoCode");
+                    //JSONObject promoCode = response.getJSONObject("promoCode");
                     try {
                         menuExceptionMessage = response.getString("menuExceptionMessage");
                     }catch (Exception e){
@@ -746,7 +783,7 @@ public class FragmentCheckoutPO extends Fragment {
 
                     if (transaksi.length() > 0) {
                         for (int i = 0; i < transaksi.length(); i++) {
-                            Boolean usePromoCode = transaksi.getJSONObject(i).getBoolean("usePromoCode");
+                            //Boolean usePromoCode = transaksi.getJSONObject(i).getBoolean("usePromoCode");
                             String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
                             diskon = Integer.parseInt(discountPrice);
                             String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
@@ -809,6 +846,7 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDiskon.setText("Rp. " + decimalFormat.format(diskon));
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
+                    SendBroadcast("updateTotal","Rp. " + decimalFormat.format(total));
                     try {
                         if(menuExceptionMessage!=""){
                             error.setText(menuExceptionMessage);
@@ -845,14 +883,15 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
                     txtKode.setText(ApplicationData.promocode);
-
+                    SendBroadcast("updateTotal","Rp. " + decimalFormat.format(total));
                     Log.d("diskon", "" + diskon);
+                    /*
                     if (eventMessage != "") {
                         laySpecial.setVisibility(View.VISIBLE);
                         txtSpecial.setText(eventMessage);
                     } else {
                         laySpecial.setVisibility(View.GONE);
-                    }
+                    }*/
                     try {
                         if (diskon > 0 || delivery < ApplicationData.def_delivery) {
                             txtKode.setText(ApplicationData.promocode);
@@ -874,10 +913,10 @@ public class FragmentCheckoutPO extends Fragment {
             //progressDialog.dismiss();
             if (ApplicationData.cart.size() > 0) {
                 mListView.setVisibility(View.VISIBLE);
-                noData.setVisibility(View.GONE);
+                //noData.setVisibility(View.GONE);
             } else {
                 mListView.setVisibility(View.GONE);
-                noData.setVisibility(View.VISIBLE);
+                //noData.setVisibility(View.VISIBLE);
             }
 
         }
