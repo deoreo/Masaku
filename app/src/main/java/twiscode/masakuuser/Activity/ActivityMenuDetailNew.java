@@ -222,6 +222,14 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             }
         });
 
+        imgMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //onBackPressed();
+                finish();
+            }
+        });
+
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

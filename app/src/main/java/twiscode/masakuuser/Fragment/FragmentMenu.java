@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,6 +27,8 @@ import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.flurry.android.FlurryAgent;
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeDismissAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,6 +65,7 @@ public class FragmentMenu extends Fragment {
 
     private ImageView btnCart;
     public static final String ARG_PAGE = "ARG_PAGE";
+    private static final int INITIAL_DELAY_MILLIS = 300;
     private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
     private PullRefreshLayout mSwipeRefreshLayout, mSwipeRefreshLayoutNoData;
     private ListView mListView;
@@ -70,7 +74,7 @@ public class FragmentMenu extends Fragment {
     LinearLayout noData, layoutAlamat;
     RelativeLayout firstLay;
     private TextView txtAlamat;
-
+    private CollapsingToolbarLayout collapsingToolbar;
     private int mPage = 1;
 
     private BroadcastReceiver spaceLayout;
@@ -117,6 +121,9 @@ public class FragmentMenu extends Fragment {
         LIST_MENU = new ArrayList<ModelMenuSpeed>();
         mListView.setScrollingCacheEnabled(false);
         mSwipeRefreshLayout.setRefreshing(false);
+
+//        collapsingToolbar = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,7 +381,16 @@ public class FragmentMenu extends Fragment {
                     //mListView.addHeaderView(header);
                     //category.attachDataSource(datacategory);
                     mAdapter = new AdapterMenuPO(activity, LIST_MENU);
-                    mListView.setAdapter(mAdapter);
+//                    mListView.setAdapter(mAdapter);
+
+                    SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
+                    swingBottomInAnimationAdapter.setAbsListView(mListView);
+
+                    assert swingBottomInAnimationAdapter.getViewAnimator() != null;
+                    swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
+
+                    mListView.setAdapter(swingBottomInAnimationAdapter);
+
                     mSwipeRefreshLayout.setRefreshing(false);
                     break;
 
