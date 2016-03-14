@@ -50,8 +50,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentMainMenu extends Fragment {
-
-
 	public static final String ARG_PAGE = "ARG_PAGE";
 	ViewPager viewPager;
 	PagerSlidingTabStrip tabsStrip;

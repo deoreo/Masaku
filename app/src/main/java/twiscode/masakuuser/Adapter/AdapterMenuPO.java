@@ -98,10 +98,7 @@ public class AdapterMenuPO extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if(mKeyIsEmpty){
             Log.d("tipe PO",""+tipe);
-
                 convertView = mInflater.inflate(R.layout.row_empty_po, null);
-
-
         }
         else {
             final ViewHolder holder;
