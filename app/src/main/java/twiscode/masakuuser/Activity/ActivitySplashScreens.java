@@ -37,7 +37,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class SplashScreensActivity extends Activity {
+public class ActivitySplashScreens extends Activity {
 
 	public static final String SPLASH_SCREEN_OPTION = "twiscode.masakuuser.Activity.SplashScreensActivity";
 	public static final String SPLASH_SCREEN_OPTION_1 = "Fade in + Ken Burns";
