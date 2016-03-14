@@ -43,6 +43,9 @@
         <activity
             android:name=".Activity.ActivitySplash"
             android:label="@string/app_name" >
+
+        </activity>
+        <activity android:name=".Activity.SplashScreensActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
