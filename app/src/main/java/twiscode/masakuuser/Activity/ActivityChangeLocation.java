@@ -325,11 +325,12 @@ public class ActivityChangeLocation extends FragmentActivity
 
     @Override
     public void onBackPressed() {
-        if(!ApplicationData.isFromMenu) {
+        if(ApplicationData.isFromCheckoutDelivery) {
+            SendBroadcast("gotoDelivery","true");
             Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
             startActivity(j);
             finish();
-        }else{
+        }else if(ApplicationData.isFromMenu){
             Intent j = new Intent(getBaseContext(), Main.class);
             startActivity(j);
             finish();
@@ -350,6 +351,13 @@ public class ActivityChangeLocation extends FragmentActivity
             //handler.removeCallbacks(delayedAction);
         }
 
+    }
+
+    private void SendBroadcast(String typeBroadcast, String type) {
+        Intent intent = new Intent(typeBroadcast);
+        // add data
+        intent.putExtra("message", type);
+        LocalBroadcastManager.getInstance(mActivity).sendBroadcast(intent);
     }
 
     public class GetSuggestion extends AsyncTask<String, Void, JSONArray> {

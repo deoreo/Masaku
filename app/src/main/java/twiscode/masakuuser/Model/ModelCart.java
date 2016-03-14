@@ -4,7 +4,7 @@ package twiscode.masakuuser.Model;
  * Created by TwisCode-02 on 11/6/2015.
  */
 public class ModelCart {
-    private String id,nama, type, isEvent;
+    private String id,nama, type, isEvent, image, notes;
     private int jumlah, harga;
     public ModelCart(){}
     public ModelCart(String id,String nama, int jumlah, int harga){
@@ -77,5 +77,21 @@ public class ModelCart {
 
     public void setIsEvent(String isEvent) {
         this.isEvent = isEvent;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

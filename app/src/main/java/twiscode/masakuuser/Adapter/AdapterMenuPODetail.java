@@ -161,6 +161,8 @@ public class AdapterMenuPODetail extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
+
+                    cart.setImage(VENDOR_IMAGE);
                     AddCount(holder2, ID, cart);
                     SendBroadcast("updateCart","true");
                 }
@@ -171,6 +173,7 @@ public class AdapterMenuPODetail extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     ModelCart cart = new ModelCart(ID,VENDOR_NAMA,1,Integer.parseInt(VENDOR_HARGA));
+                    cart.setImage(VENDOR_IMAGE);
                     AddCount(holder2,ID,cart);
                     int jml = ApplicationData.cart.get(ID).getJumlah();
                     holder.txtCount.setText("" + jml);

@@ -1,72 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:padding="10dp">
-    <LinearLayout
-        android:layout_width="0dp"
+    android:background="@null"
+
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/namaCheckout"
-            android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        card_view:cardElevation="4dp">
+
+        <LinearLayout
+
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Serabi Mania"
-            android:textColor="@color/colorDarkGrey"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:layout_marginTop="5dp"
-            android:id="@+id/hargaCheckout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Rp 10.000"
-            android:textColor="@color/colorDarkGrey"
-            android:textStyle="bold"
-            android:gravity="right"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layCounter"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/btnMinus"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="-"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/colorRed"/>
-        <TextView
-            android:id="@+id/txtCount"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:text="1"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"/>
-        <TextView
-            android:id="@+id/btnPlus"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="+"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/colorRed"/>
-    </LinearLayout>
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp">
 
+                    <ImageView
+                        android:id="@+id/imgMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/icon"
+                        android:scaleType="fitCenter" />
+                </RelativeLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/namaCheckout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Serabi Mania"
+                        android:textColor="@color/colorDarkGrey" />
+
+                    <TextView
+                        android:id="@+id/hargaCheckout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Rp 10.000"
+                        android:textColor="@color/colorDarkGrey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layCounter"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/btnMinus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@color/colorRed"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCount"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/btnPlus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/colorRed"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/rounded_line_black"
+                    android:gravity="top"
+                    android:hint="Add Note"
+                    android:lines="3"
+                    android:padding="5dp"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

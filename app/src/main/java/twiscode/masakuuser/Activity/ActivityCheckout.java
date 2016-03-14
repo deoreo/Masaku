@@ -1,62 +1,31 @@
 package twiscode.masakuuser.Activity;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.astuetz.PagerSlidingTabStrip;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-
-import info.hoang8f.android.segmented.SegmentedGroup;
-import twiscode.masakuuser.Adapter.AdapterCheckout;
-import twiscode.masakuuser.Adapter.AdapterMenu;
-import twiscode.masakuuser.Adapter.AdapterPagerCheckout;
-import twiscode.masakuuser.Adapter.AdapterPagerMain;
-import twiscode.masakuuser.Control.JSONControl;
-import twiscode.masakuuser.Model.ModelCart;
-import twiscode.masakuuser.Model.ModelMenu;
-import twiscode.masakuuser.Model.ModelUser;
+import twiscode.masakuuser.Fragment.FragmentCheckoutPO;
+import twiscode.masakuuser.Fragment.FragmentCheckoutDelivery;
+import twiscode.masakuuser.Fragment.FragmentCheckoutPayment;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
-import twiscode.masakuuser.Utilities.DialogManager;
-import twiscode.masakuuser.Utilities.NetworkManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -64,14 +33,16 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class ActivityCheckout extends AppCompatActivity {
 
-    Activity act;
-    ApplicationManager applicationManager;
+    private Activity act;
+    private ApplicationManager applicationManager;
     private ImageView btnBack;
-
     private ProgressBar progress;
-
-    ViewPager viewPager;
-    PagerSlidingTabStrip tabsStrip;
+    private TextView txtTotal;
+    private FrameLayout viewPager;
+    private PagerSlidingTabStrip tabsStrip;
+    private BroadcastReceiver updateTotal, gotoDelivery, gotoPayment;
+    private int DISPLAY = 0;
+    private final int REVIEW = 0, DELIVERY = 1, PAYMENT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,16 +52,29 @@ public class ActivityCheckout extends AppCompatActivity {
         applicationManager = new ApplicationManager(act);
         progress = (ProgressBar) findViewById(R.id.progress);
         btnBack = (ImageView) findViewById(R.id.btnBack);
+        txtTotal = (TextView) findViewById(R.id.txtTotal);
+        viewPager = (FrameLayout) findViewById(R.id.pager);
+        if (ApplicationData.isFromCheckoutDelivery) {
+            try {
+                displayView(DELIVERY);
+            } catch (Exception e) {
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new AdapterPagerCheckout(getSupportFragmentManager()));
+            }
+        } else {
+            try {
+                displayView(REVIEW);
+            } catch (Exception e) {
+
+            }
+        }
+        //viewPager.setAdapter(new AdapterPagerCheckout(getSupportFragmentManager()));
 
         // Give the PagerSlidingTabStrip the ViewPager
-        tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        //tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         // Attach the view pager to the tab strip
-        tabsStrip.setViewPager(viewPager);
-        tabsStrip.setTextColor(Color.WHITE);
-
+        //tabsStrip.setViewPager(viewPager);
+        //tabsStrip.setTextColor(Color.WHITE);
+/*
         tabsStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             // This method will be invoked when a new page becomes selected.
@@ -112,6 +96,44 @@ public class ActivityCheckout extends AppCompatActivity {
                 // Code goes here
             }
         });
+*/
+        updateTotal = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast updateTotal");
+                String message = intent.getStringExtra("message");
+                txtTotal.setText(message);
+            }
+        };
+
+        gotoDelivery = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast updateTotal");
+                String message = intent.getStringExtra("message");
+                try {
+                    displayView(DELIVERY);
+                } catch (Exception e) {
+
+                }
+            }
+        };
+
+        gotoPayment = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // Extract data included in the Intent
+                Log.d("", "broadcast updateTotal");
+                String message = intent.getStringExtra("message");
+                try {
+                    displayView(PAYMENT);
+                } catch (Exception e) {
+
+                }
+            }
+        };
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,11 +145,50 @@ public class ActivityCheckout extends AppCompatActivity {
         });
     }
 
+    private void displayView(int position) {
+        Fragment fragment = null;
+        switch (position) {
+            case REVIEW:
+                fragment = new FragmentCheckoutPO();
+                DISPLAY = REVIEW;
+                break;
+            case DELIVERY:
+                fragment = new FragmentCheckoutDelivery();
+                ApplicationData.isFromCheckoutDelivery = false;
+                DISPLAY = DELIVERY;
+                break;
+            case PAYMENT:
+                fragment = new FragmentCheckoutPayment();
+                DISPLAY = PAYMENT;
+                break;
+            default:
+                break;
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.pager, fragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
+
+    }
+
     @Override
     public void onBackPressed() {
-        Intent j = new Intent(act, Main.class);
-        startActivity(j);
-        finish();
+        if (DISPLAY == REVIEW) {
+            Intent j = new Intent(act, Main.class);
+            startActivity(j);
+            finish();
+        }
+        else if(DISPLAY == DELIVERY)
+        {
+            displayView(REVIEW);
+        }
+        else if(DISPLAY == PAYMENT)
+        {
+            displayView(DELIVERY);
+        }
+
     }
 
     @Override
@@ -136,6 +197,20 @@ public class ActivityCheckout extends AppCompatActivity {
     }
 
 
+    public void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(act).registerReceiver(updateTotal,
+                new IntentFilter("updateTotal"));
+
+        LocalBroadcastManager.getInstance(act).registerReceiver(gotoDelivery,
+                new IntentFilter("gotoDelivery"));
+
+        LocalBroadcastManager.getInstance(act).registerReceiver(gotoPayment,
+                new IntentFilter("gotoPayment"));
+
+
+    }
 
 
 }

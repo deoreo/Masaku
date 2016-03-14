@@ -159,8 +159,8 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             }
             else {
                 String[] dev = modelMenu.getDelivery().split(", ");
-                String tgl = getDate(dev[1]);
-                String hr = getDay(dev[0]);
+                final String tgl = getDate(dev[1]);
+                final String hr = getDay(dev[0]);
 
                 txtTanggal.setText(tgl);
                 txtHari.setText(hr);
@@ -247,11 +247,17 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             public void onClick(View view) {
                 if(ApplicationData.type=="po"){
                     ModelCart cart = new ModelCart(modelMenu.getId(), modelMenu.getNama(), 1, Integer.parseInt(modelMenu.getPrice()),"po");
+                    cart.setImage(modelMenu.getFoto());
+                    //ApplicationData.jadwalKirim = txtHari.getText().toString()+","+txtTanggal.getText().toString();
+                    String jadwalKirim = txtHari.getText().toString()+","+txtTanggal.getText().toString();
+                    ApplicationData.jadwal.add(jadwalKirim);
+                    cart.setImage(modelMenu.getFoto());
                     AddCount(modelMenu.getId(), cart);
                     SendBroadcast("updateCart", "true");
                 }
                 else if(ApplicationData.type=="speed"){
                     ModelCart cart = new ModelCart(modelMenu.getId(), modelMenu.getNama(), 1, Integer.parseInt(modelMenu.getPrice()),"speed");
+                    cart.setImage(modelMenu.getFoto());
                     AddCount(modelMenu.getId(), cart);
                     SendBroadcast("updateCart", "true");
                 }
@@ -264,6 +270,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 ModelCart cart = new ModelCart(modelMenu.getId(),modelMenu.getNama(),1,Integer.parseInt(modelMenu.getPrice()));
+                cart.setImage(modelMenu.getFoto());
                 AddCount(modelMenu.getId(),cart);
                 int jml = ApplicationData.cart.get(modelMenu.getId()).getJumlah();
                 txtCount.setText("" + jml);

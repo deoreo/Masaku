@@ -1,77 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        android:background="@color/colorWhite"
-        >
-        <ImageView
-            android:padding="5dp"
-            android:id="@+id/btnBack"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:src="@drawable/back_icon"
-            android:layout_marginRight="5dp"
-            android:layout_gravity="center_vertical"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Checkout"
-            android:textColor="@color/colorDarkGrey2"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textSize="16dp"
-            />
+        card_view:cardElevation="10dp">
 
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorGrey"
             android:orientation="vertical">
-            <com.astuetz.PagerSlidingTabStrip
-                android:visibility="gone"
-                android:id="@+id/tabs"
-                app:pstsShouldExpand="true"
-                app:pstsTextAllCaps="true"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:pstsIndicatorColor="@color/colorWhite"
-                app:pstsUnderlineColor="@color/colorDarkRed"
-                app:pstsDividerColor="@color/colorRed"
-                app:pstsTabPaddingLeftRight="10dp"
-                android:background="@color/colorRed"
-                android:elevation="5dp"
 
-                >
-            </com.astuetz.PagerSlidingTabStrip>
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
-                android:layout_height="0dp"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:elevation="5dp"
-                />
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreen"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_close_white_24dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Total"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txtTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="Rp. 0"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="25sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="20dp"
+                            android:background ="@drawable/next_grey"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="10dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="REVIEW"
+                                android:layout_marginRight="5dp" />
+
+                            <View
+                                android:id="@+id/lineReview"
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:background="@color/colorRed" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="20dp"
+                            android:background ="@drawable/next_grey"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="10dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="DELIVERY"
+                                android:layout_marginRight="5dp" />
+
+                            <View
+                                android:id="@+id/lineDelivery"
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:background="@color/colorRed" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="PAYMENT" />
+
+                        <View
+                            android:id="@+id/linePayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="@color/colorRed" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            />
-    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardElevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/colorRed"
+                    android:elevation="5dp"
+                    android:visibility="gone"
+                    app:pstsDividerColor="@color/colorRed"
+                    app:pstsIndicatorColor="@color/colorWhite"
+                    app:pstsShouldExpand="true"
+                    app:pstsTabPaddingLeftRight="10dp"
+                    app:pstsTextAllCaps="true"
+                    app:pstsUnderlineColor="@color/colorDarkRed"
+
+                    ></com.astuetz.PagerSlidingTabStrip>
+
+                <FrameLayout
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:elevation="5dp" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
