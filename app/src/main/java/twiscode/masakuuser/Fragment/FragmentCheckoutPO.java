@@ -120,7 +120,7 @@ public class FragmentCheckoutPO extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View v = inflater.inflate(R.layout.activity_checkout_po, container, false);
+        View v = inflater.inflate(R.layout.activity_checkout_po, container, false);
         act = getActivity();
         appManager = new ApplicationManager(act);
         user = appManager.getUser();
@@ -167,7 +167,7 @@ public class FragmentCheckoutPO extends Fragment {
         //List<String> dataPay = new LinkedList<>(Arrays.asList("Transfer","COD"));
         //paySpiner.attachDataSource(dataPay);
         segmented = (SegmentedGroup) footer.findViewById(R.id.segmented);
-        segmented.setTintColor(Color.parseColor("#D02D2E"));
+        segmented.setTintColor(Color.parseColor("#79716E"));
         segmented.check(R.id.button23);
         mListView.addFooterView(footer);
         mAdapter = new AdapterCheckout(getActivity(), LIST_MENU);
