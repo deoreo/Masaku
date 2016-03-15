@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rippleBtn"
+<twiscode.masakuuser.Utilities.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/RippleStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:clickable="true"
-    android:background="@drawable/rippleeffect"
-    android:paddingBottom="10dp"
-    android:paddingTop="5dp">
+    android:layout_height="wrap_content"
+
+    android:background="@drawable/selector_background_empty"
+    app:myRippleColor="@color/colorGrey">
+
+    <LinearLayout
+        android:id="@+id/rippleBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp">
 
         <ImageView
             android:id="@+id/icon"
@@ -29,4 +34,5 @@
             android:text="title"
             android:textSize="14sp" />
 
-</LinearLayout>
+    </LinearLayout>
+</twiscode.masakuuser.Utilities.MaterialRippleLayout>

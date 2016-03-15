@@ -19,6 +19,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,14 +37,17 @@ import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.view.View.*;
+
 public class ActivityTutorial extends FragmentActivity {
 
     private ImageView btnBack;
-    private TextView btnOpen;
+    private TextView btnOpen, txtSkip, txtNext;
     CircleIndicator defaultIndicator;
     ViewPager defaultViewpager;
     private WebView webview;
     RelativeLayout imageSlide;
+    private LinearLayout layoutBottom;
     private final String TAG = "ActivityTutorial";
     TextView noPromo;
     Map<String, String> flurryParams = new HashMap<String,String>();
@@ -55,7 +59,10 @@ public class ActivityTutorial extends FragmentActivity {
 
         btnBack = (ImageView) findViewById(R.id.btnBack);
         defaultViewpager = (ViewPager) findViewById(R.id.viewpager_default);
+        layoutBottom = (LinearLayout) findViewById(R.id.layoutBottom);
         defaultIndicator = (CircleIndicator) findViewById(R.id.indicator_default);
+        txtNext = (TextView) findViewById(R.id.txtNext);
+        txtSkip = (TextView) findViewById(R.id.txtSkip);
 
         TutorialSliderAdapter defaultPagerAdapter = new TutorialSliderAdapter(getSupportFragmentManager());
         defaultViewpager.setAdapter(defaultPagerAdapter);
@@ -64,17 +71,26 @@ public class ActivityTutorial extends FragmentActivity {
         defaultViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position==3){
-                    defaultIndicator.setVisibility(View.GONE);
-                }
-                else {
-                    defaultIndicator.setVisibility(View.VISIBLE);
+                Log.d("masaku tutorial", ""+position);
+                if (position == 2) {
+                    layoutBottom.setVisibility(GONE);
+                    defaultIndicator.setVisibility(GONE);
+                } else {
+                    layoutBottom.setVisibility(VISIBLE);
+                    defaultIndicator.setVisibility(VISIBLE);
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                Log.d("masaku tutorial", ""+position);
+                if (position == 2) {
+                    layoutBottom.setVisibility(GONE);
+                    defaultIndicator.setVisibility(GONE);
+                } else {
+                    layoutBottom.setVisibility(VISIBLE);
+                    defaultIndicator.setVisibility(VISIBLE);
+                }
             }
 
             @Override
@@ -83,7 +99,19 @@ public class ActivityTutorial extends FragmentActivity {
             }
         });
 
+        txtNext.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
+
+        txtSkip.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
 

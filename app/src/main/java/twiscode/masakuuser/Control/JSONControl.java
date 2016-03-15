@@ -305,9 +305,7 @@ public class JSONControl {
             for(int i=0;i<cart.size();i++){
                 params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
             }
-            for(int i=0;i<cart.size();i++){
-                params.add(new BasicNameValuePair("notes["+cart.get(i).getId()+"]", cart.get(i).getNotes()));
-            }
+
 
 
             jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CHECKOUT, ConfigManager.DUKUHKUPANG, accessToken, params);

@@ -1,35 +1,53 @@
 package twiscode.masakuuser.Activity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.net.http.SslError;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
-import twiscode.masakuuser.Adapter.TutorialBantuanSliderAdapter;
 import twiscode.masakuuser.Adapter.TutorialSliderAdapter;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ConfigManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.view.View.*;
+
 public class ActivityTutorialBantuan extends FragmentActivity {
 
     private ImageView btnBack;
-    private TextView btnOpen;
+    private TextView btnOpen, txtSkip, txtNext;
     CircleIndicator defaultIndicator;
     ViewPager defaultViewpager;
     private WebView webview;
     RelativeLayout imageSlide;
+    private LinearLayout layoutBottom;
     private final String TAG = "ActivityTutorial";
     TextView noPromo;
     Map<String, String> flurryParams = new HashMap<String,String>();
@@ -41,26 +59,38 @@ public class ActivityTutorialBantuan extends FragmentActivity {
 
         btnBack = (ImageView) findViewById(R.id.btnBack);
         defaultViewpager = (ViewPager) findViewById(R.id.viewpager_default);
+        layoutBottom = (LinearLayout) findViewById(R.id.layoutBottom);
         defaultIndicator = (CircleIndicator) findViewById(R.id.indicator_default);
+        txtNext = (TextView) findViewById(R.id.txtNext);
+        txtSkip = (TextView) findViewById(R.id.txtSkip);
 
-        TutorialBantuanSliderAdapter defaultPagerAdapter = new TutorialBantuanSliderAdapter(getSupportFragmentManager());
+        TutorialSliderAdapter defaultPagerAdapter = new TutorialSliderAdapter(getSupportFragmentManager());
         defaultViewpager.setAdapter(defaultPagerAdapter);
         defaultIndicator.setViewPager(defaultViewpager);
 
         defaultViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position==3){
-                    defaultIndicator.setVisibility(View.GONE);
-                }
-                else {
-                    defaultIndicator.setVisibility(View.VISIBLE);
+                Log.d("masaku tutorial", "" + position);
+                if (position == 2) {
+                    layoutBottom.setVisibility(GONE);
+                    defaultIndicator.setVisibility(GONE);
+                } else {
+                    layoutBottom.setVisibility(VISIBLE);
+                    defaultIndicator.setVisibility(VISIBLE);
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                Log.d("masaku tutorial", "" + position);
+                if (position == 2) {
+                    layoutBottom.setVisibility(GONE);
+                    defaultIndicator.setVisibility(GONE);
+                } else {
+                    layoutBottom.setVisibility(VISIBLE);
+                    defaultIndicator.setVisibility(VISIBLE);
+                }
             }
 
             @Override
@@ -68,6 +98,22 @@ public class ActivityTutorialBantuan extends FragmentActivity {
 
             }
         });
+
+        txtNext.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        txtSkip.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
 
     }
@@ -81,7 +127,8 @@ public class ActivityTutorialBantuan extends FragmentActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        finish();// optional depending on your needs
+        finish();
+        // optional depending on your needs
     }
     @Override
     protected void attachBaseContext(Context newBase) {
