@@ -150,6 +150,7 @@ public class ActivityCheckout extends AppCompatActivity {
             public void onClick(View v) {
                 Intent j = new Intent(getBaseContext(), Main.class);
                 startActivity(j);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
         });
@@ -200,6 +201,7 @@ public class ActivityCheckout extends AppCompatActivity {
         if (DISPLAY == REVIEW) {
             Intent j = new Intent(act, Main.class);
             startActivity(j);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
         }
         else if(DISPLAY == DELIVERY)

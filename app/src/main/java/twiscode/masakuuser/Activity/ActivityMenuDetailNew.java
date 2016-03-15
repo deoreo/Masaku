@@ -359,7 +359,9 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
             public void onClick(View v) {
                 if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(ActivityMenuDetailNew.this, ActivityCheckout.class);
+
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else {
                     DialogManager.showDialog(ActivityMenuDetailNew.this, "Mohon Maaf", "Anda belum memiliki pesanan");
                 }

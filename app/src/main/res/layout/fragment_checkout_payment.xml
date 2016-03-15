@@ -8,43 +8,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:background="#f3f3f3"
         android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"
+            android:background="#f3f3f3"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:text="Payment Method"
-                android:textAllCaps="true"
-                android:textColor="@color/colorDarkGrey2"
-                android:textSize="14dp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_height="170dp"
                     android:paddingBottom="10dp"
                     android:id="@+id/btnTransfer"
                     android:text="Bank Transfer"
+                    android:layout_weight="1"
                     android:textSize="12sp"
                     android:gravity="center|bottom"
                     android:background="@drawable/btn_event_payment_transfer"
@@ -52,8 +38,9 @@
 
                 <Button
                     android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_height="170dp"
                     android:paddingBottom="10dp"
+                    android:layout_weight="1"
                     android:id="@+id/btnCOD"
                     android:text="Cash On Delivery"
                     android:textSize="12sp"
@@ -67,215 +54,6 @@
 
         <LinearLayout
             android:id="@+id/layoutTransfer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:visibility="gone"
-            >
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                card_view:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="0dp"
-                        android:paddingRight="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        fontPath="@string/GothamRndBold"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:paddingLeft="5dp"
-                                        android:paddingTop="3dp"
-                                        android:text="Please complete your payment via ATM machine"
-                                        android:textColor="@color/colorBlack"
-                                        android:textSize="14sp" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:hint="Make sure you transfer the payment with \nlast 3 digit number"
-                                        android:lines="1"
-                                        android:maxLength="120"
-                                        android:paddingBottom="3dp"
-                                        android:paddingLeft="5dp"
-                                        android:textColor="@color/colorBlack"
-                                        android:textSize="12sp"
-                                        android:background="@color/colorWhite" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                card_view:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="0dp"
-                        android:paddingRight="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="vertical">
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginBottom="10dp"
-                                        android:orientation="horizontal">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal">
-
-                                            <TextView
-                                                fontPath="@string/GothamRndBold"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1"
-                                                android:paddingLeft="5dp"
-                                                android:paddingTop="3dp"
-                                                android:text="Bank Destination"
-                                                android:textColor="@color/colorDarkGrey"
-                                                android:textSize="14sp" />
-
-                                            <TextView
-                                                android:id="@+id/textView2"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1"
-                                                android:gravity="right"
-                                                android:lines="1"
-                                                android:maxLength="120"
-                                                android:paddingBottom="3dp"
-                                                android:paddingLeft="5dp"
-                                                android:text="BCA - 089 100 8898"
-                                                android:textColor="@color/colorBlack"
-                                                android:textSize="14dp" />
-                                        </LinearLayout>
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="horizontal">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal">
-
-                                            <TextView
-                                                fontPath="@string/GothamRndBold"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1"
-                                                android:paddingLeft="5dp"
-                                                android:paddingTop="3dp"
-                                                android:text="Name"
-                                                android:textColor="@color/colorDarkGrey"
-                                                android:textSize="14sp" />
-
-                                            <TextView
-                                                android:id="@+id/textView2"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1"
-                                                android:gravity="right"
-                                                android:lines="1"
-                                                android:maxLength="120"
-                                                android:paddingBottom="3dp"
-                                                android:paddingLeft="5dp"
-                                                android:text="Andree Wijaya"
-                                                android:textColor="@color/colorBlack"
-                                                android:textSize="14dp" />
-                                        </LinearLayout>
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutCOD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -329,7 +107,188 @@
                                         android:layout_weight="1"
                                         android:gravity="center"
                                         android:paddingLeft="5dp"
-                                        android:paddingTop="3dp"
+                                        android:paddingTop="10dp"
+                                        android:text="Please complete your payment via ATM machine"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="14sp" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:hint="Make sure you transfer the payment with \nlast 3 digit number"
+                                        android:lines="1"
+                                        android:maxLength="120"
+                                        android:paddingTop="10dp"
+                                        android:paddingBottom="3dp"
+                                        android:paddingLeft="5dp"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="12sp"
+                                        android:background="@color/colorWhite" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@color/colorWhite"
+                card_view:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                fontPath="@string/GothamRndBold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="3dp"
+                                android:text="Bank Destination"
+                                android:textColor="@color/colorDarkGrey"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:lines="1"
+                                android:maxLength="120"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="5dp"
+                                android:text="BCA - 089 100 8898"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#f3f3f3" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="10dp">
+
+                            <TextView
+                                fontPath="@string/GothamRndBold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="3dp"
+                                android:text="Account Name"
+                                android:textColor="@color/colorDarkGrey"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:lines="1"
+                                android:maxLength="120"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="5dp"
+                                android:text="Andree Wijaya"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCOD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            >
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                card_view:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        fontPath="@string/GothamRndBold"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="10dp"
                                         android:text="Please complete the payment at the time of \nyour food delivered"
                                         android:textColor="@color/colorBlack"
                                         android:textSize="14sp" />
@@ -344,6 +303,7 @@
                                         android:maxLength="120"
                                         android:paddingBottom="3dp"
                                         android:paddingLeft="5dp"
+                                        android:paddingTop="8dp"
                                         android:textColor="@color/colorBlack"
                                         android:textSize="12sp"
                                         android:background="@color/colorWhite" />
@@ -391,8 +351,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="15dp"
                             android:orientation="horizontal">
 
@@ -406,7 +366,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:paddingLeft="5dp"
                                     android:paddingTop="3dp"
                                     android:text="SUBTOTAL"
                                     android:textColor="@color/colorDarkGrey"
@@ -433,8 +392,8 @@
                             android:layout_height="match_parent"
 
                             android:layout_marginBottom="5dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -447,7 +406,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:paddingLeft="5dp"
                                     android:paddingTop="3dp"
                                     android:text="TRANSACTION CODE"
                                     android:textColor="@color/colorDarkGrey"
@@ -463,7 +421,7 @@
                                     android:maxLength="120"
                                     android:paddingBottom="3dp"
                                     android:paddingLeft="5dp"
-                                    android:text="Rp. 0"
+                                    android:text="0"
                                     android:textColor="@color/colorBlack"
                                     android:textSize="14dp" />
                             </LinearLayout>
@@ -474,8 +432,8 @@
                             android:layout_height="match_parent"
 
                             android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -488,7 +446,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:paddingLeft="5dp"
                                     android:paddingTop="3dp"
                                     android:text="TOTAL PAYMENT"
                                     android:textColor="@color/colorDarkGrey"
@@ -505,21 +462,12 @@
                                     android:paddingBottom="3dp"
                                     android:paddingLeft="5dp"
                                     android:text="Rp. 0"
-                                    android:textColor="@color/colorGreen"
+                                    android:textColor="#159B8A"
                                     android:textSize="18dp" />
                             </LinearLayout>
                         </LinearLayout>
 
-                        <Button
-                            android:id="@+id/btnConfirm"
-                            android:layout_width="170dp"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:background="@drawable/rounded_red"
-                            android:text="CONFIRM"
-                            android:textColor="@color/colorWhite" />
+
 
 
                     </LinearLayout>
@@ -527,5 +475,13 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_red"
+            android:text="CONFIRM"
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 </ScrollView>

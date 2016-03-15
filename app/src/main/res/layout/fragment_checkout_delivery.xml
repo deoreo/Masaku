@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:background="#f3f3f3"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -33,7 +33,7 @@
                     android:paddingTop="10dp"
                     android:text="Delivery Address"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorRed"
+                    android:textColor="@color/colorDarkGrey"
                     android:textSize="14dp"
                     android:textStyle="bold" />
 
@@ -94,7 +94,8 @@
                                     android:hint="Street/Building name"
                                     android:lines="1"
                                     android:maxLength="120"
-                                    android:paddingBottom="3dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom = "10dp"
                                     android:paddingLeft="5dp"
                                     android:textColor="@color/colorBlack"
                                     android:textSize="14dp" />
@@ -146,7 +147,8 @@
                                     android:maxLength="120"
                                     android:maxLines="10"
                                     android:paddingLeft="5dp"
-                                    android:layout_marginBottom = "3dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom = "10dp"
                                     android:scrollbars="vertical"
                                     android:singleLine="false"
                                     android:textColor="@color/colorBlack"
@@ -183,7 +185,7 @@
                     android:paddingTop="10dp"
                     android:text="Delivery Time"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorRed"
+                    android:textColor="@color/colorDarkGrey"
                     android:textSize="14dp"
                     android:textStyle="bold" />
 
@@ -212,8 +214,6 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-
-
                                 <TextView
                                     android:id="@+id/list_delivery"
                                     android:layout_width="match_parent"
@@ -225,7 +225,6 @@
                                     android:textSize="14sp"
                                     android:text=""
                                     />
-
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -241,8 +240,6 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
                         </LinearLayout>
-
-
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -280,59 +277,52 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="15dp"
+                            android:layout_margin="10dp"
                             android:orientation="horizontal">
 
-                            <LinearLayout
+                            <TextView
+                                fontPath="@string/GothamRndBold"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:text="SUBTOTAL"
+                                android:textColor="@color/colorDarkGrey"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    fontPath="@string/GothamRndBold"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:paddingLeft="5dp"
-                                    android:paddingTop="3dp"
-                                    android:text="SUBTOTAL"
-                                    android:textColor="@color/colorDarkGrey"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:id="@+id/txtTotal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="right"
-                                    android:lines="1"
-                                    android:maxLength="120"
-                                    android:paddingBottom="3dp"
-                                    android:paddingLeft="5dp"
-                                    android:text="Rp. 0"
-                                    android:textColor="@color/colorBlack"
-                                    android:textSize="18dp" />
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/txtTotal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:lines="1"
+                                android:maxLength="120"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="5dp"
+                                android:text="Rp. 0"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18dp" />
                         </LinearLayout>
 
-                        <Button
 
-                            android:layout_width="170dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/rounded_red"
-                            android:text="NEXT : PAYMENT"
-                            android:textColor="@color/colorWhite"
-                            android:id="@+id/btnConfirm" />
 
 
 
                     </LinearLayout>
+
                 </RelativeLayout>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+        <Button
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_red"
+            android:text="NEXT : PAYMENT"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/btnConfirm" />
     </LinearLayout>
 </ScrollView>

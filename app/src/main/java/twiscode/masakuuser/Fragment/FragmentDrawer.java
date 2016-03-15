@@ -143,6 +143,7 @@ public class FragmentDrawer extends android.support.v4.app.Fragment {
                 mDrawerLayout.closeDrawer(containerView);
                 Intent j = new Intent(getActivity(), ActivityProfile.class);
                 startActivity(j);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 getActivity().finish();
                 /*
                 android.support.v4.app.Fragment fragment = null;

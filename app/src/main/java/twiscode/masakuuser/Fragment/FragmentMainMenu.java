@@ -143,7 +143,9 @@ public class FragmentMainMenu extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getActivity(), ActivityCheckout.class);
+
 				startActivity(i);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			}
 		});
 
