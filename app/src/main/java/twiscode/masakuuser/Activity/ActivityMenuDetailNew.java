@@ -217,16 +217,20 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //onBackPressed();
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //onBackPressed();
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 
@@ -372,6 +376,7 @@ public class ActivityMenuDetailNew extends ActionBarActivity {
 //        finish(); = new Intent(getBaseContext(), Main.class);
 //        startActivity(i);
         finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void DummyFeedback(){

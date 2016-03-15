@@ -178,6 +178,7 @@ public class AdapterMenuPO extends BaseAdapter {
                     ApplicationData.type = "po";
                     Intent i = new Intent(mAct, ActivityMenuDetailNew.class);
                     mAct.startActivity(i);
+                    mAct.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     //mAct.finish();
                 }
 

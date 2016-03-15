@@ -130,6 +130,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 if (ApplicationData.cart.size() > 0) {
                     Intent i = new Intent(Main.this, ActivityCheckout.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 } else {
                     DialogManager.showDialog(Main.this, "Mohon Maaf", "Anda belum memiliki pesanan");
