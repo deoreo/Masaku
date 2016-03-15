@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -27,6 +28,9 @@ import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * Created by TwisCode-02 on 10/26/2015.
@@ -40,6 +44,8 @@ public class ActivityCheckout extends AppCompatActivity {
     private TextView txtTotal;
     private FrameLayout viewPager;
     private PagerSlidingTabStrip tabsStrip;
+    private View lineReview, lineDelivery, linePayment;
+    private RelativeLayout layoutSubtotal;
     private BroadcastReceiver updateTotal, gotoDelivery, gotoPayment;
     private int DISPLAY = 0;
     private final int REVIEW = 0, DELIVERY = 1, PAYMENT = 2;
@@ -54,6 +60,10 @@ public class ActivityCheckout extends AppCompatActivity {
         btnBack = (ImageView) findViewById(R.id.btnBack);
         txtTotal = (TextView) findViewById(R.id.txtTotal);
         viewPager = (FrameLayout) findViewById(R.id.pager);
+        lineReview = (View) findViewById(R.id.lineReview);
+        lineDelivery = (View) findViewById(R.id.lineDelivery);
+        linePayment = (View) findViewById(R.id.linePayment);
+        layoutSubtotal = (RelativeLayout) findViewById(R.id.layoutSubtotal);
         if (ApplicationData.isFromCheckoutDelivery) {
             try {
                 displayView(DELIVERY);
@@ -151,15 +161,27 @@ public class ActivityCheckout extends AppCompatActivity {
             case REVIEW:
                 fragment = new FragmentCheckoutPO();
                 DISPLAY = REVIEW;
+                lineReview.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                lineDelivery.setBackgroundColor(getResources().getColor(R.color.colorGrey));
+                linePayment.setBackgroundColor(getResources().getColor(R.color.colorGrey));
+                layoutSubtotal.setVisibility(VISIBLE);
                 break;
             case DELIVERY:
                 fragment = new FragmentCheckoutDelivery();
                 ApplicationData.isFromCheckoutDelivery = false;
                 DISPLAY = DELIVERY;
+                lineReview.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                lineDelivery.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                linePayment.setBackgroundColor(getResources().getColor(R.color.colorGrey));
+                layoutSubtotal.setVisibility(GONE);
                 break;
             case PAYMENT:
                 fragment = new FragmentCheckoutPayment();
                 DISPLAY = PAYMENT;
+                lineReview.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                lineDelivery.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                linePayment.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                layoutSubtotal.setVisibility(GONE);
                 break;
             default:
                 break;

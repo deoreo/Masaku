@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.andexert.library.RippleView;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -73,7 +71,6 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView icon;
-        RippleView rippleView;
         View line;
         public MyViewHolder(View itemView) {
             super(itemView);
