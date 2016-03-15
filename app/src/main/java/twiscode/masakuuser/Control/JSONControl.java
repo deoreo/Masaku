@@ -265,7 +265,6 @@ public class JSONControl {
             */
             Gson gson = new Gson();
             String json = gson.toJson(ca);
-
             params.add(new BasicNameValuePair("promoCode", kode));
             for(int i=0;i<cart.size();i++){
                 //ca.put(cart.get(i).getId(), cart.get(i).getJumlah());
