@@ -15,6 +15,8 @@ import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -45,8 +47,8 @@ public class ActivitySplashScreens extends Activity {
 	public static final String SPLASH_SCREEN_OPTION_3 = "Down + fade in + Ken Burns";
 	
 	private KenBurnsView mKenBurns;
-	private TextView mLogo;
-	private TextView welcomeText;
+	private ImageView mLogo;
+	private LinearLayout welcomeText;
 	private DatabaseHandler db;
 	private ProgressBar mProgressBar;
 	private int mWaited = 0;
@@ -69,11 +71,11 @@ public class ActivitySplashScreens extends Activity {
 		appManager = new ApplicationManager(ctx);
 		mProgressBar = (ProgressBar) findViewById(R.id.splash_progress);
 		mKenBurns = (KenBurnsView) findViewById(R.id.ken_burns_images);
-		mLogo = (TextView) findViewById(R.id.logo);
-		welcomeText = (TextView) findViewById(R.id.welcome_text);
+		mLogo = (ImageView) findViewById(R.id.logo);
+		welcomeText = (LinearLayout) findViewById(R.id.welcome_title);
 		ApplicationData.cart = new HashMap<>();
 		ApplicationData.isFirstSpeed = true;
-		String category = SPLASH_SCREEN_OPTION_3;
+		String category = SPLASH_SCREEN_OPTION_1;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null && extras.containsKey(SPLASH_SCREEN_OPTION)) {
 			category = extras.getString(SPLASH_SCREEN_OPTION, SPLASH_SCREEN_OPTION_1);
@@ -95,8 +97,9 @@ public class ActivitySplashScreens extends Activity {
 		if (category.equals(SPLASH_SCREEN_OPTION_1)) {
 			mKenBurns.setImageResource(R.drawable.pic);
 			animation1();
+			animation3();
 		} else if (category.equals(SPLASH_SCREEN_OPTION_2)) {
-			mLogo.setTextColor(R.color.main_color_500);
+			//mLogo.setTextColor(R.color.main_color_500);
 			mKenBurns.setImageResource(R.drawable.pic);
 			animation2();
 		} else if (category.equals(SPLASH_SCREEN_OPTION_3)) {
@@ -111,7 +114,7 @@ public class ActivitySplashScreens extends Activity {
 				try {
 
 					for (int i = 0; i <= 1000; i++) {
-						sleep(5);
+						sleep(4);
 						mProgressBar.setProgress(mWaited / 10);
 						mWaited += 1;
 					}

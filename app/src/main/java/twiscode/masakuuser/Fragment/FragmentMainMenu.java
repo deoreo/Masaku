@@ -45,6 +45,7 @@ import twiscode.masakuuser.Model.ModelMenu;
 import twiscode.masakuuser.R;
 import twiscode.masakuuser.Utilities.ApplicationData;
 import twiscode.masakuuser.Utilities.ApplicationManager;
+import twiscode.masakuuser.Utilities.DialogUniversalInfoUtils;
 import twiscode.masakuuser.Utilities.PicassoTrustAll;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -168,9 +169,10 @@ public class FragmentMainMenu extends Fragment {
 	}
 
 	void InitDialog(){
-		dialog = new Dialog(getActivity());
+		dialog = new Dialog(getActivity(), R.style.CustomDialogTheme);
 		dialog.setContentView(R.layout.activity_popup);
 		dialog.setTitle(" Delihome ");
+
 
 		// set the custom dialog components - text, image and button
 		ImageView imgNotice = (ImageView) dialog.findViewById(R.id.imgNotice);

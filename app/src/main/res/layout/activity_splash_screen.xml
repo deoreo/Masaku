@@ -16,30 +16,55 @@
     to become larger if user has set larger text in global
     settings. -->
 
-    <TextView
+    <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
         android:layout_centerInParent="true"
-        android:text="Delihome"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="64dp"
         android:alpha="0.0"
-        fontPath="@string/GothamRndMedium"
+        android:background="@drawable/logo"
         tools:ignore="SpUsage" />
 
-    <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/welcome_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Deliciously Homey"
+        android:layout_alignParentLeft="true"
         android:alpha="0.0"
-        fontPath="@string/GothamRndItalic"
-        android:textSize="24sp"
-        android:textColor="@android:color/holo_red_dark" />
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/welcome_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Delihome"
+            android:alpha="1.0"
+            fontPath="@string/GothamRndBold"
+            android:textSize="34sp"
+            android:textColor="@android:color/holo_red_dark" />
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:text="Deliciously Homey"
+            android:alpha="1.0"
+            fontPath="@string/GothamRndItalic"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_red_dark" />
+
+    </LinearLayout>
+
+
 
     <ProgressBar
         android:id="@+id/splash_progress"

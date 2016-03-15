@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    >
+    android:background="@color/colorWhite">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,29 +15,30 @@
             >
             <ImageView
                 android:id="@+id/imgNotice"
-                android:layout_height="250dp"
+                android:layout_height="350dp"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:background="@drawable/delhome_dummy_image"
                 />
 
-
+            <twiscode.masakuuser.Utilities.MaterialRippleLayout
+                style="@style/RippleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:myRippleColor="@color/colorGrey"
+                android:background="@drawable/selector_background_empty" >
             <Button
                 android:id="@+id/btnClose"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="55dp"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_red"
                 android:text="OK"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
-                android:layout_marginBottom="10dp"
+                android:background="@color/colorWhite"
+                android:textColor="@color/colorRed"
+                android:textSize="20sp"
                 />
-
+            </twiscode.masakuuser.Utilities.MaterialRippleLayout>
         </LinearLayout>
 
 
