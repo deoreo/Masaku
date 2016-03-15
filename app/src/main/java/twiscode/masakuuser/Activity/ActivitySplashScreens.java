@@ -114,7 +114,7 @@ public class ActivitySplashScreens extends Activity {
 				try {
 
 					for (int i = 0; i <= 1000; i++) {
-						sleep(5);
+						sleep(4);
 						mProgressBar.setProgress(mWaited / 10);
 						mWaited += 1;
 					}

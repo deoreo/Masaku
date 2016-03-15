@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/colorWhite"
@@ -15,46 +16,6 @@
         card_view:cardElevation="5dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_white_transparent"
-            android:orientation="vertical"
-            android:visibility="gone"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-
-                >
-
-                <ImageView
-                    android:id="@+id/btnBack"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="5dp"
-                    android:src="@drawable/back_icon" />
-
-                <TextView
-                    android:id="@+id/txtLocation"
-                    fontPath="@string/GothamRndBold"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toRightOf="@id/btnBack"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="Address"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorDarkGrey"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -71,7 +32,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:orientation="vertical"
                     android:elevation="10dp"
                     >
@@ -86,22 +47,30 @@
                         >
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:id="@+id/btnBack"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="5dp"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/map_point_icon" />
+                            android:src="@drawable/back_button_arrow" />
 
-                        <EditText
+                        <com.rengwuxian.materialedittext.MaterialEditText
                             android:id="@+id/txtFrom"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="4dp"
+                            android:paddingTop="20dp"
                             android:layout_weight="1"
-                            android:background="@color/colorWhite"
                             android:hint="Input your address"
                             android:textColor="@color/colorDarkGrey"
-                            android:textSize="14dp" />
+                            android:textSize="14dp"
+                            app:met_clearButton="true"
+                            app:met_hideUnderline="true"
+
+                            />
                     </LinearLayout>
 
                     <RelativeLayout

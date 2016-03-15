@@ -113,7 +113,7 @@ public class ActivityChangeLocation extends FragmentActivity
         btnGunakan = (RelativeLayout) findViewById(R.id.btnGunakan);
         //layoutMarkerFrom = (LinearLayout) findViewById(R.id.layoutMarkerFrom);
 
-        upLocation = (TextView) findViewById(R.id.txtLocation);
+        //upLocation = (TextView) findViewById(R.id.txtLocation);
         layoutfillForm = (CardView) findViewById(R.id.layoutfillForm);
         layoutSuggestion = (RelativeLayout) findViewById(R.id.layoutSuggestion);
         layoutRecent = (RelativeLayout) findViewById(R.id.layoutRecent);
@@ -168,12 +168,7 @@ public class ActivityChangeLocation extends FragmentActivity
         }
         adapterAlamat = new AdapterAlamat(mActivity, LIST_PLACE);
         lvRecent.setAdapter(adapterAlamat);
-        upLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
