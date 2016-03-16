@@ -450,7 +450,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:background="@color/colorRed"
-                android:text="Order Now"
+                android:text="Pre-Order Now"
                 android:textColor="@color/colorWhite"
                 android:visibility="gone"/>
         </LinearLayout>

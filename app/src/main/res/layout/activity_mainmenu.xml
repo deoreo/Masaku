@@ -39,17 +39,9 @@
             android:padding="10dp"
             android:background="@color/colorRed"
             android:layout_alignParentBottom="true"
-            android:text="Order Now"
+            android:text="Pre-Order Now"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:visibility="gone"/>
-
-
-
-
-
-
-
-
 
 </RelativeLayout>
