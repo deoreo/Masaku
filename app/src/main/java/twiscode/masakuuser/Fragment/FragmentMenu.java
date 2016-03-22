@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.flurry.android.FlurryAgent;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeDismissAdapter;
 
@@ -111,8 +112,9 @@ public class FragmentMenu extends Fragment {
         mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
         header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
-        //sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
-        //category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
+
+//        sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
+//        category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
 
         List<String> dataCategory = new LinkedList<>(Arrays.asList("All", "Gorengan", "Kuah", "Masakan Korea", "Masakan Barat", "Masakan Chinese", "Masakan Padang", "Masakan Jepang", "Indonesia"));
         List<String> dataSort = new LinkedList<>(Arrays.asList("Popular", "Lowest Price", "Highest Price", "Nearest"));
@@ -168,14 +170,11 @@ public class FragmentMenu extends Fragment {
                 } else {
                     noData.setVisibility(View.GONE);
                 }
-
-
             }
         };
 
         //mListView.setVisibility(View.GONE);
         DummyData();
-
 
         return rootView;
     }
@@ -378,7 +377,7 @@ public class FragmentMenu extends Fragment {
                     //startActivity(i);
                     //finish();
                     Log.d("jumlah menu : ", "" + LIST_MENU.size());
-                    //mListView.addHeaderView(header);
+                    mListView.addHeaderView(header);
                     //category.attachDataSource(datacategory);
                     mAdapter = new AdapterMenuPO(activity, LIST_MENU);
 //                    mListView.setAdapter(mAdapter);
