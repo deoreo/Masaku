@@ -34,7 +34,10 @@
                     android:textSize="12sp"
                     android:gravity="center|bottom"
                     android:background="@drawable/btn_event_payment_transfer"
-                    android:layout_margin="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"/>
 
                 <Button
                     android:layout_width="120dp"
@@ -46,7 +49,10 @@
                     android:textSize="12sp"
                     android:gravity="center|bottom"
                     android:background="@drawable/btn_event_payment_cod"
-                    android:layout_margin="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
 
