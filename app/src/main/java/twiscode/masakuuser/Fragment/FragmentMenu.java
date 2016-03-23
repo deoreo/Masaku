@@ -64,7 +64,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentMenu extends Fragment {
 
-    private ImageView btnCart;
+    private ImageView btnCart, btnFilterLocation;
     public static final String ARG_PAGE = "ARG_PAGE";
     private static final int INITIAL_DELAY_MILLIS = 300;
     private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
@@ -90,7 +90,6 @@ public class FragmentMenu extends Fragment {
 
     Map<String, String> flurryParams = new HashMap<String, String>();
 
-
     public static FragmentMenu newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
@@ -104,15 +103,33 @@ public class FragmentMenu extends Fragment {
                              Bundle savedInstanceState) {
         applicationManager = new ApplicationManager(getActivity());
         View rootView = inflater.inflate(R.layout.activity_menu, container, false);
+        View headerView = inflater.inflate(R.layout.layout_header_menu, container, false);
         mListView = (ListView) rootView.findViewById(R.id.list_delivery);
         noData = (LinearLayout) rootView.findViewById(R.id.spaceLayout);
         layoutAlamat = (LinearLayout) rootView.findViewById(R.id.layoutAlamat);
         txtAlamat = (TextView) rootView.findViewById(R.id.txtAlamat);
         btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
+        btnFilterLocation = (ImageView) headerView.findViewById(R.id.btnFilterLocation);
         mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
         header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
 
+        btnFilterLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ActivityCheckout.class);
+                startActivity(i);
+            }
+        });
+
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ActivityCheckout.class);
+                startActivity(i);
+//                header.getId();
+            }
+        });
 //        sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
 //        category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
 
@@ -320,18 +337,13 @@ public class FragmentMenu extends Fragment {
                     LIST_MENU = new ArrayList<>();
 
                     for (int l = 0; l < listNonEvent.size(); l++) {
-
                         LIST_MENU.add(listNonEvent.get(l));
-
                     }
                     for (int m = 0; m < listEvent.size(); m++) {
                         LIST_MENU.add(0, listEvent.get(m));
-
                     }
                     ApplicationData.tempPO = LIST_MENU;
                     return "OK";
-
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -364,7 +376,6 @@ public class FragmentMenu extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-
             switch (result) {
                 case "FAIL":
                     //DialogManager.showDialog(activity, "Mohon maaf", "Nomor ponsel Anda belum terdaftar!");
@@ -378,6 +389,7 @@ public class FragmentMenu extends Fragment {
                     //finish();
                     Log.d("jumlah menu : ", "" + LIST_MENU.size());
                     mListView.addHeaderView(header);
+
                     //category.attachDataSource(datacategory);
                     mAdapter = new AdapterMenuPO(activity, LIST_MENU);
 //                    mListView.setAdapter(mAdapter);
