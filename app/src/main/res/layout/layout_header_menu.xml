@@ -48,6 +48,7 @@
                         />
                 </LinearLayout>
                 <RelativeLayout
+                    android:id="@+id/filterLokasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -109,6 +110,7 @@
                         />
                 </LinearLayout>
                 <RelativeLayout
+                    android:id="@+id/filterDelivery"
                     android:layout_width="match_parent"
                     android:layout_marginTop="3dp"
                     android:layout_height="wrap_content">
@@ -169,6 +171,7 @@
                         />
                 </LinearLayout>
                 <RelativeLayout
+                    android:id="@+id/filterCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp">
