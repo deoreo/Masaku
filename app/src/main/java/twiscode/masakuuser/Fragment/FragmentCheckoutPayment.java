@@ -205,6 +205,7 @@ public class FragmentCheckoutPayment extends Fragment {
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
                 LatLng posFrom = appManager.getGeocode();
                 JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, appManager.getUserToken(), cart);
+
                 Log.d("json response checkout", response.toString());
                 try {
                     JSONArray transaction = response.getJSONArray("transaction");
@@ -250,7 +251,18 @@ public class FragmentCheckoutPayment extends Fragment {
                             }
                             ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id, _type, _uid, _nama, _alamat, _phone, _note, _subtotal, _convenience, _total, _waktu, _diskon, _tip, _delivery, _status, _detailID, _carts);
                             ApplicationData.idLastTransaction = _id;
-                            return "OK";
+                            JSONObject responseKonfirm = jsControl.ConfirmPO(ApplicationData.detailTransaksi.getId(), appManager.getUserToken());
+                            try {
+                                String status = responseKonfirm.getString("status");
+                                if(status.equalsIgnoreCase("verifyingPayment")){
+
+                                    return "OK";
+
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
@@ -291,7 +303,8 @@ public class FragmentCheckoutPayment extends Fragment {
                                         public void onPositive(MaterialDialog dialog) {
                                             if (NetworkManager.getInstance(act).isConnectedInternet()) {
                                                 ApplicationData.cart = new HashMap<String, ModelCart>();
-                                                Intent j = new Intent(act, ActivityCheckoutKonfirmasi_2.class);
+                                                //Intent j = new Intent(act, ActivityCheckoutKonfirmasi_2.class);
+                                                Intent j = new Intent(act, Main.class);
                                                 startActivity(j);
                                                 ApplicationData.promocode = "";
                                                 act.finish();

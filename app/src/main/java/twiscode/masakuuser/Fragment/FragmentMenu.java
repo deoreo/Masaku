@@ -77,6 +77,7 @@ public class FragmentMenu extends Fragment {
     private TextView txtAlamat;
     private CollapsingToolbarLayout collapsingToolbar;
     private int mPage = 1;
+    private RelativeLayout filterLokasi, filterDelivery, filterCategory;
 
     private BroadcastReceiver spaceLayout;
 
@@ -113,6 +114,30 @@ public class FragmentMenu extends Fragment {
         mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
         header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
+        filterLokasi = (RelativeLayout) header.findViewById(R.id.filterLokasi);
+        filterDelivery = (RelativeLayout) header.findViewById(R.id.filterDelivery);
+        filterCategory = (RelativeLayout) header.findViewById(R.id.filterCategory);
+
+        filterLokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        filterDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        filterCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         btnFilterLocation.setOnClickListener(new View.OnClickListener() {
             @Override
