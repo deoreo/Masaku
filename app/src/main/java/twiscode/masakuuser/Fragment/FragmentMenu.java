@@ -114,6 +114,7 @@ public class FragmentMenu extends Fragment {
         btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
         mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
+
         header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
         filterLokasi = (RelativeLayout) header.findViewById(R.id.filterLokasi);
         filterDelivery = (RelativeLayout) header.findViewById(R.id.filterDelivery);

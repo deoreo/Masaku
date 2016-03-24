@@ -56,7 +56,7 @@
         <activity android:name=".Activity.ActivityMenuDetailNew" />
         <activity android:name=".Activity.ActivityAllMenusDetail" />
         <activity android:name=".Activity.ActivityAbout" />
-        <activity android:name=".Activity.ActivityCheckout" />
+        <activity android:name=".Activity.ActivityCheckout" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Activity.ActivityChangeLocation" />
         <activity android:name=".Activity.ActivityForgetPassword_1" />
         <activity android:name=".Activity.ActivityForgetPassword_2" />

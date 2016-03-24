@@ -127,15 +127,15 @@
                 android:padding="10dp">
 
                 <EditText
+                    android:id="@+id/txtNote"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="@drawable/rounded_line_black"
+                    android:background="@drawable/rounded_line_grey_tranparant"
                     android:gravity="center_vertical"
                     android:hint="Add notes"
                     android:lines="3"
                     android:padding="20dp"
-
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </RelativeLayout>
         </LinearLayout>

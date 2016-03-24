@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -78,9 +80,9 @@ public class AdapterCheckout extends BaseAdapter {
             holder.btnPlus = (TextView) convertView.findViewById(R.id.btnPlus);
             holder.txtCount = (TextView)convertView.findViewById(R.id.txtCount);
             holder.hargaItem = (TextView) convertView.findViewById(R.id.hargaCheckout);
+            holder.txtNote = (EditText) convertView.findViewById(R.id.txtNote);
             holder.imgMenu = (ImageView) convertView.findViewById(R.id.imgMenu);
             convertView.setTag(position);
-
             final ViewHolder holder2 = holder;
 
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
@@ -105,6 +107,16 @@ public class AdapterCheckout extends BaseAdapter {
                     .load(VENDOR_IMAGE)
                     .placeholder(noImage)
                     .into(holder.imgMenu);
+
+            holder.txtNote.setOnFocusChangeListener(new OnFocusChangeListener() {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        final int position = v.getId();
+                        final EditText Caption = (EditText) v;
+                        //mSourceData.get(position).setNotes(Caption.getText().toString());
+                    }
+                }
+            });
 
             holder.btnPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,6 +163,7 @@ public class AdapterCheckout extends BaseAdapter {
         public TextView btnPlus;
         public TextView txtCount;
         public ImageView imgMenu;
+        public EditText txtNote;
     }
 
     private void AddCount(ViewHolder holder,String ID,ModelCart c){
