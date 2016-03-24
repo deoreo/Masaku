@@ -24,9 +24,12 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import twiscode.masakuuser.Activity.ActivityCheckoutKonfirmasi_2;
 import twiscode.masakuuser.Activity.ActivityCheckoutVerify;
@@ -154,6 +157,12 @@ public class FragmentCheckoutPayment extends Fragment {
     }
 
     private void paymentSelected(int payment){
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
+        otherSymbols.setDecimalSeparator(',');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat();
+        decimalFormat.setDecimalFormatSymbols(otherSymbols);
+
         switch (payment){
             case TRANSFER:
                 btnTransfer.setSelected(true);
@@ -162,8 +171,8 @@ public class FragmentCheckoutPayment extends Fragment {
                 btnCOD.setPressed(false);
                 layoutTransfer.setVisibility(VISIBLE);
                 layoutCOD.setVisibility(GONE);
-                txtTransactionCode.setText("Rp " + ApplicationData.confee);
-                txtTotal.setText("Rp." + (ApplicationData.confee+ApplicationData.price));
+                txtTransactionCode.setText("Rp. " + ApplicationData.confee);
+                txtTotal.setText("Rp. " + decimalFormat.format((ApplicationData.confee + ApplicationData.price)));
                 METHOD = TRANSFER;
                 break;
             case COD:
@@ -173,8 +182,8 @@ public class FragmentCheckoutPayment extends Fragment {
                 btnCOD.setPressed(true);
                 layoutTransfer.setVisibility(GONE);
                 layoutCOD.setVisibility(VISIBLE);
-                txtTransactionCode.setText("Rp 0");
-                txtTotal.setText("Rp." + ApplicationData.price);
+                txtTransactionCode.setText("Rp. 0");
+                txtTotal.setText("Rp. " + decimalFormat.format(ApplicationData.price));
                 METHOD = COD;
                 break;
             default:
@@ -208,7 +217,7 @@ public class FragmentCheckoutPayment extends Fragment {
                 JSONControl jsControl = new JSONControl();
                 List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
                 LatLng posFrom = appManager.getGeocode();
-                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, appManager.getUserToken(), cart);
+                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, appManager.getUserToken(), cart, ""+ApplicationData.confee);
 
                 Log.d("json response checkout", response.toString());
                 try {

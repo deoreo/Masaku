@@ -231,6 +231,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                        ApplicationData.price = total;
                         return;
                     case R.id.button22:
                         tips = "5";
@@ -243,6 +244,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                        ApplicationData.price = total;
                         return;
                     case R.id.button23:
                         tips = "10";
@@ -255,6 +257,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                        ApplicationData.price = total;
                         return;
                     case R.id.button24:
                         tips = "15";
@@ -267,6 +270,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                        ApplicationData.price = total;
                         return;
                     case R.id.button25:
                         tips = "20";
@@ -449,6 +453,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                        ApplicationData.price = total;
                     }
 
 
@@ -477,6 +482,7 @@ public class FragmentCheckoutPO extends Fragment {
                         txtTip.setText("Rp. " + decimalFormat.format(tip));
                         txtTotal.setText("Rp. " + decimalFormat.format(total));
                         SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                        ApplicationData.price = total;
                         mAdapter = new AdapterCheckout(act, LIST_MENU);
                         mListView.setAdapter(mAdapter);
                         /*
@@ -798,7 +804,7 @@ public class FragmentCheckoutPO extends Fragment {
 
                             delivery = Integer.parseInt(shippingPrice);
                             ApplicationData.confee = Integer.parseInt(confee);
-                            ApplicationData.price = Integer.parseInt(price);
+
                         }
                         return "OK";
                     }
@@ -887,7 +893,8 @@ public class FragmentCheckoutPO extends Fragment {
                     txtDelivery.setText("Rp. " + decimalFormat.format(delivery));
                     txtTotal.setText("Rp. " + decimalFormat.format(total));
                     txtKode.setText(ApplicationData.promocode);
-                    SendBroadcast("updateTotal","Rp. " + decimalFormat.format(total));
+                    SendBroadcast("updateTotal", "Rp. " + decimalFormat.format(total));
+                    ApplicationData.price = total;
                     Log.d("diskon", "" + diskon);
                     /*
                     if (eventMessage != "") {
@@ -928,170 +935,6 @@ public class FragmentCheckoutPO extends Fragment {
 
     }
 
-
-    private class CheckOut extends AsyncTask<String, Void, String> {
-        private Activity activity;
-        private Context context;
-        private Resources resources;
-        private ProgressDialog progressDialog;
-        private String msg;
-
-        public CheckOut(Activity activity) {
-            super();
-            this.activity = activity;
-            this.context = activity.getApplicationContext();
-            this.resources = activity.getResources();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            /*
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(activity);
-            progressDialog.setMessage("Loading. . .");
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(false);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
-            */
-            progress.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-
-                String kode = params[0];
-                String address = params[1];
-                String note = params[2];
-
-                JSONControl jsControl = new JSONControl();
-                List<ModelCart> cart = new ArrayList<ModelCart>(ApplicationData.cart.values());
-                LatLng posFrom = appManager.getGeocode();
-                JSONObject response = jsControl.checkOut(kode, address, note, tips, posFrom, appManager.getUserToken(), cart);
-                Log.d("json response checkout", response.toString());
-                try {
-                    JSONArray transaction = response.getJSONArray("transaction");
-
-
-                    if (transaction.length() > 0) {
-                        for (int t = 0; t < transaction.length(); t++) {
-                            String _id = transaction.getJSONObject(t).getString("id");
-                            String _status = transaction.getJSONObject(t).getString("status");
-                            String _waktu = transaction.getJSONObject(t).getString("timeLapse");
-                            String _uid = transaction.getJSONObject(t).getString("user");
-                            String _alamat = transaction.getJSONObject(t).getString("address");
-                            String _note = transaction.getJSONObject(t).getString("note");
-                            String _subtotal = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("base");
-                            String _delivery = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("shipping");
-                            String _diskon = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("discount");
-                            String _convenience = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("convenientFee");
-                            String _total = transaction.getJSONObject(t).getString("price");
-                            String _type = transaction.getJSONObject(t).getString("type");
-                            String _nama = transaction.getJSONObject(t).getJSONObject("user").getString("name");
-                            String _phone = transaction.getJSONObject(t).getJSONObject("user").getString("phoneNumber");
-                            //String _convience = "0";
-                            String _tip = "0";
-                            try {
-                                _tip = transaction.getJSONObject(t).getJSONObject("detailedPrice").getString("tip");
-                            } catch (Exception e) {
-                                _tip = "0";
-                            }
-
-                            String _detailID = transaction.getJSONObject(t).getString("prettyId");
-                            JSONArray _order = transaction.getJSONObject(t).getJSONArray("orders");
-                            List<ModelCart> _carts = new ArrayList<>();
-                            if (_order.length() > 0) {
-                                for (int i = 0; i < _order.length(); i++) {
-                                    ModelCart c = new ModelCart();
-                                    c.setId(_order.getJSONObject(i).getString("_id"));
-                                    c.setNama(_order.getJSONObject(i).getJSONObject("menu").getString("name"));
-                                    c.setHarga(Integer.parseInt(_order.getJSONObject(i).getJSONObject("menu").getString("price")));
-                                    c.setJumlah(Integer.parseInt(_order.getJSONObject(i).getString("quantity")));
-                                    c.setType(_type);
-                                    _carts.add(c);
-                                }
-                            }
-                            ApplicationData.detailTransaksi = new ModelDetailTransaksi(_id, _type, _uid, _nama, _alamat, _phone, _note, _subtotal, _convenience, _total, _waktu, _diskon, _tip, _delivery, _status, _detailID, _carts);
-                            ApplicationData.idLastTransaction = _id;
-                            return "OK";
-                        }
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    msg = response.getString("message");
-
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "FAIL";
-            }
-
-            return "FAIL";
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progress.setVisibility(View.GONE);
-            switch (result) {
-                case "FAIL":
-                    //isClicked = false;
-                    DialogManager.showDialog(activity, "Informasi", msg);
-                    break;
-                case "OK":
-                    if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                        try {
-                            final Context ctx = act;
-                            new MaterialDialog.Builder(ctx)
-                                    .title("Terima kasih")
-                                    .content("Pesanan Anda akan segera kami proses")
-                                    .positiveText("OK")
-                                    .callback(new MaterialDialog.ButtonCallback() {
-                                        @Override
-                                        public void onPositive(MaterialDialog dialog) {
-                                            if (NetworkManager.getInstance(act).isConnectedInternet()) {
-                                                ApplicationData.cart = new HashMap<String, ModelCart>();
-
-                                                for (int i = 0; i < LIST_MENU.size(); i++) {
-                                                    if (LIST_MENU.get(i).getType() == "po") {
-                                                        ApplicationData.cart.remove(LIST_MENU.get(i).getId());
-                                                    }
-                                                }
-                                                Intent j = new Intent(act, ActivityCheckoutKonfirmasi_2.class);
-                                                startActivity(j);
-                                                ApplicationData.promocode = "";
-                                                act.finish();
-                                            } else {
-                                                //isClicked = false;
-                                                DialogManager.showDialog(act, "Mohon Maaf", "Tidak ada koneksi internet!");
-                                            }
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .cancelable(false)
-                                    .typeface("GothamRnd-Medium.otf", "Gotham.ttf")
-                                    .show();
-                            //isClicked = false;
-                        } catch (Exception e) {
-
-                        }
-                    } else {
-                        DialogManager.showDialog(act, "Mohon Maaf", "Tidak ada koneksi internet!");
-                    }
-                    break;
-            }
-            //progressDialog.dismiss();
-
-        }
-
-
-    }
 
 
     private void SendBroadcast(String typeBroadcast, String type) {
