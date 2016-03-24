@@ -308,8 +308,6 @@ public class JSONControl {
                 params.add(new BasicNameValuePair("orders["+cart.get(i).getId()+"]", Integer.toString(cart.get(i).getJumlah())));
             }
 
-
-
             jsonObj = _JSONResponse.POSTResponseToken(ConfigManager.CHECKOUT, ConfigManager.DUKUHKUPANG, accessToken, params);
 
         } catch (Exception e) {
@@ -558,14 +556,5 @@ public class JSONControl {
             e.printStackTrace();
         }
         return jsonObj;
-
     }
-
-
-
-
-
-
-
-
 }

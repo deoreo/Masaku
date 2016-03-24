@@ -169,7 +169,7 @@ public class ActivityCheckout extends AppCompatActivity {
                 break;
             case DELIVERY:
                 fragment = new FragmentCheckoutDelivery();
-                ApplicationData.isFromCheckoutDelivery = false;
+                ApplicationData.isFromCheckoutDelivery = true;
                 DISPLAY = DELIVERY;
                 lineReview.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 lineDelivery.setBackgroundColor(getResources().getColor(R.color.colorRed));
@@ -198,6 +198,7 @@ public class ActivityCheckout extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.d("Hahai", ApplicationData.isFromCheckoutDelivery.toString() );
         if (DISPLAY == REVIEW) {
             Intent j = new Intent(act, Main.class);
             startActivity(j);
