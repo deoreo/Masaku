@@ -103,6 +103,7 @@ public class AdapterMenuPO extends BaseAdapter {
         else {
             final ViewHolder holder;
             convertView = mInflater.inflate(R.layout.row_menu_item_new, null);
+
             holder = new ViewHolder();
             holder.progress = (ProgressBar) convertView.findViewById(R.id.progress);
             holder.nameMenu = (TextView) convertView.findViewById(R.id.nameMenu);
@@ -117,6 +118,7 @@ public class AdapterMenuPO extends BaseAdapter {
             holder.btnMinus = (TextView) convertView.findViewById(R.id.btnMinus);
             holder.btnPlus = (TextView) convertView.findViewById(R.id.btnPlus);
             holder.txtCount = (TextView)convertView.findViewById(R.id.txtCount);
+
             convertView.setTag(position);
 
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
@@ -134,7 +136,6 @@ public class AdapterMenuPO extends BaseAdapter {
             final String VENDOR_DELIVERY = modelMenu.getDelivery();
 
             final ViewHolder holder2 = holder;
-
 
             //holder.deliveryMenu.setText(VENDOR_DELIVERY );
 
@@ -166,10 +167,7 @@ public class AdapterMenuPO extends BaseAdapter {
                         .placeholder(noImage)
                         .into(holder.imgMenu);
                 holder.progress.setVisibility(View.GONE);
-
             }
-
-
 
             holder.imgMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
