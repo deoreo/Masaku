@@ -7,7 +7,6 @@ public class ModelNavDrawer {
     private boolean showNotify;
     private String title;
 
-
     public ModelNavDrawer() {
 
     }

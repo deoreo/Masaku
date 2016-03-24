@@ -321,6 +321,8 @@ public class ActivityChangeLocation extends FragmentActivity
     @Override
     public void onBackPressed() {
         if(ApplicationData.isFromCheckoutDelivery) {
+//            Log.d("", "true is from alham");
+//            ApplicationData.isFromCheckoutDelivery = true;
             SendBroadcast("gotoDelivery","true");
             Intent j = new Intent(getBaseContext(), ActivityCheckout.class);
             startActivity(j);

@@ -15,6 +15,7 @@ android:background="@color/colorWhite">
         android:layout_height="wrap_content"
         android:divider="@null"
         android:dividerHeight="0dp"
+        android:descendantFocusability="afterDescendants"
         android:visibility="visible"/>
     <TextView
         android:id="@+id/noData"
@@ -25,6 +26,7 @@ android:background="@color/colorWhite">
         android:text="Belum ada pesanan"
         android:layout_centerInParent="true"
         android:visibility="gone"
+
         />
     <ProgressBar
         android:id="@+id/progress"

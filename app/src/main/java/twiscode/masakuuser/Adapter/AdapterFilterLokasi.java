@@ -61,8 +61,8 @@ public class AdapterFilterLokasi extends BaseAdapter {
             holder = (ViewHolder)view.getTag();
         }
 
-//        MobilModel mobil = (MobilModel)getItem(position);
-//        holder.txtTitle.setText(mobil.getTitle());
+        ModelLokasi lokasi = (ModelLokasi)getItem(i);
+        holder.lokasi.setText(lokasi.getLokasi());
 //        holder.txtHarga.setText(mobil.getHarga());
 //        holder.txtLokasi.setText(mobil.getLokasi());
 //

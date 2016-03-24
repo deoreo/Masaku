@@ -2,6 +2,7 @@ package twiscode.masakuuser.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -32,10 +33,10 @@ public class ActivityFilterLokasi extends AppCompatActivity {
         mFilterLokasi = new AdapterFilterLokasi(ActivityFilterLokasi.this, listLokasi);
         mListLokasi.setAdapter(mFilterLokasi);
 
-        for (int i = 0; i < data.length; i++){
+        for (int i = 0; i < 5; i++){
             lokasi = new ModelLokasi();
-            lokasi.setLokasi(data[i]);
-
+            lokasi.setLokasi("adasdasd");
+            Log.d("tes", data[i]);
             listLokasi.add(lokasi);
         }
     }
