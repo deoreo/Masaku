@@ -784,6 +784,8 @@ public class FragmentCheckoutPO extends Fragment {
                     if (transaksi.length() > 0) {
                         for (int i = 0; i < transaksi.length(); i++) {
                             //Boolean usePromoCode = transaksi.getJSONObject(i).getBoolean("usePromoCode");
+                            String confee = transaksi.getJSONObject(i).getString("conFee");
+                            String price = transaksi.getJSONObject(i).getString("price");
                             String discountPrice = transaksi.getJSONObject(i).getString("discountPrice");
                             diskon = Integer.parseInt(discountPrice);
                             String shippingPrice = transaksi.getJSONObject(i).getString("shippingPrice");
@@ -795,6 +797,8 @@ public class FragmentCheckoutPO extends Fragment {
                             }
 
                             delivery = Integer.parseInt(shippingPrice);
+                            ApplicationData.confee = Integer.parseInt(confee);
+                            ApplicationData.price = Integer.parseInt(price);
                         }
                         return "OK";
                     }
