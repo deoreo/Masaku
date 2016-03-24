@@ -95,6 +95,8 @@ public class ApplicationData {
     public static String couponHint = "";
     public static String total = "";
     public static ArrayList<String> jadwal = new ArrayList<>();
-    public static  Boolean isFromCheckoutDelivery = false;
+    public static Boolean isFromCheckoutDelivery = false;
+    public static int confee = 0;
+    public static int price = 0;
 
 }

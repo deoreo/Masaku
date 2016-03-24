@@ -162,6 +162,8 @@ public class FragmentCheckoutPayment extends Fragment {
                 btnCOD.setPressed(false);
                 layoutTransfer.setVisibility(VISIBLE);
                 layoutCOD.setVisibility(GONE);
+                txtTransactionCode.setText("Rp " + ApplicationData.confee);
+                txtTotal.setText("Rp." + (ApplicationData.confee+ApplicationData.price));
                 METHOD = TRANSFER;
                 break;
             case COD:
@@ -171,6 +173,8 @@ public class FragmentCheckoutPayment extends Fragment {
                 btnCOD.setPressed(true);
                 layoutTransfer.setVisibility(GONE);
                 layoutCOD.setVisibility(VISIBLE);
+                txtTransactionCode.setText("Rp 0");
+                txtTotal.setText("Rp." + ApplicationData.price);
                 METHOD = COD;
                 break;
             default:
