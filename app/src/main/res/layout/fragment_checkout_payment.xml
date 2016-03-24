@@ -116,7 +116,7 @@
                                         android:paddingTop="10dp"
                                         android:text="Please complete your payment via ATM machine"
                                         android:textColor="@color/colorBlack"
-                                        android:textSize="14sp" />
+                                        android:textSize="16sp" />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                                         android:paddingBottom="3dp"
                                         android:paddingLeft="5dp"
                                         android:textColor="@color/colorBlack"
-                                        android:textSize="12sp"
+                                        android:textSize="14sp"
                                         android:background="@color/colorWhite" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -190,7 +190,7 @@
                                 android:paddingLeft="5dp"
                                 android:text="BCA - 089 100 8898"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14dp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
                     <View
@@ -231,7 +231,7 @@
                                 android:paddingLeft="5dp"
                                 android:text="Andree Wijaya"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14dp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -297,7 +297,7 @@
                                         android:paddingTop="10dp"
                                         android:text="Please complete the payment at the time of \nyour food delivered"
                                         android:textColor="@color/colorBlack"
-                                        android:textSize="14sp" />
+                                        android:textSize="16sp" />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -311,7 +311,7 @@
                                         android:paddingLeft="5dp"
                                         android:paddingTop="8dp"
                                         android:textColor="@color/colorBlack"
-                                        android:textSize="12sp"
+                                        android:textSize="14sp"
                                         android:background="@color/colorWhite" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -389,7 +389,7 @@
                                     android:paddingLeft="5dp"
                                     android:text="Rp. 0"
                                     android:textColor="@color/colorBlack"
-                                    android:textSize="14dp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -429,7 +429,7 @@
                                     android:paddingLeft="5dp"
                                     android:text="0"
                                     android:textColor="@color/colorBlack"
-                                    android:textSize="14dp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -469,7 +469,7 @@
                                     android:paddingLeft="5dp"
                                     android:text="Rp. 0"
                                     android:textColor="#159B8A"
-                                    android:textSize="18dp" />
+                                    android:textSize="18sp" />
                             </LinearLayout>
                         </LinearLayout>
 

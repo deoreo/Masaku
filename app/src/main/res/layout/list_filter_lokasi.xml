@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left"
-                        android:text="All"
+                        android:text="Lokasi"
                         android:lines="1"
                         android:maxLength="120"
                         android:textColor="@color/colorBlack"
