@@ -49,6 +49,8 @@ import java.util.Map;
 
 import twiscode.masakuuser.Activity.ActivityChangeLocation;
 import twiscode.masakuuser.Activity.ActivityCheckout;
+import twiscode.masakuuser.Activity.ActivityFilterDelivery;
+import twiscode.masakuuser.Activity.ActivityFilterLokasi;
 import twiscode.masakuuser.Adapter.AdapterMenu;
 import twiscode.masakuuser.Adapter.AdapterMenuNew;
 import twiscode.masakuuser.Adapter.AdapterMenuPO;
@@ -64,7 +66,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentMenu extends Fragment {
 
-    private ImageView btnCart, btnFilterLocation;
+    private ImageView btnCart;
     public static final String ARG_PAGE = "ARG_PAGE";
     private static final int INITIAL_DELAY_MILLIS = 300;
     private List<ModelMenuSpeed> LIST_MENU = new ArrayList<>();
@@ -104,13 +106,12 @@ public class FragmentMenu extends Fragment {
                              Bundle savedInstanceState) {
         applicationManager = new ApplicationManager(getActivity());
         View rootView = inflater.inflate(R.layout.activity_menu, container, false);
-        View headerView = inflater.inflate(R.layout.layout_header_menu, container, false);
+
         mListView = (ListView) rootView.findViewById(R.id.list_delivery);
         noData = (LinearLayout) rootView.findViewById(R.id.spaceLayout);
         layoutAlamat = (LinearLayout) rootView.findViewById(R.id.layoutAlamat);
         txtAlamat = (TextView) rootView.findViewById(R.id.txtAlamat);
         btnCart = (ImageView) rootView.findViewById(R.id.btnCart);
-        btnFilterLocation = (ImageView) headerView.findViewById(R.id.btnFilterLocation);
         mSwipeRefreshLayout = (PullRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_RING);
         header = getActivity().getLayoutInflater().inflate(R.layout.layout_header_menu, null);
@@ -121,14 +122,20 @@ public class FragmentMenu extends Fragment {
         filterLokasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ActivityFilterLokasi.class);
 
+                startActivity(i);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
         filterDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ActivityFilterDelivery.class);
 
+                startActivity(i);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -139,22 +146,6 @@ public class FragmentMenu extends Fragment {
             }
         });
 
-        btnFilterLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ActivityCheckout.class);
-                startActivity(i);
-            }
-        });
-
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ActivityCheckout.class);
-                startActivity(i);
-//                header.getId();
-            }
-        });
 //        sort = (NiceSpinner) header.findViewById(R.id.sortSpinner);
 //        category = (NiceSpinner) header.findViewById(R.id.categorySpinner);
 

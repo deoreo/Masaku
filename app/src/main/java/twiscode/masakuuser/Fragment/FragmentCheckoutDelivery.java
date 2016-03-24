@@ -97,6 +97,7 @@ public class FragmentCheckoutDelivery extends Fragment {
             txtAlamat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ApplicationData.isFromMenu = false;
                     ApplicationData.isFromCheckoutDelivery = true;
                     Intent i = new Intent(getActivity(), ActivityChangeLocation.class);
                     startActivity(i);

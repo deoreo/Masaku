@@ -129,4 +129,7 @@ In addition to the personal information identified above, our web servers automa
           <p>Masaku reserves the right to change any part or piece of information on Masaku Mobile Application without any notice to customers or visitors.</p>
           ]]>
     </string>
+    <string name="title_activity_activity_filter_delivery">ActivityFilterDelivery</string>
+    <string name="title_activity_activity_filter_lokasi">ActivityFilterLokasi</string>
+    <string name="title_activity_activity_filter_categories">ActivityFilterCategories</string>
     </resources>
