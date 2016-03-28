@@ -207,6 +207,7 @@ public class ActivityCheckout extends AppCompatActivity {
         }
         else if(DISPLAY == DELIVERY)
         {
+            ApplicationData.isFromCheckoutDelivery = false;
             displayView(REVIEW);
         }
         else if(DISPLAY == PAYMENT)
